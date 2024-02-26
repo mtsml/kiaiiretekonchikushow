@@ -1,0 +1,75 @@
+:root {
+  --color-gray: #767676;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  max-width: 600px;
+  padding: 1em;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+footer {
+  padding: 1em;
+}
+
+h1, p {
+  margin-bottom: 1em;
+}
+
+a {
+  color: var(--color-gray);
+  text-decoration: none;
+}
+
+.logo {
+  width: 300px;
+  padding-bottom: 1em;
+  cursor: pointer;
+}
+
+.icon {
+  height: 1em;
+  padding-right: 0.5em;
+  vertical-align: -0.125em;
+}
+
+.container {
+  position: relative;
+}
+
+@keyframes helloMegAnimation {
+  0% {
+    transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--translateX)), calc(-50% + var(--translateY)));
+    opacity: 0;
+  }
+}
+
+.hello-megu {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  animation: helloMegAnimation 2s ease-out;
+}
+
+@keyframes shakeAnimation {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(5deg); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(-5deg); }
+  100% { transform: translateX(0); }
+}
+
+.shake-img {
+  animation: shakeAnimation 0.5s ease;
+}
