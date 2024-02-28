@@ -1,14 +1,26 @@
 :root {
+  --color-dark: #333333;
+  --color-light: #fcfcfc;
+  --color-lightgray: #cccccc;
   --color-gray: #767676;
 }
 
 body {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  background-color: var(--color-light);
+  color: var(--color-dark);
   max-width: 600px;
   padding: 1em;
   margin: 0 auto;
   text-align: center;
   box-sizing: content-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+  }
 }
 
 footer {
@@ -22,6 +34,12 @@ h1, p {
 a {
   color: var(--color-gray);
   text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: var(--color-lightgray);
+  }
 }
 
 .logo {
