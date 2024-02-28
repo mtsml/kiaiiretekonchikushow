@@ -10,7 +10,7 @@ const helloMeg = (e) => {
 
   const helloMegElement = document.createElement("div");
   helloMegElement.textContent = TEXT_HELLO_MEG;
-  helloMegElement.classList.add("hello-megu");
+  helloMegElement.classList.add("hello-meg");
 
   // container の中心から外側に向かってランダムに飛び出す
   const randomAngle = Math.random() * 2 * Math.PI;
