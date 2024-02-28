@@ -6,7 +6,7 @@ const helloMeg = (e) => {
   e.classList.add("shake-img");
   setTimeout(() => {
     e.classList.remove("shake-img");
-  }, 500);
+  }, 300);
 
   const helloMegElement = document.createElement("div");
   helloMegElement.textContent = TEXT_HELLO_MEG;
