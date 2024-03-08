@@ -1,4 +1,25 @@
 const TEXT_HELLO_MEG = "ハロめぐー！";
+// https://lovelive-anime.jp/special/live/live_detail.php?p=unitlive2024
+const UNITLIVE_ARTISTS = [
+  "CYaRon！",
+  "AZALEA",
+  "Guilty Kiss",
+  "わいわいわい",
+  "Saint Snow",
+  "A・ZU・NA",
+  "QU4RTZ",
+  "DiverDiva",
+  "R3BIRTH",
+  "CatChu!",
+  "KALEIDOSCORE",
+  "5yncri5e!",
+  "Sunny Passion",
+  "スリーズブーケ",
+  "DOLLCHESTRA",
+  "みらくらぱーく！",
+  "藤井康生",
+  "矢野妃菜喜",
+]
 
 
 const helloMeg = (e) => {
@@ -9,7 +30,7 @@ const helloMeg = (e) => {
   }, 300);
 
   const helloMegElement = document.createElement("div");
-  helloMegElement.textContent = TEXT_HELLO_MEG;
+  helloMegElement.textContent = UNITLIVE_ARTISTS[Math.floor(Math.random() * UNITLIVE_ARTISTS.length)];
   helloMegElement.classList.add("hello-meg");
 
   // container の中心から外側に向かってランダムに飛び出す
