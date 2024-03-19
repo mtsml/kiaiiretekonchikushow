@@ -14,7 +14,7 @@ body {
   margin: 0 auto;
   text-align: center;
   box-sizing: content-box;
-  overflow-x: hidden;
+  overflow: hidden;
   /* ダブルタップでの拡大を防ぐ */
   touch-action: manipulation;
 }
