@@ -47,7 +47,7 @@ const startHellomegCount = (hellomegImgElement) => {
   const timerElement = document.getElementById("timer");
   const interval = setInterval(() => {
     timeRemaining--;
-    timerElement.innerText = `${Math.floor(timeRemaining / 10)}.${Math.floor(timeRemaining % 10)}秒`;
+    timerElement.innerText = `あと ${Math.floor(timeRemaining / 10)}.${Math.floor(timeRemaining % 10)} 秒`;
 
     if (timeRemaining === 0) {
       clearInterval(interval);

@@ -49,6 +49,9 @@ a, button {
   width: 300px;
   padding-bottom: 1em;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .icon {
@@ -80,6 +83,8 @@ a, button {
   left: 50%;
   top: 50%;
   pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
   animation: helloMegAnimation 2s ease-out;
 }
 
