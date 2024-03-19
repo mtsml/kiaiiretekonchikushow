@@ -31,6 +31,39 @@ const helloMeg = (e) => {
   }, 2000);
 }
 
+const startHellomegCount = (hellomegImgElement) => {
+  let score = 0;
+
+  hellomegImgElement.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = `${score} ハロめぐー！`;
+    helloMeg(hellomegImgElement);
+  }
+  // スタート時のクリックもカウントする
+  hellomegImgElement.click(hellomegImgElement)
+
+  // 10秒間、0.1秒ごとに timerElement を更新する
+  let timeRemaining = 100;
+  const timerElement = document.getElementById("timer");
+  const interval = setInterval(() => {
+    timeRemaining--;
+    timerElement.innerText = `${Math.floor(timeRemaining / 10)}.${Math.floor(timeRemaining % 10)}秒`;
+
+    if (timeRemaining === 0) {
+      clearInterval(interval);
+      hellomegImgElement.onclick = () => {};
+      document.getElementById("description").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=${score}+%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%0D%0A&url=https://kiaiiretekonchiku.show/`;
+      
+      // timerElement の反映を待つために非同期実行する
+      setTimeout(() => {
+        alert(`${score} ハロめぐー！`);
+      }, 100);
+    }
+  }, 100);
+}
+
 const helloMegPostCreate = (e) => {
   // URL作成
   let url = createUrl();

@@ -33,7 +33,7 @@ h1, p {
   margin-bottom: 1em;
 }
 
-a {
+a, button {
   color: var(--color-gray);
   text-decoration: none;
 }
@@ -92,4 +92,13 @@ a {
 
 .shake-img {
   animation: shakeAnimation 0.3s ease;
+}
+
+#timer {
+  margin-right: 1em;
+}
+
+#timer, #score {
+  font-size: 1.5em;
+  font-weight: bold;
 }
