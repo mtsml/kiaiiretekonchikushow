@@ -39,6 +39,10 @@ a, button {
   text-decoration: none;
 }
 
+h1 > a {
+  color: inherit;
+}
+
 @media (prefers-color-scheme: dark) {
   a {
     color: var(--color-lightgray);
