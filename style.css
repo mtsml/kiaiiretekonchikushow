@@ -14,6 +14,7 @@ body {
   margin: 0 auto;
   text-align: center;
   box-sizing: content-box;
+  overflow: hidden;
   /* ダブルタップでの拡大を防ぐ */
   touch-action: manipulation;
 }
@@ -33,9 +34,13 @@ h1, p {
   margin-bottom: 1em;
 }
 
-a {
+a, button {
   color: var(--color-gray);
   text-decoration: none;
+}
+
+h1 > a {
+  color: inherit;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -48,6 +53,9 @@ a {
   width: 300px;
   padding-bottom: 1em;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .icon {
@@ -79,6 +87,8 @@ a {
   left: 50%;
   top: 50%;
   pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
   animation: helloMegAnimation 2s ease-out;
 }
 
@@ -92,4 +102,13 @@ a {
 
 .shake-img {
   animation: shakeAnimation 0.3s ease;
+}
+
+#timer {
+  margin-right: 0.5em;
+}
+
+#timer, #score {
+  font-size: 1.5em;
+  font-weight: bold;
 }
