@@ -68,7 +68,7 @@ h1 > a {
   position: relative;
 }
 
-@keyframes helloMegAnimation {
+@keyframes hellomegAnimation {
   0% {
     transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
     opacity: 1;
@@ -82,14 +82,14 @@ h1 > a {
   }
 }
 
-.hello-meg {
+.hellomeg {
   position: absolute;
   left: 50%;
   top: 50%;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  animation: helloMegAnimation 2s ease-out;
+  animation: hellomegAnimation 2s ease-out;
 }
 
 @keyframes shakeAnimation {
