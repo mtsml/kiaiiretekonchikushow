@@ -112,3 +112,14 @@ h1 > a {
   font-size: 1.5em;
   font-weight: bold;
 }
+
+.skills {
+  display: flex;
+  list-style: none;
+}
+
+.skill {
+  border: solid 1px black;
+  margin: 0.5em;
+  max-width: 50px;
+}
