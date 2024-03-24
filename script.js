@@ -86,7 +86,7 @@ const createUrl = () => {
 }
 
 // スクステにおける2024年3月時点の汎用編成
-const SKILLS = [
+const HELLOMEG_DRAW_SKILLS = [
   // kaho
   {
     name: "FM花帆",
@@ -166,6 +166,9 @@ const SKILLS = [
     src: "./assets/megu_tsubasa.jpg"
   },
 ];
+const HELLOMEG_DRAW_HASHTAG ="#ハロめぐドロー"; 
+const HELLOMEG_DRAW_TWEET = "運を手繰り寄せよう。私の結果は…";
+const HELLOMEG_DRAW_URL = "https://kiaiiretekonchiku.show/draw.html";
 
 /**
  * 処理開始から3秒後に SKILL からランダムに選んだ5つの画像を表示する
@@ -176,7 +179,7 @@ const startHellomegDraw = (hellomegImgElement) => {
   // SKILLS からランダムに5つの要素を抽出する
   // NOTE: 要素数が少ないのでパフォーマンスは考慮しない
   // TODO: FM花帆をエースカードにする
-  const skills = SKILLS
+  const skills = HELLOMEG_DRAW_SKILLS
                   .map(skill => ({ ...skill, sort: Math.random() }))
                   .sort((a, b) => a.sort - b.sort)
                   .slice(0, 5)
@@ -267,18 +270,16 @@ const displayShareButtonOrTweetLink = (skills, canvas) => {
       if (navigator.share && navigator.canShare && navigator.canShare(getNavigatorShareParams(blob))) {
         document.getElementById("share-button").style.display = null;
       } else {
-        // const param = encodeURIComponent(imgs.map(img => `・${img.name}`).join("\n"));
-        const param = encodeURIComponent("Web Share API が利用できない場合のツイート文言めぐ");
-        document.getElementById("post-link").href = "https://twitter.com/intent/tweet?text=" + param + "&url=https://kiaiiretekonchiku.show/";
+        const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
+        document.getElementById("post-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
         document.getElementById("post-link").style.display = null;
       }
     });
   } catch (error) {
     // ローカル実行の場合はエラーを捕まえてツイートリンクを表示する
     if (error.message === "Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.") {
-    //   const param = encodeURIComponent(skills.map(skill => `・${skill.name}\n`).join(""));
-      const param = encodeURIComponent("Web Share API が利用できない場合のツイート文言めぐ");
-      document.getElementById("post-link").href = "https://twitter.com/intent/tweet?text=" + param + "&url=https://kiaiiretekonchiku.show/";
+      const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
+      document.getElementById("post-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
       document.getElementById("post-link").style.display = "block";
     } else {
       throw error;
@@ -298,13 +299,13 @@ const share = () => {
 
 /**
  * navigator.share に渡す引数を返す
+ * 
+ * NOTE: 2024年3月時点で以下の現象が発生している
+ * - iOS: url が表示されない
+ * - Android: text が表示れない
  */
 const getNavigatorShareParams = (blob) => ({
-//   text: "#ハロめぐドロー\n運命力を身につけよう。私の結果は…\n\n",
-//   url: "https://kiaiiretekonchiku.show/",
-  title: "title めぐ",
-  text: "Web Share API が利用でき場合の text めぐ",
-  files: [new File([blob], "image.png", {
-    type: "image/png",
-  })],
+  url: "https://kiaiiretekonchiku.show/draw.html",
+  text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${HELLOMEG_DRAW_URL}`,
+  files: [new File([blob], "image.png", { type: "image/png", })],
 });
