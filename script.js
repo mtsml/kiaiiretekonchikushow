@@ -182,8 +182,16 @@ const startHellomegDraw = (hellomegImgElement) => {
                   // 2024年3月時点でエースカードとして採用率が高いFM花帆を必ず抽出する
                   .map(skill => ({ ...skill, sort: skill.name === "FM花帆" ? 0 : Math.random() }))
                   .sort((a, b) => a.sort - b.sort)
-                  .slice(0, 5)
+                  // 夏めき瑠璃乃を引いたときのために手札を8枚にする
+                  // 夏めき瑠璃乃を引いていない場合は後続の処理で5枚に減らす
+                  .slice(0, 8)
                   .map(skill => ({ name: skill.name, src: skill.src }));
+
+  // 夏めき瑠璃乃を引いていない場合は手札を5枚に減らす
+  // TODO: 8枚から減らすという方針を含めてやっつけ。もっといい感じにする
+  if (!skills.some((skill, index) => skill.name === "夏めき瑠璃乃" && index < 5)) {
+    skills.splice(5, 8);
+  }
 
   // img を生成してから canvas へ描画するまで時間を要する。
   // カウントダウン中に非同期で処理をおこなうため、以降の処理に先んじてここで loadImg を呼び出す。
@@ -235,17 +243,23 @@ const loadImg = (skills, index, callback) => {
 /**
  * skills を canvas に描画する
  * 
- * skills は5つの前提で angle の初期値を設定している。
+ * skills は5つまたは8つの前提で angle の初期値を設定している。
  * centerX と centerY は微調整した値なので計算式の意味を理解する必要はない。
  */
 const drawSkillsOnCanvas = (skills, canvas) => {
   const ctx = canvas.getContext("2d");
+
   let angle = -10;
 
   skills.forEach((skill, index) => {
     // 5つの img が扇形に並ぶように位置を調整する
-    const centerX = 10 + index * 100 + skill.img.width / 2;
-    const centerY = (Math.abs(index - 2) * 2) ** 1.5 * 2 + skill.img.height / 2;
+    // TODO: 8枚編成のためやっつけを修正する
+    const centerX = skills.length === 8
+                      ? 10 + index * 56.5 + skill.img.width / 2
+                      : 10 + index * 100 + skill.img.width / 2;
+    const centerY = skills.length === 8
+                      ? (Math.abs(index - 3.5) * 2) ** 1.13 * 2 + skill.img.height / 2
+                      : (Math.abs(index - 2) * 2) ** 1.5 * 2 + skill.img.height / 2;
 
     ctx.save();
     ctx.translate(centerX, centerY);
@@ -253,7 +267,8 @@ const drawSkillsOnCanvas = (skills, canvas) => {
     ctx.drawImage(skill.img, -skill.img.width / 2, -skill.img.height / 2);
     ctx.restore();
 
-    angle += 5;
+    // TODO: 8枚編成のためやっつけを修正する
+    angle += skills.length === 8 ? 2.5 : 5;
   });
 }
 
