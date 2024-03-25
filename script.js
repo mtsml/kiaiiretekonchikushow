@@ -271,16 +271,16 @@ const displayShareButtonOrTweetLink = (skills, canvas) => {
         document.getElementById("share-button").style.display = null;
       } else {
         const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
-        document.getElementById("post-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
-        document.getElementById("post-link").style.display = null;
+        document.getElementById("tweet-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
+        document.getElementById("tweet-link").style.display = null;
       }
     });
   } catch (error) {
     // ローカル実行の場合はエラーを捕まえてツイートリンクを表示する
     if (error.message === "Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.") {
       const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
-      document.getElementById("post-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
-      document.getElementById("post-link").style.display = "block";
+      document.getElementById("tweet-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
+      document.getElementById("tweet-link").style.display = "block";
     } else {
       throw error;
     }
