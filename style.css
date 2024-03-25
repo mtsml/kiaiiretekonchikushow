@@ -14,7 +14,6 @@ body {
   margin: 0 auto;
   text-align: center;
   box-sizing: content-box;
-  overflow: hidden;
   /* ダブルタップでの拡大を防ぐ */
   touch-action: manipulation;
 }
@@ -145,4 +144,8 @@ h1 > a {
   font-size: 3em;
   font-weight: bold;
   animation: zoomIn 0.5s ease-in-out;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
