@@ -321,6 +321,6 @@ const share = () => {
  */
 const getNavigatorShareParams = (blob) => ({
   url: "https://kiaiiretekonchiku.show/draw.html",
-  text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${HELLOMEG_DRAW_URL}`,
+  text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
