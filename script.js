@@ -178,9 +178,9 @@ const startHellomegDraw = (hellomegImgElement) => {
 
   // SKILLS からランダムに5つの要素を抽出する
   // NOTE: 要素数が少ないのでパフォーマンスは考慮しない
-  // TODO: FM花帆をエースカードにする
   const skills = HELLOMEG_DRAW_SKILLS
-                  .map(skill => ({ ...skill, sort: Math.random() }))
+                  // 2024年3月時点でエースカードとして採用率が高いFM花帆を必ず抽出する
+                  .map(skill => ({ ...skill, sort: skill.name === "FM花帆" ? 0 : Math.random() }))
                   .sort((a, b) => a.sort - b.sort)
                   .slice(0, 5)
                   .map(skill => ({ name: skill.name, src: skill.src }));
