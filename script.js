@@ -180,7 +180,7 @@ const startHellomegDraw = (hellomegImgElement) => {
   // NOTE: 要素数が少ないのでパフォーマンスは考慮しない
   const skills = HELLOMEG_DRAW_SKILLS
                   // 2024年3月時点でエースカードとして採用率が高いFM花帆を必ず抽出する
-                  .map(skill => ({ ...skill, sort: skill.name === "FM花帆" ? 0 : Math.random() }))
+                  .map(skill => ({ ...skill, sort: skill.name === "FM花帆" ? -1 : Math.random() }))
                   .sort((a, b) => a.sort - b.sort)
                   // 夏めき瑠璃乃を引いたときのために手札を8枚にする
                   // 夏めき瑠璃乃を引いていない場合は後続の処理で5枚に減らす
