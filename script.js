@@ -166,7 +166,7 @@ const HELLOMEG_DRAW_SKILLS = [
     src: "./assets/megu_tsubasa.jpg"
   },
 ];
-const HELLOMEG_DRAW_HASHTAG ="#ハロめぐドロー"; 
+const HELLOMEG_DRAW_HASHTAG = "#ハロめぐドロー";
 const HELLOMEG_DRAW_TWEET = "運を手繰り寄せよう。私の結果は…";
 const HELLOMEG_DRAW_URL = "https://kiaiiretekonchiku.show/draw.html";
 
@@ -193,8 +193,8 @@ const startHellomegDraw = (hellomegImgElement) => {
     skills.splice(5, 8);
   }
 
-  // img を生成してから canvas へ描画するまで時間を要する。
-  // カウントダウン中に非同期で処理をおこなうため、以降の処理に先んじてここで loadImg を呼び出す。
+  // img を生成してから canvas へ描画するまで時間を要する
+  // カウントダウン中に非同期で処理をおこなうため、以降の処理に先んじてここで loadImg を呼び出す
   loadImg(skills, 0, () => {
     const canvas = document.getElementById("canvas");
     drawSkillsOnCanvas(skills, canvas);
@@ -219,7 +219,7 @@ const startHellomegDraw = (hellomegImgElement) => {
     if (count === 0) {
       clearInterval(interval);
       descriptionElement.style.display = "none";
-      document.getElementById("result").style.display = "block";
+      document.getElementById("result").style.display = null;
     }
   }, 1000);
 }
@@ -295,7 +295,7 @@ const displayShareButtonOrTweetLink = (skills, canvas) => {
     if (error.message === "Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.") {
       const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
       document.getElementById("tweet-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
-      document.getElementById("tweet-link").style.display = "block";
+      document.getElementById("tweet-link").style.display = null;
     } else {
       throw error;
     }
@@ -320,7 +320,7 @@ const share = () => {
  * - Android: text が表示れない
  */
 const getNavigatorShareParams = (blob) => ({
-  url: "https://kiaiiretekonchiku.show/draw.html",
+  url: HELLOMEG_DRAW_URL,
   text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
