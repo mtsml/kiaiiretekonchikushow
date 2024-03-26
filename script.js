@@ -1,9 +1,43 @@
-const TEXT_HELLOMEG = "ハロめぐー！";
-const HELLOMEG_URL_PARAM = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0A%EF%BC%9E%E3%80%80%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%E3%80%80%EF%BC%9C%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0A';
-const BIG_HELLOMEG_URL_PARAM = '%E2%A0%80%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A';
+const KIAIIRETEKONCHIKUSHOW_URL = "https://kiaiiretekonchiku.show/";
+const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 
+const HELLOMEG_TWEET_URL_PARAM = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0A%EF%BC%9E%E3%80%80%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%E3%80%80%EF%BC%9C%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0A';
+const HELLOMEG_TWEET_URL_PARAM_BIG = '%E2%A0%80%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A';
+
+/**
+ * ハロめぐツイートURLをセットする
+ * 
+ * onclick -> href の順に処理されるため、ここで作成したURLでツイートされる
+ */
+const setHellomegTweetLink = (e) => {
+  // URL作成
+  const url = createUrl();
+  // URL差し替え
+  e.href = url;
+}
+
+/**
+ * 70%の確率で吹き出しハロめぐツイートURLを、30%の確率でクソデカハロめぐツイートURLを作成する
+ */
+const createUrl = () => {
+  // 0~99の整数をランダム生成
+  const randomNum = Math.floor(Math.random() * 100);
+
+  // 30%の確率でクソデカハロめぐツイート作成
+  if (randomNum < 30) {
+    return `${TWEET_INTENT_URL}?text=${HELLOMEG_TWEET_URL_PARAM_BIG}&url=${KIAIIRETEKONCHIKUSHOW_URL}`;
+  } else {
+    return `${TWEET_INTENT_URL}?text=${HELLOMEG_TWEET_URL_PARAM}&url=${KIAIIRETEKONCHIKUSHOW_URL}`;
+  }
+}
+
+const TEXT_HELLOMEG = "ハロめぐー！";
+
+/**
+ * ロゴからハロめぐー！をランダムな方向に射出する
+ */
 const hellomeg = (e) => {
-  // 画像を揺らす
+  // ロゴを揺らす
   e.classList.add("shake-img");
   setTimeout(() => {
     e.classList.remove("shake-img");
@@ -31,6 +65,9 @@ const hellomeg = (e) => {
   }, 2000);
 }
 
+/**
+ * 10秒間ハロめぐを連打した回数を計測する
+ */
 const startHellomegCount = (hellomegImgElement) => {
   let score = 0;
 
@@ -64,25 +101,6 @@ const startHellomegCount = (hellomegImgElement) => {
       }, 100);
     }
   }, 100);
-}
-
-const setHellomegTweetLink = (e) => {
-  // URL作成
-  const url = createUrl();
-  // URL差し替え
-  e.href = url;
-}
-
-const createUrl = () => {
-  // 0~99の整数をランダム生成
-  const randomNum = Math.floor(Math.random() * 100);
-
-  // 30%の確率でクソデカハロめぐツイート作成
-  if (randomNum < 30) {
-    return "https://twitter.com/intent/tweet?text="+BIG_HELLOMEG_URL_PARAM+"&url=https://kiaiiretekonchiku.show/";
-  } else {
-    return "https://twitter.com/intent/tweet?text="+HELLOMEG_URL_PARAM+"&url=https://kiaiiretekonchiku.show/";
-  }
 }
 
 // スクステにおける2024年3月時点の汎用編成
@@ -166,7 +184,7 @@ const HELLOMEG_DRAW_SKILLS = [
     src: "./assets/megu_tsubasa.jpg"
   },
 ];
-const HELLOMEG_DRAW_HASHTAG ="#ハロめぐドロー"; 
+const HELLOMEG_DRAW_HASHTAG = "#ハロめぐドロー";
 const HELLOMEG_DRAW_TWEET = "運を手繰り寄せよう。私の結果は…";
 const HELLOMEG_DRAW_URL = "https://kiaiiretekonchiku.show/draw.html";
 
@@ -193,8 +211,8 @@ const startHellomegDraw = (hellomegImgElement) => {
     skills.splice(5, 8);
   }
 
-  // img を生成してから canvas へ描画するまで時間を要する。
-  // カウントダウン中に非同期で処理をおこなうため、以降の処理に先んじてここで loadImg を呼び出す。
+  // img を生成してから canvas へ描画するまで時間を要する
+  // カウントダウン中に非同期で処理をおこなうため、以降の処理に先んじてここで loadImg を呼び出す
   loadImg(skills, 0, () => {
     const canvas = document.getElementById("canvas");
     drawSkillsOnCanvas(skills, canvas);
@@ -219,7 +237,7 @@ const startHellomegDraw = (hellomegImgElement) => {
     if (count === 0) {
       clearInterval(interval);
       descriptionElement.style.display = "none";
-      document.getElementById("result").style.display = "block";
+      document.getElementById("result").style.display = null;
     }
   }, 1000);
 }
@@ -285,17 +303,17 @@ const displayShareButtonOrTweetLink = (skills, canvas) => {
       if (navigator.share && navigator.canShare && navigator.canShare(getNavigatorShareParams(blob))) {
         document.getElementById("share-button").style.display = null;
       } else {
-        const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
-        document.getElementById("tweet-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
+        const text = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
+        document.getElementById("tweet-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRAW_URL}`;
         document.getElementById("tweet-link").style.display = null;
       }
     });
   } catch (error) {
     // ローカル実行の場合はエラーを捕まえてツイートリンクを表示する
     if (error.message === "Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.") {
-      const param = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
-      document.getElementById("tweet-link").href = `https://twitter.com/intent/tweet?text=${param}&url=${HELLOMEG_DRAW_URL}`;
-      document.getElementById("tweet-link").style.display = "block";
+      const text = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${skills.map(skill => `・${skill.name}\n`).join("")}\n`);
+      document.getElementById("tweet-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRAW_URL}`;
+      document.getElementById("tweet-link").style.display = null;
     } else {
       throw error;
     }
@@ -320,7 +338,7 @@ const share = () => {
  * - Android: text が表示れない
  */
 const getNavigatorShareParams = (blob) => ({
-  url: "https://kiaiiretekonchiku.show/draw.html",
+  url: HELLOMEG_DRAW_URL,
   text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
