@@ -16,8 +16,7 @@ body {
   box-sizing: content-box;
   /* ダブルタップでの拡大を防ぐ */
   touch-action: manipulation;
-
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
