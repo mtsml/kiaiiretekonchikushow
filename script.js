@@ -1,7 +1,7 @@
 const KIAIIRETEKONCHIKUSHOW_URL = "https://kiaiiretekonchiku.show/";
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 
-const HELLOMEG_TWEET_URL_PARAM = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0A%EF%BC%9E%E3%80%80%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%E3%80%80%EF%BC%9C%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0A';
+const HELLOMEG_TWEET_URL_PARAM = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0D%0A%EF%BC%9E%E3%80%80%E6%B2%99%E7%9F%A5%E5%85%88%E8%BC%A9%E5%8D%92%E6%A5%AD%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%80%80%EF%BC%9C%0D%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0D%0A';
 const HELLOMEG_TWEET_URL_PARAM_BIG = '%E2%A0%80%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A';
 
 /**
@@ -10,10 +10,9 @@ const HELLOMEG_TWEET_URL_PARAM_BIG = '%E2%A0%80%E2%80%83%E2%96%A0%0A%E2%80%83%E2
  * onclick -> href の順に処理されるため、ここで作成したURLでツイートされる
  */
 const setHellomegTweetLink = (e) => {
-  // URL作成
-  const url = createUrl();
-  // URL差し替え
-  e.href = url;
+  // 2024.03 沙知先輩の卒業を祝うため一律で同じメッセージを表示する
+  const TWEET_URL_PARAM_SACHI = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0D%0A%EF%BC%9E%E3%80%80%E6%B2%99%E7%9F%A5%E5%85%88%E8%BC%A9%E5%8D%92%E6%A5%AD%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%E3%80%80%EF%BC%9C%0D%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0D%0A';
+  e.href = `${TWEET_INTENT_URL}?text=${TWEET_URL_PARAM_SACHI}&url=${KIAIIRETEKONCHIKUSHOW_URL}`;
 }
 
 /**
@@ -31,7 +30,7 @@ const createUrl = () => {
   }
 }
 
-const TEXT_HELLOMEG = "ハロめぐー！";
+const TEXT_HELLOMEG = "沙知先輩卒業おめでとう💐";
 
 /**
  * ロゴからハロめぐー！をランダムな方向に射出する
@@ -74,7 +73,7 @@ const startHellomegCount = (hellomegImgElement) => {
   // onclick を上書きしてクリック時に score 加算処理を設定
   hellomegImgElement.onclick = () => {
     score++;
-    document.getElementById("score").innerText = `${score} ハロめぐー！`;
+    document.getElementById("score").innerText = `${score} 沙知先輩卒業おめでとう💐`;
     hellomeg(hellomegImgElement);
   }
 
@@ -93,11 +92,11 @@ const startHellomegCount = (hellomegImgElement) => {
       hellomegImgElement.onclick = () => {};
       document.getElementById("description").style.display = "none";
       document.getElementById("result").style.display = "block";
-      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%0D%0A%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%92%E9%80%A3%E6%89%93%E3%81%97%E3%81%A6%E3%82%B9%E3%82%AF%E3%82%B9%E3%83%86%E7%AD%8B%E3%82%92%E9%8D%9B%E3%81%88%E3%82%88%E3%81%86%E3%80%82%E7%A7%81%E3%81%AE10%E7%A7%92%E9%96%93%E3%81%AE%E9%80%A3%E6%89%93%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${score}+%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%0D%0A&url=https://kiaiiretekonchiku.show/count.html`;
+      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%0D%0A%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%92%E9%80%A3%E6%89%93%E3%81%97%E3%81%A6%E6%B2%99%E7%9F%A5%E5%85%88%E8%BC%A9%E3%81%AE%E5%8D%92%E6%A5%AD%E3%82%92%E3%81%8A%E7%A5%9D%E3%81%84%E3%81%97%E3%82%88%E3%81%86%E3%80%82%E7%A7%81%E3%81%AE10%E7%A7%92%E9%96%93%E3%81%AE%E9%80%A3%E6%89%93%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${score}+%E6%B2%99%E7%9F%A5%E5%85%88%E8%BC%A9%E5%8D%92%E6%A5%AD%E3%81%8A%E3%82%81%E3%81%A7%E3%81%A8%E3%81%86%F0%9F%92%90%0D%0A&url=https://kiaiiretekonchiku.show/count.html`;
       
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
-        alert(`${score} ハロめぐー！`);
+        alert(`${score} 沙知先輩卒業おめでとう💐`);
       }, 100);
     }
   }, 100);
@@ -341,4 +340,14 @@ const getNavigatorShareParams = (blob) => ({
   url: HELLOMEG_DRAW_URL,
   text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const petals = document.querySelectorAll('.petal');
+  petals.forEach(petal => {
+    // ランダムな開始位置、アニメーション時間、遅延を設定
+    petal.style.setProperty('--random-horizontal', Math.random());
+    petal.style.setProperty('--random-duration', Math.random() + 0.5); // 0.5〜1.5の間
+    petal.style.setProperty('--random-delay', Math.random());
+  });
 });
