@@ -80,11 +80,13 @@ const startHellomegCount = (hellomegImgElement) => {
   // スタート時のクリックもカウントする
   hellomegImgElement.click(hellomegImgElement)
 
-  // 10秒間、0.1秒ごとに timerElement を更新する
+  // 10秒間、0.1秒ごとに timerElement および progressElement を更新する
   let timeRemaining = 100;
   const timerElement = document.getElementById("timer");
+  const progressElement = document.getElementById("timeprogress");
   const interval = setInterval(() => {
     timeRemaining--;
+    progressElement.value = timeRemaining;
     timerElement.innerText = `あと ${Math.floor(timeRemaining / 10)}.${Math.floor(timeRemaining % 10)} 秒`;
 
     if (timeRemaining === 0) {
