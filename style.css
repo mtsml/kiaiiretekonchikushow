@@ -193,7 +193,7 @@ h1 > a {
 }
  
 #timeprogress::-webkit-progress-bar {
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 15px;
 }
  
