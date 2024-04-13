@@ -180,3 +180,8 @@ h1 > a {
   background-color: #ABC88B;
   border-radius: 15px;
 }
+
+#ramen {
+  width: 100px;
+  position: absolute;
+}
