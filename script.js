@@ -4,14 +4,256 @@ const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const HELLOMEG_TWEET_URL_PARAM = '%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0A%EF%BC%9E%E3%80%80%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%E3%80%80%EF%BC%9C%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0A';
 const HELLOMEG_TWEET_URL_PARAM_BIG = '%E2%A0%80%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E3%80%80%E3%80%80%E3%80%80%20%20%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E3%80%80%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%0A%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%96%A0%E2%96%A0%E2%80%83%E2%80%83%E2%96%A0%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%0A%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A%E2%80%83%E2%80%83%E2%80%83%E2%96%A0%E2%96%A0%0A';
 
+const SONGS = [
+  // https://www.lovelive-anime.jp/hasunosora/music/01/
+  {
+    name: "Dream Believers",
+    intentTweetParam: ""
+  },
+  {
+    name: "On your mark",
+    intentTweetParam: ""
+  },
+  {
+    name: "水彩世界",
+    intentTweetParam: ""
+  },
+  {
+    name: "AWOKE",
+    intentTweetParam: ""
+  },
+  {
+    name: "ド！ド！ド！",
+    intentTweetParam: ""
+  },
+  {
+    name: "永遠のEuphoria",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/02/
+  {
+    name: "Reflection in the mirror",
+    intentTweetParam: ""
+  },
+  {
+    name: "フォーチュンムービー",
+    intentTweetParam: ""
+  },
+  {
+    name: "Mix shake!!",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/03/
+  {
+    name: "Sparkly Spot",
+    intentTweetParam: ""
+  },
+  {
+    name: "ツキマカセ",
+    intentTweetParam: ""
+  },
+  {
+    name: "希望的プリズム",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/04/
+  {
+    name: "謳歌爛漫",
+    intentTweetParam: ""
+  },
+  {
+    name: "Holiday∞Holiday",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/05/
+  {
+    name: "スケイプゴート",
+    intentTweetParam: ""
+  },
+  {
+    name: "Tragic Drops",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/06/
+  {
+    name: "DEEPNESS",
+    intentTweetParam: ""
+  },
+  {
+    name: "Kawaii no susume",
+    intentTweetParam: ""
+  },
+  {
+    name: "眩耀夜行",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/07/
+  // 06 と重複するためコメントアウト
+//   {
+//     name: "DEEPNESS",
+//     intentTweetParam: ""
+//   },
+  {
+    name: "ジブンダイアリー",
+    intentTweetParam: ""
+  },
+  {
+    name: "Mirage Voyage",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/08/
+  {
+    name: "夏めきペイン",
+    intentTweetParam: ""
+  },
+  {
+    name: "Yup! Yup! Yup!",
+    intentTweetParam: ""
+  },
+  {
+    name: "ココン東西",
+    intentTweetParam: ""
+  },
+  {
+    name: "残陽",
+    intentTweetParam: ""
+  },
+  {
+    name: "青春の輪郭",
+    intentTweetParam: ""
+  },
+  {
+    name: "ハクチューアラモード",
+    intentTweetParam: ""
+  },
+  {
+    name: "Dear my future",
+    intentTweetParam: ""
+  },
+  {
+    name: "パラレルダンサー",
+    intentTweetParam: ""
+  },
+  {
+    name: "明日の空の僕たちへ",
+    intentTweetParam: ""
+  },
+  {
+    name: "Legato",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/09/
+  {
+    name: "素顔のピクセル",
+    intentTweetParam: ""
+  },
+  {
+    name: "シュガーメルト",
+    intentTweetParam: ""
+  },
+  {
+    name: "千変万華",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/10/
+  {
+    name: "Take It Over",
+    intentTweetParam: ""
+  },
+  {
+    name: "飴色",
+    intentTweetParam: ""
+  },
+  {
+    name: "KNOT",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/11/
+  {
+    name: "アイデンティティ",
+    intentTweetParam: ""
+  },
+  {
+    name: "天才なのかもしれない",
+    intentTweetParam: ""
+  },
+  {
+    name: "ノンフィクションヒーローショー",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/12/
+  {
+    name: "Trick ＆ Cute",
+    intentTweetParam: ""
+  },
+  {
+    name: "ツバサ・ラ・リベルテ",
+    intentTweetParam: ""
+  },
+  {
+    name: "Link to the FUTURE",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/13/
+  {
+    name: "Special Thanks",
+    intentTweetParam: ""
+  },
+  {
+    name: "青とシャボン",
+    intentTweetParam: ""
+  },
+  {
+    name: "ミルク",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/14/
+  {
+    name: "Colorfulness",
+    intentTweetParam: ""
+  },
+  {
+    name: "ハッピー至上主義！",
+    intentTweetParam: ""
+  },
+  {
+    name: "Pleasure Feather",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/15/
+  {
+    name: "以心☆電信",
+    intentTweetParam: ""
+  },
+  {
+    name: "BANG YOU グラビティ",
+    intentTweetParam: ""
+  },
+  {
+    name: "マハラジャンボリー",
+    intentTweetParam: ""
+  },
+  // https://www.lovelive-anime.jp/hasunosora/music/16/
+  {
+    name: "抱きしめる花びら",
+    intentTweetParam: ""
+  },
+  {
+    name: "STEP UP !",
+    intentTweetParam: ""
+  },
+];
+
 /**
  * ハロめぐツイートURLをセットする
  * 
  * onclick -> href の順に処理されるため、ここで作成したURLでツイートされる
  */
 const setHellomegTweetLink = (e) => {
-  // URL作成
-  const url = createUrl();
+  const songNames = Array.from({ length: 10 }, () => SONGS[Math.floor(Math.random() * SONGS.length)].name);
+  const intentTweetParam = encodeURIComponent(`#蓮ノ空103期楽曲10連ガチャ\n\n${songNames.join("\n")}\n`);  
+  const url = `${TWEET_INTENT_URL}?text=${intentTweetParam}&url=${KIAIIRETEKONCHIKUSHOW_URL}`;
+
   // URL差し替え
   e.href = url;
 }
