@@ -255,7 +255,7 @@ const SONGS = [
  * onclick -> href の順に処理されるため、ここで作成したURLでツイートされる
  */
 const setHellomegTweetLink = (e) => {
-  const songNames = Array.from({ length: 10 }, () => "Runway");
+  const songNames = Array.from({ length: 10 }, () => SONGS[Math.floor(Math.random() * SONGS.length)].name);
   const intentTweetParam = encodeURIComponent(`#蓮ノ空103期楽曲10連ガチャ\n\n${songNames.join("\n")}\n`);  
   const url = `${TWEET_INTENT_URL}?text=${intentTweetParam}&url=${KIAIIRETEKONCHIKUSHOW_URL}`;
 
