@@ -242,11 +242,6 @@ const SONGS = [
     name: "STEP UP !",
     intentTweetParam: ""
   },
-  // 音源なし
-  {
-    name: "Runway",
-    intentTweetParam: ""
-  },
 ];
 
 /**
