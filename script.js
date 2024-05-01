@@ -391,18 +391,11 @@ const startHaromegu = () => {
     // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
     if (round >= MAX_ROUND) {
       clearInterval(interval);
+      document.getElementById("result").style.display = "block";
 
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
         alert(`${Math.floor(time / 10)}.${Math.floor(time % 10)} 秒`);
-
-        // ゲーム終了時はすべて puchihasu で表示
-        Array.from(container.children).forEach(haromegu => {
-          haromegu.onclick = null;
-          haromegu.src = "./assets/puchihasu.png";
-          haromegu.style.opacity = 1;
-        });
-        document.getElementById("result").style.display = "block";
       }, 100);
     }
   }, 100);
