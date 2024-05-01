@@ -344,3 +344,54 @@ const getNavigatorShareParams = (blob) => ({
   text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
+
+
+const startGatsuntoRamen = (hellomegImgElement) => {
+  hellomegImgElement.onclick = null;
+
+  // ラーメンをばら撒く
+  const ramenImgElement = document.getElementById("ramen");
+  moveElementRandom(ramenImgElement)
+
+  let ramenCnt = 0;
+  ramenImgElement.onclick = () => {
+    ramenCnt++;
+
+    if (ramenCnt === 10) {
+      clearInterval(interval);
+      document.getElementById("result").style.display = "block";
+
+      // timerElement の反映を待つために非同期実行する
+      setTimeout(() => {
+        alert(time);
+      }, 100);
+
+      return;
+    }
+
+    moveElementRandom(ramenImgElement)
+  };
+
+  // 0.1秒ごとに timerElement を更新する
+  let time = 0;
+  const timerElement = document.getElementById("timer");
+  const interval = setInterval(() => {
+    time++;
+    timerElement.innerText = `${Math.floor(time / 10)}.${Math.floor(time % 10)} 秒`;
+  }, 100);
+}
+
+/**
+ * element を画面内のランダムな位置に移動する
+ */
+const moveElementRandom = (element) => {
+  // 画像が画面からはみ出さないように画像サイズを差し引いておく
+  const maxWidth = window.innerWidth - element.width;
+  const maxHeight = window.innerHeight - element.height;
+
+  const randomX = Math.floor(Math.random() * maxWidth);
+  const randomY = Math.floor(Math.random() * maxHeight);
+
+  element.style.left = `${randomX}px`;
+  element.style.top = `${randomY}px`;
+}
