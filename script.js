@@ -344,3 +344,108 @@ const getNavigatorShareParams = (blob) => ({
   text: `${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n${HELLOMEG_DRAW_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
+
+const MAX_ROUND = 10;
+const START_ID = "ha";
+const END_ID = "gu";
+
+/**
+ * ハロめぐを MAX_ROUND 回順番にタップする時間を計測する
+ */
+const startHaromegu = () => {
+  let round = 0;
+  let nextId = START_ID;
+
+  // haromegu をシャッフルして onclick を設定する
+  shuffleHaromeguElemets();
+  const container = document.getElementById("haromegu-container");
+  Array.from(container.children).forEach(haromegu => {
+    haromegu.onclick = (e) => {
+      if (e.target.dataset.myId !== nextId) return;
+
+      nextId = e.target.dataset.nextId;
+      e.target.disabled = true;
+      e.target.style.opacity = 0;
+
+      // 「ぐ」まで到達したら 1round 終了
+      if (e.target.dataset.myId === END_ID) {
+        round++;
+
+        if (round < MAX_ROUND) {
+          shuffleHaromeguElemets();
+        } else {
+          // ゲーム終了時はすべて puchihasu で表示 
+          Array.from(container.children).forEach(haromegu => {
+            haromegu.onclick = null;
+            haromegu.src = "./assets/puchihasu.png";
+            haromegu.style.opacity = 1;
+          });
+        }
+      }
+    }
+  });
+
+  document.getElementById("description").style.display = "none";
+  container.style.display = null;
+
+  // 100ms 単位のタイマーを設定
+  let time = 0;
+  const timerElement = document.getElementById("timer");
+  const interval = setInterval(() => {
+    time++;
+    timerElement.innerText = `${Math.floor(time / 10)}.${Math.floor(time % 10)} 秒`;
+
+    // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
+    if (round >= MAX_ROUND) {
+      clearInterval(interval);
+      Array.from(container.children).forEach(haromegu => {
+        haromegu.src = "./assets/puchihasu.png";
+        haromegu.style.opacity = 1;
+      });
+      document.getElementById("result").style.display = "block";
+
+      // timerElement の反映を待つために非同期実行する
+      setTimeout(() => {
+        alert(`${time} ハロめぐー！`);
+      }, 100);
+    }
+  }, 100);
+}
+
+/**
+ * haromegu-container 内の要素をランダムに並び替えて4つの要素を表示状態にする
+ * 
+ * 子要素は「ハ」「ロ」「め」「ぐ」と puchihasu の5つ。
+ * 「ロ」または「め」のどちらかを非表示とし、puchihasu を非表示とした要素の代わりとして表示する。
+ */
+const shuffleHaromeguElemets = () => {  
+  const container = document.getElementById("haromegu-container");
+
+  // puchihasuTargetId 以外の要素を表示状態にする
+  const puchihasuTargetId = ["ro", "me"][Math.floor(Math.random() * 2)];
+  const items = Array.from(container.children).map(item => {
+    switch (item.id) {
+      case puchihasuTargetId:
+        // width を持たないように透過ではなく非表示状態とする
+        item.style.display = "none";
+        break;
+      case "puchihasu":
+        item.dataset.myId = puchihasuTargetId;
+        item.dataset.nextId = puchihasuTargetId === "ro" ? "me" : "gu";
+      default:
+        item.disabled = false;
+        item.style.opacity = 1;
+        item.style.display = null; 
+    }
+    return item;
+  });
+
+  // Fisher-Yatesシャッフル
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  container.innerHTML = '';
+  items.forEach(item => container.appendChild(item));
+}
