@@ -352,9 +352,11 @@ const END_ID = "gu";
 /**
  * ハロめぐを MAX_ROUND 回順番にタップする時間を計測する
  */
-const startHaromegu = () => {
+const startHaromegu = (e) => {
   let round = 0;
   let nextId = START_ID;
+
+  e.onclick = null;
 
   // haromegu をシャッフルして onclick を設定する
   shuffleHaromeguElemets();
@@ -391,6 +393,7 @@ const startHaromegu = () => {
     // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
     if (round >= MAX_ROUND) {
       clearInterval(interval);
+      container.style.display = "none";
       document.getElementById("result").style.display = "block";
 
       // timerElement の反映を待つために非同期実行する
@@ -407,7 +410,7 @@ const startHaromegu = () => {
  * 子要素は「ハ」「ロ」「め」「ぐ」と puchihasu の5つ。
  * 「ロ」または「め」のどちらかを非表示とし、puchihasu を非表示とした要素の代わりとして表示する。
  */
-const shuffleHaromeguElemets = () => {  
+const shuffleHaromeguElemets = () => {
   const container = document.getElementById("haromegu-container");
 
   // puchihasuTargetId 以外の要素を表示状態にする
