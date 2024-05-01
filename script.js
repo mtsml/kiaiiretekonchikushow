@@ -367,10 +367,10 @@ const startHaromegu = () => {
       e.target.disabled = true;
       e.target.style.opacity = 0;
 
-      // 「ぐ」まで到達したら 1round 終了
+      // 「ぐ」まで到達したら round 終了
       if (e.target.dataset.myId === END_ID) {
         round++;
-
+        // MAX_ROUND までシャッフルを繰り返す
         if (round < MAX_ROUND) {
           shuffleHaromeguElemets();
         }
@@ -391,17 +391,18 @@ const startHaromegu = () => {
     // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
     if (round >= MAX_ROUND) {
       clearInterval(interval);
-      // ゲーム終了時はすべて puchihasu で表示
-      Array.from(container.children).forEach(haromegu => {
-        haromegu.onclick = null;
-        haromegu.src = "./assets/puchihasu.png";
-        haromegu.style.opacity = 1;
-      });
-      document.getElementById("result").style.display = "block";
 
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
-        alert(`${time} ハロめぐー！`);
+        alert(`${Math.floor(time / 10)}.${Math.floor(time % 10)} 秒`);
+
+        // ゲーム終了時はすべて puchihasu で表示
+        Array.from(container.children).forEach(haromegu => {
+          haromegu.onclick = null;
+          haromegu.src = "./assets/puchihasu.png";
+          haromegu.style.opacity = 1;
+        });
+        document.getElementById("result").style.display = "block";
       }, 100);
     }
   }, 100);
