@@ -360,24 +360,30 @@ const startHaromegu = (e) => {
 
   // haromegu をシャッフルして onclick を設定する
   shuffleHaromeguElemets();
-  const container = document.getElementById("haromegu-container");
-  Array.from(container.children).forEach(haromegu => {
-    haromegu.onclick = (e) => {
-      if (e.target.dataset.myId !== nextId) return;
+  const handleClick = (e) => {
+    if (e.target.dataset.myId !== nextId) return;
 
-      nextId = e.target.dataset.nextId;
-      e.target.disabled = true;
-      e.target.style.opacity = 0;
+    nextId = e.target.dataset.nextId;
+    e.target.disabled = true;
+    e.target.style.opacity = 0;
 
-      // 「ぐ」まで到達したら round 終了
-      if (e.target.dataset.myId === END_ID) {
-        round++;
-        // MAX_ROUND までシャッフルを繰り返す
-        if (round < MAX_ROUND) {
-          shuffleHaromeguElemets();
-        }
+    // 「ぐ」まで到達したら round 終了
+    if (e.target.dataset.myId === END_ID) {
+      round++;
+      // MAX_ROUND までシャッフルを繰り返す
+      if (round < MAX_ROUND) {
+        shuffleHaromeguElemets();
       }
     }
+  }
+  const container = document.getElementById("haromegu-container");
+  Array.from(container.children).forEach(haromegu => {
+    haromegu.onclick = handleClick;
+    // タッチデバイスの速度改善
+    haromegu.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      handleClick(e);
+    });
   });
 
   document.getElementById("description").style.display = "none";
