@@ -57,10 +57,6 @@ h1 > a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.logo.-small {
-  width: 150px;
-}
-
 .icon {
   height: 1em;
   padding-right: 0.5em;
@@ -194,7 +190,13 @@ h1 > a {
 }
 
 .haromegu {
-  max-width: 130px;
-  width: 45%;
-  padding: 10px;
+  max-width: 100px;
+  width: 20%;
+  padding: 5px;
+}
+
+.haromegu-inline {
+  width: 1.5em;
+  vertical-align: text-top;
+  padding-bottom: 0.5em;
 }
