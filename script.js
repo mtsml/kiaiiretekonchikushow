@@ -373,13 +373,6 @@ const startHaromegu = () => {
 
         if (round < MAX_ROUND) {
           shuffleHaromeguElemets();
-        } else {
-          // ゲーム終了時はすべて puchihasu で表示 
-          Array.from(container.children).forEach(haromegu => {
-            haromegu.onclick = null;
-            haromegu.src = "./assets/puchihasu.png";
-            haromegu.style.opacity = 1;
-          });
         }
       }
     }
@@ -398,7 +391,9 @@ const startHaromegu = () => {
     // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
     if (round >= MAX_ROUND) {
       clearInterval(interval);
+      // ゲーム終了時はすべて puchihasu で表示
       Array.from(container.children).forEach(haromegu => {
+        haromegu.onclick = null;
         haromegu.src = "./assets/puchihasu.png";
         haromegu.style.opacity = 1;
       });
@@ -423,29 +418,29 @@ const shuffleHaromeguElemets = () => {
 
   // puchihasuTargetId 以外の要素を表示状態にする
   const puchihasuTargetId = ["ro", "me"][Math.floor(Math.random() * 2)];
-  const items = Array.from(container.children).map(item => {
-    switch (item.id) {
+  const haromegus = Array.from(container.children).map(haromegu => {
+    switch (haromegu.id) {
       case puchihasuTargetId:
         // width を持たないように透過ではなく非表示状態とする
-        item.style.display = "none";
+        haromegu.style.display = "none";
         break;
       case "puchihasu":
-        item.dataset.myId = puchihasuTargetId;
-        item.dataset.nextId = puchihasuTargetId === "ro" ? "me" : "gu";
+        haromegu.dataset.myId = puchihasuTargetId;
+        haromegu.dataset.nextId = puchihasuTargetId === "ro" ? "me" : "gu";
       default:
-        item.disabled = false;
-        item.style.opacity = 1;
-        item.style.display = null; 
+        haromegu.disabled = false;
+        haromegu.style.opacity = 1;
+        haromegu.style.display = null;
     }
-    return item;
+    return haromegu;
   });
 
   // Fisher-Yatesシャッフル
-  for (let i = items.length - 1; i > 0; i--) {
+  for (let i = haromegus.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [items[i], items[j]] = [items[j], items[i]];
+    [haromegus[i], haromegus[j]] = [haromegus[j], haromegus[i]];
   }
 
   container.innerHTML = '';
-  items.forEach(item => container.appendChild(item));
+  haromegus.forEach(haromegu => container.appendChild(haromegu));
 }
