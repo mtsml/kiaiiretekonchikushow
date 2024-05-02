@@ -401,6 +401,7 @@ const startHaromegu = (e) => {
       clearInterval(interval);
       container.style.display = "none";
       document.getElementById("result").style.display = "block";
+      displayAdTweet();
 
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
@@ -446,4 +447,78 @@ const shuffleHaromeguElemets = () => {
 
   container.innerHTML = '';
   haromegus.forEach(haromegu => container.appendChild(haromegu));
+}
+
+const AD_TWEET_URLS = [
+  // めぐ島
+  "https://twitter.com/pine_nm/status/1747617380803698977",
+  "https://twitter.com/pine_nm/status/1747830758558048650",
+  "https://twitter.com/pine_nm/status/1747959663205941443",
+  "https://twitter.com/pine_nm/status/1748615206513885603",
+  "https://twitter.com/pine_nm/status/1749040338763993449",
+  "https://twitter.com/pine_nm/status/1749389715114193348",
+  "https://twitter.com/pine_nm/status/1749778283259117642",
+  "https://twitter.com/pine_nm/status/1752689330219565370",
+  "https://twitter.com/pine_nm/status/1753606179111276588",
+  "https://twitter.com/pine_nm/status/1754125334012891622",
+  "https://twitter.com/pine_nm/status/1755209734070899026",
+  "https://twitter.com/pine_nm/status/1757767575327641759",
+  "https://twitter.com/pine_nm/status/1758056443796988148",
+  "https://twitter.com/pine_nm/status/1758124375482761679",
+  "https://twitter.com/pine_nm/status/1758446682440970556",
+  "https://twitter.com/pine_nm/status/1758464616445907355",
+  "https://twitter.com/pine_nm/status/1758486706398155014",
+  "https://twitter.com/pine_nm/status/1758800845473550648",
+  "https://twitter.com/pine_nm/status/1758851971896033511",
+  "https://twitter.com/pine_nm/status/1759241120062841040",
+  "https://twitter.com/pine_nm/status/1759399951497589060",
+  "https://twitter.com/pine_nm/status/1759400457104134384",
+  "https://twitter.com/pine_nm/status/1762409798094684646",
+  "https://twitter.com/pine_nm/status/1762793929987273050",
+  "https://twitter.com/pine_nm/status/1763196143046185438",
+  "https://twitter.com/pine_nm/status/1763521820408614965",
+  "https://twitter.com/pine_nm/status/1769693037322547597",
+  "https://twitter.com/pine_nm/status/1769702604353962227",
+  "https://twitter.com/pine_nm/status/1770127226484543612",
+  "https://twitter.com/pine_nm/status/1772575567113564636",
+  "https://twitter.com/pine_nm/status/1774021752445919624",
+  "https://twitter.com/pine_nm/status/1774428844960993718",
+  "https://twitter.com/pine_nm/status/1774769971954127196",
+  "https://twitter.com/pine_nm/status/1776836347510272236",
+  "https://twitter.com/pine_nm/status/1776951267711234544",
+  "https://twitter.com/pine_nm/status/1778427050422157677",
+  "https://twitter.com/pine_nm/status/1784147869991317722",
+  "https://twitter.com/pine_nm/status/1784481225199247808",
+  "https://twitter.com/pine_nm/status/1785296444586676712",
+  "https://twitter.com/pine_nm/status/1785509271205249248",
+];
+
+/**
+ * 広告ツイートを表示する
+ */
+const displayAdTweet = () => {
+  // 広告ツイートをランダムに取得
+  const adTweetLink = document.getElementById("ad-tweet-link");
+  adTweetLink.href = AD_TWEET_URLS[Math.floor(Math.random() * AD_TWEET_URLS.length)];
+
+  // ツイート埋め込みスクリプトを読み込む
+  const adTweet = document.getElementById("ad-tweet");
+  const script = document.createElement("script");
+  script.src = "https://platform.twitter.com/widgets.js";
+  adTweet.appendChild(script);
+
+  // ツイート埋め込み完了を監視する
+  const observer = new MutationObserver(mutationsList => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === "childList" && mutation.removedNodes.length !== 0) {
+        mutation.removedNodes.forEach(node => {
+          if (node.classList.contains("twitter-tweet")) {
+            document.getElementById("loading").style.display = "none";
+            observer.disconnect();
+          }
+        });
+      }
+    }
+  });
+  observer.observe(adTweet, { childList: true });
 }
