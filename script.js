@@ -361,7 +361,15 @@ const startHaromegu = (e) => {
   // haromegu をシャッフルして onclick を設定する
   shuffleHaromeguElemets();
   const handleClick = (e) => {
-    if (e.target.dataset.myId !== nextId) return;
+    if (e.target.dataset.myId !== nextId) {
+      // 同時押しを防ぐための誤答ペナルティ 500ms
+      const overlay = document.getElementById("overlay");
+      overlay.style.display = null;
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 500);
+      return;
+    }
 
     nextId = e.target.dataset.nextId;
     e.target.disabled = true;
@@ -491,6 +499,7 @@ const AD_TWEET_URLS = [
   "https://twitter.com/pine_nm/status/1784481225199247808",
   "https://twitter.com/pine_nm/status/1785296444586676712",
   "https://twitter.com/pine_nm/status/1785509271205249248",
+  "https://twitter.com/pine_nm/status/1785886354746007888",
 ];
 
 /**
