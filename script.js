@@ -345,7 +345,7 @@ const getNavigatorShareParams = (blob) => ({
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
 
-const MAX_ROUND = 3;
+const MAX_ROUND = 10;
 const START_ID = "ha";
 const END_ID = "gu";
 
