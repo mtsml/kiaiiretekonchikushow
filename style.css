@@ -223,6 +223,7 @@ h1 > a {
   max-width: 100px;
   width: 20%;
   padding: 5px;
+  cursor: pointer;
 }
 
 .haromegu-inline {
