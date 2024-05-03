@@ -372,8 +372,8 @@ const startHaromegu = (e) => {
     }
 
     nextId = e.target.dataset.nextId;
-    e.target.disabled = true;
     e.target.style.opacity = 0;
+    e.target.style.pointerEvents = "none";
 
     // 「ぐ」まで到達したら round 終了
     if (e.target.dataset.myId === END_ID) {
@@ -441,8 +441,8 @@ const shuffleHaromeguElemets = () => {
         haromegu.dataset.myId = puchihasuTargetId;
         haromegu.dataset.nextId = puchihasuTargetId === "ro" ? "me" : "gu";
       default:
-        haromegu.disabled = false;
         haromegu.style.opacity = 1;
+        haromegu.style.pointerEvents = null;
         haromegu.style.display = null;
     }
     return haromegu;
