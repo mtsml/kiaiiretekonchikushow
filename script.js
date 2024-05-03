@@ -454,7 +454,7 @@ const shuffleHaromeguElemets = () => {
     [haromegus[i], haromegus[j]] = [haromegus[j], haromegus[i]];
   }
 
-  container.innerHTML = "";
+  container.innerHTML = '';
   haromegus.forEach(haromegu => container.appendChild(haromegu));
 }
 
