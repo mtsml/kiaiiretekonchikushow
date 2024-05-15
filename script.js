@@ -532,3 +532,99 @@ const displayAdTweet = () => {
   });
   observer.observe(adTweet, { childList: true });
 }
+
+LINK_LIFE_TWEET_URLS = [
+  // 104期
+  "https://x.com/hasunosora_SIC/status/1788773456563380546",
+  "https://x.com/hasunosora_SIC/status/1786229199096992220",
+  "https://x.com/hasunosora_SIC/status/1783692475460162033",
+  "https://x.com/hasunosora_SIC/status/1781155771360665832",
+  "https://x.com/hasunosora_SIC/status/1779343825741451657",
+  "https://x.com/hasunosora_SIC/status/1776082337715159126",
+  // 103期
+  // ~78
+  "https://x.com/hasunosora_SIC/status/1773500321207144740",
+  "https://x.com/hasunosora_SIC/status/1771008902580281385",
+  "https://x.com/hasunosora_SIC/status/1768472194491773288",
+  "https://x.com/hasunosora_SIC/status/1765935483262206462",
+  "https://x.com/hasunosora_SIC/status/1763398763568345353",
+  "https://x.com/hasunosora_SIC/status/1761949211233259969",
+  "https://x.com/hasunosora_SIC/status/1760862050530808070",
+  "https://x.com/hasunosora_SIC/status/1759774881820905839",
+  // ~70
+  "https://x.com/hasunosora_SIC/status/1758325329356038458",
+  "https://x.com/hasunosora_SIC/status/1755788621075096004",
+  "https://x.com/hasunosora_SIC/status/1753614293361176637",
+  "https://x.com/hasunosora_SIC/status/1750715192957386916",
+  "https://x.com/hasunosora_SIC/status/1748178477226877198",
+  "https://x.com/hasunosora_SIC/status/1746004141808222453",
+  "https://x.com/hasunosora_SIC/status/1743105034445832417",
+  "https://x.com/hasunosora_SIC/status/1739632154814959958",
+  "https://x.com/hasunosora_SIC/status/1739118775331438950",
+  "https://x.com/hasunosora_SIC/status/1738393992197439946",
+  // ~60
+  "https://x.com/hasunosora_SIC/status/1737457829147975729",
+  "https://x.com/hasunosora_SIC/status/1735494900957794600",
+  "https://x.com/hasunosora_SIC/status/1732958183256461371",
+  "https://x.com/hasunosora_SIC/status/1730421472420835411",
+  "https://x.com/hasunosora_SIC/status/1727884744480973104",
+  "https://x.com/hasunosora_SIC/status/1725348042092450114",
+  "https://x.com/hasunosora_SIC/status/1722811319286657365",
+  "https://x.com/hasunosora_SIC/status/1720274603451240490",
+  "https://x.com/hasunosora_SIC/status/1717737886366507419",
+  "https://x.com/hasunosora_SIC/status/1715201175589396481",
+  // ~50
+  "https://x.com/hasunosora_SIC/status/1712015184297074695",
+  "https://x.com/hasunosora_SIC/status/1707591031061950846",
+  "https://x.com/hasunosora_SIC/status/1705054319106818516",
+  "https://x.com/hasunosora_SIC/status/1702925279793185171",
+  "https://x.com/hasunosora_SIC/status/1699980884605342185",
+  "https://x.com/hasunosora_SIC/status/1697081783484059937",
+  "https://x.com/hasunosora_SIC/status/1694907456445665323",
+  "https://x.com/hasunosora_SIC/status/1691645960982499577",
+  "https://x.com/hasunosora_SIC/status/1689834022354993152",
+  "https://x.com/hasunosora_SIC/status/1687297303470813184",
+  // ~40
+  "https://x.com/hasunosora_SIC/status/1684760595965321216",
+  "https://x.com/hasunosora_SIC/status/1682223877118898177",
+  "https://x.com/hasunosora_SIC/status/1679687166803181569",
+  "https://x.com/hasunosora_SIC/status/1677150442936229888",
+  "https://x.com/hasunosora_SIC/status/1674613728979873792",
+  "https://x.com/hasunosora_SIC/status/1672077023572033537",
+  "https://x.com/hasunosora_SIC/status/1669540304150749187",
+  "https://x.com/hasunosora_SIC/status/1668453136519012352",
+  "https://x.com/hasunosora_SIC/status/1664474418255638528",
+  "https://x.com/hasunosora_SIC/status/1660616496668905474",
+  // ~30
+  "https://x.com/hasunosora_SIC/status/1660118213420630016",
+  "https://x.com/hasunosora_SIC/status/1656856723741892608",
+  "https://x.com/hasunosora_SIC/status/1655044784157872128",
+  "https://x.com/hasunosora_SIC/status/1654682406849314816",
+  "https://x.com/hasunosora_SIC/status/1654320016693526532",
+  "https://x.com/hasunosora_SIC/status/1653957619550126082",
+  "https://x.com/hasunosora_SIC/status/1653595235354591234",
+  "https://x.com/hasunosora_SIC/status/1651783296307830784",
+  "https://x.com/hasunosora_SIC/status/1649246584612478979",
+  "https://x.com/hasunosora_SIC/status/1647140198063685633",
+  // 1~20 はアプリのみ
+  // 102期
+  // ~10
+  "https://x.com/hasunosora_SIC/status/1642648098437750784",
+  "https://x.com/hasunosora_SIC/status/1641968626881425410",
+  "https://x.com/hasunosora_SIC/status/1640911667721797632",
+  "https://x.com/hasunosora_SIC/status/1640866363169447936",
+  "https://x.com/hasunosora_SIC/status/1639431907573211136",
+  "https://x.com/hasunosora_SIC/status/1636895199245860867",
+  "https://x.com/hasunosora_SIC/status/1634358484488601601",
+  "https://x.com/hasunosora_SIC/status/1631821767013539845",
+  "https://x.com/hasunosora_SIC/status/1629285052763848710",
+  "https://x.com/hasunosora_SIC/status/1626748336178081792",
+]
+
+/**
+ * りんく！らいふ！らぶらいぶ！のツイートURLをセットする
+ */
+const setLinkLifeTweetLink = (e) => {
+  // 広告ツイートをランダムに取得
+  e.href = LINK_LIFE_TWEET_URLS[Math.floor(Math.random() * LINK_LIFE_TWEET_URLS.length)];
+}
