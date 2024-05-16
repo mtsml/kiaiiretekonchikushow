@@ -880,6 +880,7 @@ const SONGS = [
 const set103SongTweetLink = (e) => {
   // 103期楽曲を10曲重複なしで取得する
   const songNames = SONGS
+                      .map(song => ({ ...song, sort: Math.random() }))
                       .sort((a, b) => a.sort - b.sort)
                       .slice(0, 10)
                       .map(song => song.name);
