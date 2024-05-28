@@ -105,6 +105,56 @@ const startHellomegCount = (hellomegImgElement) => {
   }, 100);
 }
 
+/**
+ * 10秒間ハロめぐを連打した回数を計測する
+ * 
+ * touchstart を用いた反応速度改善版
+ */
+const startHellomegCount104 = (hellomegImgElement) => {
+  let score = 0;
+
+  // score 加算処理
+  const handleClick = () => {
+    score++;
+    document.getElementById("score").innerText = `${score} ハロめぐー！`;
+    hellomeg(hellomegImgElement);
+  }
+
+  // onclick を上書きしてクリック時に score 加算処理を設定
+  hellomegImgElement.onclick = handleClick;
+  // タッチデバイスの速度改善
+  hellomegImgElement.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    handleClick(e);
+  });
+
+  // スタート時のクリックもカウントする
+  hellomegImgElement.click(hellomegImgElement)
+
+  // 10秒間、0.1秒ごとに timerElement および progressElement を更新する
+  let timeRemaining = 100;
+  const timerElement = document.getElementById("timer");
+  const progressElement = document.getElementById("timeprogress");
+  const interval = setInterval(() => {
+    timeRemaining--;
+    progressElement.value = timeRemaining;
+    timerElement.innerText = `あと ${Math.floor(timeRemaining / 10)}.${Math.floor(timeRemaining % 10)} 秒`;
+
+    if (timeRemaining === 0) {
+      clearInterval(interval);
+      hellomegImgElement.onclick = () => {};
+      document.getElementById("description").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%0D%0A%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%92%E9%80%A3%E6%89%93%E3%81%97%E3%81%A6%E3%82%B9%E3%82%AF%E3%82%B9%E3%83%86%E7%AD%8B%E3%82%92%E9%8D%9B%E3%81%88%E3%82%88%E3%81%86%E3%80%82%E7%A7%81%E3%81%AE10%E7%A7%92%E9%96%93%E3%81%AE%E9%80%A3%E6%89%93%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${score}+%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%0D%0A&url=https://kiaiiretekonchiku.show/count104.html`;
+      
+      // timerElement の反映を待つために非同期実行する
+      setTimeout(() => {
+        alert(`${score} ハロめぐー！`);
+      }, 100);
+    }
+  }, 100);
+}
+
 // スクステにおける2024年3月時点の汎用編成
 const HELLOMEG_DRAW_SKILLS = [
   // kaho
