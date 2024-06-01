@@ -1,22 +1,22 @@
 const SECTION_INFO_LIST = [
   {
-    SEGMENTS: 10,
+    SEGMENTS: 8,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 1,
   },
   {
-    SEGMENTS: 8,
+    SEGMENTS: 6,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 2,
   },
   {
-    SEGMENTS: 6,
+    SEGMENTS: 4,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 3,
   },
   {
-    SEGMENTS: 5,
+    SEGMENTS: 3,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 4,
   },
   {
-    SEGMENTS: 3,
+    SEGMENTS: 2,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 5,
   },
 ];
@@ -48,11 +48,13 @@ const startHellomegBomb = (e) => {
     const section = document.createElement("div");
     section.classList.add("section");
     sectionWrapper.appendChild(section);
+
     // section text
     const sectionText = document.createElement("span");
     sectionText.innerText = sectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT;
     sectionText.classList.add("section-text");
     section.appendChild(sectionText);
+
     // segment
     const segmentElements = [];
     Array.from({ length: sectionInfo.SEGMENTS }).forEach(() => {
@@ -61,6 +63,7 @@ const startHellomegBomb = (e) => {
       section.appendChild(segment);
       segmentElements.push(segment);
     });
+
     // DOM 操作よりメモリアクセスの方が速そうだからセクション要素を配列に突っ込んでおく
     sectionInfo.sectionElement = section;
     sectionInfo.segmentElements = segmentElements;
@@ -82,18 +85,18 @@ const startHellomegBomb = (e) => {
       swipeCountElements[swipeCount - 1].classList.add("swiped");
       if (swipeCount >= currentSectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT) {
         // disable rightButton
-        rightButton.onclick = null;
         rightButton.classList.add("disabled");
         // activate leftButton
         leftButton.classList.remove("disabled");
-        leftButton.onclick = handleClick;
       }
     }
     // 位置をリセット
     rightButton.style.top = "0px";
   }
 
-  const handleClick = () => {
+  const handleTap = (e) => {
+    e.preventDefault();
+
     swipeCount = 0;
     currentSegment++;
     currentSectionInfo.segmentElements[currentSegment - 1].classList.add("swiped");
@@ -120,11 +123,9 @@ const startHellomegBomb = (e) => {
     });
 
     // disable LeftButton
-    leftButton.onclick = null;
     leftButton.classList.add("disabled");
     // activate RightButton
     rightButton.classList.remove("disabled");
-    rightButton.onclick = handleSwipe;
   }
 
   const moveImage = () => {
@@ -137,16 +138,18 @@ const startHellomegBomb = (e) => {
   rightButton.addEventListener('touchstart', (event) => {
     swipeStartY = event.touches[0].pageY;
   });
-
   rightButton.addEventListener('touchmove', (event) => {
     swipeEndY = event.touches[0].pageY;
     moveImage();
   });
-
   rightButton.addEventListener('touchend', () => {
     handleSwipe();
   });
+  leftButton.addEventListener("touchstart", (event) => {
+    handleTap(event);
+  });
 
+  // 要素の表示・非表示を切り替えてゲームスタート
   document.getElementById("description").style.display = "none";
   sectionWrapper.style.display = null;
   buttonWrapper.style.display = null;

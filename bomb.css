@@ -1,9 +1,23 @@
+:root {
+  --color-fg: #333333;
+  --color-bg: #fcfcfc;
+  --color-fg-sub: #767676;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-fg: #fcfcfc;
+    --color-bg: #333333;
+    --color-fg-sub: #cccccc;
+  }
+}
+
 #section-wrapper {
   display: flex;
   width: 100%;
   height: 30px;
   max-width: 400px;
-  border: 2px solid var(--color-dark);
+  border: 2px solid var(--color-fg);
   border-radius: 6px;
   margin: 2px auto 28px;
 }
@@ -11,7 +25,7 @@
 .section {
   flex: 1;
   display: flex;
-  border-right: 2px solid var(--color-dark);
+  border-right: 2px solid var(--color-fg);
   position: relative;
 }
 
@@ -20,7 +34,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--color-dark);
+  color: var(--color-fg);
   opacity: 0.5;
   font-size: 1.5em;
 }
@@ -40,7 +54,7 @@
 
 .segment {
   flex: 1;
-  border-right: 1px dashed var(--color-dark);
+  border-right: 1px dashed var(--color-fg);
 }
 
 .segment.swiped {
@@ -86,7 +100,7 @@
 #swipe-gauge {
   width: 8px;
   height: 70px;
-  border: 1px solid var(--color-dark);
+  border: 1px solid var(--color-fg);
   border-radius: 4px;
   margin: 25px 0 5px;
   display: flex;
@@ -95,7 +109,7 @@
 
 .swipe-gauge-block {
   flex: 1;
-  border-bottom: 1px dashed var(--color-dark);
+  border-bottom: 1px dashed var(--color-fg);
 }
 
 .swipe-gauge-block.swiped {
