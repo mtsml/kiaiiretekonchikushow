@@ -245,3 +245,7 @@ h1 > a {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.breadcrumb {
+ text-align: left;
+}
