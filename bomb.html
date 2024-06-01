@@ -64,29 +64,41 @@
     <p>
       <span id="timer">0.0 秒</span>
     </p>
-    <span id="gaugeLabel" style="display: none;">数字はこのセクションでハロめぐためのスワイプ数</span>
-    <div id="gauge" class="gauge" style="display: none;"></div>
     <div
-      id="bomb-container"
+      id="section-wrapper"
+      style="display: none;"
+    ></div>
+    <div
+      id="button-container"
       style="display: none;"
     >
-      <img
-        id="leftButton"
-        src="./assets/puchihasu.png"
-        class="button disabled"
-      >
-      <div class="rightButtonWrapper">
+      <div class="button-wrapper">
         <img
-          id="rightButton"
-          src="./assets/ohsawa.png"
-          class="button"
+          id="left-button"
+          src="./assets/puchihasu.png"
+          class="button disabled"
         >
-        <div id="swipe-count" class="segment-gage">
-          <div class="segment-gage-block" style="display: none;"></div>
-          <div class="segment-gage-block" style="display: none;"></div>
-          <div class="segment-gage-block" style="display: none;"></div>
-          <div class="segment-gage-block" style="display: none;"></div>
-          <div class="segment-gage-block" style="display: none;"></div>
+        <div>
+          <span>たっぷ</span>
+        </div>
+      </div>
+      <div>
+        <div class="right-button-wrapper">
+          <img
+            id="right-button"
+            src="./assets/ohsawa.png"
+            class="button"
+          >
+          <div id="swipe-gauge">
+            <div class="swipe-gauge-block" style="display: none;"></div>
+            <div class="swipe-gauge-block" style="display: none;"></div>
+            <div class="swipe-gauge-block" style="display: none;"></div>
+            <div class="swipe-gauge-block" style="display: none;"></div>
+            <div class="swipe-gauge-block" style="display: none;"></div>
+          </div>
+        </div>
+        <div>
+          <span>すわいぷ</span>
         </div>
       </div>
     </div>

@@ -1,42 +1,11 @@
-.button {
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-  user-select: none;
-  position: relative;
-}
-
-.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-#bomb-container {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#rightButton {
-  top: 0px;
-  left: 0px;
-}
-
-#leftButton {
-  top: 0px;
-  left: 0px;
-}
-
-.gauge {
+#section-wrapper {
   display: flex;
   width: 100%;
   height: 30px;
+  max-width: 400px;
   border: 2px solid var(--color-dark);
   border-radius: 6px;
-  margin: 2px 0 28px;
-}
-
-#gaugeLabel {
-  font-size: 0.8em;
+  margin: 2px auto 28px;
 }
 
 .section {
@@ -56,6 +25,10 @@
   font-size: 1.5em;
 }
 
+.currentSection :not(.section-text) {
+  opacity: 0.5;
+}
+
 .currentSection .section-text {
   opacity: 1;
   font-weight: bold;
@@ -71,32 +44,60 @@
 }
 
 .segment.swiped {
-  background-color: pink;
+  background-color: #5383C3;
 }
 
 .segment:last-child {
   border-right: none;
 }
 
-.rightButtonWrapper {
+#button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#right-button {
+  top: 0px;
+  left: 0px;
+}
+
+#left-button {
+  top: 0px;
+  left: 0px;
+}
+
+.button {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.right-button-wrapper {
   display: flex;
 }
 
-.segment-gage {
+#swipe-gauge {
   width: 8px;
   height: 70px;
-  border: 2px solid var(--color-dark);
+  border: 1px solid var(--color-dark);
   border-radius: 4px;
   margin: 25px 0 5px;
   display: flex;
   flex-direction: column-reverse;
 }
 
-.segment-gage-block {
+.swipe-gauge-block {
   flex: 1;
   border-bottom: 1px dashed var(--color-dark);
 }
 
-.segment-gage-block.swiped {
+.swipe-gauge-block.swiped {
   background-color: #ABC88B;
 }

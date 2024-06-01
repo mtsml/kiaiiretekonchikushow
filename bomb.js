@@ -1,64 +1,61 @@
-const SWIPE_THRESHOLD = 20;
-const COUNT_TO_NEXT_ROUND_LIST = [
+const SECTION_INFO_LIST = [
   {
-    TAP_COUNT_TO_NEXT_ROUND: 10,
-    SWIPE_COUNT: 1,
+    SEGMENTS: 10,
+    SWIPE_COUNT_TO_NEXT_SEGMENT: 1,
   },
   {
-    TAP_COUNT_TO_NEXT_ROUND: 8,
-    SWIPE_COUNT: 2,
+    SEGMENTS: 8,
+    SWIPE_COUNT_TO_NEXT_SEGMENT: 2,
   },
   {
-    TAP_COUNT_TO_NEXT_ROUND: 6,
-    SWIPE_COUNT: 3,
+    SEGMENTS: 6,
+    SWIPE_COUNT_TO_NEXT_SEGMENT: 3,
   },
   {
-    TAP_COUNT_TO_NEXT_ROUND: 5,
-    SWIPE_COUNT: 4,
+    SEGMENTS: 5,
+    SWIPE_COUNT_TO_NEXT_SEGMENT: 4,
   },
   {
-    TAP_COUNT_TO_NEXT_ROUND: 3,
-    SWIPE_COUNT: 5,
+    SEGMENTS: 3,
+    SWIPE_COUNT_TO_NEXT_SEGMENT: 5,
   },
 ];
+const SWIPE_THRESHOLD = 20;
 
-/**
- * 
- */
 const startHellomegBomb = (e) => {
   e.onclick = null;
 
   let currentSection = 0
   let currentSectionInfo = {};
+  let currentSegment = 0;
   let swipeCount = 0;
-  let tapCount = 0;
-  let startY = 0;
-  let endY = 0;
+  let swipeStartY = 0;
+  let swipeEndY = 0;
 
-  const rightButton = document.getElementById("rightButton");
-  const leftButton = document.getElementById("leftButton");
-  const gaugeElement = document.getElementById("gauge");
-  const gaugeLabelElement = document.getElementById("gaugeLabel");
+  const buttonWrapper = document.getElementById("button-container");
+  const rightButton = document.getElementById("right-button");
+  const leftButton = document.getElementById("left-button");
+  const sectionWrapper = document.getElementById("section-wrapper");
 
   // セクション情報を初期化
-  const sectionInfos = COUNT_TO_NEXT_ROUND_LIST
+  const sectionInfos = SECTION_INFO_LIST
                         .map(section => ({ ...section, sort: Math.random() }))
                         .sort((a, b) => a.sort - b.sort);
 
-  // ゲージを作成
+  // セクション情報を要素に反映する
   sectionInfos.forEach(sectionInfo => {
-    // section wrapper
+    // section
     const section = document.createElement("div");
     section.classList.add("section");
-    gaugeElement.appendChild(section);
+    sectionWrapper.appendChild(section);
     // section text
     const sectionText = document.createElement("span");
-    sectionText.innerText = sectionInfo.SWIPE_COUNT;
+    sectionText.innerText = sectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT;
     sectionText.classList.add("section-text");
     section.appendChild(sectionText);
     // segment
     const segmentElements = [];
-    Array.from({ length: sectionInfo.TAP_COUNT_TO_NEXT_ROUND }).map(() => {
+    Array.from({ length: sectionInfo.SEGMENTS }).forEach(() => {
       const segment = document.createElement("div");
       segment.classList.add("segment");
       section.appendChild(segment);
@@ -73,8 +70,8 @@ const startHellomegBomb = (e) => {
   currentSectionInfo.sectionElement.classList.add("currentSection");
 
   // スワイプゲージを初期化
-  const swipeCountElements = document.getElementsByClassName("segment-gage-block");
-  Array.from({ length: currentSectionInfo.SWIPE_COUNT }).forEach((_, index) => {
+  const swipeCountElements = document.getElementsByClassName("swipe-gauge-block");
+  Array.from({ length: currentSectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT }).forEach((_, index) => {
     swipeCountElements[index].style.display = null;
   });
 
@@ -83,7 +80,7 @@ const startHellomegBomb = (e) => {
     if (currentTop >= SWIPE_THRESHOLD) {
       swipeCount++;
       swipeCountElements[swipeCount - 1].classList.add("swiped");
-      if (swipeCount >= currentSectionInfo.SWIPE_COUNT) {
+      if (swipeCount >= currentSectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT) {
         // disable rightButton
         rightButton.onclick = null;
         rightButton.classList.add("disabled");
@@ -98,14 +95,15 @@ const startHellomegBomb = (e) => {
 
   const handleClick = () => {
     swipeCount = 0;
-    tapCount++;
-    currentSectionInfo.segmentElements[tapCount - 1].classList.add("swiped");
-    if (tapCount >= currentSectionInfo.TAP_COUNT_TO_NEXT_ROUND) {
+    currentSegment++;
+    currentSectionInfo.segmentElements[currentSegment - 1].classList.add("swiped");
+ 
+    if (currentSegment >= currentSectionInfo.SEGMENTS) {
       // 次のセクションへ
-      tapCount = 0;
+      currentSegment = 0;
       currentSection++;
       // 最後のセクションが終了した場合はゲームを終了する
-      if (currentSection >= COUNT_TO_NEXT_ROUND_LIST.length) {
+      if (currentSection >= SECTION_INFO_LIST.length) {
         return;
       }
       currentSectionInfo = sectionInfos[currentSection];
@@ -116,7 +114,7 @@ const startHellomegBomb = (e) => {
     // スワイプゲージを初期化
     Array.from(swipeCountElements).forEach((swipeCountElement, index) => {
       swipeCountElement.classList.remove("swiped");
-      swipeCountElement.style.display = index < currentSectionInfo.SWIPE_COUNT
+      swipeCountElement.style.display = index < currentSectionInfo.SWIPE_COUNT_TO_NEXT_SEGMENT
                                         ? null
                                         : "none";
     });
@@ -130,18 +128,18 @@ const startHellomegBomb = (e) => {
   }
 
   const moveImage = () => {
-    const distance =  startY - endY;
+    const distance =  swipeStartY - swipeEndY;
     // 移動範囲は 0 から SWIPE_THRESHOLD の間
     const newTop = Math.max(Math.min(distance, SWIPE_THRESHOLD), 0);
     rightButton.style.top = `-${newTop}px`;
   }
 
   rightButton.addEventListener('touchstart', (event) => {
-    startY = event.touches[0].pageY;
+    swipeStartY = event.touches[0].pageY;
   });
 
   rightButton.addEventListener('touchmove', (event) => {
-    endY = event.touches[0].pageY;
+    swipeEndY = event.touches[0].pageY;
     moveImage();
   });
 
@@ -150,9 +148,8 @@ const startHellomegBomb = (e) => {
   });
 
   document.getElementById("description").style.display = "none";
-  document.getElementById("bomb-container").style.display = null;
-  gaugeElement.style.display = null;
-  gaugeLabelElement.style.display = null;
+  sectionWrapper.style.display = null;
+  buttonWrapper.style.display = null;
 
   // 100ms 単位のタイマーを設定
   let time = 0;
@@ -161,10 +158,9 @@ const startHellomegBomb = (e) => {
     time++;
     timerElement.innerText = `${Math.floor(time / 10)}.${Math.floor(time % 10)} 秒`;
 
-    // round が MAX_ROUND に到達してからゲームが終了するまで最大 100ms の誤差が生じるが許容する
-    if (currentSection >= COUNT_TO_NEXT_ROUND_LIST.length) {
+    if (currentSection >= sectionInfos.length) {
       clearInterval(interval);
-      document.getElementById("bomb-container").style.display = "none";
+      document.getElementById("button-container").style.display = "none";
       document.getElementById("result").style.display = "block";
 
       // timerElement の反映を待つために非同期実行する
