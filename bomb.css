@@ -1,3 +1,74 @@
+.button {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
 .disabled {
   opacity: 0.5;
+  pointer-events: none;
+}
+
+#rightButton {
+  top: 0px;
+  left: 0px;
+}
+
+#leftButton {
+  top: 0px;
+  left: 0px;
+}
+
+.gauge {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  border: 2px solid var(--color-dark);
+  border-radius: 6px;
+  margin: 10px 0 30px;
+}
+
+#gaugeLabel {
+  font-size: 0.8em;
+}
+
+.section {
+  flex: 1;
+  display: flex;
+  border-right: 2px solid var(--color-dark);
+  position: relative;
+}
+
+.section-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-dark);
+  opacity: 0.5;
+  font-size: 1.5em;
+}
+
+.currentSection .section-text {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.section:last-child {
+  border-right: none;
+}
+
+.segment {
+  flex: 1;
+  border-right: 1px dashed var(--color-dark);
+}
+
+.segment.swiped {
+  background-color: #ABC88B;
+}
+
+.segment:last-child {
+  border-right: none;
 }
