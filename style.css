@@ -29,7 +29,12 @@ footer {
   padding: 1em;
 }
 
-h1, p {
+h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.8em;
+}
+
+p {
   margin-bottom: 1em;
 }
 
