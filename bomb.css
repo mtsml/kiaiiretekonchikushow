@@ -19,7 +19,7 @@
   max-width: 400px;
   border: 2px solid var(--color-fg-sub);
   border-radius: 6px;
-  margin: 2px auto 28px;
+  margin: 2px auto 18px;
 }
 
 .section {
@@ -118,4 +118,8 @@
 
 .swipe-gauge-block.swiped {
   background-color: #ABC88B;
+}
+
+p {
+  margin-bottom: 0.5em;
 }
