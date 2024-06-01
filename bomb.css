@@ -11,6 +11,11 @@
   pointer-events: none;
 }
 
+#bomb-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #rightButton {
   top: 0px;
   left: 0px;
@@ -27,7 +32,7 @@
   height: 30px;
   border: 2px solid var(--color-dark);
   border-radius: 6px;
-  margin: 10px 0 30px;
+  margin: 2px 0 28px;
 }
 
 #gaugeLabel {
@@ -66,9 +71,32 @@
 }
 
 .segment.swiped {
-  background-color: #ABC88B;
+  background-color: pink;
 }
 
 .segment:last-child {
   border-right: none;
+}
+
+.rightButtonWrapper {
+  display: flex;
+}
+
+.segment-gage {
+  width: 8px;
+  height: 70px;
+  border: 2px solid var(--color-dark);
+  border-radius: 4px;
+  margin: 25px 0 5px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.segment-gage-block {
+  flex: 1;
+  border-bottom: 1px dashed var(--color-dark);
+}
+
+.segment-gage-block.swiped {
+  background-color: #ABC88B;
 }

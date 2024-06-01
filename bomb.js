@@ -44,6 +44,7 @@ const startHellomegBomb = (e) => {
   const sectionInfos = COUNT_TO_NEXT_ROUND_LIST
                         .map(section => ({ ...section, sort: Math.random() }))
                         .sort((a, b) => a.sort - b.sort);
+
   // ゲージを作成
   sectionInfos.forEach(sectionInfo => {
     // section wrapper
@@ -71,10 +72,17 @@ const startHellomegBomb = (e) => {
   currentSectionInfo = sectionInfos[currentSection];
   currentSectionInfo.sectionElement.classList.add("currentSection");
 
+  // スワイプゲージを初期化
+  const swipeCountElements = document.getElementsByClassName("segment-gage-block");
+  Array.from({ length: currentSectionInfo.SWIPE_COUNT }).forEach((_, index) => {
+    swipeCountElements[index].style.display = null;
+  });
+
   const handleSwipe = () => {
     const currentTop = Math.abs(parseFloat(rightButton.style.top));
     if (currentTop >= SWIPE_THRESHOLD) {
       swipeCount++;
+      swipeCountElements[swipeCount - 1].classList.add("swiped");
       if (swipeCount >= currentSectionInfo.SWIPE_COUNT) {
         // disable rightButton
         rightButton.onclick = null;
@@ -104,6 +112,14 @@ const startHellomegBomb = (e) => {
       sectionInfos[currentSection - 1].sectionElement.classList.remove("currentSection");
       currentSectionInfo.sectionElement.classList.add("currentSection");
     }
+
+    // スワイプゲージを初期化
+    Array.from(swipeCountElements).forEach((swipeCountElement, index) => {
+      swipeCountElement.classList.remove("swiped");
+      swipeCountElement.style.display = index < currentSectionInfo.SWIPE_COUNT
+                                        ? null
+                                        : "none";
+    });
 
     // disable LeftButton
     leftButton.onclick = null;

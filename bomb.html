@@ -75,11 +75,20 @@
         src="./assets/puchihasu.png"
         class="button disabled"
       >
-      <img
-        id="rightButton"
-        src="./assets/ohsawa.png"
-        class="button"
-      >
+      <div class="rightButtonWrapper">
+        <img
+          id="rightButton"
+          src="./assets/ohsawa.png"
+          class="button"
+        >
+        <div id="swipe-count" class="segment-gage">
+          <div class="segment-gage-block" style="display: none;"></div>
+          <div class="segment-gage-block" style="display: none;"></div>
+          <div class="segment-gage-block" style="display: none;"></div>
+          <div class="segment-gage-block" style="display: none;"></div>
+          <div class="segment-gage-block" style="display: none;"></div>
+        </div>
+      </div>
     </div>
     <p id="description">
       大沢をスワイプしてからハロめぐをタップ<br>
