@@ -124,6 +124,6 @@ html, body {
   background-color: #ABC88B;
 }
 
-p {
+.timer-wrapper {
   margin-bottom: 0.5em;
 }

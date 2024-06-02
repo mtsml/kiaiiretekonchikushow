@@ -164,6 +164,7 @@ const startHellomegBomb = (e) => {
       clearInterval(interval);
       buttonContainer.style.display = "none";
       document.getElementById("result").style.display = "block";
+      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%9C%E3%83%B3%E3%83%90%E3%83%BC%0D%0A%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%81%A7%E3%82%B9%E3%83%AF%E3%82%A4%E3%83%97%E6%84%9F%E8%A6%9A%E3%82%92%E6%8E%B4%E3%82%82%E3%81%86%E3%80%82%E7%A7%81%E3%81%AE%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${Math.floor(time / 10)}.${Math.floor(time % 10)}+%E7%A7%92%EF%BC%81%0D%0A&url=https://kiaiiretekonchiku.show/bomb.html`;
 
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
