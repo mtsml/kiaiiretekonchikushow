@@ -32,7 +32,7 @@ const startHellomegBomb = (e) => {
   let swipeStartY = 0;
   let swipeEndY = 0;
 
-  const buttonWrapper = document.getElementById("button-container");
+  const buttonContainer = document.getElementById("button-container");
   const rightButton = document.getElementById("right-button");
   const leftButton = document.getElementById("left-button");
   const sectionWrapper = document.getElementById("section-wrapper");
@@ -94,9 +94,7 @@ const startHellomegBomb = (e) => {
     rightButton.style.top = "0px";
   }
 
-  const handleTap = (e) => {
-    e.preventDefault();
-
+  const handleTap = () => {
     swipeCount = 0;
     currentSegment++;
     currentSectionInfo.segmentElements[currentSegment - 1].classList.add("swiped");
@@ -104,13 +102,13 @@ const startHellomegBomb = (e) => {
     if (currentSegment >= currentSectionInfo.SEGMENTS) {
       // 次のセクションへ
       currentSegment = 0;
+      currentSectionInfo.sectionElement.classList.remove("currentSection");
       currentSection++;
       // 最後のセクションが終了した場合はゲームを終了する
       if (currentSection >= SECTION_INFO_LIST.length) {
         return;
       }
       currentSectionInfo = sectionInfos[currentSection];
-      sectionInfos[currentSection - 1].sectionElement.classList.remove("currentSection");
       currentSectionInfo.sectionElement.classList.add("currentSection");
     }
 
@@ -146,13 +144,14 @@ const startHellomegBomb = (e) => {
     handleSwipe();
   });
   leftButton.addEventListener("touchstart", (event) => {
-    handleTap(event);
+    if (event.cancelable) event.preventDefault();
+    handleTap();
   });
 
   // 要素の表示・非表示を切り替えてゲームスタート
   document.getElementById("description").style.display = "none";
   sectionWrapper.style.display = null;
-  buttonWrapper.style.display = null;
+  buttonContainer.style.display = null;
 
   // 100ms 単位のタイマーを設定
   let time = 0;
@@ -163,7 +162,7 @@ const startHellomegBomb = (e) => {
 
     if (currentSection >= sectionInfos.length) {
       clearInterval(interval);
-      document.getElementById("button-container").style.display = "none";
+      buttonContainer.style.display = "none";
       document.getElementById("result").style.display = "block";
 
       // timerElement の反映を待つために非同期実行する
