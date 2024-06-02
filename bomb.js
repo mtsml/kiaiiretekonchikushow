@@ -1,22 +1,22 @@
 const SECTION_INFO_LIST = [
   {
-    SEGMENTS: 10,
+    SEGMENTS: 8,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 1,
   },
   {
-    SEGMENTS: 8,
+    SEGMENTS: 6,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 2,
   },
   {
-    SEGMENTS: 6,
+    SEGMENTS: 4,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 3,
   },
   {
-    SEGMENTS: 4,
+    SEGMENTS: 3,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 4,
   },
   {
-    SEGMENTS: 3,
+    SEGMENTS: 2,
     SWIPE_COUNT_TO_NEXT_SEGMENT: 5,
   },
 ];
