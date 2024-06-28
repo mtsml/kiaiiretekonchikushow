@@ -46,6 +46,7 @@ h2 {
 
 p {
   margin-bottom: 1em;
+  line-height: 2;
 }
 
 h3 {
@@ -91,6 +92,19 @@ h1 > a {
   a {
     color: var(--color-lightgray);
   }
+}
+
+li {
+  list-style: none;
+  line-height: 1.7;
+}
+
+li:not(:last-child) {
+  padding-bottom: 0.5em;
+}
+
+li:last-child {
+  margin-bottom: 0.8em;
 }
 
 .logo {
