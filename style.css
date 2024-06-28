@@ -103,6 +103,10 @@ li:not(:last-child) {
   padding-bottom: 0.5em;
 }
 
+li:last-child {
+  margin-bottom: 0.8em;
+}
+
 .logo {
   width: 300px;
   padding-bottom: 1em;
