@@ -14,4 +14,4 @@ open index.html
 - JavaScript フレームワークは利用しない
 
 ## デプロイ
-Cloudflare でホストしています。master にマージされると自動でデプロイされる。
+Cloudflare でホストしている。master にマージされると自動でデプロイされる。
