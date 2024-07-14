@@ -1,0 +1,37 @@
+:root {
+  --color-fg: var(--color-dark);
+  --color-fg-sub: var(--color-gray);
+  --color-bg: var(--color-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-fg: var(--color-light);
+    --color-fg-sub: var(--color-lightgray);
+    --color-bg: var(--color-dark);  
+  }
+}
+
+#skill-container {
+  margin-top: 1em;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.skill {
+  cursor: pointer;
+}
+
+.button-wrapper {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  font-size: 1em;
+  padding: 0.1em 0.5em;
+  border: 3px solid var(--color-fg-sub);
+  border-radius: 10px;
+}
