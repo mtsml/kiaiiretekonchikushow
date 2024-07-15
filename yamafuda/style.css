@@ -55,7 +55,8 @@ button:active {
   top: 3px;
 }
 
-#modal {
+#modal,
+#replace-skill-modal {
   position: fixed;
   inset: 0;
   margin: auto;
@@ -68,18 +69,30 @@ button:active {
   color: var(--color-fg);
 }
 
-#modal h2 {
+#replace-skill-modal {
+  max-width: calc(100% - 8em);
+  max-height: calc(100% - 8em);
+}
+
+#modal h2,
+#replace-skill-modal h2 {
   font-size: 1.15em;
   padding-bottom: 0.2em;
   border-bottom: 2px dashed var(--color-fg-sub);
 }
 
-#modal .skill-list {
+#modal .skill-list,
+#replace-skill-modal .skill-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
 }
 
-#modal footer {
+#modal footer,
+#replace-skill-modal footer {
   padding: 0.5em;
+}
+
+#replace-skill-modal p {
+  margin-bottom: 0;
 }

@@ -65,7 +65,8 @@
     </div>
     <p id="description">
       <span>ハロめぐをタップしてスタート！</span><br>
-      <span>※スワイプ非対応</span>
+      <span>※スワイプできません</span>
+      <span>※ドレスは作れません</span>
     </p>
     <div
       id="result"
@@ -82,6 +83,25 @@
           <ul id="modal-sutefuda-list" class="skill-list"></ul>
           <footer>
             <button id="modal-close-button" onclick="closeModal()">閉じる</button>
+          </footer>
+        </dialog>
+        <dialog id="replace-skill-modal">
+          <section id="replace-skill-modal-replace-from">
+          </section>
+          <section id="replace-skill-modal-tefuda">
+            <h2>手札</h2>
+            <ul id="replace-skill-modal-tefuda-list" class="skill-list"></ul>
+          </section>
+          <section id="replace-skill-modal-yamafuda">
+            <h2>山札</h2>
+            <ul id="replace-skill-modal-yamafuda-list" class="skill-list"></ul>
+          </section>
+          <section id="replace-skill-modal-sutefuda">
+            <h2>捨札</h2>
+            <ul id="replace-skill-modal-sutefuda-list" class="skill-list"></ul>
+          </section>
+          <footer>
+            <button id="replace-skill-modal-close-button" onclick="closeReplaceSkillModal()">閉じる</button>
           </footer>
         </dialog>
       </div>
