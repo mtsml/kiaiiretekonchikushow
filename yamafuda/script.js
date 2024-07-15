@@ -1,100 +1,83 @@
 const SKILLS = [
+  // gin
+  {
+    id: "gin_bsbd",
+    src: "../assets/gin_bsbd.jpg",
+  },
+  {
+    id: "gin_seiran",
+    src: "../assets/gin_seiran.jpg",
+  },
+  // suzu
+  {
+    id: "suzu_bsbd",
+    src: "../assets/suzu_bsbd.jpg",
+  },
+  {
+    id: "suzu_ladybug",
+    src: "../assets/suzu_ladybug.jpg",
+  },
+  // hime
+  {
+    id: "hime_mirakuri",
+    src: "../assets/hime_mirakuri.jpg",
+  },
+  {
+    id: "hime_seiran",
+    src: "../assets/hime_seiran.jpg",
+  },
   // kaho
   {
-    id: "FM花帆",
-    name: "FM花帆",
-    src: "../assets/kaho_fm.jpg"
+    id: "kaho_hsct",
+    src: "../assets/kaho_hsct.jpg",
   },
   {
-    id: "ST花帆",
-    name: "ST花帆",
-    src: "../assets/kaho_st.jpg"
-  },
-  {
-    id: "ゆのくに花帆",
-    name: "ゆのくに花帆",
-    src: "../assets/kaho_yunokuni.jpg"
+    id: "kaho_utage",
+    src: "../assets/kaho_utage.jpg",
   },
   // saya
   {
-    id: "ドルビさやか",
-    name: "ドルビさやか",
-    src: "../assets/saya_dorubi.jpg"
-  },
-  {
-    id: "シャボンさやか",
-    name: "シャボンさやか",
-    src: "../assets/saya_syabon.jpg"
-  },
-  {
-    id: "ゆのくにさやか",
-    name: "ゆのくにさやか",
-    src: "../assets/saya_yunokuni.jpg"
+    id: "saya_lttf",
+    src: "../assets/saya_lttf.jpg",
   },
   // ruri
   {
-    id: "LttF瑠璃乃",
-    name: "LttF瑠璃乃",
-    src: "../assets/ruri_lttf.jpg"
-  },
-  {
-    id: "夏めき瑠璃乃",
-    name: "夏めき瑠璃乃",
-    src: "../assets/ruri_natsu.jpg",
+    id: "ruri_db",
+    src: "../assets/ruri_db.jpg",
     reshuffle: true,
   },
   {
-    id: "ツバサ瑠璃乃",
-    name: "ツバサ瑠璃乃",
-    src: "../assets/ruri_tsubasa.jpg"
+    id: "ruri_mirakuri",
+    src: "../assets/ruri_mirakuri.jpg",
+    reshuffle: true,
   },
   // kozu
   {
-    id: "ダイハツ梢",
-    name: "ダイハツ梢",
-    src: "../assets/kozu_daihatsu.jpg"
+    id: "kozu_dn",
+    src: "../assets/kozu_dn.jpg",
   },
   {
-    id: "DN梢",
-    name: "DN梢",
-    src: "../assets/kozu_dn.jpg"
-  },
-  {
-    id: "桃節銘記梢",
-    name: "桃節銘記梢",
-    src: "../assets/kozu_momo.jpg"
+    id: "kozu_hsct",
+    src: "../assets/kozu_hsct.jpg",
   },
   // tsuzu
   {
-    id: "DB綴理",
-    name: "DB綴理",
-    src: "../assets/tsuzu_db.jpg"
+    id: "tsuzu_cn",
+    src: "../assets/tsuzu_cn.jpg",
   },
   {
-    id: "DN綴理",
-    name: "DN綴理",
-    src: "../assets/tsuzu_dn.jpg"
-  },
-  {
-    id: "ツバサ綴理",
-    name: "ツバサ綴理",
-    src: "../assets/tsuzu_tsubasa.jpg"
+    id: "tsuzu_tousetsu",
+    src: "../assets/tsuzu_tousetsu.jpg",
   },
   // megu
   {
-    id: "冬めぐ",
-    name: "冬めぐ",
-    src: "../assets/megu_fuyu.jpg"
+    id: "megu_hsct",
+    src: "../assets/megu_hsct.jpg",
+    reshuffle: true,
   },
   {
-    id: "ハピめぐ",
-    name: "ハピめぐ",
-    src: "../assets/megu_happy.jpg"
-  },
-  {
-    id: "ツバサめぐ",
-    name: "ツバサめぐ",
-    src: "../assets/megu_tsubasa.jpg"
+    id: "megu_mirakuri",
+    src: "../assets/megu_mirakuri.jpg",
   },
 ];
 const SKILL_CONTAINER_ORIGINAL_WIDTH = 600;
