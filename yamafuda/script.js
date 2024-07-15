@@ -284,7 +284,7 @@ const getScale = () => {
  * @param {Skills} skills
  */
 const updateModalOpenButton = (skills) => {
-  const text = `山札：${String(skills.yamafudas.length).padStart(2, "0")} 捨て札：${String(skills.sutefudas.length).padStart(2, "0")}`;
+  const text = `捨て札：${String(skills.sutefudas.length).padStart(2, "0")} 山札：${String(skills.yamafudas.length).padStart(2, "0")}`;
   const modalOpenButton = document.getElementById("modal-open-button");
   modalOpenButton.innerText = text;
   modalOpenButton.onclick = () => showModal(skills);
