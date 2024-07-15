@@ -162,7 +162,7 @@ const appendSkillsToContainer = (skills, container) => {
     // クリック時にスキルを使用する
     imgElement.onclick = () => {
       if (skills.findById(imgElement.id).reshuffle) {
-        const nextSkills = skills.reshuffle();
+        const nextSkills = skills.reshuffle(imgElement.id);
         // 手札の表示情報を更新する
         nextSkills.forEach((nextSkill, index) => {
           const skillElement = document.getElementsByClassName("skill")[index];
@@ -443,8 +443,11 @@ class Skills {
   /**
    * 手札をすべて捨てて引き直す
    */
-  reshuffle() {
-    const nextSkills = [];
+  reshuffle(usedSkillId) {
+    // 使用 skill 以外の手札を捨札に
+    this.tefudas
+      .filter(skill => skill.id !== usedSkillId)
+      .forEach(skill => skill.state = Skills.STATES.SUTEFUDA);
 
     for (let i = 0; i < 8; i++) {
       // 山札が0枚の場合は捨て札を山札に戻す
@@ -457,18 +460,12 @@ class Skills {
       // 山札から skill を一枚ランダムに引く
       const nextSkill = shuffleArray(this.yamafudas)[0];
       nextSkill.state = Skills.STATES.TEFUDA;
-      nextSkills.push(nextSkill);
     }
 
-    // 手札を更新する
-    this.tefudas
-      .filter(skill => nextSkills.every(nextSkill => nextSkill.id !== skill.id))
-      .forEach(skill => skill.state = Skills.STATES.SUTEFUDA);
-    this.skills
-      .filter(skill => nextSkills.some(nextSkill => nextSkill.id === skill.id))
-      .forEach(skill => skill.state = Skills.STATES.TEFUDA);
+    // 使用 skill を捨札に
+    this.findById(usedSkillId).state = Skills.STATES.SUTEFUDA;
 
-    return nextSkills;
+    return this.tefudas;
   }
 }
 
