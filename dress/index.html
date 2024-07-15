@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="og:title" content="山札管理（仮） | めぐ島">
-  <meta name="og:url" content="https://kiaiiretekonchiku.show/yamafuda/">
+  <meta name="og:title" content="ハロめぐドレス | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/dress">
   <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
   <meta name="og:type" content="website">
   <meta name="og:site_name" content="めぐ島">
@@ -27,7 +27,7 @@
     gtag('config', 'G-0LRB16S0GH');
   </script>
   <script src="./script.js"></script>
-  <title>山札管理（仮） | めぐ島</title>
+  <title>ハロめぐドレス | めぐ島</title>
 </head>
 <body class="overflow-hidden">
   <!--
@@ -52,7 +52,7 @@
       </a>
     </nav>
     <h1>
-      山札管理（仮）
+      ハロめぐドレス
     </h1>
   </header>
   <main>
@@ -64,9 +64,8 @@
       >
     </div>
     <p id="description">
-      <span>ハロめぐをタップしてスタート！</span><br>
-      <span>※スワイプできません</span><br>
-      <span>※ドレスは作れません</span>
+      <span>ドレスでハロめぐを着飾ろう</span><br>
+      <span>ハロめぐをタップしてスタート！</span>
     </p>
     <div
       id="result"
@@ -74,7 +73,7 @@
     >
       <div class="button-wrapper">
         <button id="confirm-skill-modal-open-button"></button>
- 
+
         <!-- カード確認モーダル -->
         <dialog id="confirm-skill-modal">
           <h2>手札確認</h2>
@@ -87,7 +86,7 @@
             <button id="modal-close-button" onclick="closeConfirmSkillModal()">閉じる</button>
           </footer>
         </dialog>
- 
+
         <!-- カード入替モーダル　 -->
         <dialog id="replace-skill-modal">
           <section id="replace-skill-modal-replace-from">
@@ -109,7 +108,30 @@
           </footer>
         </dialog>
       </div>
+
+      <!-- メイン画面手札 -->
       <div id="skill-container"></div>
+
+      <!-- リンク -->
+      <p>
+        <a
+          id="post"
+          href="https://twitter.com/intent/tweet?text=%EF%BC%BF%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%E4%BA%BA%EF%BC%BF%0A%EF%BC%9E%E3%80%80%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%E3%80%80%EF%BC%9C%0A%EF%BF%A3Y%5EY%5EY%5EY%5EY%5EY%5EY%EF%BF%A3%0A&url=https://kiaiiretekonchiku.show/"
+          target="_blank"
+        >
+          <!-- Twiiter Icon -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+          <span>ツイート文言</span>
+        </a>
+      </p>
+      <p>
+        <button onclick="location.reload()">
+          <!-- Reload Icon -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"/></svg>
+          <span>リトライ文言</span>
+        </button>
+      </p>
+
     </div>
   </main>
 </body>

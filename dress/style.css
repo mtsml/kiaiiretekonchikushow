@@ -13,7 +13,8 @@
 }
 
 #skill-container {
-  margin-top: 2em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -35,11 +36,7 @@
   cursor: pointer;
 }
 
-.button-wrapper {
-  margin-top: 1em;
-}
-
-button {
+.button-wrapper button {
   font-size: 1em;
   padding: 0.1em 0.5em;
   border: 2px solid var(--color-fg-sub);
@@ -49,10 +46,14 @@ button {
   box-shadow: 0 3px 2px rgba(0, 0, 0, .3);
 }
 
-button:active {
+.button-wrapper button:active {
   box-shadow: none;
   position: relative;
   top: 3px;
+}
+
+p {
+  margin-bottom: 0.5em;
 }
 
 #confirm-skill-modal,

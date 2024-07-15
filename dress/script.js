@@ -3,10 +3,24 @@ const SKILLS = [
   {
     id: "gin_bsbd",
     src: "../assets/gin_bsbd.jpg",
+    dress: true,
+    dressSrcs: [
+      "../assets/gin_bsbd-dress01.jpg",
+      "../assets/gin_bsbd-dress02.jpg",
+      "../assets/gin_bsbd-dress02.jpg",
+    ],
+    usedCnt: 0,
   },
   {
     id: "gin_seiran",
     src: "../assets/gin_seiran.jpg",
+    dress: true,
+    dressSrcs: [
+      "../assets/gin_seiran-dress01.jpg",
+      "../assets/gin_seiran-dress02.jpg",
+      "../assets/gin_seiran-dress03.jpg",
+    ],
+    usedCnt: 0,
   },
   // suzu
   {
@@ -243,7 +257,13 @@ class Skills {
       // メイン画面用
       const mainElement = createSkillElement(skill.id, skill.src);
       mainElement.onclick = () => {
-        skill.reshuffle ? this.reshuffle(mainElement.id) : this.drawSkill(mainElement.id);
+        if (skill.reshuffle) {
+          this.reshuffle(mainElement.id);
+        } else if (skill.dress) {
+          this.dress(mainElement.id);
+        } else {
+          this.drawSkill(mainElement.id);
+        }
         updateModalOpenButton(this);
       }
 
@@ -268,7 +288,7 @@ class Skills {
       replaceSkillModalElement.appendChild(replaceSkillModalElementImg);
 
       const replaceFromElement = document.createElement("img");
-      replaceFromElement.id = `${skill.id}`;
+      replaceFromElement.id = skill.id;
       replaceFromElement.src = skill.src;
       replaceFromElement.style.width = `${SKILL_ORIGINAL_WIDTH * scale}px`;
       replaceFromElement.style.height = "auto";
@@ -402,6 +422,64 @@ class Skills {
 
     // 手札を描画
     this.appendTefudasToContainer();
+  }
+
+  /**
+   * 山札に dress を追加する
+   */
+  dress(usedSkillId) {
+    const usedSkill = this.findById(usedSkillId);
+    usedSkill.usedCnt++;
+    const scale = getScale();
+
+    this.findById(usedSkillId).dressSrcs.forEach((src, index) => {
+      const skillId = `${usedSkillId}-${usedSkill.usedCnt}-${index}`;
+      // メイン画面用
+      const mainElement = createSkillElement(skillId, src);
+      mainElement.onclick = () => {
+        this.drawSkill(mainElement.id);
+        const skillsIndex = this.skills.findIndex(skill => skill.id === mainElement.id);
+        this.skills.splice(skillsIndex, 1);
+        updateModalOpenButton(this);
+      }
+
+      // カード確認画面用
+      const confirmSkillModalElementImg = createSkillElement(`confirm-skill-modal-skill-${skillId}`, src);
+      confirmSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_DEFAULT_SCALE * scale}px`;
+      confirmSkillModalElementImg.style.height = "auto";
+      confirmSkillModalElementImg.onclick = () => openReplaceSkillModal(this, skillId);
+      const confirmSkillModalElement = document.createElement("li");
+      confirmSkillModalElement.appendChild(confirmSkillModalElementImg);
+
+      // カード入替画面用
+      const replaceSkillModalElementImg = createSkillElement(`replace-skill-modal-skill-${skillId}`, src);
+      replaceSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_DEFAULT_SCALE * scale}px`;
+      replaceSkillModalElementImg.style.height = "auto";
+      replaceSkillModalElementImg.onclick = () => {
+        const replaceFromSkillId = document.getElementById("replace-skill-modal-replace-from").querySelector("img").id;
+        this.replace(replaceFromSkillId, skillId);
+        closeReplaceSkillModal();
+      };  
+      const replaceSkillModalElement = document.createElement("li");
+      replaceSkillModalElement.appendChild(replaceSkillModalElementImg);
+
+      const replaceFromElement = document.createElement("img");
+      replaceFromElement.id = skillId;
+      replaceFromElement.src = src;
+      replaceFromElement.style.width = `${SKILL_ORIGINAL_WIDTH * scale}px`;
+      replaceFromElement.style.height = "auto";
+
+      this.skills.push({
+        id: skillId,
+        state: Skills.STATES.YAMAFUDA,
+        mainElement,
+        confirmSkillModalElement,
+        replaceSkillModalElement,
+        replaceFromElement,
+      })
+    })
+
+    this.drawSkill(usedSkillId);
   }
 
   /**
