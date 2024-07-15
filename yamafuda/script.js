@@ -117,6 +117,7 @@ const startGame = (hellomegImgElement) => {
   // モーダル表示ボタンを更新
   updateModalOpenButton(skills);
 
+  document.getElementById("description").style.display = "none";
   document.getElementById("result").style.display = null;
 }
 
