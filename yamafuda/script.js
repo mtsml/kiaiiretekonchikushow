@@ -114,12 +114,8 @@ const startGame = (hellomegImgElement) => {
   const container = document.getElementById("skill-container");
   appendSkillsToContainer(skills, container);
 
-  // モーダルの開閉ボタンを設定
-  const modalOpenButton = document.getElementById("modal-open-button");
-  modalOpenButton.innerText = `山札：${skills.yamafudas.length} 捨て札：${skills.sutefudas.length}`;
-  modalOpenButton.onclick = () => showModal(skills);
-  const modalCloseButton = document.getElementById("modal-close-button");
-  modalCloseButton.onclick = () => closeModal();
+  // モーダル表示ボタンを更新
+  updateModalOpenButton(skills);
 
   document.getElementById("result").style.display = null;
 }
@@ -166,9 +162,8 @@ const appendSkillsToContainer = (skills, container) => {
         imgElement.id = nextSkill.id;
         imgElement.src = nextSkill.src;
       }
-      // 山札と捨て札の表示情報を更新する
-      const modalOpenButton = document.getElementById("modal-open-button");
-      modalOpenButton.innerText = `山札：${skills.yamafudas.length} 捨て札：${skills.sutefudas.length}`;    
+      // モーダル表示ボタンを更新
+      updateModalOpenButton(skills);
     }
     
     container.appendChild(imgElement);
@@ -300,9 +295,21 @@ const getScale = () => {
 }
 
 /**
+ * モーダル表示ボタンのテキストをクリック時の処理を更新する
+ * 
+ * @param {Skills} skills
+ */
+const updateModalOpenButton = (skills) => {
+  const text = `山札：${String(skills.yamafudas.length).padStart(2, "0")} 捨て札：${String(skills.sutefudas.length).padStart(2, "0")}`;
+  const modalOpenButton = document.getElementById("modal-open-button");
+  modalOpenButton.innerText = text;
+  modalOpenButton.onclick = () => showModal(skills);
+}
+
+/**
  * モーダルを開く
  * 
- * @param {Skills} skills 
+ * @param {Skills} skills
  */
 const showModal = (skills) => {
   // 各 list を初期化する
