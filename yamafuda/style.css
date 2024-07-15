@@ -30,14 +30,14 @@
 button {
   font-size: 1em;
   padding: 0.1em 0.5em;
-  border: 3px solid var(--color-fg-sub);
+  border: 2px solid var(--color-fg-sub);
   border-radius: 10px;
 }
 
 #modal {
   position: fixed;
   inset: 0;
-  margin: 3em;
+  margin: auto 3em;
   padding: 1em;
   border: 3px solid var(--color-fg-sub);
   border-radius: 10px;
