@@ -586,6 +586,6 @@ const addDressElement = (src) => {
  */
 const setTweetLink = (e) => {
   const dressCnt = document.getElementsByClassName("dress").length;
-  const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${dressCnt}着\n`);
+  const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${dressCnt}着！\n`);
   e.href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRESS_URL}`;
 }
