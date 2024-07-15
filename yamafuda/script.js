@@ -83,6 +83,40 @@ const SKILLS = [
 const SKILL_CONTAINER_ORIGINAL_WIDTH = 600;
 const SKILL_ORIGINAL_SCALE = 0.7;
 const SKILL_ORIGINAL_WIDTH = 100;
+const SKILL_TRANSFORMS = [
+  {
+    angle: -9.1,
+    translateY: 23,
+  },
+  {
+    angle: -6.5,
+    translateY: 13,
+  },
+  {
+    angle: -3.9,
+    translateY: 7,
+  },
+  {
+    angle: -1.3,
+    translateY: 2,
+  },
+  {
+    angle: 1.3,
+    translateY: 2,
+  },
+  {
+    angle: 3.9,
+    translateY: 7,
+  },
+  {
+    angle: 6.5,
+    translateY: 13,
+  },
+  {
+    angle: 9.1,
+    translateY: 23,
+  },
+];
 
 /**
  * skill からランダムに選んだ8つの画像を表示する
@@ -107,15 +141,10 @@ const startGame = (hellomegImgElement) => {
 /**
  * skills.tefuda を img 要素として描画して container に追加する
  * 
- * skills.tefuda は8つの前提で angle の初期値を設定している。
- * translateY は微調整した値なので計算式の意味を理解する必要はない。
- * 
  * @param {Skills} skills 
  * @param {HTMLDivElement} container 
  */
 const appendSkillsToContainer = (skills, container) => {
-  let angle = -9.1;
-
   const scale = getScale();
 
   skills.tefudas.forEach((skill, index) => {
@@ -124,7 +153,7 @@ const appendSkillsToContainer = (skills, container) => {
     imgElement.src = skill.src;
  
     // 8つの img が扇形に並ぶように各 skill の位置を調整する
-    const translateY = (Math.abs(index - 3.5) * 2) ** 1.13 * 2;
+    const { angle, translateY } = SKILL_TRANSFORMS[index];
     imgElement.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
     imgElement.style.height = "auto";
     imgElement.style.transform = `rotate(${angle}deg) translateY(${translateY * scale}px)`;
@@ -149,10 +178,8 @@ const appendSkillsToContainer = (skills, container) => {
       // モーダル表示ボタンを更新
       updateModalOpenButton(skills);
     }
-    
-    container.appendChild(imgElement);
 
-    angle += 2.6;
+    container.appendChild(imgElement);
   });
 }
 
