@@ -34,11 +34,13 @@ button {
   background-color: var(--color-fg-sub);
   color: var(--color-bg);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 2px rgba(0, 0, 0, .3);
 }
 
 button:active {
-  transform: scale(.95);
+  box-shadow: none;
+  position: relative;
+  top: 3px;
 }
 
 #modal {
