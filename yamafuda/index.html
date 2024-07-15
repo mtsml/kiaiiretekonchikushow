@@ -68,8 +68,18 @@
       style="display: none"
     >
       <div class="button-wrapper">
-        <button id="sutefuda-button"></button>
-        <button id="yamafuda-button"></button>
+        <button id="modal-open-button"></button>
+        <dialog id="modal">
+          <h2>手札確認</h2>
+          <ul id="modal-tefuda-list" class="skill-list"></ul>
+          <h2>山札確認</h2>
+          <ul id="modal-yamafuda-list" class="skill-list"></ul>
+          <h2>捨て札確認</h2>
+          <ul id="modal-sutefuda-list" class="skill-list"></ul>
+          <footer>
+            <button id="modal-close-button">閉じる</button>
+          </footer>
+        </dialog>
       </div>
       <div id="skill-container"></div>
     </div>
