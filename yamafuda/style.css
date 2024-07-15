@@ -55,7 +55,7 @@ button:active {
   top: 3px;
 }
 
-#modal,
+#confirm-skill-modal,
 #replace-skill-modal {
   position: fixed;
   inset: 0;
@@ -74,21 +74,21 @@ button:active {
   max-height: calc(100% - 8em);
 }
 
-#modal h2,
+#confirm-skill-modal h2,
 #replace-skill-modal h2 {
   font-size: 1.15em;
   padding-bottom: 0.2em;
   border-bottom: 2px dashed var(--color-fg-sub);
 }
 
-#modal .skill-list,
+#confirm-skill-modal .skill-list,
 #replace-skill-modal .skill-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
 }
 
-#modal footer,
+#confirm-skill-modal footer,
 #replace-skill-modal footer {
   padding: 0.5em;
 }

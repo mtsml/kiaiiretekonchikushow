@@ -125,11 +125,8 @@ const startGame = (hellomegImgElement) => {
   hellomegImgElement.onclick = null;
 
   // 手札を初期化
-  const skills = new Skills(SKILLS);
-
-  // 手札描画
   const container = document.getElementById("skill-container");
-  appendSkillsToContainer(skills, container);
+  const skills = new Skills(SKILLS, container);
 
   // モーダル表示ボタンを更新
   updateModalOpenButton(skills);
@@ -139,125 +136,59 @@ const startGame = (hellomegImgElement) => {
 }
 
 /**
- * skills.tefuda を img 要素として描画して container に追加する
- * 
- * @param {Skills} skills 
- * @param {HTMLDivElement} container 
- */
-const appendSkillsToContainer = (skills, container) => {
-  const scale = getScale();
-
-  skills.tefudas.forEach((skill, index) => {
-    const imgElement = document.createElement("img");
-    imgElement.id = skill.id;
-    imgElement.src = skill.src;
-
-    // 8つの img が扇形に並ぶように各 skill の位置を調整する
-    const { angle, translateY } = SKILL_TRANSFORMS[index];
-    imgElement.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
-    imgElement.style.height = "auto";
-    imgElement.style.transform = `rotate(${angle}deg) translateY(${translateY * scale}px)`;
-    imgElement.classList.add("skill");
-
-    // クリック時にスキルを使用する
-    imgElement.onclick = () => {
-      if (skills.findById(imgElement.id).reshuffle) {
-        const nextSkills = skills.reshuffle(imgElement.id);
-        // 手札の表示情報を更新する
-        nextSkills.forEach((nextSkill, index) => {
-          const skillElement = document.getElementsByClassName("skill")[index];
-          skillElement.id = nextSkill.id;
-          skillElement.src = nextSkill.src;        
-        });
-      } else {
-        const nextSkill = skills.drawSkill(imgElement.id);
-        // 手札の表示情報を更新する
-        imgElement.id = nextSkill.id;
-        imgElement.src = nextSkill.src;
-      }
-      // モーダル表示ボタンを更新
-      updateModalOpenButton(skills);
-    }
-
-    container.appendChild(imgElement);
-  });
-}
-
-/**
  * モーダル表示ボタンのテキストをクリック時の処理を更新する
  * 
  * @param {Skills} skills
  */
 const updateModalOpenButton = (skills) => {
   const text = `捨て札：${String(skills.sutefudas.length).padStart(2, "0")} 山札：${String(skills.yamafudas.length).padStart(2, "0")}`;
-  const modalOpenButton = document.getElementById("modal-open-button");
+  const modalOpenButton = document.getElementById("confirm-skill-modal-open-button");
   modalOpenButton.innerText = text;
-  modalOpenButton.onclick = () => showModal(skills);
+  modalOpenButton.onclick = () => showConfirmSkillModal(skills);
 }
 
 /**
- * モーダルを開く
+ * カード確認モーダルを開く
  * 
  * @param {Skills} skills
  */
-const showModal = (skills) => {
+const showConfirmSkillModal = (skills) => {
   // 各 list を初期化する
-  const tefudaList = document.getElementById("modal-tefuda-list");
+  const tefudaList = document.getElementById("confirm-skill-modal-tefuda-list");
   while (tefudaList.firstChild) tefudaList.removeChild(tefudaList.firstChild);
-  const yamafudaList = document.getElementById("modal-yamafuda-list");
+  const yamafudaList = document.getElementById("confirm-skill-modal-yamafuda-list");
   while (yamafudaList.firstChild) yamafudaList.removeChild(yamafudaList.firstChild);
-  const sutefudaList = document.getElementById("modal-sutefuda-list");
+  const sutefudaList = document.getElementById("confirm-skill-modal-sutefuda-list");
   while (sutefudaList.firstChild) sutefudaList.removeChild(sutefudaList.firstChild);
 
-  const scale = getScale();
-
   skills.skills.forEach(skill => {
-    const img = document.createElement("img");
-    img.id = `modal-skill-${skill.id}`;
-    img.src = skill.src;
-    img.classList.add("skill");
-    img.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
-    img.style.height = "auto";
-    img.onclick = () => openReplaceSkillModal(skills, img.id.replace("modal-skill-", ""));
-
-    const li = document.createElement("li");
-    li.appendChild(img);
-
     switch (skill.state) {
       case Skills.STATES.TEFUDA:
-        tefudaList.appendChild(li);
+        tefudaList.appendChild(skill.confirmSkillModalElement);
         break;
       case Skills.STATES.YAMAFUDA:
-        yamafudaList.appendChild(li);
+        yamafudaList.appendChild(skill.confirmSkillModalElement);
         break;
       case Skills.STATES.SUTEFUDA:
-        sutefudaList.appendChild(li);
+        sutefudaList.appendChild(skill.confirmSkillModalElement);
         break;
     }
   });
 
-  const modal = document.getElementById("modal"); 
+  const modal = document.getElementById("confirm-skill-modal"); 
   modal.showModal();
 }
 
 /**
- * モーダルを閉じる
+ * カード確認モーダルを閉じる
  */
-const closeModal = () => {
-  // 各 list を初期化する
-  const tefudaList = document.getElementById("modal-tefuda-list");
-  while (tefudaList.firstChild) tefudaList.removeChild(tefudaList.firstChild);
-  const yamafudaList = document.getElementById("modal-yamafuda-list");
-  while (yamafudaList.firstChild) yamafudaList.removeChild(yamafudaList.firstChild);
-  const sutefudaList = document.getElementById("modal-sutefuda-list");
-  while (sutefudaList.firstChild) sutefudaList.removeChild(sutefudaList.firstChild);
-  
-  const modal = document.getElementById("modal");
+const closeConfirmSkillModal = () => {  
+  const modal = document.getElementById("confirm-skill-modal");
   modal.close();
 }
 
 /**
- * skill 入れ替えモーダルを開く
+ * カード入替モーダルを開く
  * 
  * @param {Skills} skills
  */
@@ -279,63 +210,23 @@ const openReplaceSkillModal = (skills, replaceFromSkillId) => {
   document.getElementById(`replace-skill-modal-yamafuda`).style.display = replaceFromSkillState === Skills.STATES.YAMAFUDA ? 'none' : null;
   document.getElementById(`replace-skill-modal-sutefuda`).style.display = replaceFromSkillState === Skills.STATES.SUTEFUDA ? 'none' : null;
 
-  const scale = getScale();
-
   // 対象カード section を表示
-  const img = document.createElement("img");
-  img.src = replaceFromSkill.src;
-  img.style.width = `${SKILL_ORIGINAL_WIDTH * scale}px`;
-  img.style.height = "auto";
-  replaceFromSection.appendChild(img);
+  replaceFromSection.appendChild(replaceFromSkill.replaceFromElement);
   const description = document.createElement("p");
   description.innerText = "タップしたカードと入れ替え"
   replaceFromSection.appendChild(description);
   
   // 手札・山札・捨札の sction に skill を振り分け
   skills.skills.forEach(skill => {
-    const img = document.createElement("img");
-    img.src = skill.src;
-    img.classList.add("skill");
-    img.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
-    img.style.height = "auto";
-    img.onclick = () => {
-      const replaceToSkill = skill;
-      skills.replace(replaceFromSkill.id, replaceToSkill.id);
-
-      // モーダルの画像を切り替える
-      // クリック時の動作は id にのみ依存するため、id を変更しておけば onclick を更新する必要はない
-      const modalReplaceFromSkillElement = document.getElementById(`modal-skill-${replaceFromSkill.id}`);
-      const modalReplaceToSkillElement = document.getElementById(`modal-skill-${replaceToSkill.id}`);
-      [modalReplaceFromSkillElement.src, modalReplaceToSkillElement.src] = [modalReplaceToSkillElement.src, modalReplaceFromSkillElement.src];
-      [modalReplaceFromSkillElement.id, modalReplaceToSkillElement.id] = [modalReplaceToSkillElement.id, modalReplaceFromSkillElement.id];
-
-      // メイン画面の画像を切り替える
-      // メイン画面には手札しか表示されていないため、入れ替え先または入れ替え元のカードがある場合のみ処理をおこなう
-      const replaceFromSkillElement = document.getElementById(replaceFromSkill.id);
-      const replaceToSkillElement = document.getElementById(replaceToSkill.id);
-      if (replaceFromSkillElement) {
-        replaceFromSkillElement.id = replaceToSkill.id;
-        replaceFromSkillElement.src = replaceToSkill.src;
-      } else if (replaceToSkillElement) {
-        replaceToSkillElement.id = replaceFromSkill.id;
-        replaceToSkillElement.src = replaceFromSkill.src;
-      }
-
-      closeReplaceSkillModal();
-    };
-
-    const li = document.createElement("li");
-    li.appendChild(img);
-
     switch (skill.state) {
       case Skills.STATES.TEFUDA:
-        tefudaList.appendChild(li);
+        tefudaList.appendChild(skill.replaceSkillModalElement);
         break;
       case Skills.STATES.YAMAFUDA:
-        yamafudaList.appendChild(li);
+        yamafudaList.appendChild(skill.replaceSkillModalElement);
         break;
       case Skills.STATES.SUTEFUDA:
-        sutefudaList.appendChild(li);
+        sutefudaList.appendChild(skill.replaceSkillModalElement);
         break;
     }
   });
@@ -345,32 +236,80 @@ const openReplaceSkillModal = (skills, replaceFromSkillId) => {
 }
 
 /**
- * skill 入れ替えモーダルを閉じる
+ * カード入替モーダルを閉じる
  */
 const closeReplaceSkillModal = () => {
-  // 各要素を初期化する
-  const replaceFromSection = document.getElementById("replace-skill-modal-replace-from");
-  while (replaceFromSection.firstChild) replaceFromSection.removeChild(replaceFromSection.firstChild);
-  const tefudaList = document.getElementById("replace-skill-modal-tefuda-list");
-  while (tefudaList.firstChild) tefudaList.removeChild(tefudaList.firstChild);
-  const yamafudaList = document.getElementById("replace-skill-modal-yamafuda-list");
-  while (yamafudaList.firstChild) yamafudaList.removeChild(yamafudaList.firstChild);
-  const sutefudaList = document.getElementById("replace-skill-modal-sutefuda-list");
-  while (sutefudaList.firstChild) sutefudaList.removeChild(sutefudaList.firstChild);
-  
   const modal = document.getElementById("replace-skill-modal");
   modal.close(); 
 }
 
 class Skills {
-  constructor(originalSkills) {
-    // ランダムに8つの要素を抽出する
-    const skills = shuffleArray(originalSkills)
-                   .map((skill, index) => ({
-                     ...skill,
-                     state: index < 8 ? Skills.STATES.TEFUDA : Skills.STATES.YAMAFUDA
-                   }));
+  /**
+   * constructor
+   * 
+   * @param {*} originalSkills 
+   * @param {HTMLDivElement} container 
+   */
+  constructor(originalSkills, container) {
+    // 8つの img が扇形に並ぶような手札の style を定義する
+    const scale = getScale();
+    this.tefudaStyles = SKILL_TRANSFORMS.map(({ angle, translateY }) => ({
+      width: `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`,
+      height: "auto",
+      transform: `rotate(${angle}deg) translateY(${translateY * scale}px)`,
+    }));
+    
+    // NOTE: パフォーマンス改善のため各画面で利用する img 要素を作成して格納しておく
+    const skills = shuffleArray(originalSkills).map((skill, index) => {
+      // メイン画面用
+      const mainElement = createSkillElement(skill.id, skill.src);
+      mainElement.onclick = () => {
+        skill.reshuffle ? this.reshuffle(mainElement.id) : this.drawSkill(mainElement.id);
+        updateModalOpenButton(this);
+      }
+
+      // カード確認画面用
+      const confirmSkillModalElementImg = createSkillElement(`confirm-skill-modal-skill-${skill.id}`, skill.src);
+      confirmSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
+      confirmSkillModalElementImg.style.height = "auto";
+      confirmSkillModalElementImg.onclick = () => openReplaceSkillModal(this, skill.id);
+      const confirmSkillModalElement = document.createElement("li");
+      confirmSkillModalElement.appendChild(confirmSkillModalElementImg);
+
+      // カード入替画面用
+      const replaceSkillModalElementImg = createSkillElement(`replace-skill-modal-skill-${skill.id}`, skill.src);
+      replaceSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_ORIGINAL_SCALE * scale}px`;
+      replaceSkillModalElementImg.style.height = "auto";
+      replaceSkillModalElementImg.onclick = () => {
+        const replaceFromSkillId = document.getElementById("replace-skill-modal-replace-from").querySelector("img").id;
+        this.replace(replaceFromSkillId, skill.id);
+        closeReplaceSkillModal();
+      };  
+      const replaceSkillModalElement = document.createElement("li");
+      replaceSkillModalElement.appendChild(replaceSkillModalElementImg);
+
+      const replaceFromElement = document.createElement("img");
+      replaceFromElement.id = `${skill.id}`;
+      replaceFromElement.src = skill.src;
+      replaceFromElement.style.width = `${SKILL_ORIGINAL_WIDTH * scale}px`;
+      replaceFromElement.style.height = "auto";
+
+      return {
+        ...skill,
+        // ランダムに8つの要素を手札とする
+        state: index < 8 ? Skills.STATES.TEFUDA : Skills.STATES.YAMAFUDA,
+        mainElement,
+        confirmSkillModalElement,
+        replaceSkillModalElement,
+        replaceFromElement,
+      }
+    });
+
     this.skills = skills;
+
+    // 手札を描画
+    this.container = container;
+    this.appendTefudasToContainer();
   }
 
   /**
@@ -411,7 +350,23 @@ class Skills {
   }
 
   /**
-   * 山札から新しい skill を一枚引いてその値を返却する
+   * 手札を描画する
+   */
+  appendTefudasToContainer() {
+    // 初期化
+    while (this.container.firstChild) this.container.removeChild(this.container.firstChild);
+
+    this.tefudas.forEach((skill, index) => {
+      skill.tefudaStylesIndex = index;
+      skill.mainElement.style.width = this.tefudaStyles[index].width;
+      skill.mainElement.style.height = this.tefudaStyles[index].height;
+      skill.mainElement.style.transform = this.tefudaStyles[index].transform;
+      this.container.appendChild(skill.mainElement);
+    });
+  }
+
+  /**
+   * 山札から新しい skill を一枚引く
    */
   drawSkill(usedSkillId) {
     // 山札が0枚の場合は捨て札を山札に戻す
@@ -426,18 +381,17 @@ class Skills {
     nextSkill.state = Skills.STATES.TEFUDA;
 
     // 使用した skill を捨て札に置く
-    this.findById(usedSkillId).state = Skills.STATES.SUTEFUDA;
+    const usedSkill = this.findById(usedSkillId);
+    usedSkill.state = Skills.STATES.SUTEFUDA;
 
-    return nextSkill;
-  }
-
-  /**
-   * skillid1 と skillId1 の state を入れ替える
-   */
-  replace(skillId1, skillId2) {
-    const skill1 = this.findById(skillId1);
-    const skill2 = this.findById(skillId2);
-    [skill1.state, skill2.state] = [skill2.state, skill1.state];
+    // style を引き継いで要素を更新する
+    const index = usedSkill.tefudaStylesIndex;
+    usedSkill.tefudaStylesIndex = null;
+    nextSkill.tefudaStylesIndex = index;
+    nextSkill.mainElement.style.width = this.tefudaStyles[index].width;
+    nextSkill.mainElement.style.height = this.tefudaStyles[index].height;
+    nextSkill.mainElement.style.transform = this.tefudaStyles[index].transform;
+    this.container.replaceChild(nextSkill.mainElement, usedSkill.mainElement);
   }
 
   /**
@@ -447,7 +401,10 @@ class Skills {
     // 使用 skill 以外の手札を捨札に
     this.tefudas
       .filter(skill => skill.id !== usedSkillId)
-      .forEach(skill => skill.state = Skills.STATES.SUTEFUDA);
+      .forEach(skill => {
+        skill.tefudaStylesIndex = null;
+        skill.state = Skills.STATES.SUTEFUDA;
+      });
 
     for (let i = 0; i < 8; i++) {
       // 山札が0枚の場合は捨て札を山札に戻す
@@ -463,9 +420,40 @@ class Skills {
     }
 
     // 使用 skill を捨札に
-    this.findById(usedSkillId).state = Skills.STATES.SUTEFUDA;
+    const usedSkill = this.findById(usedSkillId);
+    usedSkill.tefudaStylesIndex = null;
+    usedSkill.state = Skills.STATES.SUTEFUDA;
 
-    return this.tefudas;
+    // 手札を描画
+    this.appendTefudasToContainer();
+  }
+
+  /**
+   * skillid1 と skillId2 の state を入れ替える
+   */
+  replace(skillId1, skillId2) {
+    const skill1 = this.findById(skillId1);
+    const skill2 = this.findById(skillId2);
+    [skill1.state, skill2.state] = [skill2.state, skill1.state];
+
+    // モーダルの画像を切り替え
+    showConfirmSkillModal
+    const skill1Confirm = skill1.confirmSkillModalElement;
+    const skill1ConfirmParent = skill1Confirm.parentNode;
+    const skill1ConfirmNextSibling = skill1Confirm.nextSibling;
+    const skill2Confirm = skill2.confirmSkillModalElement;
+    const skill2ConfirmParent = skill2Confirm.parentNode;
+    const skill2ConfirmNextSibling = skill2Confirm.nextSibling;
+    skill1ConfirmParent.removeChild(skill1Confirm);
+    skill1ConfirmNextSibling
+      ? skill1ConfirmParent.insertBefore(skill2Confirm, skill1ConfirmNextSibling)
+      : skill1ConfirmParent.appendChild(skill2Confirm);
+    skill2ConfirmNextSibling
+      ? skill2ConfirmParent.insertBefore(skill1Confirm, skill2ConfirmNextSibling)
+      : skill2ConfirmParent.appendChild(skill1Confirm);
+
+    // 手札を描画
+    this.appendTefudasToContainer();
   }
 }
 
@@ -488,4 +476,15 @@ const getScale = () => {
   const clientWidth = document.getElementsByClassName("container")[0].clientWidth;
   const scale = clientWidth / SKILL_CONTAINER_ORIGINAL_WIDTH;
   return scale;
+}
+
+/**
+ * skillElement をつくる
+ */
+const createSkillElement = (id, src) => {
+  const skillElement = document.createElement("img");
+  skillElement.id = id;
+  skillElement.src = src;
+  skillElement.classList.add("skill");
+  return skillElement;
 }

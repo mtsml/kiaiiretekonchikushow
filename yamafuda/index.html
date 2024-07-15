@@ -73,18 +73,22 @@
       style="display: none"
     >
       <div class="button-wrapper">
-        <button id="modal-open-button"></button>
-        <dialog id="modal">
+        <button id="confirm-skill-modal-open-button"></button>
+ 
+        <!-- カード確認モーダル -->
+        <dialog id="confirm-skill-modal">
           <h2>手札確認</h2>
-          <ul id="modal-tefuda-list" class="skill-list"></ul>
+          <ul id="confirm-skill-modal-tefuda-list" class="skill-list"></ul>
           <h2>捨札確認</h2>
-          <ul id="modal-sutefuda-list" class="skill-list"></ul>
+          <ul id="confirm-skill-modal-sutefuda-list" class="skill-list"></ul>
           <h2>山札確認</h2>
-          <ul id="modal-yamafuda-list" class="skill-list"></ul>
+          <ul id="confirm-skill-modal-yamafuda-list" class="skill-list"></ul>
           <footer>
-            <button id="modal-close-button" onclick="closeModal()">閉じる</button>
+            <button id="modal-close-button" onclick="closeConfirmSkillModal()">閉じる</button>
           </footer>
         </dialog>
+ 
+        <!-- カード入替モーダル　 -->
         <dialog id="replace-skill-modal">
           <section id="replace-skill-modal-replace-from">
           </section>
