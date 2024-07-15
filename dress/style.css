@@ -100,8 +100,6 @@ p {
 
 .dress {
   position: absolute;
-  left: 50%;
-  top: 50%;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;

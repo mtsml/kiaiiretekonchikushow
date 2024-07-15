@@ -531,6 +531,13 @@ const shuffleArray = (array) => {
 }
 
 /**
+ * min から max の範囲でランダムな整数を返す
+ */
+const randomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/**
  * scale を取得する
  */
 const getScale = () => {
@@ -566,13 +573,11 @@ const addDressElement = (src) => {
   }, 300);
 
   // container 中にランダムに配置する
-  const scale = getScale();
-  const randomAngle = Math.random() * 2 * Math.PI;
-  const translateX = (Math.cos(randomAngle) * 150 - 30) * scale;
-  const translateY = (Math.sin(randomAngle) * 150 - 30) * scale;
-  dressElement.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
-
   const container = document.querySelector(".container");
+  const { clientWidth, clientHeight } = container;
+  dressElement.style.top = `${randomInt(0, clientHeight - 60)}px`;
+  dressElement.style.left = `${randomInt(0, clientWidth - 60)}px`;
+
   container.appendChild(dressElement);
 }
 
