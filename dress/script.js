@@ -1,3 +1,8 @@
+const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
+const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス";
+const HELLOMEG_DRESS_TWEET = "ドレスをつくってオシャレに山札管理を覚えよう。私がつくったドレスは…";
+const HELLOMEG_DRESS_URL = "https://kiaiiretekonchiku.show/dress/index.html";
+
 const SKILLS = [
   // gin
   {
@@ -9,6 +14,7 @@ const SKILLS = [
       "../assets/gin_bsbd-dress02.jpg",
       "../assets/gin_bsbd-dress02.jpg",
     ],
+    dressOnlySrc: "../assets/gin_bsbd-dress.png",
     usedCnt: 0,
   },
   {
@@ -20,6 +26,7 @@ const SKILLS = [
       "../assets/gin_seiran-dress02.jpg",
       "../assets/gin_seiran-dress03.jpg",
     ],
+    dressOnlySrc: "../assets/gin_seiran-dress.png",
     usedCnt: 0,
   },
   // suzu
@@ -440,6 +447,7 @@ class Skills {
         this.drawSkill(mainElement.id);
         const skillsIndex = this.skills.findIndex(skill => skill.id === mainElement.id);
         this.skills.splice(skillsIndex, 1);
+        addDressElement(usedSkill.dressOnlySrc);
         updateModalOpenButton(this);
       }
 
@@ -540,4 +548,39 @@ const createSkillElement = (id, src) => {
   skillElement.src = src;
   skillElement.classList.add("skill");
   return skillElement;
+}
+
+/**
+ * dressElement をロゴの周辺に配置する
+ */
+const addDressElement = (src) => {
+  const dressElement = document.createElement("img");
+  dressElement.src = src;
+  dressElement.classList.add("dress");
+
+  // ロゴを揺らす
+  const logoElement = document.getElementById("logo");
+  logoElement.classList.add("shake-img");
+  setTimeout(() => {
+    logoElement.classList.remove("shake-img");
+  }, 300);
+
+  // container 中にランダムに配置する
+  const scale = getScale();
+  const randomAngle = Math.random() * 2 * Math.PI;
+  const translateX = (Math.cos(randomAngle) * 150 - 30) * scale;
+  const translateY = (Math.sin(randomAngle) * 150 - 30) * scale;
+  dressElement.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+
+  const container = document.querySelector(".container");
+  container.appendChild(dressElement);
+}
+
+/**
+ * ツイート文言を更新する
+ */
+const setTweetLink = (e) => {
+  const dressCnt = document.getElementsByClassName("dress").length;
+  const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${dressCnt}着\n`);
+  e.href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRESS_URL}`;
 }

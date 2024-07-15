@@ -97,3 +97,12 @@ p {
 #replace-skill-modal p {
   margin-bottom: 0;
 }
+
+.dress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
