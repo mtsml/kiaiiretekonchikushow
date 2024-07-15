@@ -312,12 +312,13 @@ const openReplaceSkillModal = (skills, replaceFromSkillId) => {
       // メイン画面の画像を切り替える
       // メイン画面には手札しか表示されていないため、入れ替え先または入れ替え元のカードがある場合のみ処理をおこなう
       const replaceFromSkillElement = document.getElementById(replaceFromSkill.id);
+      const replaceToSkillElement = document.getElementById(replaceToSkill.id);
       if (replaceFromSkillElement) {
+        console.log(replaceToSkill)
+        console.log(replaceFromSkillElement)
         replaceFromSkillElement.id = replaceToSkill.id;
         replaceFromSkillElement.src = replaceToSkill.src;
-      }
-      const replaceToSkillElement = document.getElementById(replaceToSkill.id);
-      if (replaceToSkillElement) {
+      } else if (replaceToSkillElement) {
         replaceToSkillElement.id = replaceFromSkill.id;
         replaceToSkillElement.src = replaceFromSkill.src;
       }
