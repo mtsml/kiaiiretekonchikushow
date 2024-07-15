@@ -314,8 +314,6 @@ const openReplaceSkillModal = (skills, replaceFromSkillId) => {
       const replaceFromSkillElement = document.getElementById(replaceFromSkill.id);
       const replaceToSkillElement = document.getElementById(replaceToSkill.id);
       if (replaceFromSkillElement) {
-        console.log(replaceToSkill)
-        console.log(replaceFromSkillElement)
         replaceFromSkillElement.id = replaceToSkill.id;
         replaceFromSkillElement.src = replaceToSkill.src;
       } else if (replaceToSkillElement) {
