@@ -487,7 +487,8 @@ class Skills {
     usedSkill.tefudaStylesIndex = null;
     usedSkill.state = Skills.STATES.SUTEFUDA;
 
-    // 手札を描画
+    // 手札をシャッフルしてから描画
+    this.skills = shuffleArray(this.skills);
     this.appendTefudasToContainer();
   }
 
