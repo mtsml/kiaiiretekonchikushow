@@ -1,6 +1,6 @@
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス";
-const HELLOMEG_DRESS_TWEET = "ドレスをつくってオシャレに山札管理を覚えよう。私がつくったドレスは…";
+const HELLOMEG_DRESS_TWEET = "ドレスをつくっておしゃれに山札管理を覚えよう。私の結果は…";
 const HELLOMEG_DRESS_URL = "https://kiaiiretekonchiku.show/dress/index.html";
 
 const SKILLS = [
@@ -8,11 +8,21 @@ const SKILLS = [
   {
     id: "gin_bsbd",
     src: "../assets/gin_bsbd.jpg",
+    ap: 4,
     dress: true,
-    dressSrcs: [
-      "../assets/gin_bsbd-dress01.jpg",
-      "../assets/gin_bsbd-dress02.jpg",
-      "../assets/gin_bsbd-dress02.jpg",
+    dresses: [
+      {
+        src: "../assets/gin_bsbd-dress01.jpg",
+        ap: 1,
+      },
+      {
+        src: "../assets/gin_bsbd-dress02.jpg",
+        ap: 3,
+      },
+      {
+        src: "../assets/gin_bsbd-dress02.jpg",
+        ap: 3,
+      },
     ],
     dressOnlySrc: "../assets/gin_bsbd-dress.png",
     usedCnt: 0,
@@ -20,11 +30,21 @@ const SKILLS = [
   {
     id: "gin_seiran",
     src: "../assets/gin_seiran.jpg",
+    ap: 5,
     dress: true,
-    dressSrcs: [
-      "../assets/gin_seiran-dress01.jpg",
-      "../assets/gin_seiran-dress02.jpg",
-      "../assets/gin_seiran-dress03.jpg",
+    dresses: [
+      {
+        src: "../assets/gin_seiran-dress01.jpg",
+        ap: 1,
+      },
+      {
+        src: "../assets/gin_seiran-dress02.jpg",
+        ap: 1,
+      },
+      {
+        src: "../assets/gin_seiran-dress03.jpg",
+        ap: 1,
+      },
     ],
     dressOnlySrc: "../assets/gin_seiran-dress.png",
     usedCnt: 0,
@@ -33,72 +53,87 @@ const SKILLS = [
   {
     id: "suzu_bsbd",
     src: "../assets/suzu_bsbd.jpg",
+    ap: 4,
   },
   {
     id: "suzu_ladybug",
     src: "../assets/suzu_ladybug.jpg",
+    ap: 5,
   },
   // hime
   {
     id: "hime_mirakuri",
     src: "../assets/hime_mirakuri.jpg",
+    ap: 5,
   },
   {
     id: "hime_seiran",
     src: "../assets/hime_seiran.jpg",
+    ap: 6,
   },
   // kaho
   {
     id: "kaho_hsct",
     src: "../assets/kaho_hsct.jpg",
+    ap: 10,
   },
   {
     id: "kaho_utage",
     src: "../assets/kaho_utage.jpg",
+    ap: 6,
   },
   // saya
   {
     id: "saya_lttf",
     src: "../assets/saya_lttf.jpg",
+    ap: 5,
   },
   // ruri
   {
     id: "ruri_db",
     src: "../assets/ruri_db.jpg",
+    ap: 4,
     reshuffle: true,
   },
   {
     id: "ruri_mirakuri",
     src: "../assets/ruri_mirakuri.jpg",
+    ap: 4,
     reshuffle: true,
   },
   // kozu
   {
     id: "kozu_dn",
     src: "../assets/kozu_dn.jpg",
+    ap: 1,
   },
   {
     id: "kozu_hsct",
     src: "../assets/kozu_hsct.jpg",
+    ap: 3,
   },
   // tsuzu
   {
     id: "tsuzu_cn",
     src: "../assets/tsuzu_cn.jpg",
+    ap: 3,
   },
   {
     id: "tsuzu_tousetsu",
     src: "../assets/tsuzu_tousetsu.jpg",
+    ap: 7,
   },
   // megu
   {
     id: "megu_hsct",
     src: "../assets/megu_hsct.jpg",
+    ap: 4,
     reshuffle: true,
   },
   {
     id: "megu_mirakuri",
     src: "../assets/megu_mirakuri.jpg",
+    ap: 10,
   },
 ];
 const SKILL_CONTAINER_ORIGINAL_WIDTH = 600;
@@ -145,28 +180,48 @@ const SKILL_TRANSFORMS = [
 const startGame = (hellomegImgElement) => {
   hellomegImgElement.onclick = null;
 
+  // イグニッションモードを確認
+  const params = new URL(document.location).searchParams;
+  const ignitionMode = params.get("mode") === "ignition";
+
   // 手札を初期化
   const container = document.getElementById("skill-container");
-  const skills = new Skills(SKILLS, container);
+  const skills = new Skills(SKILLS, container, ignitionMode);
   skills.appendTefudasToContainer();
 
   // モーダル表示ボタンを更新
-  updateModalOpenButton(skills);
+  updateInformationElement(skills);
 
   document.getElementById("description").style.display = "none";
-  document.getElementById("result").style.display = null;
+  document.getElementById("play").style.display = null;
 }
 
 /**
- * モーダル表示ボタンのテキストをクリック時の処理を更新する
+ * 画面の情報を更新する
  * 
  * @param {Skills} skills
  */
-const updateModalOpenButton = (skills) => {
+const updateInformationElement = (skills) => {
+  // カード確認ボタン
   const text = `捨て札：${String(skills.sutefudas.length).padStart(2, "0")} 山札：${String(skills.yamafudas.length).padStart(2, "0")}`;
   const modalOpenButton = document.getElementById("confirm-skill-modal-open-button");
   modalOpenButton.innerText = text;
   modalOpenButton.onclick = () => showConfirmSkillModal(skills);
+
+  // ドレス使用回数
+  document.getElementById("used-dress").innerText = `ドレス\n${skills.usedDress}`;
+
+  // AP消費量
+  document.getElementById("used-ap").innerText = `消費AP\n${skills.usedAp}`;
+
+  // 通常モードの場合は消費APが一定ラインを超えたら終了
+  if (!skills.ignitionMode && skills.usedAp >= 100) {
+    alert(`消費AP：${skills.usedAp}\nドレス：${skills.usedDress}`);
+    setTweetLink(skills);
+    skills.container.style.display = "none";
+    document.getElementById("confirm-skill-modal-open-button").style.display = "none";
+    document.getElementById("result").style.display = null;
+  }
 }
 
 /**
@@ -250,7 +305,7 @@ class Skills {
    * @param {*} originalSkills 
    * @param {HTMLDivElement} container 
    */
-  constructor(originalSkills, container) {
+  constructor(originalSkills, container, ignitionMode = false) {
     // 8つの img が扇形に並ぶような手札の style を定義する
     const scale = getScale();
     this.tefudaStyles = SKILL_TRANSFORMS.map(({ angle, translateY }) => ({
@@ -258,7 +313,7 @@ class Skills {
       height: "auto",
       transform: `rotate(${angle}deg) translateY(${translateY * scale}px)`,
     }));
-    
+
     // NOTE: パフォーマンス改善のため各画面で利用する img 要素を作成して格納しておく
     const skills = shuffleArray(originalSkills).map((skill, index) => {
       // メイン画面用
@@ -271,14 +326,17 @@ class Skills {
         } else {
           this.drawSkill(mainElement.id);
         }
-        updateModalOpenButton(this);
+        this.usedAp += skill.ap;
+        updateInformationElement(this);
       }
 
       // カード確認画面用
       const confirmSkillModalElementImg = createSkillElement(`confirm-skill-modal-skill-${skill.id}`, skill.src);
       confirmSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_DEFAULT_SCALE * scale}px`;
       confirmSkillModalElementImg.style.height = "auto";
-      confirmSkillModalElementImg.onclick = () => openReplaceSkillModal(this, skill.id);
+      confirmSkillModalElementImg.onclick = () => {
+        this.ignitionMode && openReplaceSkillModal(this, skill.id);
+      }
       const confirmSkillModalElement = document.createElement("li");
       confirmSkillModalElement.appendChild(confirmSkillModalElementImg);
 
@@ -312,7 +370,10 @@ class Skills {
     });
 
     this.skills = skills;
+    this.usedAp = 0;
+    this.usedDress = 0;
     this.container = container;
+    this.ignitionMode = ignitionMode;
   }
 
   /**
@@ -439,20 +500,22 @@ class Skills {
     usedSkill.usedCnt++;
     const scale = getScale();
 
-    this.findById(usedSkillId).dressSrcs.forEach((src, index) => {
+    this.findById(usedSkillId).dresses.forEach((dress, index) => {
       const skillId = `${usedSkillId}-${usedSkill.usedCnt}-${index}`;
       // メイン画面用
-      const mainElement = createSkillElement(skillId, src);
+      const mainElement = createSkillElement(skillId, dress.src);
       mainElement.onclick = () => {
         this.drawSkill(mainElement.id);
+        this.usedAp += dress.ap;
         const skillsIndex = this.skills.findIndex(skill => skill.id === mainElement.id);
         this.skills.splice(skillsIndex, 1);
+        this.usedDress++;
         addDressElement(usedSkill.dressOnlySrc);
-        updateModalOpenButton(this);
+        updateInformationElement(this);
       }
 
       // カード確認画面用
-      const confirmSkillModalElementImg = createSkillElement(`confirm-skill-modal-skill-${skillId}`, src);
+      const confirmSkillModalElementImg = createSkillElement(`confirm-skill-modal-skill-${skillId}`, dress.src);
       confirmSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_DEFAULT_SCALE * scale}px`;
       confirmSkillModalElementImg.style.height = "auto";
       confirmSkillModalElementImg.onclick = () => openReplaceSkillModal(this, skillId);
@@ -460,7 +523,7 @@ class Skills {
       confirmSkillModalElement.appendChild(confirmSkillModalElementImg);
 
       // カード入替画面用
-      const replaceSkillModalElementImg = createSkillElement(`replace-skill-modal-skill-${skillId}`, src);
+      const replaceSkillModalElementImg = createSkillElement(`replace-skill-modal-skill-${skillId}`, dress.src);
       replaceSkillModalElementImg.style.width = `${SKILL_ORIGINAL_WIDTH * SKILL_DEFAULT_SCALE * scale}px`;
       replaceSkillModalElementImg.style.height = "auto";
       replaceSkillModalElementImg.onclick = () => {
@@ -473,13 +536,14 @@ class Skills {
 
       const replaceFromElement = document.createElement("img");
       replaceFromElement.id = skillId;
-      replaceFromElement.src = src;
+      replaceFromElement.src = dress.src;
       replaceFromElement.style.width = `${SKILL_ORIGINAL_WIDTH * scale}px`;
       replaceFromElement.style.height = "auto";
 
       this.skills.push({
         id: skillId,
         state: Skills.STATES.YAMAFUDA,
+        ap: dress.ap,
         mainElement,
         confirmSkillModalElement,
         replaceSkillModalElement,
@@ -583,9 +647,26 @@ const addDressElement = (src) => {
 
 /**
  * ツイート文言を更新する
+ * 
+ * @param {Skills} skills
  */
-const setTweetLink = (e) => {
-  const dressCnt = document.getElementsByClassName("dress").length;
-  const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${dressCnt}着！\n`);
-  e.href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRESS_URL}`;
+const setTweetLink = (skills) => {
+  const usedAp = skills.usedAp;
+  const usedDress = skills.usedDress;
+  const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${usedAp}APで${usedDress}着！\n`);
+  document.getElementById("post-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRESS_URL}`;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  // イグニッションモードを確認
+  const params = new URL(document.location).searchParams;
+  const ignitionMode = params.get("mode") === "ignition";
+
+  if (!ignitionMode) return;
+
+  document.querySelector("h1").innerText = "ハロめぐドレス🔥";
+  document.getElementById("description").innerHTML = "<span>一生ドレスをつくろう。</span><br><span>カード確認画面で手札・山札・捨札のカードを入れ替えることができるよ。</span><br><span>ハロめぐをタップしてスタート！</span>";
+  document.getElementById("post").style.display = "none";
+  document.getElementById("mode-change-link").href = "./index.html";
+  document.getElementById("mode-change-text").innerText = "通常モードに戻る";
+});

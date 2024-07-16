@@ -36,6 +36,16 @@
   cursor: pointer;
 }
 
+#used-ap,
+#used-dress {
+  font-weight: bold;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .button-wrapper button {
   font-size: 1em;
   padding: 0.1em 0.5em;
@@ -103,4 +113,8 @@ p {
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+#result {
+  margin-top: 1em;
 }
