@@ -219,7 +219,6 @@ const updateInformationElement = (skills) => {
     alert(`消費AP：${skills.usedAp}\nドレス：${skills.usedDress}`);
     setTweetLink(skills);
     skills.container.style.display = "none";
-    document.getElementById("confirm-skill-modal-open-button").style.display = "none";
     document.getElementById("result").style.display = null;
   }
 }
