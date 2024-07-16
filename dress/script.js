@@ -1,6 +1,6 @@
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス";
-const HELLOMEG_DRESS_TWEET = "ドレスをつくっておしゃれに山札管理を覚えよう。私の結果は…";
+const HELLOMEG_DRESS_TWEET = "ドレスをつくっておしゃれに山札管理を身に付けよう。私の結果は…";
 const HELLOMEG_DRESS_URL = "https://kiaiiretekonchiku.show/dress/index.html";
 
 const SKILLS = [
@@ -665,7 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!ignitionMode) return;
 
   document.querySelector("h1").innerText = "ハロめぐドレス🔥";
-  document.getElementById("description").innerHTML = "<span>一生ドレスをつくろう。</span><br><span>カード確認画面で手札・山札・捨札のカードを入れ替えることができるよ。</span><br><span>ハロめぐをタップしてスタート！</span>";
+  document.getElementById("description").innerHTML = "<span>無限のAPで一生ドレスをつくろう。</span><br><span>カード確認画面で手札・山札・捨札のカードを入れ替えることができるよ。</span><br><span>ハロめぐをタップしてスタート！</span>";
   document.getElementById("post").style.display = "none";
   document.getElementById("mode-change-link").href = "./index.html";
   document.getElementById("mode-change-text").innerText = "通常モードに戻る";

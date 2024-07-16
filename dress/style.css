@@ -36,6 +36,10 @@
   cursor: pointer;
 }
 
+#skill-container .skill:active {
+  scale: .95;
+}
+
 #used-ap,
 #used-dress {
   font-weight: bold;
