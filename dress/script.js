@@ -100,12 +100,20 @@ const SKILLS = [
     src: "../assets/ruri_mirakuri.jpg",
     ap: 4,
     reshuffle: true,
+    drawCallback: (skills) => {
+      if (!skills.ignitionMode) {
+        skills.usedAp--;
+      }
+    }
   },
   // kozu
   {
     id: "kozu_dn",
     src: "../assets/kozu_dn.jpg",
     ap: 1,
+    drawCallback: (skills) => {
+      skills.usedAp--;
+    }
   },
   {
     id: "kozu_hsct",
@@ -443,6 +451,11 @@ class Skills {
     const nextSkill = shuffleArray(this.yamafudas)[0];
     nextSkill.state = Skills.STATES.TEFUDA;
 
+    // ドロー効果がある場合は使用する
+    if (nextSkill.drawCallback) {
+      nextSkill.drawCallback(this);
+    }
+
     // 使用した skill を捨て札に置く
     const usedSkill = this.findById(usedSkillId);
     usedSkill.state = Skills.STATES.SUTEFUDA;
@@ -480,6 +493,11 @@ class Skills {
       // 山札から skill を一枚ランダムに引く
       const nextSkill = shuffleArray(this.yamafudas)[0];
       nextSkill.state = Skills.STATES.TEFUDA;
+
+      // ドロー効果がある場合は使用する
+      if (nextSkill.drawCallback) {
+        nextSkill.drawCallback(this);
+      }
     }
 
     // 使用 skill を捨札に
