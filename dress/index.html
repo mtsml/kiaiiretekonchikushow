@@ -44,13 +44,34 @@
 
   -->
   <header>
-    <nav class="breadcrumb">
-      <a href="../index.html">
-        <!-- ChevronLeft Icon -->
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
-        <span>めぐ島🏝️</span>
-      </a>
-    </nav>
+    <div class="breadcrumb-wrapper">
+      <nav class="breadcrumb">
+        <a href="../index.html">
+          <!-- ChevronLeft Icon -->
+          <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+          <span>めぐ島🏝️</span>
+        </a>
+      </nav>
+      <button onclick="openVersionModal()">ver1.1 (変更点を見る)</button>
+      <dialog id="version-modal">
+        <section>
+          <h2>ver1.1 (2024/07/18)</h2>
+          <ul>
+            <li>「みらくり瑠璃乃」に特性を追加しました。スキルを使用時に現在の消費APを1減らします。</li>
+            <li>「DN梢」に特性を追加しました。ドロー時に現在の消費APを1減らします。</li>
+          </ul>
+        </section>
+        <section>
+          <h2>ver1.0 (2024/07/17)</h2>
+          <ul>
+            <li>リリースしました。</li>
+          </ul>
+          <footer>
+            <button onclick="closeVersionModal()">閉じる</button>
+          </footer>
+        </section>
+      </dialog>
+    </div>
     <h1>
       ハロめぐドレス
     </h1>

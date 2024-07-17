@@ -12,6 +12,11 @@
   }
 }
 
+.breadcrumb-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 #skill-container {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
@@ -70,6 +75,7 @@ p {
   margin-bottom: 0.5em;
 }
 
+#version-modal,
 #confirm-skill-modal,
 #replace-skill-modal {
   position: fixed;
@@ -89,6 +95,7 @@ p {
   max-height: calc(100% - 8em);
 }
 
+#version-modal h2,
 #confirm-skill-modal h2,
 #replace-skill-modal h2 {
   font-size: 1.15em;
@@ -103,6 +110,7 @@ p {
   gap: 0.5em;
 }
 
+#version-modal footer,
 #confirm-skill-modal footer,
 #replace-skill-modal footer {
   padding: 0.5em;
