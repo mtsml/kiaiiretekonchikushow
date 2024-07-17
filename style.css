@@ -89,7 +89,7 @@ h1 > a {
 }
 
 @media (prefers-color-scheme: dark) {
-  a {
+  a, button {
     color: var(--color-lightgray);
   }
 }
