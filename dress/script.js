@@ -1,5 +1,5 @@
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
-const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス";
+const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス\n#ハロめぐドレス2nd";
 const HELLOMEG_DRESS_TWEET = "ドレスをつくっておしゃれに山札管理を身に付けよう。私の結果は…";
 const HELLOMEG_DRESS_URL = "https://kiaiiretekonchiku.show/dress/index.html";
 
