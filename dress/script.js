@@ -1,5 +1,5 @@
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
-const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス";
+const HELLOMEG_DRESS_HASHTAG = "#ハロめぐドレス\n#ハロめぐドレス2nd";
 const HELLOMEG_DRESS_TWEET = "ドレスをつくっておしゃれに山札管理を身に付けよう。私の結果は…";
 const HELLOMEG_DRESS_URL = "https://kiaiiretekonchiku.show/dress/index.html";
 
@@ -100,12 +100,20 @@ const SKILLS = [
     src: "../assets/ruri_mirakuri.jpg",
     ap: 4,
     reshuffle: true,
+    usedCallback: (skills) => {
+      if (!skills.ignitionMode) {
+        skills.usedAp--;
+      }
+    }
   },
   // kozu
   {
     id: "kozu_dn",
     src: "../assets/kozu_dn.jpg",
     ap: 1,
+    drawCallback: (skills) => {
+      skills.usedAp--;
+    }
   },
   {
     id: "kozu_hsct",
@@ -318,6 +326,11 @@ class Skills {
       // メイン画面用
       const mainElement = createSkillElement(skill.id, skill.src);
       mainElement.onclick = () => {
+        // カード使用時の特殊効果がある場合は使用する
+        if (skill.usedCallback) {
+          skill.usedCallback(this);
+        }
+        // TODO: reshuffle と dress も usedCallback を使うように修正する
         if (skill.reshuffle) {
           this.reshuffle(mainElement.id);
         } else if (skill.dress) {
@@ -443,6 +456,11 @@ class Skills {
     const nextSkill = shuffleArray(this.yamafudas)[0];
     nextSkill.state = Skills.STATES.TEFUDA;
 
+    // ドロー効果がある場合は使用する
+    if (nextSkill.drawCallback) {
+      nextSkill.drawCallback(this);
+    }
+
     // 使用した skill を捨て札に置く
     const usedSkill = this.findById(usedSkillId);
     usedSkill.state = Skills.STATES.SUTEFUDA;
@@ -480,6 +498,11 @@ class Skills {
       // 山札から skill を一枚ランダムに引く
       const nextSkill = shuffleArray(this.yamafudas)[0];
       nextSkill.state = Skills.STATES.TEFUDA;
+
+      // ドロー効果がある場合は使用する
+      if (nextSkill.drawCallback) {
+        nextSkill.drawCallback(this);
+      }
     }
 
     // 使用 skill を捨札に
@@ -655,6 +678,22 @@ const setTweetLink = (skills) => {
   const usedDress = skills.usedDress;
   const text = encodeURIComponent(`${HELLOMEG_DRESS_HASHTAG}\n${HELLOMEG_DRESS_TWEET}\n\n${usedAp}APで${usedDress}着！\n`);
   document.getElementById("post-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRESS_URL}`;
+}
+
+/**
+ * バージョン確認モーダルを開く
+ */
+const openVersionModal = () => {
+  const modal = document.getElementById("version-modal"); 
+  modal.showModal();
+}
+
+/**
+ * バージョン確認モーダルを閉じる
+ */
+const closeVersionModal = () => {
+  const modal = document.getElementById("version-modal"); 
+  modal.close();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
