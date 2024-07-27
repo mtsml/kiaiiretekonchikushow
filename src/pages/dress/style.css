@@ -1,0 +1,134 @@
+:root {
+  --color-fg: var(--color-dark);
+  --color-fg-sub: var(--color-gray);
+  --color-bg: var(--color-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-fg: var(--color-light);
+    --color-fg-sub: var(--color-lightgray);
+    --color-bg: var(--color-dark);  
+  }
+}
+
+.breadcrumb-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+#skill-container {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  animation: slideIn 0.1s;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill {
+  cursor: pointer;
+}
+
+#skill-container .skill:active {
+  scale: .95;
+}
+
+#used-ap,
+#used-dress {
+  font-weight: bold;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#version-modal button,
+.button-wrapper button {
+  font-size: 1em;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  background-color: var(--color-fg-sub);
+  color: var(--color-bg);
+  border-radius: 10px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, .3);
+}
+
+#version-modal button:active,
+.button-wrapper button:active {
+  box-shadow: none;
+  position: relative;
+  top: 3px;
+}
+
+p {
+  margin-bottom: 0.5em;
+}
+
+#version-modal,
+#confirm-skill-modal,
+#replace-skill-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 1em;
+  max-width: calc(100% - 6em);
+  max-height: calc(100% - 6em);
+  border: 3px solid var(--color-fg-sub);
+  border-radius: 10px;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+#replace-skill-modal {
+  max-width: calc(100% - 8em);
+  max-height: calc(100% - 8em);
+}
+
+#version-modal h2,
+#confirm-skill-modal h2,
+#replace-skill-modal h2 {
+  font-size: 1.15em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px dashed var(--color-fg-sub);
+}
+
+#confirm-skill-modal .skill-list,
+#replace-skill-modal .skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+#version-modal footer,
+#confirm-skill-modal footer,
+#replace-skill-modal footer {
+  padding: 0.5em;
+}
+
+#replace-skill-modal p {
+  margin-bottom: 0;
+}
+
+.dress {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+#result {
+  margin-top: 2em;
+}

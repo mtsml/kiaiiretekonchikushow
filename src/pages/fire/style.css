@@ -1,0 +1,43 @@
+#haromegu-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.haromegu {
+  max-width: 100px;
+  width: 20%;
+  padding: 5px;
+}
+
+.haromegu-inline {
+  width: 1.5em;
+  vertical-align: text-top;
+  padding-bottom: 0.5em;
+}
+
+#ad-tweet {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#timer {
+  margin-right: 0.5em;
+}
+
+#timer, #score {
+  font-size: 1.5em;
+  font-weight: bold;
+}
