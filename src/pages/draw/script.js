@@ -83,7 +83,7 @@ const HELLOMEG_DRAW_SKILLS = [
 ];
 const HELLOMEG_DRAW_HASHTAG = "#ハロめぐドロー";
 const HELLOMEG_DRAW_TWEET = "運を手繰り寄せよう。私の結果は…";
-const HELLOMEG_DRAW_URL = "https://kiaiiretekonchiku.show/draw.html";
+const HELLOMEG_DRAW_URL = "https://kiaiiretekonchiku.show/draw/";
 
 /**
  * 処理開始から3秒後に SKILL からランダムに選んだ5つの画像を表示する
