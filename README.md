@@ -17,19 +17,18 @@
  ├ src/
  │  ├ assets/
  │  ├ pages/
- │  │  ├ _root/
+ │  │  ├ _root/ # TOP ページ
  │  │  │ ├ index.html
  │  │  │ ├ script.js
  │  │  │ └ style.css
- │  │  └ [page]/
+ │  │  └ [page]/ # 各ページ
  │  │    ├ index.html
  │  │    ├ script.js
  │  │    └ style.css
- │  ├ global.css
- ├ _redirects
+ │  └ global.css # サイト内で共通のデザインを定義するstyle
  └ README.md
 ```
-[pages] 内に各ページで必要なコードを配置する。
+[page] 内に各ページで必要なコードを配置する。
 
 ### 起動
 
