@@ -239,6 +239,24 @@ const displayShareButtonOrTweetLink = (cards) => {
       throw error;
     }
   }
+
+  // TODO: クリップボードにコピーを試してみる
+  document.getElementById("copy-button").onclick = () => {
+    canvas.toBlob((blob) => {
+      const data = [new ClipboardItem({ [blob.type]: blob })];
+
+      navigator.clipboard.write(data).then(
+        () => {
+          /* success */
+          alert('success')
+        },
+        (error) => {
+          /* failure */
+          alert(error)
+        },
+      );
+    });
+  }
 }
 
 /**
