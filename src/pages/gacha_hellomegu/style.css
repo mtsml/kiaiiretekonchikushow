@@ -58,8 +58,51 @@
   width: 60px;
   height: 120px;
   opacity: 0;
+  border-radius: 2px;
   transform-origin: bottom right;
   animation: fadeIn 1s forwards;
+}
+
+.image.R {
+  background-color: palegoldenrod;
+  box-shadow: 0 0 20px 10px gold;
+}
+
+.image.SR {
+  background-color: paleturquoise;
+  box-shadow: 0 0 20px 10px cyan;
+}
+
+.image.UR {
+  background: linear-gradient(to bottom right, #00FFFF, #FF00FF);
+  box-shadow: 0 0 20px 10px magenta;
+}
+
+.image.first {
+  top: 60px;
+  left: 120px;
+  z-index: 1; /* 他のカードより前面に配置されるようにする */
+  background-color: cyan;
+  box-shadow: 0 0 6px 6px rgba(0, 255, 255, 0.5);
+  transform: rotate(0rad) translate(0, -50%);
+  animation-delay: 0s;
+}
+
+.image.first.rotateAroundCircle {
+  top: 0px;
+  left: 120px;
+  opacity: 1;
+  animation: rotateAroundCircle 0.7s linear 1;
+  transform-origin: center 180px;
+}
+
+@keyframes rotateAroundCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 #container {
