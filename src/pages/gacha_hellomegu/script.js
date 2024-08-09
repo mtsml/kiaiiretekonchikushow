@@ -114,9 +114,10 @@ const startHellomegGacha = (hellomegImgElement) => {
   }, animationDelayBase * 1000);
 
   // すべてのカードを描画し終わったら周回完了として非表示にする
+  // 加算している 0.7 s は rotateAroundCircle の 50%-100% の変化にかかる時間
   setTimeout(() => {
     firstImg.style.display = 'none';
-  }, totalAnimationDuration * 1000);
+  }, (totalAnimationDuration + 0.7) * 1000);
 
   const radius = 30;
   // カードの円を secretCardContainer の中央に配置するためのオフセット

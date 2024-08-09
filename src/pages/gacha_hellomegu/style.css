@@ -48,6 +48,7 @@
 
 #secret-card-container {
   position: relative;
+  top: -370px;
   width: 300px;
   margin: 0 auto;
 }
@@ -74,7 +75,7 @@
 
 .image.UR {
   background: linear-gradient(to bottom right, #00FFFF, #FF00FF);
-  box-shadow: 0 0 20px 10px magenta;
+  box-shadow: 0 0 20px 10px blueviolet;
 }
 
 .image.first {
@@ -91,7 +92,7 @@
   top: 0px;
   left: 120px;
   opacity: 1;
-  animation: rotateAroundCircle 0.7s linear 1;
+  animation: rotateAroundCircle 1.4s linear 1;
   transform-origin: center 180px;
 }
 
@@ -99,6 +100,10 @@
   0% {
     transform: rotate(0deg);
   }
+  50% {
+    transform: rotate(360deg);
+  }
+  /* 50%-100% は何も変化させない */
   100% {
     transform: rotate(360deg);
   }
