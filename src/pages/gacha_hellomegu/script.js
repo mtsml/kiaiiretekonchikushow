@@ -96,6 +96,9 @@ const startHellomegGacha = (hellomegImgElement) => {
     }
   }
 
+  // 画像を共有するための canvas 描画に時間を要するため抽選が完了したタイミングで処理を開始する
+  displayShareButtonOrTweetLink(cardList);
+
   const firstImg = document.createElement('div');
   firstImg.classList.add('image', 'first');
   secretCardContainer.appendChild(firstImg);
@@ -173,4 +176,80 @@ const resultCard = (cardList) => {
           card.style.transform = 'translateX(0)'; // 元の位置に戻す
       }, index * 150); // 2枚ずつ0.5秒間隔でスライド
   });
+
+  // result 表示
+  setTimeout(() => {
+    document.getElementById('result').style.display = null;
+  }, cardList.length * 150 + 500);
 };
+
+const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
+// TODO: URL 決める
+const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
+const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
+const HELLOMEG_GACHA_TWEET = 'hellome gacha\ntweet';
+
+/**
+ * diplay: none で埋め込まれている共有ボタンまたはツイートリンクを表示状態にする
+ * 
+ * 画像を Twitter で共有するために Web Share API を利用した共有ボタンを表示する。
+ * PC など Web Share API が利用できない場合は、テキストのみを共有するためのツイートリンクへフォールバック。
+ */
+const displayShareButtonOrTweetLink = (cards) => {
+  // cards を canvas に描画する
+  const canvas = document.createElement("canvas");
+  canvas.width = 620;
+  canvas.height = 244;
+  const ctx = canvas.getContext("2d");
+  cards.forEach(async (card, index) => {
+    const img = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = card.src;
+    });
+    const dx = index < 5 ? 10 + index * 122 : 10 + (index - 5) * 122 ;
+    const dy = index < 5 ? 10 : 132;
+    ctx.drawImage(img, dx, dy, 112, 112);
+  });
+
+  try {
+    canvas.toBlob((blob) => {
+      // Web Share API が利用できる場合は共有ボタンを、そうでない場合はツイートリンクを表示する
+      if (navigator.share && navigator.canShare && navigator.canShare(getNavigatorShareParams(blob))) {
+        document.getElementById("share-button").style.display = null;
+        document.getElementById("share-button").onclick = () => {
+          canvas.toBlob(async (blob) => {
+            await navigator.share(getNavigatorShareParams(blob));
+          });
+        }
+      } else {
+        const text = encodeURIComponent(`${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_TWEET}\n\n${cards.map(card => `・${card.name}\n`).join("")}\n`);
+        document.getElementById("tweet-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_GACHA_URL}`;
+        document.getElementById("tweet-link").style.display = null;
+      }
+    });
+  } catch (error) {
+    // ローカル実行の場合はエラーを捕まえてツイートリンクを表示する
+    if (error.message === "Failed to execute 'toBlob' on 'HTMLCanvasElement': Tainted canvases may not be exported.") {
+      const text = encodeURIComponent(`${HELLOMEG_DRAW_HASHTAG}\n${HELLOMEG_DRAW_TWEET}\n\n${cards.map(card => `・${card.name}\n`).join("")}\n`);
+      document.getElementById("tweet-link").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_DRAW_URL}`;
+      document.getElementById("tweet-link").style.display = null;
+    } else {
+      throw error;
+    }
+  }
+}
+
+/**
+ * navigator.share に渡す引数を返す
+ * 
+ * NOTE: 2024年3月時点で以下の現象が発生している
+ * - iOS: url が表示されない
+ * - Android: text が表示れない
+ */
+const getNavigatorShareParams = (blob) => ({
+  url: HELLOMEG_GACHA_URL,
+  text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_TWEET}\n${HELLOMEG_GACHA_URL}`,
+  files: [new File([blob], "image.png", { type: "image/png", })],
+});
