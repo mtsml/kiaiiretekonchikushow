@@ -51,11 +51,9 @@ const viewModal = (hellomegImgElement) => {
     modalOverlay.style.display = "none";
   };
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-      modalOverlay.style.display = "none";
-    }
+  // モーダル本体をクリックしても閉じないようにする
+  modal.onclick = function(e) {
+    e.stopPropagation();
   };
 };
 
@@ -114,10 +112,10 @@ const startHellomegGacha = (hellomegImgElement) => {
   }, animationDelayBase * 1000);
 
   // すべてのカードを描画し終わったら周回完了として非表示にする
-  // 加算している 0.7 s は rotateAroundCircle の 50%-100% の変化にかかる時間
+  // 加算している 0.1 s はいい感じの delay
   setTimeout(() => {
     firstImg.style.display = 'none';
-  }, (totalAnimationDuration + 0.7) * 1000);
+  }, (totalAnimationDuration + 0.1) * 1000);
 
   const radius = 30;
   // カードの円を secretCardContainer の中央に配置するためのオフセット
