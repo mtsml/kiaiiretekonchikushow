@@ -106,11 +106,14 @@ const startHellomegGacha = (hellomegImgElement) => {
   firstImg.style.backgroundColor = 'cyan';
   secretCardContainer.appendChild(firstImg);
 
-  const firstAngle = 0;
   const radius = 30;
-  const offset = 10;
-  const x = 175 + (radius - offset) * Math.cos(firstAngle);
-  const y = 175 + (radius - offset) * Math.sin(firstAngle);
+  // カードの円を secretCardContainer の中央に配置するためのオフセット
+  const offsetX = 90;
+  const offsetY = 60;
+
+  const firstAngle = 0;
+  const x = offsetX + radius * Math.cos(firstAngle);
+  const y = offsetY + radius * Math.sin(firstAngle);
 
   firstImg.style.left = `${x}px`;
   firstImg.style.top = `${y}px`;
@@ -124,12 +127,11 @@ const startHellomegGacha = (hellomegImgElement) => {
     secretCardContainer.appendChild(img);
 
     const angle = (i * 36) * (Math.PI / 180);
-    const x = 175 + (radius - offset) * Math.cos(angle);
-    const y = 175 + (radius - offset) * Math.sin(angle);
+    const x = offsetX + radius * Math.cos(angle);
+    const y = offsetY + radius * Math.sin(angle);
 
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
-
     img.style.transform = `rotate(${angle}rad) translate(0, -50%)`;
     img.style.animationDelay = `${i * 0.06 + 1}s`;
   }
