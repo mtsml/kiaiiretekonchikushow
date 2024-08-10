@@ -174,18 +174,24 @@ const resultCard = (cardList) => {
   // 選択した画像とランクを追加
   cardList.forEach(item => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.classList.add('card', item.rarity);
+
+      // 背景色を付与するためだけの要素
+      // カードに animated border を付与するために必要
+      const cardInner = document.createElement('div');
+      cardInner.classList.add('cardInner');
 
       const img = document.createElement('img');
       img.src = item.src;
-      img.alt = item.src;
+      img.alt = item.name;
 
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = item.rarity;
 
-      card.appendChild(img);
-      card.appendChild(label);
+      cardInner.appendChild(img);
+      cardInner.appendChild(label);
+      card.appendChild(cardInner);
       container.appendChild(card);
   });
 
@@ -217,21 +223,7 @@ const HELLOMEG_GACHA_TWEET = '10連ハロめぐガチャで運試し\n結果は.
  */
 const displayShareButtonOrTweetLink = (cards) => {
   // cards を canvas に描画する
-  const canvas = document.createElement("canvas");
-  canvas.width = 620;
-  canvas.height = 244;
-  const ctx = canvas.getContext("2d");
-  cards.forEach(async (card, index) => {
-    const img = await new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = card.src;
-    });
-    const dx = index < 5 ? 10 + index * 122 : 10 + (index - 5) * 122 ;
-    const dy = index < 5 ? 10 : 132;
-    ctx.drawImage(img, dx, dy, 112, 112);
-  });
+  const canvas = drawCanvas(cards);
 
   try {
     canvas.toBlob((blob) => {
@@ -259,6 +251,47 @@ const displayShareButtonOrTweetLink = (cards) => {
       throw error;
     }
   }
+}
+
+// cards.length === 10 を期待
+const drawCanvas = (cards) => {
+  const cardWidth = 100;
+  const cardHeight = 100;
+  const borderWidth = 2;
+  const padding = 10;
+  const canvasWidth = padding + (cardWidth + padding) * 5;
+  const canvasHeight = padding + (cardHeight + padding) * 2;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
+  const ctx = canvas.getContext("2d");
+
+  cards.forEach(async (card, index) => {
+    // 画像
+    const img = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = card.src;
+    });
+    const dx = index < 5
+      ? padding + (cardWidth + padding) * index        // 1行目
+      : padding + (cardWidth + padding) * (index - 5); // 2行目
+    const dy = index < 5
+      ? padding                   // 1行目
+      : padding * 2 + cardHeight; // 2行目
+    ctx.drawImage(img, dx, dy, cardWidth, cardHeight);
+
+    // 枠線
+    if (card.rarity === 'SR' || card.rarity === 'UR') {
+      ctx.strokeStyle = card.rarity === 'SR' ? 'gold' : 'blueviolet'; // 枠線の色
+      ctx.lineWidth = borderWidth;
+      ctx.strokeRect(dx, dy, cardWidth, cardHeight);
+    }
+  });
+
+  return canvas;
 }
 
 /**

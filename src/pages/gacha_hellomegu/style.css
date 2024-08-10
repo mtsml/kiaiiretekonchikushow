@@ -132,6 +132,45 @@
   height: auto;
 }
 
+.card.SR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(palegoldenrod, palegoldenrod) padding-box, linear-gradient(
+        135deg,
+        palegoldenrod,
+        gold
+      ) border-box;
+}
+
+.card.UR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        blueviolet
+      ) border-box;
+  animation: 4s rotate linear infinite;
+}
+
+.card.SR .cardInner,
+.card.UR .cardInner {
+  border-radius: 3px;
+  background-color: var(--color-bg);
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .card .label {
   margin-top: 5px;
   font-weight: bold;
