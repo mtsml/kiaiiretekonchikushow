@@ -130,11 +130,17 @@
 .card img {
   width: 100%;
   height: auto;
+  vertical-align: top;
 }
 
 .card.R {
-  border: 3px solid paleturquoise;
+  border: 3px solid #0000;
   border-radius: 6px;
+  background: linear-gradient(paleturquoise, paleturquoise) padding-box, linear-gradient(
+        135deg,
+        paleturquoise,
+        paleturquoise
+      ) border-box;
 }
 
 .card.SR {
@@ -158,8 +164,7 @@
   animation: 4s rotate linear infinite;
 }
 
-.card.SR .cardInner,
-.card.UR .cardInner {
+.cardInner {
   border-radius: 3px;
   background-color: var(--color-bg);
 }

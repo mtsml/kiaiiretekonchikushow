@@ -220,8 +220,6 @@ const displayShareButtonOrTweetLink = (cards) => {
   // cards を canvas に描画する
   const canvas = drawCanvas(cards);
 
-  document.getElementById("result").appendChild(canvas)
-
   try {
     canvas.toBlob((blob) => {
       // Web Share API が利用できる場合は共有ボタンを、そうでない場合はツイートリンクを表示する
