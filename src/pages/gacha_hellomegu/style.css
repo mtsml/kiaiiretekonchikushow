@@ -69,13 +69,13 @@
 }
 
 .image.R {
-  background-color: palegoldenrod;
-  box-shadow: 0 0 20px 10px gold;
+  background-color: paleturquoise;
+  box-shadow: 0 0 20px 10px cyan;
 }
 
 .image.SR {
-  background-color: paleturquoise;
-  box-shadow: 0 0 20px 10px cyan;
+  background-color: palegoldenrod;
+  box-shadow: 0 0 20px 10px gold;
 }
 
 .image.UR {
