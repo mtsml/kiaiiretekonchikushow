@@ -131,6 +131,7 @@
   width: 100%;
   height: auto;
   vertical-align: top;
+  border-radius: 3px;
 }
 
 .card.R {
