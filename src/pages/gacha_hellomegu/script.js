@@ -185,12 +185,7 @@ const resultCard = (cardList) => {
       img.src = item.src;
       img.alt = item.name;
 
-      const label = document.createElement('div');
-      label.className = 'label';
-      label.textContent = item.rarity;
-
       cardInner.appendChild(img);
-      cardInner.appendChild(label);
       card.appendChild(cardInner);
       container.appendChild(card);
   });
