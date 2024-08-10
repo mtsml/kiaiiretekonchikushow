@@ -3,6 +3,7 @@ const HELLOMEG_R_CARD_LIST = [
   // Rカード
   {
     name: "めぐぅ",
+    fullname: "[めぐぅ] ハロめぐ",
     rarity: "R",
     src: "../../assets/logo-512x512.png"
   },
@@ -11,31 +12,37 @@ const HELLOMEG_R_CARD_LIST = [
 const HELLOMEG_SR_CARD_LIST = [
   {
     name: "HSCTハロめぐ",
+    fullname: "[HSCT] ハロめぐ",
     rarity: "SR",
     src: "../../assets/hsct.png"
   },
   {
     name: "ハクチューハロめぐ",
+    fullname: "[ハクチュー] ハロめぐ",
     rarity: "SR",
     src: "../../assets/hkc.png"
   },
   {
     name: "フィーバーハロめぐ",
+    fullname: "[フィーバー] ハロめぐ",
     rarity: "SR",
     src: "../../assets/fever.png"
   },
   {
     name: "プランクハロめぐ",
+    fullname: "[プランク] ハロめぐ",
     rarity: "SR",
     src: "../../assets/plank.png"
   },
   {
     name: "宇宙ハロめぐ",
+    fullname: "[宇宙猫] ハロめぐ",
     rarity: "SR",
     src: "../../assets/universe.png"
   },
   {
     name: "ハロめぐだもん",
+    fullname: "[ハロめぐだもん] ハロめぐ",
     rarity: "SR",
     src: "../../assets/damon.png"
   },
@@ -45,8 +52,9 @@ const HELLOMEG_SR_CARD_LIST = [
 const HELLOMEG_UR_CARD_LIST = [
   {
     name: "あガラ食",
+    fullname: "[あガラ食] 大沢",
     rarity: "UR",
-    src: "../../assets/ohsawa.png"
+    src: "../../assets/ohsawa.png",
   },
 ];
 
@@ -162,7 +170,7 @@ const startHellomegGacha = (hellomegImgElement) => {
   }
 
   setTimeout(() => {
-    document.getElementsByTagName('body')[0].classList.add('overflow-hidden')
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
     // カードパックを画面外に吹き飛ばす
     Array.from(document.getElementsByClassName('image')).forEach((card, i) => {
       const angle = (i * 36) * (Math.PI / 180);
@@ -177,7 +185,7 @@ const startHellomegGacha = (hellomegImgElement) => {
     // 結果画面を表示する
     setTimeout(() => {
       secretCardContainer.style.display = 'none';
-      document.getElementsByTagName('body')[0].classList.remove('overflow-hidden')
+      document.getElementsByTagName('body')[0].classList.remove('overflow-hidden');
       resultCard(cardList);
     }, 1000);
   }, (totalAnimationDuration + 1) * 1000);
@@ -200,6 +208,7 @@ const resultCard = (cardList) => {
       const img = document.createElement('img');
       img.src = item.src;
       img.alt = item.name;
+      img.onclick = () => viewCardModal(item);
 
       cardInner.appendChild(img);
       card.appendChild(cardInner);
@@ -219,6 +228,33 @@ const resultCard = (cardList) => {
     document.getElementById('result').style.display = null;
   }, cardList.length * 150 + 500);
 };
+
+const viewCardModal = (card) => {
+  var modal = document.getElementById("cardModal");
+  var modalOverlay = document.getElementById("cardModalOverlay");
+  modal.style.display = "block";
+  modalOverlay.style.display = "block";
+
+  modal.querySelector('.modal-body img').src = card.src;
+  modal.querySelector('.modal-body h3').textContent = `${card.rarity} ${card.fullname}`;
+  document.getElementById("cardModalConfirmOk").style.display = card.rarity === 'UR' ? null : 'none';
+
+  document.getElementById("cardModalConfirmCancel").onclick = function() {
+    modal.style.display = "none";
+    modalOverlay.style.display = "none";
+  };
+
+  modalOverlay.onclick = function() {
+    modal.style.display = "none";
+    modalOverlay.style.display = "none";
+  };
+
+  // モーダル本体をクリックしても閉じないようにする
+  modal.onclick = function(e) {
+    e.stopPropagation();
+  };
+};
+
 
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 // TODO: URL 決める

@@ -109,7 +109,6 @@
   50% {
     transform: rotate(360deg);
   }
-  /* 50%-100% は何も変化させない */
   100% {
     transform: rotate(360deg);
   }
@@ -132,6 +131,7 @@
   height: auto;
   vertical-align: top;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .card.R {
@@ -148,10 +148,11 @@
   border: 3px solid #0000;
   border-radius: 6px;
   background: linear-gradient(palegoldenrod, palegoldenrod) padding-box, linear-gradient(
-        135deg,
+        var(--angle),
         palegoldenrod,
         gold
       ) border-box;
+  animation: 7s rotate linear infinite;
 }
 
 .card.UR {
