@@ -133,7 +133,7 @@ const startHellomegGacha = (hellomegImgElement) => {
   }, animationDelayBase * 1000);
 
   // すべてのカードを描画し終わったら周回完了として非表示にする
-  // 加算している 0.1 s はいい感じの delay
+  // 加算している 0.1s はいい感じの delay
   setTimeout(() => {
     firstImg.style.display = 'none';
   }, (totalAnimationDuration + 0.1) * 1000);
@@ -220,6 +220,8 @@ const displayShareButtonOrTweetLink = (cards) => {
   // cards を canvas に描画する
   const canvas = drawCanvas(cards);
 
+  document.getElementById("result").appendChild(canvas)
+
   try {
     canvas.toBlob((blob) => {
       // Web Share API が利用できる場合は共有ボタンを、そうでない場合はツイートリンクを表示する
@@ -279,11 +281,9 @@ const drawCanvas = (cards) => {
     ctx.drawImage(img, dx, dy, cardWidth, cardHeight);
 
     // 枠線
-    if (card.rarity === 'SR' || card.rarity === 'UR') {
-      ctx.strokeStyle = card.rarity === 'SR' ? 'gold' : 'blueviolet'; // 枠線の色
-      ctx.lineWidth = borderWidth;
-      ctx.strokeRect(dx, dy, cardWidth, cardHeight);
-    }
+    ctx.strokeStyle = card.rarity === 'UR' ? 'blueviolet' : card.rarity === 'SR' ? 'gold' : 'paleturquoise'; // 枠線の色
+    ctx.lineWidth = borderWidth;
+    ctx.strokeRect(dx, dy, cardWidth, cardHeight);
   });
 
   return canvas;
