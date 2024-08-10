@@ -19,6 +19,16 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/hkc.png"
   },
+  {
+    name: "フィーバーハロめぐ",
+    rarity: "SR",
+    src: "../../assets/fever.png"
+  },
+  {
+    name: "プランクハロめぐ",
+    rarity: "SR",
+    src: "../../assets/plank.png"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
@@ -186,7 +196,7 @@ const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 // TODO: URL 決める
 const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
 const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
-const HELLOMEG_GACHA_TWEET = 'hellome gacha\ntweet';
+const HELLOMEG_GACHA_TWEET = '10連ハロめぐガチャで運試し\n結果は...';
 
 /**
  * diplay: none で埋め込まれている共有ボタンまたはツイートリンクを表示状態にする
