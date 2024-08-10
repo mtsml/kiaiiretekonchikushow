@@ -29,13 +29,24 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/plank.png"
   },
-];
-// URカード
-const HELLOMEG_UR_CARD_LIST = [
   {
     name: "宇宙ハロめぐ",
-    rarity: "UR",
+    rarity: "SR",
     src: "../../assets/universe.png"
+  },
+  {
+    name: "ハロめぐだもん",
+    rarity: "SR",
+    src: "../../assets/damon.png"
+  },
+];
+// URカード
+// TODO 新規絵と差し替える
+const HELLOMEG_UR_CARD_LIST = [
+  {
+    name: "あガラ食",
+    rarity: "UR",
+    src: "../../assets/ohsawa.png"
   },
 ];
 
