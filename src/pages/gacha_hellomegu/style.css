@@ -11,8 +11,13 @@
 }
 
 .modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 600px;
+  width: 90%;
+  height: fit-content;
   background-color: #fff;
-  margin: 20% 5% auto 5%;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -48,8 +53,9 @@
 
 #secret-card-container {
   position: relative;
-  height: 400px;
-  width: 200px;
+  top: -370px;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .image {
@@ -57,8 +63,55 @@
   width: 60px;
   height: 120px;
   opacity: 0;
+  border-radius: 2px;
   transform-origin: bottom right;
   animation: fadeIn 1s forwards;
+}
+
+.image.R {
+  background-color: palegoldenrod;
+  box-shadow: 0 0 20px 10px gold;
+}
+
+.image.SR {
+  background-color: paleturquoise;
+  box-shadow: 0 0 20px 10px cyan;
+}
+
+.image.UR {
+  background: linear-gradient(to bottom right, #00FFFF, #FF00FF);
+  box-shadow: 0 0 20px 10px blueviolet;
+}
+
+.image.first {
+  top: 60px;
+  left: 120px;
+  z-index: 1; /* 他のカードより前面に配置されるようにする */
+  background-color: cyan;
+  box-shadow: 0 0 6px 6px rgba(0, 255, 255, 0.5);
+  transform: rotate(0rad) translate(0, -50%);
+  animation-delay: 0s;
+}
+
+.image.first.rotateAroundCircle {
+  top: 0px;
+  left: 120px;
+  opacity: 1;
+  animation: rotateAroundCircle 1.4s linear 1;
+  transform-origin: center 180px;
+}
+
+@keyframes rotateAroundCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  /* 50%-100% は何も変化させない */
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 #container {
@@ -87,4 +140,8 @@
   to {
     opacity: 1;
   }
+}
+
+#result {
+  margin-top: 2em;;
 }
