@@ -162,8 +162,24 @@ const startHellomegGacha = (hellomegImgElement) => {
   }
 
   setTimeout(() => {
-    secretCardContainer.style.display = 'none';
-    resultCard(cardList);
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden')
+    // カードパックを画面外に吹き飛ばす
+    Array.from(document.getElementsByClassName('image')).forEach((card, i) => {
+      const angle = (i * 36) * (Math.PI / 180);
+      const translateX = 1000 * Math.cos(angle);
+      const translateY = 1000 * Math.sin(angle);
+
+      card.style.transition = 'transform 1s ease-in-out, opacity 1s ease-in-out';
+      card.style.transform = `translate(${translateX}px, ${translateY}px)`;
+      card.style.opacity = '0';
+    });
+
+    // 結果画面を表示する
+    setTimeout(() => {
+      secretCardContainer.style.display = 'none';
+      document.getElementsByTagName('body')[0].classList.remove('overflow-hidden')
+      resultCard(cardList);
+    }, 1000);
   }, (totalAnimationDuration + 1) * 1000);
 };
 

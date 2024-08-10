@@ -195,3 +195,7 @@
 #result {
   margin-top: 2em;;
 }
+
+.overflow-hidden {
+  overflow: hidden;
+}
