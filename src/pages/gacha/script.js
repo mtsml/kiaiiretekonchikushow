@@ -257,7 +257,6 @@ const viewCardModal = (card) => {
 
 
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
-// TODO: URL 決める
 const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
 const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
 const HELLOMEG_GACHA_TWEET = '10連ハロめぐガチャで運試し\n結果は...';
