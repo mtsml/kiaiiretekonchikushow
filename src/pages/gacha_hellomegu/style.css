@@ -109,7 +109,6 @@
   50% {
     transform: rotate(360deg);
   }
-  /* 50%-100% は何も変化させない */
   100% {
     transform: rotate(360deg);
   }
@@ -130,6 +129,58 @@
 .card img {
   width: 100%;
   height: auto;
+  vertical-align: top;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.card.R {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(paleturquoise, paleturquoise) padding-box, linear-gradient(
+        135deg,
+        paleturquoise,
+        paleturquoise
+      ) border-box;
+}
+
+.card.SR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(palegoldenrod, palegoldenrod) padding-box, linear-gradient(
+        var(--angle),
+        palegoldenrod,
+        gold
+      ) border-box;
+  animation: 7s rotate linear infinite;
+}
+
+.card.UR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        blueviolet
+      ) border-box;
+  animation: 4s rotate linear infinite;
+}
+
+.cardInner {
+  border-radius: 3px;
+  background-color: var(--color-bg);
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 .card .label {
@@ -145,4 +196,8 @@
 
 #result {
   margin-top: 2em;;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
