@@ -235,7 +235,7 @@ const viewCardModal = (card) => {
   modalOverlay.style.display = "block";
 
   modal.querySelector('.modal-body img').src = card.src;
-  modal.querySelector('.modal-body h3').textContent = `${card.rarity} ${card.fullname}`;
+  modal.querySelector('.modal-body h2').textContent = `${card.rarity} ${card.fullname}`;
   document.getElementById("cardModalConfirmOk").style.display = card.rarity === 'UR' ? null : 'none';
 
   document.getElementById("cardModalConfirmCancel").onclick = function() {
@@ -256,7 +256,6 @@ const viewCardModal = (card) => {
 
 
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
-// TODO: URL 決める
 const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
 const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
 const HELLOMEG_GACHA_TWEET = '10連ハロめぐガチャで運試し\n結果は...';
