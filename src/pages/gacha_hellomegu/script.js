@@ -48,13 +48,12 @@ const HELLOMEG_SR_CARD_LIST = [
   },
 ];
 // URカード
-// TODO 新規絵と差し替える
 const HELLOMEG_UR_CARD_LIST = [
   {
-    name: "あガラ食",
-    fullname: "[あガラ食] 大沢",
+    name: "めぐ島に入ろう",
+    fullname: "[めぐ島に入ろう] ハロめぐ",
     rarity: "UR",
-    src: "../../assets/ohsawa.png",
+    src: "../../assets/welcome.png",
   },
 ];
 
