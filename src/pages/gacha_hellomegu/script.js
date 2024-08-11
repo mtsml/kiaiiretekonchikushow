@@ -11,31 +11,31 @@ const HELLOMEG_R_CARD_LIST = [
 // SRカード
 const HELLOMEG_SR_CARD_LIST = [
   {
-    name: "HSCTハロめぐ",
+    name: "HSCT",
     fullname: "[HSCT] ハロめぐ",
     rarity: "SR",
     src: "../../assets/hsct.png"
   },
   {
-    name: "ハクチューハロめぐ",
+    name: "ハクチュー",
     fullname: "[ハクチュー] ハロめぐ",
     rarity: "SR",
     src: "../../assets/hkc.png"
   },
   {
-    name: "フィーバーハロめぐ",
+    name: "フィーバー",
     fullname: "[フィーバー] ハロめぐ",
     rarity: "SR",
     src: "../../assets/fever.png"
   },
   {
-    name: "プランクハロめぐ",
+    name: "プランク",
     fullname: "[プランク] ハロめぐ",
     rarity: "SR",
     src: "../../assets/plank.png"
   },
   {
-    name: "宇宙ハロめぐ",
+    name: "宇宙猫",
     fullname: "[宇宙猫] ハロめぐ",
     rarity: "SR",
     src: "../../assets/universe.png"
