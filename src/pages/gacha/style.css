@@ -115,6 +115,8 @@
 }
 
 #container {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
@@ -194,8 +196,8 @@
   }
 }
 
-#result {
-  margin-top: 2em;;
+#result p {
+  margin-bottom: 0.5em;
 }
 
 .overflow-hidden {
