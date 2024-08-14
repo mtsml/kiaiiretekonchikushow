@@ -46,6 +46,114 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/damon.png"
   },
+  {
+    name: "C104",
+    fullname: "[C104] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/comike104.png"
+  },
+  {
+    name: "ドン・キホーテ",
+    fullname: "[ドン・キホーテ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/donki.png"
+  },
+  {
+    name: "がおー",
+    fullname: "[がおー] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/gao.png"
+  },
+  {
+    name: "ハロメグダヨ",
+    fullname: "[ハロメグダヨ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/haromegudayo.png"
+  },
+  {
+    name: "ハロめぐかも？",
+    fullname: "[ハロめぐかも？] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hellomegkamo.png"
+  },
+  {
+    name: "充電",
+    fullname: "[充電] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/juden.png"
+  },
+  {
+    name: "ミックファイア",
+    fullname: "[ミックファイア] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/mickfire.png"
+  },
+  {
+    name: "モノクローム",
+    fullname: "[モノクローム] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/monochrome.png"
+  },
+  {
+    name: "PRESSED",
+    fullname: "[PRESSED] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/pressed.png"
+  },
+  {
+    name: "ぷちはす",
+    fullname: "[ぷちはす] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/puchihasu_hellomeg.png"
+  },
+  {
+    name: "ぷちはす",
+    fullname: "[ぷちはす] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/puchihasu_me.png"
+  },
+  {
+    name: "ぷちはす",
+    fullname: "[ぷちはす] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/puchihasu_ro.png"
+  },
+  {
+    name: "シャウト",
+    fullname: "[シャウト] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/shout.png"
+  },
+  {
+    name: "アクスタ",
+    fullname: "[アクスタ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/stand.png"
+  },
+  {
+    name: "回転寿司",
+    fullname: "[回転寿司] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/sushi.png"
+  },
+  {
+    name: "七夕",
+    fullname: "[七夕] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/tanameg.png"
+  },
+  {
+    name: "UMTM",
+    fullname: "[UMTM] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/umtm.png"
+  },
+  {
+    name: "ユニット甲子園",
+    fullname: "[ユニット甲子園] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/unitlive_hellomeg.png"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [

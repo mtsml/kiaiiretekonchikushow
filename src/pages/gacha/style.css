@@ -203,3 +203,7 @@
 .overflow-hidden {
   overflow: hidden;
 }
+
+#description p {
+  line-height: 1.7;
+}
