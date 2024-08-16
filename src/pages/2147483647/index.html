@@ -65,19 +65,8 @@
       >
     </div>
     <form
-      oninput="result.value=calcLoveValue(
-        song.value,
-        singer.value,
-        appeal.value,
-        mastery.value,
-        lovebornus.value,
-        heartrank.value,
-        heartcnt.value,
-        loveatract.value
-      )"
     >
       <div class="input">
-        <label class="input_label" for="song">楽曲秒数</label>
         <span class="input_area input_area--hasSuffix">
           <input class="input_input" type="number" id="song" name="song" step="0.01" placeholder="111.11"/>
           <span class="input_suffix">秒</span>
@@ -85,7 +74,6 @@
       </div>
 
       <div class="input">
-        <label class="input_label" for="singer">歌唱メンバー数</label>
         <span class="input_area input_area--hasSuffix">
           <input class="input_input" type="number" id="singer" name="singer" placeholder="9"/>
           <span class="input_suffix">人</span>
@@ -93,7 +81,6 @@
       </div>
 
       <div class="input">
-        <label class="input_label" for="appeal">アピール値合計</label>
         <span class="input_area">
           <input class="input_input" type="number" id="appeal" name="appeal" placeholder="190000"/>
         </span>
