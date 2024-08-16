@@ -1,3 +1,13 @@
+/* 数値の上下ボタンを無効にする */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance:textfield;
+}
+
 .input + .input {
   margin-top: 24px;
 }
@@ -5,8 +15,6 @@
 .input {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  border: 1px dashed red;
 }
 
 .input_label {
@@ -31,10 +39,9 @@
   padding: 6px 14px;
 }
 
-/* .input_input:focus,
-.input_input:active {
+.input_input:focus {
   border: 2px solid var(--color-hellomeg-hair);
-} */
+}
 
 .input_input:disabled {
   background-color: var(--color-fg-sub-sub);
@@ -46,7 +53,9 @@
 
 .input_suffix {
   position: absolute;
+  top: 0;
   right: 8px;
+  z-index: -1;
   padding: 8px 0;
   color: var(--color-fg-sub);
 }
@@ -57,8 +66,8 @@
 }
 
 .output {
-  margin-top: 32px;
-  margin-bottom: 48px;
+  margin-top: 24px;
+  margin-bottom: 36px;
   font-size: 50px;
   font-style: italic;
 }
