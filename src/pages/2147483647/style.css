@@ -9,7 +9,8 @@
 }
 
 input {
-  box-sizing: border-box;
+  padding: 10px;
+  line-height: 1.5;
 }
 
 .input_label {
