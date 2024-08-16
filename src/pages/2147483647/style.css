@@ -24,7 +24,7 @@
 }
 
 .input_input {
-  display: inline-block;
+  display: block;
   width: 100px;
   border: 2px solid var(--color-fg-sub-sub);
   border-radius: 6px;
