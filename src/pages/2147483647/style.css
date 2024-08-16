@@ -24,6 +24,7 @@ input[type="number"] {
   padding-left: 8px;
   border-left: 5px solid var(--color-fg);
   text-align: left;
+  background-color: red;
 }
 
 .input_area {
