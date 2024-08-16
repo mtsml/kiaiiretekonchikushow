@@ -2,20 +2,6 @@
   margin-top: 24px;
 }
 
-/* 数値の上下ボタンを無効にする */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0; 
-}
-input[type="number"] { 
-  -moz-appearance:textfield;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-
 .input {
   display: flex;
   justify-content: center;
