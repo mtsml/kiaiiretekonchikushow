@@ -6,6 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  border: 1px dashed red;
 }
 
 .input_label {
