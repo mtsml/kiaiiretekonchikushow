@@ -8,11 +8,6 @@
   align-items: flex-start;
 }
 
-input {
-  padding: 10px;
-  line-height: 1.5;
-}
-
 .input_label {
   display: block;
   min-width: 130px;
@@ -35,13 +30,13 @@ input {
   padding: 6px 14px;
 }
 
-.input_input:disabled {
-  background-color: var(--color-fg-sub-sub);
-}
-
-.input_input:focus,
+/* .input_input:focus,
 .input_input:active {
   border: 2px solid var(--color-hellomeg-hair);
+} */
+
+.input_input:disabled {
+  background-color: var(--color-fg-sub-sub);
 }
 
 .input_input::placeholder {
