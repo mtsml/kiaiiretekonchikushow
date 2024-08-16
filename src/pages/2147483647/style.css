@@ -33,6 +33,7 @@ input[type="number"] {
 
 .input_input {
   display: inline-block;
+  min-height: 28px;
   width: 100px;
   border: 2px solid var(--color-fg-sub-sub);
   border-radius: 6px;
