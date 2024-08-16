@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="og:title" content="2147483647 | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/2147483647/">
+  <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
+  <meta name="og:type" content="website">
+  <meta name="og:site_name" content="めぐ島">
+  <meta name="twitter:card" content="summary">
+  <meta name="description" content="ハロめぐー！">
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../global.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LRB16S0GH');
+  </script>
+  <script src="./script.js"></script>
+  <title>2147483647 | めぐ島</title>
+</head>
+<body>
+  <!--
+
+                                ■           ■                   ■ 
+       ■        ■■■■■■■■    ■   ■          ■■                   ■ 
+       ■   ■    ■       ■   ■■■ ■■■      ■■                     ■ 
+       ■   ■    ■       ■   ■■  ■ ■■    ■■  ■ ■                 ■ 
+      ■■   ■    ■       ■  ■ ■ ■   ■   ■     ■   ■■■■■■■■■      ■ 
+      ■     ■   ■       ■  ■ ■ ■   ■   ■■                       ■ 
+      ■     ■   ■       ■  ■  ■    ■    ■■                      ■ 
+     ■      ■■  ■       ■  ■ ■■   ■       ■■                      
+     ■       ■  ■■■■■■■■■  ■■■   ■         ■■                   ■ 
+
+  -->
+  <header>
+    <nav class="c-breadcrumb">
+      <a href="../_root/index.html">
+        <!-- ChevronLeft Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        <span>めぐ島🏝️</span>
+      </a>
+    </nav>
+    <h1>
+      2147483647
+    </h1>
+  </header>
+  <main>
+    <div class="c-container">
+      <img
+        src="../../assets/logo-512x512.png"
+        class="c-logo"
+      >
+    </div>
+    <form
+      oninput="result.value=calcLoveValue(
+        song.value,
+        singer.value,
+        appeal.value,
+        mastery.value,
+        lovebornus.value,
+        heartrank.value,
+        heartcnt.value,
+        loveatract.value
+      )"
+    >
+      <div class="input">
+        <label class="input_label" for="song">楽曲秒数</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="song" name="song" step="0.01" placeholder="111.11"/>
+          <span class="input_suffix">秒</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="singer">歌唱メンバー数</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="singer" name="singer" placeholder="9"/>
+          <span class="input_suffix">人</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="appeal">アピール値合計</label>
+        <span class="input_area">
+          <input class="input_input" type="number" id="appeal" name="appeal" placeholder="190000"/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="mastery">マスタリーレベル</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="mastery" name="mastery" placeholder="480"/>
+          <span class="input_suffix">Lv</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="lovebornus">LOVEボーナス</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="lovebornus" name="lovebornus" step="0.1" placeholder="9.5"/>
+          <span class="input_suffix">%</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="heartrank">ハートランク</label>
+        <span class="input_area input_area--disabled">
+          <input class="input_input" type="number" id="heartrank" name="heartrank" step="0.1" value="3.5" placeholder="3.5" disabled/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="heartcnt">ハート個数</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="heartcnt" name="heartcnt" placeholder="157"/>
+          <span class="input_suffix">個</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="loveatract">アトラクト</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="loveatract" name="loveatract" placeholder="10000"/>
+          <span class="input_suffix">%</span>
+        </span>
+      </div>
+
+      <div class="output">
+        <output name="result" for="song singer appeal mastery lovebornus heartrank heartcnt loveatract">NaNダロナ</output>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

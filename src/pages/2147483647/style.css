@@ -1,0 +1,67 @@
+.input + .input {
+  margin-top: 1.5em;
+}
+
+/* 数値の上下ボタンを無効にする */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; 
+}
+input[type="number"] { 
+  -moz-appearance:textfield; 
+}
+
+.input_label {
+  display: inline-block;
+  min-width: 150px;
+  margin-right: 1em;
+  padding-left: 0.5em;
+  border-left: 5px solid var(--color-fg);
+  text-align: left;
+}
+
+.input_area {
+  display: inline-block;
+  position: relative;
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  padding: 6px 14px;
+}
+
+.input_area:focus-within {
+  border: 2px solid var(--color-hellomeg-hair);
+}
+
+.input_area--disabled {
+  background-color: var(--color-fg-sub-sub);
+}
+
+.input_input {
+  width: 100px;
+}
+
+.input_area--hasSuffix {
+  padding-right: 24px;
+}
+
+.input_area--hasSuffix .input_input {
+  width: 90px;
+}
+
+.input_input::placeholder {
+  color: var(--color-fg-sub-sub);
+}
+
+.input_suffix {
+  position: absolute;
+  right: 5px;
+  color: var(--color-fg-sub);
+}
+
+.output {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  font-size: 50px;
+  font-style: italic;
+}
