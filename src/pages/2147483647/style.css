@@ -8,6 +8,10 @@
   align-items: flex-start;
 }
 
+input {
+  box-sizing: border-box;
+}
+
 .input_label {
   display: block;
   min-width: 130px;
