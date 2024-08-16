@@ -37,7 +37,8 @@ input[type="number"] {
   background-color: var(--color-fg-sub-sub);
 }
 
-.input_input:focus {
+.input_input:focus,
+.input_input:active {
   border: 2px solid var(--color-hellomeg-hair);
 }
 
