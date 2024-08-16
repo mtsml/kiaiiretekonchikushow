@@ -65,7 +65,7 @@
       >
     </div>
     <form
-      oninput="result.value=calcLoveValue(
+      oninput="result.value=getResultValue(
         song.value,
         singer.value,
         appeal.value,
@@ -79,7 +79,7 @@
       <div class="input">
         <label class="input_label" for="song">楽曲秒数</label>
         <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="song" name="song" step="0.01" placeholder="111.11"/>
+          <input class="input_input" type="number" id="song" name="song" step="0.01" min="0.00" max="999.99" placeholder="111.11"/>
           <span class="input_suffix">秒</span>
         </span>
       </div>
@@ -87,7 +87,7 @@
       <div class="input">
         <label class="input_label" for="singer">歌唱メンバー数</label>
         <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="singer" name="singer" placeholder="9"/>
+          <input class="input_input" type="number" id="singer" name="singer" min="1" max="9" placeholder="9"/>
           <span class="input_suffix">人</span>
         </span>
       </div>
@@ -95,14 +95,14 @@
       <div class="input">
         <label class="input_label" for="appeal">アピール値合計</label>
         <span class="input_area">
-          <input class="input_input" type="number" id="appeal" name="appeal" placeholder="190000"/>
+          <input class="input_input" type="number" id="appeal" name="appeal" min="0" max="2147483647" placeholder="190000"/>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="mastery">マスタリーレベル</label>
         <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="mastery" name="mastery" placeholder="480"/>
+          <input class="input_input" type="number" id="mastery" name="mastery" min="0" max="999" placeholder="480"/>
           <span class="input_suffix">Lv</span>
         </span>
       </div>
@@ -110,7 +110,7 @@
       <div class="input">
         <label class="input_label" for="lovebornus">LOVEボーナス</label>
         <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="lovebornus" name="lovebornus" step="0.1" placeholder="9.5"/>
+          <input class="input_input" type="number" id="lovebornus" name="lovebornus" step="0.1" min="0.0" max="99.9" placeholder="9.5"/>
           <span class="input_suffix">%</span>
         </span>
       </div>
@@ -124,22 +124,40 @@
 
       <div class="input">
         <label class="input_label" for="heartcnt">ハート個数</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="heartcnt" name="heartcnt" placeholder="157"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            id="auto-calc-heartcnt"
+            class="input_prefix"
+            disabled
+            onclick="calcHeartCnt()"
+            type="button"
+          >
+            <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+          </button>
+          <input class="input_input" type="number" id="heartcnt" name="heartcnt" min="0" max="2147483647" placeholder="157"/>
           <span class="input_suffix">個</span>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="loveatract">アトラクト</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="loveatract" name="loveatract" placeholder="10000"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            id="auto-calc-loveatract"
+            class="input_prefix"
+            disabled
+            onclick="calcLoveAtract()"
+            type="button"
+          >
+            <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+          </button>
+          <input class="input_input" type="number" id="loveatract" name="loveatract" min="0" max="2147483647" placeholder="10000"/>
           <span class="input_suffix">%</span>
         </span>
       </div>
 
       <div class="output">
-        <output name="result" for="song singer appeal mastery lovebornus heartrank heartcnt loveatract">NaNダロナ</output>
+        <output id="result" name="result" for="song singer appeal mastery lovebornus heartrank heartcnt loveatract">NaNダロナ</output>
       </div>
     </form>
   </main>
