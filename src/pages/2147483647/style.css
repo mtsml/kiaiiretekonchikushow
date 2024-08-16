@@ -48,6 +48,7 @@ input[type="number"] {
   border: 2px solid var(--color-fg-sub-sub);
   border-radius: 6px;
   padding: 6px 14px;
+  color: var(--color-fg);
 }
 
 .input_input:focus {
