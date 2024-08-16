@@ -22,7 +22,7 @@ const getResultValue = (song, singer, appeal, mastery, lovebornus, heartrank, he
     return "NaNダロナ";
   } else {
     const displayValue = Math.round(loveValue / 100000000)
-    if (displayValue == 0) {
+    if (displayValue === 0) {
       return "1億未満！";
     } else {
       return `だいたい${displayValue}億！`;

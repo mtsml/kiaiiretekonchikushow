@@ -34,7 +34,7 @@ input[type="number"] {
   padding: 0;
   vertical-align: text-top;
   height: 20px;
-  fill: var(--color-fg);
+  fill: var(--color-fg-sub);
 }
 
 .input_area {
@@ -52,7 +52,7 @@ input[type="number"] {
 }
 
 .input_input:focus {
-  border: 2px solid var(--color-hellomeg-hair);
+  border: 2px solid var(--color-fg-sub);
 }
 
 .input_input:disabled {
@@ -96,7 +96,7 @@ input[type="number"] {
 
 .input_calcIcon {
   height: 24px;
-  fill: var(--color-fg);
+  fill: var(--color-fg-sub);
 }
 
 #auto-calc-heartcnt:disabled .input_calcIcon,
@@ -140,6 +140,6 @@ input[type="number"] {
 
 .modal_inlineIcon {
   height: 24px;
-  fill: var(--color-fg);
+  fill: var(--color-fg-sub);
   vertical-align: text-top;
 }
