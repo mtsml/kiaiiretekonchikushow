@@ -83,3 +83,19 @@ const calcLoveAtract = () => {
   const resultElement = document.getElementById("result");
   resultElement.value = getResultValue(song, singer, appeal, mastery, lovebornus, heartrank, heartcnt, loveatract);
 }
+
+/**
+ * ヘルプモーダルを開く
+ */
+const openHelpModal = (id) => {
+  const modal = document.getElementById(id);
+  modal.showModal();
+}
+
+/**
+ * ヘルプモーダルを閉じる
+ */
+const closeHelpModal = (id) => {
+  const modal = document.getElementById(id);
+  modal.close();
+}
