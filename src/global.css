@@ -4,10 +4,12 @@
   --color-light: #fcfcfc;
   --color-lightgray: #cccccc;
   --color-gray: #767676;
+  --color-hellomeg-hair: #96817d;
 
   /* Light Theme Color */
   --color-fg: var(--color-dark);
   --color-fg-sub: var(--color-gray);
+  --color-fg-sub-sub: var(--color-lightgray);
   --color-bg: var(--color-light);
 }
 
@@ -16,6 +18,7 @@
     /* Dark Theme Color */
     --color-fg: var(--color-light);
     --color-fg-sub: var(--color-lightgray);
+    --color-fg-sub-sub: var(--color-gray);
     --color-bg: var(--color-dark);  
   }
 }

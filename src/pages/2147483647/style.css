@@ -1,0 +1,145 @@
+/* 数値の上下ボタンを無効にする */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance:textfield;
+}
+
+.input + .input {
+  margin-top: 16px;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+}
+
+.input_label {
+  position: relative;
+  display: block;
+  min-width: 130px;
+  margin: 8px 16px 8px 0;
+  padding-left: 8px;
+  border-left: 5px solid var(--color-fg);
+  text-align: left;
+}
+
+.input_helpIcon {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  padding: 0;
+  vertical-align: text-top;
+  height: 20px;
+  fill: var(--color-fg-sub);
+}
+
+.input_area {
+  display: block;
+  position: relative;
+}
+
+.input_input {
+  display: block;
+  width: 100px;
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  padding: 6px 14px;
+  color: var(--color-fg);
+}
+
+.input_input:focus {
+  border: 2px solid var(--color-fg-sub);
+}
+
+.input_input:disabled {
+  background-color: var(--color-fg-sub-sub);
+}
+
+.input_input::placeholder {
+  color: var(--color-fg-sub-sub);
+}
+
+.input_prefix {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  padding: 8px 8px;
+  color: var(--color-hellomeg-hair);
+}
+
+.input_area--hasPrefix .input_input {
+  padding-left: 40px;
+}
+
+.input_suffix {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  z-index: -1;
+  padding: 8px 0;
+  color: var(--color-fg-sub);
+}
+
+.input_area--hasSuffix .input_input {
+  width: 90px;
+  padding-right: 24px;
+}
+
+.input_area--hasPrefix.input_area--hasSuffix .input_input {
+  width: 64px;
+  padding-right: 24px;
+}
+
+.input_calcIcon {
+  height: 24px;
+  fill: var(--color-fg-sub);
+}
+
+#auto-calc-heartcnt:disabled .input_calcIcon,
+#auto-calc-loveatract:disabled .input_calcIcon {
+  fill: var(--color-fg-sub-sub);
+}
+
+.output {
+  margin-top: 24px;
+  margin-bottom: 36px;
+  font-size: 40px;
+  font-style: italic;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 1em;
+  max-width: calc(100% - 6em);
+  max-height: calc(100% - 6em);
+  border: 3px solid var(--color-fg-sub);
+  border-radius: 10px;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.modal h2 {
+  font-size: 1.15em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px dashed var(--color-fg-sub);
+}
+
+.modal p {
+  text-align: left;
+}
+
+.modal footer {
+  padding: 0.5em;
+}
+
+.modal_inlineIcon {
+  height: 24px;
+  fill: var(--color-fg-sub);
+  vertical-align: text-top;
+}

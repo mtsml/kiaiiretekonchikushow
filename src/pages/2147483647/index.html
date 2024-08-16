@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="og:title" content="2147483647 | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/2147483647/">
+  <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
+  <meta name="og:type" content="website">
+  <meta name="og:site_name" content="めぐ島">
+  <meta name="twitter:card" content="summary">
+  <meta name="description" content="ハロめぐー！">
+  <!-- タイトルを電話番号と認識させない -->
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../global.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LRB16S0GH');
+  </script>
+  <script src="./script.js"></script>
+  <title>2147483647 | めぐ島</title>
+</head>
+<body>
+  <!--
+
+                                ■           ■                   ■ 
+       ■        ■■■■■■■■    ■   ■          ■■                   ■ 
+       ■   ■    ■       ■   ■■■ ■■■      ■■                     ■ 
+       ■   ■    ■       ■   ■■  ■ ■■    ■■  ■ ■                 ■ 
+      ■■   ■    ■       ■  ■ ■ ■   ■   ■     ■   ■■■■■■■■■      ■ 
+      ■     ■   ■       ■  ■ ■ ■   ■   ■■                       ■ 
+      ■     ■   ■       ■  ■  ■    ■    ■■                      ■ 
+     ■      ■■  ■       ■  ■ ■■   ■       ■■                      
+     ■       ■  ■■■■■■■■■  ■■■   ■         ■■                   ■ 
+
+  -->
+  <header>
+    <nav class="c-breadcrumb">
+      <a href="../_root/index.html">
+        <!-- ChevronLeft Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        <span>めぐ島🏝️</span>
+      </a>
+    </nav>
+    <h1>
+      2147483647
+    </h1>
+  </header>
+  <main>
+    <div class="c-container">
+      <img
+        src="../../assets/logo-512x512.png"
+        class="c-logo"
+      >
+    </div>
+    <form
+      oninput="result.value=getResultValue(
+        song.value,
+        singer.value,
+        appeal.value,
+        mastery.value,
+        lovebornus.value,
+        heartrank.value,
+        heartcnt.value,
+        loveatract.value
+      )"
+    >
+      <div class="input">
+        <label class="input_label" for="song">楽曲秒数</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="song" name="song" step="0.01" min="0.00" max="999.99" placeholder="111.11"/>
+          <span class="input_suffix">秒</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="singer">歌唱メンバー数</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="singer" name="singer" min="1" max="9" placeholder="9"/>
+          <span class="input_suffix">人</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="appeal">アピール値合計</label>
+        <span class="input_area">
+          <input class="input_input" type="number" id="appeal" name="appeal" min="0" max="2147483647" placeholder="190000"/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="mastery">マスタリーレベル</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="mastery" name="mastery" min="0" max="999" placeholder="480"/>
+          <span class="input_suffix">Lv</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="lovebornus">LOVEボーナス</label>
+        <span class="input_area input_area--hasSuffix">
+          <input class="input_input" type="number" id="lovebornus" name="lovebornus" step="0.1" min="0.0" max="99.9" placeholder="9.5"/>
+          <span class="input_suffix">%</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="heartrank">
+          ハートランク
+          <button
+            type="button"
+            onclick="openHelpModal('heartrank-help-modal')"
+          >
+          <svg class="input_helpIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+        </button>
+        </label>
+        <span class="input_area input_area--disabled">
+          <input class="input_input" type="number" id="heartrank" name="heartrank" step="0.1" value="3.5" placeholder="3.5" disabled/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="heartcnt">
+          ハート個数
+          <button
+            type="button"
+            onclick="openHelpModal('heartcnt-help-modal')"
+          >
+            <svg class="input_helpIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+          </button>
+        </label>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            id="auto-calc-heartcnt"
+            class="input_prefix"
+            disabled
+            onclick="calcHeartCnt()"
+            type="button"
+          >
+            <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+          </button>
+          <input class="input_input" type="number" id="heartcnt" name="heartcnt" min="0" max="2147483647" placeholder="157"/>
+          <span class="input_suffix">個</span>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="loveatract">
+          アトラクト
+          <button
+            type="button"
+            onclick="openHelpModal('loveatract-help-modal')"
+          >
+            <svg class="input_helpIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+          </button>
+        </label>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            id="auto-calc-loveatract"
+            class="input_prefix"
+            disabled
+            onclick="calcLoveAtract()"
+            type="button"
+          >
+            <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+          </button>
+          <input class="input_input" type="number" id="loveatract" name="loveatract" min="0" max="2147483647" placeholder="10000"/>
+          <span class="input_suffix">%</span>
+        </span>
+      </div>
+
+      <div class="output">
+        <output id="result" name="result" for="song singer appeal mastery lovebornus heartrank heartcnt loveatract">NaNダロナ</output>
+      </div>
+
+      <dialog id="heartrank-help-modal" class="modal">
+        <section>
+          <h2>ヘルプ</h2>
+          <p>
+            ハートランクは変更できません。
+          </p>
+          <p>
+            どうせLOVELIVE!でしょう。
+          </p>
+        </section>
+          <footer>
+            <button type="button" onclick="closeHelpModal('heartrank-help-modal')">閉じる</button>
+          </footer>
+        </section>
+      </dialog>
+
+      <dialog id="heartcnt-help-modal" class="modal">
+        <section>
+          <h2>ヘルプ</h2>
+          <p>
+            <svg class="modal_inlineIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+            を押すとだいたい21億になるハート個数を計算して自動で入力します。
+          </p>
+          <p>
+            ハート個数以外のすべての項目を入力している場合のみ利用できます。
+          </p>
+        </section>
+          <footer>
+            <button type="button" onclick="closeHelpModal('heartcnt-help-modal')">閉じる</button>
+          </footer>
+        </section>
+      </dialog>
+
+      <dialog id="loveatract-help-modal" class="modal">
+        <section>
+          <h2>ヘルプ</h2>
+          <p>
+            <svg class="modal_inlineIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
+            を押すとだいたい21億になるアトラクトを計算して自動で入力します。
+          </p>
+          <p>
+            アトラクト以外のすべての項目を入力している場合のみ利用できます。
+          </p>
+        </section>
+          <footer>
+            <button type="button" onclick="closeHelpModal('loveatract-help-modal')">閉じる</button>
+          </footer>
+        </section>
+      </dialog>
+    </form>
+  </main>
+</body>
+</html>
