@@ -12,8 +12,13 @@ input[type="number"] {
   -moz-appearance:textfield; 
 }
 
+.input {
+  display: flex;
+  justify-content: center;
+}
+
 .input_label {
-  display: inline-block;
+  display: block;
   min-width: 130px;
   margin: 8px 1em 8px 0;
   padding-left: 0.5em;
@@ -22,6 +27,7 @@ input[type="number"] {
 }
 
 .input_area {
+  display: block;
   position: relative;
 }
 
