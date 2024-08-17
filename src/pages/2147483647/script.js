@@ -34,7 +34,7 @@ const getResultValue = (song, singer, appeal, mastery, lovebornus, heartrank, he
  * 獲得LOVEを計算する
  */
 const calcLoveValue = (song, singer, appeal, mastery, lovebornus, heartrank, heartcnt, loveatract) => {
-  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseInt(song, 10) * parseInt(singer, 10));
+  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseFloat(song) * parseInt(singer, 10));
   const bornus = 1 + (parseInt(mastery, 10) / 20 + parseFloat(lovebornus)) / 100;
   const loveValue = oneHeartScore * bornus * parseFloat(heartrank) * parseInt(heartcnt, 10) * (1 + parseInt(loveatract, 10) / 100);
   return loveValue;
@@ -52,7 +52,7 @@ const calcHeartCnt = () => {
   const heartrank = document.getElementById("heartrank").value;
   const loveatract = document.getElementById("loveatract").value;
 
-  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseInt(song, 10) * parseInt(singer, 10));
+  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseFloat(song) * parseInt(singer, 10));
   const bornus = 1 + (parseInt(mastery, 10) / 20 + parseFloat(lovebornus)) / 100;
   const heartcnt = 2147483647 / (oneHeartScore * bornus * parseFloat(heartrank) * (1 + parseInt(loveatract) / 100))
 
@@ -74,7 +74,7 @@ const calcLoveAtract = () => {
   const heartrank = document.getElementById("heartrank").value;
   const heartcnt = document.getElementById("heartcnt").value;
 
-  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseInt(song, 10) * parseInt(singer, 10));
+  const oneHeartScore = 120 * parseInt(appeal, 10) / (parseFloat(song) * parseInt(singer, 10));
   const bornus = 1 + (parseInt(mastery, 10) / 20 + parseFloat(lovebornus)) / 100;
   const loveatract = 100 * (2147483647 / (oneHeartScore * bornus * parseFloat(heartrank) * parseInt(heartcnt, 10)) - 1);
 
