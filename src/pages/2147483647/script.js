@@ -1,16 +1,16 @@
 /**
  * result.value にセットする値を返却する
  */
-const getResultValue = (songSeconds, singerNum, appealSum, masteryLv, loveBorunsLv, heartRank, heartCnt, loveAtract) => {
+const getResultValue = (songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract) => {
   // 他の項目がすべて入力されている場合に自動計算を有効にする
   const autoCalcHeartCntElement = document.getElementById("auto-calc-heartcnt");
-  if ([songSeconds, singerNum, appealSum, masteryLv, loveBorunsLv, heartRank, loveAtract].some(item => isNaN(parseInt(item, 10)))) {
+  if ([songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, loveAtract].some(item => isNaN(parseInt(item, 10)))) {
     autoCalcHeartCntElement.disabled = true;
   } else {
     autoCalcHeartCntElement.disabled = false;
   }
   const autoCalcLoveAtractElement = document.getElementById("auto-calc-loveatract");
-  if ([songSeconds, singerNum, appealSum, masteryLv, loveBorunsLv, heartRank, heartCnt].some(item => isNaN(parseInt(item, 10)))) {
+  if ([songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt].some(item => isNaN(parseInt(item, 10)))) {
     autoCalcLoveAtractElement.disabled = true;
   } else {
     autoCalcLoveAtractElement.disabled = false;
@@ -22,7 +22,7 @@ const getResultValue = (songSeconds, singerNum, appealSum, masteryLv, loveBoruns
     parseInt(singerNum, 10),
     parseInt(appealSum, 10),
     parseInt(masteryLv, 10),
-    parseInt(loveBorunsLv, 10),
+    parseInt(loveBornusLv, 10),
     parseFloat(heartRank),
     parseInt(heartCnt, 10),
     parseInt(loveAtract, 10),
@@ -80,6 +80,10 @@ const calcHeartCnt = () => {
   const heartCntElement = document.getElementById("heartcnt");
   heartCntElement.value = Math.ceil(heartCnt);
 
+  // debugArea 更新
+  const debugAreaElement = document.getElementById("debug-area");
+  debugAreaElement.textContent = Math.round(loveScore);
+
   // result 更新
   const resultElement = document.getElementById("result");
   const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
@@ -104,6 +108,10 @@ const calcLoveAtract = () => {
   const loveAtract = 100 * (2147483647 / (oneHeartScore * learningBornus * heartRank * heartCnt) - 1);
   const loveAtractElement = document.getElementById("loveatract");
   loveAtractElement.value = Math.ceil(loveAtract);
+
+  // debugArea 更新
+  const debugAreaElement = document.getElementById("debug-area");
+  debugAreaElement.textContent = Math.round(loveScore);
 
   // result 更新
   const resultElement = document.getElementById("result");
