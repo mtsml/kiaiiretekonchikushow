@@ -1,3 +1,7 @@
+main {
+  margin-bottom: 12px;
+}
+
 /* 数値の上下ボタンを無効にする */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -106,7 +110,7 @@ input[type="number"] {
 
 .output {
   margin-top: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   font-size: 40px;
   font-style: italic;
 }
