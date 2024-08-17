@@ -80,13 +80,15 @@ const calcHeartCnt = () => {
   const heartCntElement = document.getElementById("heartcnt");
   heartCntElement.value = Math.ceil(heartCnt);
 
+  // love 計算
+  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
+
   // debugArea 更新
   const debugAreaElement = document.getElementById("debug-area");
   debugAreaElement.textContent = Math.round(loveScore);
 
   // result 更新
   const resultElement = document.getElementById("result");
-  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
   resultElement.value = loveScoreToResultDisplayValue(loveScore);
 }
 
@@ -109,13 +111,15 @@ const calcLoveAtract = () => {
   const loveAtractElement = document.getElementById("loveatract");
   loveAtractElement.value = Math.ceil(loveAtract);
 
+  // love 計算
+  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
+
   // debugArea 更新
   const debugAreaElement = document.getElementById("debug-area");
   debugAreaElement.textContent = Math.round(loveScore);
 
   // result 更新
   const resultElement = document.getElementById("result");
-  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
   resultElement.value = loveScoreToResultDisplayValue(loveScore);
 }
 
