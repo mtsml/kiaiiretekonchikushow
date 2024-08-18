@@ -17,22 +17,13 @@ const getResultValue = (songSeconds, singerNum, appealSum, masteryLv, loveBornus
   }
 
   // LOVE計算
-  const loveScore = calcLoveScore(
-    parseFloat(songSeconds), 
-    parseInt(singerNum, 10),
-    parseInt(appealSum, 10),
-    parseInt(masteryLv, 10),
-    parseInt(loveBornusLv, 10),
-    parseFloat(heartRank),
-    parseInt(heartCnt, 10),
-    parseInt(loveAtract, 10),
-  );
+  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
 
   // debugArea を更新
   const debugAreaElement = document.getElementById("debug-area");
   debugAreaElement.textContent = Math.round(loveScore);
 
-  return loveScoreToResultDisplayValue(loveScore);
+  return toResultDisplayValue(loveScore);
 }
 
 /**
@@ -48,7 +39,7 @@ const calcLoveScore = (songSeconds, singerNum, appealSum, masteryLv, loveBornusL
 /**
  * loveScore を表示用の value に変換する
  */
-const loveScoreToResultDisplayValue = (loveScore) => {
+const toResultDisplayValue = (loveScore) => {
   if (isNaN(loveScore)) {
     return "NaNダロナ";
   } else {
@@ -80,16 +71,9 @@ const calcHeartCnt = () => {
   const heartCntElement = document.getElementById("heartcnt");
   heartCntElement.value = Math.ceil(heartCnt);
 
-  // love 計算
-  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
-
-  // debugArea 更新
-  const debugAreaElement = document.getElementById("debug-area");
-  debugAreaElement.textContent = Math.round(loveScore);
-
   // result 更新
   const resultElement = document.getElementById("result");
-  resultElement.value = loveScoreToResultDisplayValue(loveScore);
+  resultElement.value = getResultValue(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
 }
 
 /**
@@ -111,16 +95,9 @@ const calcLoveAtract = () => {
   const loveAtractElement = document.getElementById("loveatract");
   loveAtractElement.value = Math.ceil(loveAtract);
 
-  // love 計算
-  const loveScore = calcLoveScore(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
-
-  // debugArea 更新
-  const debugAreaElement = document.getElementById("debug-area");
-  debugAreaElement.textContent = Math.round(loveScore);
-
   // result 更新
   const resultElement = document.getElementById("result");
-  resultElement.value = loveScoreToResultDisplayValue(loveScore);
+  resultElement.value = getResultValue(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
 }
 
 /**
@@ -140,9 +117,24 @@ const closeHelpModal = (id) => {
 }
 
 /**
- * DebugMode に切り替える
+ * DebugMode を切り替える
  */
 const toggleDebugMode = () => {
   const debugAreaElement = document.getElementById("debug-area");
   debugAreaElement.style.display = debugAreaElement.style.display === "none" ? null : "none";
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  const songSeconds = parseFloat(document.getElementById("song").value, 10);
+  const singerNum = parseInt(document.getElementById("singer").value, 10);
+  const appealSum = parseInt(document.getElementById("appeal").value, 10);
+  const masteryLv = parseInt(document.getElementById("mastery").value, 10);
+  const loveBornusLv = parseInt(document.getElementById("lovebornus").value, 10);
+  const heartRank = parseFloat(document.getElementById("heartrank").value);
+  const heartCnt = parseInt(document.getElementById("heartcnt").value, 10);
+  const loveAtract = parseInt(document.getElementById("loveatract").value, 10);
+
+  // result 更新
+  const resultElement = document.getElementById("result");
+  resultElement.value = getResultValue(songSeconds, singerNum, appealSum, masteryLv, loveBornusLv, heartRank, heartCnt, loveAtract);
+});

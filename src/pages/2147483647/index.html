@@ -67,14 +67,14 @@
     </div>
     <form
       oninput="result.value=getResultValue(
-        song.value,
-        singer.value,
-        appeal.value,
-        mastery.value,
-        lovebornus.value,
-        heartrank.value,
-        heartcnt.value,
-        loveatract.value
+        parseFloat(song.value),
+        parseInt(singer.value, 10),
+        parseInt(appeal.value, 10),
+        parseInt(mastery.value, 10),
+        parseInt(lovebornus.value, 10),
+        parseFloat(heartrank.value),
+        parseInt(heartcnt.value, 10),
+        parseInt(loveatract.value)
       )"
     >
       <div class="input">
