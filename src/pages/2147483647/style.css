@@ -24,7 +24,7 @@ input[type="number"] {
 .input_label {
   position: relative;
   display: block;
-  min-width: 130px;
+  min-width: 150px;
   margin: 8px 16px 8px 0;
   padding-left: 8px;
   border-left: 5px solid var(--color-fg);

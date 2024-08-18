@@ -67,14 +67,16 @@
     </div>
     <form
       oninput="result.value=getResultValue(
-        song.value,
-        singer.value,
-        appeal.value,
-        mastery.value,
-        lovebornus.value,
-        heartrank.value,
-        heartcnt.value,
-        loveatract.value
+        parseFloat(song.value),
+        parseInt(singer.value, 10),
+        parseInt(appealSmile.value, 10),
+        parseInt(appealPure.value, 10),
+        parseInt(appealCool.value, 10),
+        parseInt(mastery.value, 10),
+        parseInt(lovebornus.value, 10),
+        parseFloat(heartrank.value),
+        parseInt(heartcnt.value, 10),
+        parseInt(loveatract.value)
       )"
     >
       <div class="input">
@@ -110,9 +112,23 @@
       </div>
 
       <div class="input">
-        <label class="input_label" for="appeal">アピール値合計</label>
+        <label class="input_label" for="appealSmile">アピール値スマイル</label>
         <span class="input_area">
-          <input class="input_input" type="number" id="appeal" name="appeal" min="0" max="2147483647" placeholder="190000"/>
+          <input class="input_input" type="number" id="appealSmile" name="appealSmile" min="0" max="2147483647" placeholder="6000"/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="appealPure">アピール値ピュア</label>
+        <span class="input_area">
+          <input class="input_input" type="number" id="appealPure" name="appealPure" min="0" max="2147483647" placeholder="6000"/>
+        </span>
+      </div>
+
+      <div class="input">
+        <label class="input_label" for="appealCool">アピール値クール</label>
+        <span class="input_area">
+          <input class="input_input" type="number" id="appealCool" name="appealCool" min="0" max="2147483647" placeholder="6000"/>
         </span>
       </div>
 
