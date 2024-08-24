@@ -80,6 +80,17 @@
       )"
     >
       <div class="input">
+        <label class="input_label" for="song">楽曲</label>
+        <select
+          id="songSelect"
+          class="input_select"
+          onchange="selectSong(event)"
+        >
+          <option value="default">楽曲を選んでください</option>
+        </select>
+      </div>
+
+      <div class="input">
         <label class="input_label" for="song">楽曲秒数</label>
         <span class="input_area input_area--hasSuffix">
           <input class="input_input" type="number" id="song" name="song" step="0.01" min="0.00" max="999.99" placeholder="111.11"/>

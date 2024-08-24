@@ -46,7 +46,8 @@ input[type="number"] {
   position: relative;
 }
 
-.input_input {
+.input_input,
+.input_select {
   display: block;
   width: 100px;
   border: 2px solid var(--color-fg-sub-sub);
@@ -65,6 +66,11 @@ input[type="number"] {
 
 .input_input::placeholder {
   color: var(--color-fg-sub-sub);
+}
+
+.input_select {
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .input_prefix {
