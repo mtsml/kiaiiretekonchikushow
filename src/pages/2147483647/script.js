@@ -241,6 +241,15 @@ const selectSong = (e) => {
 }
 
 /**
+ * 入力値を削除する
+ */
+const clearInputValue = (id) => {
+  document.getElementById(id).value = null;
+
+  hundleChangeFieldValue();
+}
+
+/**
  * ヘルプモーダルを開く
  */
 const openHelpModal = (id) => {
