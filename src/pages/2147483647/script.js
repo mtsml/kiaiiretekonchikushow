@@ -7,6 +7,10 @@ const DEFAULT_SONG_ID = "default";
 
 const songs = [
   {
+    id: DEFAULT_SONG_ID,
+    name: "楽曲未選択",
+  },
+  {
     id: "JUU3JTlDJUE5JUU4JTgwJTgwJUU1JUE0JTlDJUU4JUExJThDJUVGJUJDJTg4MTA0JUU2JTlDJTlGVmVyLiVFRiVCQyU4OQ==",
     name: "眩耀夜行（104期Ver.）",
     seconds: 97,
@@ -30,8 +34,7 @@ const songs = [
  * 入力値の変化をハンドル
  */
 const hundleChangeFieldValue = () => {
-  console.log("hundleChange")
-  const selectedSongId = document.getElementById("songSelect").value;
+  const selectedSongId = document.getElementById("selectedSongId").value;
   const songSeconds = parseFloat(document.getElementById("song").value);
   const singerNum = parseInt(document.getElementById("singer").value, 10);
   const appealSmile = parseInt(document.getElementById("appealSmile").value, 10);
@@ -184,22 +187,35 @@ const calcLoveAtract = () => {
 /**
  * 楽曲選択時処理
  */
-const selectSong = (e) => {
-  console.log("selectSong")
+const paging = (isNext) => {
+  const currentSongId = document.getElementById("selectedSongId").value;
+  const currentSongIndex = songs.findIndex(song => song.id === currentSongId);
 
-  const selectedSongId = e.target.value;
+  let nextSongIndex = 0;
+  switch (isNext) {
+    case true:
+      nextSongIndex = currentSongIndex === songs.length - 1 ? 0 : currentSongIndex + 1;
+      break;
+    case false:
+      nextSongIndex = currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
+      break;
+  }
+  const nextSong = songs[nextSongIndex];
+  document.getElementById("selectedSongId").value = nextSong.id;
+  document.getElementById("selectedSongName").textContent = nextSong.name;
 
   // localStorage に保存
   try {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID, JSON.stringify(selectedSongId));
+    localStorage.setItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID, JSON.stringify(nextSong.id));
   } catch (e) {
     console.error(e);
   }
 
   // localStorage から復元
-  restoreInputValuesFromLocalStorage(selectedSongId);
+  restoreInputValuesFromLocalStorage(nextSong.id);
 
-  const selectedSong = songs.find(song => song.id === selectedSongId);
+  // MEMO: 楽曲情報は入力値を保存できない仕様
+  const selectedSong = songs.find(song => song.id === nextSong.id);
   if (selectedSong) {
     document.getElementById("song").value = selectedSong.seconds;
     document.getElementById("singer").value = selectedSong.singersNum;
@@ -300,8 +316,6 @@ const restoreInputValuesFromLocalStorage = (songId) => {
     const savedInputValue = Array.isArray(savedInputValues) && savedInputValues.find(value => value.id === songId);
 
     if (savedInputValue) {
-      console.log("restore")
-      console.log(savedInputValue)
       document.getElementById("appealSmile").value = parseInt(savedInputValue.appealSmile, 10);
       document.getElementById("appealPure").value = parseInt(savedInputValue.appealPure, 10);
       document.getElementById("appealCool").value = parseInt(savedInputValue.appealCool, 10);
@@ -323,15 +337,6 @@ const restoreInputValuesFromLocalStorage = (songId) => {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  // 楽曲選択肢を追加
-  const songSelectElement = document.getElementById("songSelect");
-  songs.forEach(song => {
-    const optionElement = document.createElement("option");
-    optionElement.value = song.id;
-    optionElement.textContent = song.name;
-    songSelectElement.appendChild(optionElement);
-  });
-
   // localStorage を初期化
   try {
     let savedInputValues = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.INPUT_VALUES));
@@ -345,7 +350,7 @@ window.addEventListener("DOMContentLoaded", () => {
         savedInputValues.push({
           id: song.id,
           songSeconds: song.seconds,
-          singerNum: song.seconds,
+          singerNum: song.singersNum,
           appealSmile: null,
           appealPure: null,
           appealCool: null,
@@ -357,18 +362,23 @@ window.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
-    
     localStorage.setItem(LOCAL_STORAGE_KEYS.INPUT_VALUES, JSON.stringify(savedInputValues));
 
     const savedSelectedSongId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID));
     const selectedSong = songs.find(song => song.id === savedSelectedSongId);
     if (selectedSong) {
-      document.getElementById("songSelect").value = selectedSong.id;
+      document.getElementById("selectedSongId").value = selectedSong.id;
+      document.getElementById("selectedSongName").textContent = selectedSong.name;
       document.getElementById("song").value = selectedSong.seconds;
       document.getElementById("singer").value = selectedSong.singersNum;
+    } else {
+      // MEMO: 初回のみ
+      document.getElementById("selectedSongId").value = DEFAULT_SONG_ID;
+      document.getElementById("selectedSongName").textContent = "楽曲未選択";
     }
-
-    restoreInputValuesFromLocalStorage(savedSelectedSongId);
+  
+    const selectedSongId = savedSelectedSongId || DEFAULT_SONG_ID;
+    restoreInputValuesFromLocalStorage(selectedSongId);
   } catch (e) {
     console.error(e);
   }
