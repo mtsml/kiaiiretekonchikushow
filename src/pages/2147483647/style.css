@@ -2,6 +2,33 @@ main {
   margin-bottom: 12px;
 }
 
+.action {
+  width: 300px;
+  min-height: 50px;
+  margin: 8px auto 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action_button {
+  padding: 0px 4px;
+}
+
+.action_hiddenInput {
+  display: none;
+}
+
+.action_songName {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.action_angleIcon {
+  height: 32px;
+  fill: var(--color-fg-sub);
+}
+
 /* 数値の上下ボタンを無効にする */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
