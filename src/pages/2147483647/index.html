@@ -65,70 +65,177 @@
         onclick="toggleDebugMode()"
       >
     </div>
-    <form
-      oninput="result.value=getResultValue(
-        parseFloat(song.value),
-        parseInt(singer.value, 10),
-        parseInt(appealSmile.value, 10),
-        parseInt(appealPure.value, 10),
-        parseInt(appealCool.value, 10),
-        parseInt(mastery.value, 10),
-        parseInt(lovebornus.value, 10),
-        parseFloat(heartrank.value),
-        parseInt(heartcnt.value, 10),
-        parseInt(loveatract.value)
-      )"
-    >
+    <p>
+      調整中のため不安定です。
+    </p>
+    <form>
+      <div class="input">
+        <label class="input_label" for="songSelect">楽曲</label>
+        <select
+          id="songSelect"
+          class="input_select"
+          onchange="selectSong(event)"
+        >
+          <option value="default">楽曲を選んでください</option>
+        </select>
+      </div>
+
       <div class="input">
         <label class="input_label" for="song">楽曲秒数</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="song" name="song" step="0.01" min="0.00" max="999.99" placeholder="111.11"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('song')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="song"
+            class="input_input"
+            type="number"
+            step="0.01"
+            min="0.00"
+            max="999.99"
+            placeholder="111.11"
+            oninput="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">秒</span>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="singer">歌唱メンバー数</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="singer" name="singer" min="1" max="9" placeholder="9"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('singer')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="singer"
+            class="input_input"
+            type="number"
+            min="1"
+            max="9"
+            placeholder="9"
+            oninput="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">人</span>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="mastery">マスタリーLv</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="mastery" name="mastery" min="0" max="999" placeholder="540"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('mastery')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="mastery"
+            class="input_input"
+            type="number"
+            min="0"
+            max="999"
+            placeholder="540"
+            oninput="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">Lv</span>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="lovebornus">LOVEボーナスLv</label>
-        <span class="input_area input_area--hasSuffix">
-          <input class="input_input" type="number" id="lovebornus" name="lovebornus" min="0" max="99" placeholder="11"/>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('lovebornus')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="lovebornus"
+            class="input_input"
+            type="number"
+            min="0"
+            max="99"
+            placeholder="11"
+            onchange="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">Lv</span>
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="appealSmile">アピール値スマイル</label>
-        <span class="input_area">
-          <input class="input_input" type="number" id="appealSmile" name="appealSmile" min="0" max="2147483647" placeholder="6000"/>
+        <span class="input_area input_area--hasPrefix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('appealSmile')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="appealSmile"
+            class="input_input"
+            type="number"
+            min="0"
+            max="2147483647"
+            placeholder="6000"
+            oninput="hundleChangeFieldValue()"
+          />
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="appealPure">アピール値ピュア</label>
-        <span class="input_area">
-          <input class="input_input" type="number" id="appealPure" name="appealPure" min="0" max="2147483647" placeholder="6000"/>
+        <span class="input_area input_area--hasPrefix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('appealPure')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="appealPure"
+            class="input_input"
+            type="number"
+            min="0"
+            max="2147483647"
+            placeholder="6000"
+            oninput="hundleChangeFieldValue()"
+          />
         </span>
       </div>
 
       <div class="input">
         <label class="input_label" for="appealCool">アピール値クール</label>
-        <span class="input_area">
-          <input class="input_input" type="number" id="appealCool" name="appealCool" min="0" max="2147483647" placeholder="6000"/>
+        <span class="input_area input_area--hasPrefix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('appealCool')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="appealCool"
+            class="input_input"
+            type="number"
+            min="0"
+            max="2147483647"
+            placeholder="6000"
+            oninput="hundleChangeFieldValue()"
+          />
         </span>
       </div>
 
@@ -143,7 +250,15 @@
         </button>
         </label>
         <span class="input_area input_area--disabled">
-          <input class="input_input" type="number" id="heartrank" name="heartrank" step="0.1" value="3.5" placeholder="3.5" disabled/>
+          <input
+            id="heartrank"
+            class="input_input"
+            type="number"
+            step="0.1"
+            value="3.5"
+            placeholder="3.5"
+            disabled
+          />
         </span>
       </div>
 
@@ -151,23 +266,31 @@
         <label class="input_label" for="heartcnt">
           ハート個数
           <button
-            type="button"
-            onclick="openHelpModal('heartcnt-help-modal')"
-          >
-            <svg class="input_helpIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-          </button>
-        </label>
-        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
-          <button
             id="auto-calc-heartcnt"
-            class="input_prefix"
             disabled
             onclick="calcHeartCnt()"
             type="button"
           >
             <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
           </button>
-          <input class="input_input" type="number" id="heartcnt" name="heartcnt" min="0" max="2147483647" placeholder="157"/>
+        </label>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('heartcnt')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="heartcnt"
+            class="input_input"
+            type="number"
+            min="0"
+            max="2147483647"
+            placeholder="157"
+            oninput="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">個</span>
         </span>
       </div>
@@ -176,29 +299,39 @@
         <label class="input_label" for="loveatract">
           アトラクト
           <button
-            type="button"
-            onclick="openHelpModal('loveatract-help-modal')"
-          >
-            <svg class="input_helpIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
-          </button>
-        </label>
-        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
-          <button
             id="auto-calc-loveatract"
-            class="input_prefix"
             disabled
             onclick="calcLoveAtract()"
             type="button"
           >
             <svg class="input_calcIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
           </button>
-          <input class="input_input" type="number" id="loveatract" name="loveatract" min="0" max="2147483647" placeholder="10000"/>
+        </label>
+        <span class="input_area input_area--hasPrefix input_area--hasSuffix">
+          <button
+            class="input_prefix"
+            onclick="clearInputValue('loveatract')"
+            type="button"
+          >
+            <svg class="input_clearIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+          </button>
+          <input
+            id="loveatract"
+            class="input_input"
+            type="number"
+            min="0"
+            max="2147483647"
+            placeholder="10000"
+            oninput="hundleChangeFieldValue()"
+          />
           <span class="input_suffix">%</span>
         </span>
       </div>
 
       <div class="output">
-        <output id="result" name="result" for="song singer appeal mastery lovebornus heartrank heartcnt loveatract">NaNダロナ</output>
+        <output id="result">
+          NaNダロナ
+        </output>
       </div>
     </form>
 
@@ -216,40 +349,6 @@
       </section>
         <footer>
           <button type="button" onclick="closeHelpModal('heartrank-help-modal')">閉じる</button>
-        </footer>
-      </section>
-    </dialog>
-
-    <dialog id="heartcnt-help-modal" class="modal">
-      <section>
-        <h2>ヘルプ</h2>
-        <p>
-          <svg class="modal_inlineIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
-          を押すとだいたい21億になるハート個数を計算して自動で入力します。
-        </p>
-        <p>
-          ハート個数以外のすべての項目を入力している場合のみ利用できます。
-        </p>
-      </section>
-        <footer>
-          <button type="button" onclick="closeHelpModal('heartcnt-help-modal')">閉じる</button>
-        </footer>
-      </section>
-    </dialog>
-
-    <dialog id="loveatract-help-modal" class="modal">
-      <section>
-        <h2>ヘルプ</h2>
-        <p>
-          <svg class="modal_inlineIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM96 64l192 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32L96 160c-17.7 0-32-14.3-32-32l0-32c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-96 0c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"/></svg>
-          を押すとだいたい21億になるアトラクトを計算して自動で入力します。
-        </p>
-        <p>
-          アトラクト以外のすべての項目を入力している場合のみ利用できます。
-        </p>
-      </section>
-        <footer>
-          <button type="button" onclick="closeHelpModal('loveatract-help-modal')">閉じる</button>
         </footer>
       </section>
     </dialog>

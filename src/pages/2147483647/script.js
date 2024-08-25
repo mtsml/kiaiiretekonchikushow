@@ -1,18 +1,63 @@
+const LOCAL_STORAGE_KEYS = {
+  SELECTED_SONG_ID: "SELECTED_SONG_ID",
+  INPUT_VALUES: "INPUT_VALUES",
+}
+
+const DEFAULT_SONG_ID = "default";
+
+const songs = [
+  {
+    id: "JUU3JTlDJUE5JUU4JTgwJTgwJUU1JUE0JTlDJUU4JUExJThDJUVGJUJDJTg4MTA0JUU2JTlDJTlGVmVyLiVFRiVCQyU4OQ==",
+    name: "眩耀夜行（104期Ver.）",
+    seconds: 97,
+    singersNum: 3,
+  },
+  {
+    id: "TWlyYWdlJTIwVm95YWdlJUVGJUJDJTg4MTA0JUU2JTlDJTlGVmVyLiVFRiVCQyU4OQ==",
+    name: "Mirage Voyage（104期Ver.）",
+    seconds: 113,
+    singersNum: 3,
+  },
+  {
+    id: "JUU1JUE0JThGJUU4JTg5JUIyJUUzJTgxJTg4JUUzJTgxJThDJUUzJTgxJThBJUUzJTgxJUE3MSUyQzIlMkNKdW1wIQ==",
+    name: "夏色えがおで1,2,Jump!",
+    seconds: 121,
+    singersNum: 9,
+  },
+];
+
 /**
- * result.value にセットする値を返却する
+ * 入力値の変化をハンドル
  */
-const getResultValue = (
-  songSeconds,
-  singerNum,
-  appealSmile,
-  appealPure,
-  appealCool,
-  masteryLv,
-  loveBornusLv,
-  heartRank,
-  heartCnt,
-  loveAtract
-) => {
+const hundleChangeFieldValue = () => {
+  console.log("hundleChange")
+  const selectedSongId = document.getElementById("songSelect").value;
+  const songSeconds = parseFloat(document.getElementById("song").value);
+  const singerNum = parseInt(document.getElementById("singer").value, 10);
+  const appealSmile = parseInt(document.getElementById("appealSmile").value, 10);
+  const appealPure = parseInt(document.getElementById("appealPure").value, 10);
+  const appealCool = parseInt(document.getElementById("appealCool").value, 10);
+  const masteryLv = parseInt(document.getElementById("mastery").value, 10);
+  const loveBornusLv = parseInt(document.getElementById("lovebornus").value, 10);
+  const heartRank = parseFloat(document.getElementById("heartrank").value);
+  const heartCnt = parseInt(document.getElementById("heartcnt").value, 10);
+  const loveAtract = parseInt(document.getElementById("loveatract").value, 10);
+
+  // localStorage に保存
+  saveInputValuesToLocalStorage(
+    selectedSongId,
+    songSeconds,
+    singerNum,
+    appealSmile,
+    appealPure,
+    appealCool,
+    masteryLv,
+    loveBornusLv,
+    heartRank,
+    heartCnt,
+    loveAtract,
+  );
+
   // 他の項目がすべて入力されている場合に自動計算を有効にする
   const autoCalcHeartCntElement = document.getElementById("auto-calc-heartcnt");
   const autoCalcHeatCntIsDisabled = [
@@ -43,7 +88,9 @@ const getResultValue = (
   const debugAreaElement = document.getElementById("debug-area");
   debugAreaElement.textContent = Math.round(loveScore);
 
-  return toResultDisplayValue(loveScore);
+  // result 更新
+  const resultElement = document.getElementById("result");
+  resultElement.value = toResultDisplayValue(loveScore);
 }
 
 /**
@@ -106,26 +153,14 @@ const calcHeartCnt = () => {
   heartCntElement.value = Math.ceil(heartCnt);
 
   // result 更新
-  const resultElement = document.getElementById("result");
-  resultElement.value = getResultValue(
-    songSeconds,
-    singerNum,
-    appealSmile,
-    appealPure,
-    appealCool,
-    masteryLv,
-    loveBornusLv,
-    heartRank,
-    heartCnt,
-    loveAtract
-  );
+  hundleChangeFieldValue();
 }
 
 /**
  * 獲得LOVEが 2147483647 を超える最小のLOVEアトラクトを計算する
  */
 const calcLoveAtract = () => {
-  const songSeconds = parseFloat(document.getElementById("song").value, 10);
+  const songSeconds = parseFloat(document.getElementById("song").value);
   const singerNum = parseInt(document.getElementById("singer").value, 10);
   const appealSmile = parseInt(document.getElementById("appealSmile").value, 10);
   const appealPure = parseInt(document.getElementById("appealPure").value, 10);
@@ -143,19 +178,43 @@ const calcLoveAtract = () => {
   loveAtractElement.value = Math.ceil(loveAtract);
 
   // result 更新
-  const resultElement = document.getElementById("result");
-  resultElement.value = getResultValue(
-    songSeconds,
-    singerNum,
-    appealSmile,
-    appealPure,
-    appealCool,
-    masteryLv,
-    loveBornusLv,
-    heartRank,
-    heartCnt,
-    loveAtract
-  );
+  hundleChangeFieldValue();
+}
+
+/**
+ * 楽曲選択時処理
+ */
+const selectSong = (e) => {
+  console.log("selectSong")
+
+  const selectedSongId = e.target.value;
+
+  // localStorage に保存
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID, JSON.stringify(selectedSongId));
+  } catch (e) {
+    console.error(e);
+  }
+
+  // localStorage から復元
+  restoreInputValuesFromLocalStorage(selectedSongId);
+
+  const selectedSong = songs.find(song => song.id === selectedSongId);
+  if (selectedSong) {
+    document.getElementById("song").value = selectedSong.seconds;
+    document.getElementById("singer").value = selectedSong.singersNum;
+  };
+
+  hundleChangeFieldValue();
+}
+
+/**
+ * 入力値を削除する
+ */
+const clearInputValue = (id) => {
+  document.getElementById(id).value = null;
+
+  hundleChangeFieldValue();
 }
 
 /**
@@ -182,30 +241,137 @@ const toggleDebugMode = () => {
   debugAreaElement.style.display = debugAreaElement.style.display === "none" ? null : "none";
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const songSeconds = parseFloat(document.getElementById("song").value, 10);
-  const singerNum = parseInt(document.getElementById("singer").value, 10);
-  const appealSmile = parseInt(document.getElementById("appealSmile").value, 10);
-  const appealPure = parseInt(document.getElementById("appealPure").value, 10);
-  const appealCool = parseInt(document.getElementById("appealCool").value, 10);
-  const masteryLv = parseInt(document.getElementById("mastery").value, 10);
-  const loveBornusLv = parseInt(document.getElementById("lovebornus").value, 10);
-  const heartRank = parseFloat(document.getElementById("heartrank").value);
-  const heartCnt = parseInt(document.getElementById("heartcnt").value, 10);
-  const loveAtract = parseInt(document.getElementById("loveatract").value, 10);
+/**
+ * localStorage に入力値を保存する
+ */
+const saveInputValuesToLocalStorage = (
+  selectedSongId,
+  songSeconds,
+  singerNum,
+  appealSmile,
+  appealPure,
+  appealCool,
+  masteryLv,
+  loveBornusLv,
+  heartRank,
+  heartCnt,
+  loveAtract,
+) => {
+  try {
+    const nextSongData =  {
+      id: selectedSongId,
+      songSeconds: isNaN(songSeconds) ? null : songSeconds,
+      singerNum: isNaN(singerNum) ? null : singerNum,
+      appealSmile: isNaN(appealSmile) ? null : appealSmile,
+      appealPure: isNaN(appealPure) ? null : appealPure,
+      appealCool: isNaN(appealCool) ? null : appealCool,
+      masteryLv: isNaN(masteryLv) ? null : masteryLv,
+      loveBornusLv: isNaN(loveBornusLv) ? null : loveBornusLv,
+      heartRank: isNaN(heartRank) ? null : heartRank,
+      heartCnt: isNaN(heartCnt) ? null : heartCnt,
+      loveAtract: isNaN(loveAtract) ? null : loveAtract,
+    };
 
-  // result 更新
-  const resultElement = document.getElementById("result");
-  resultElement.value = getResultValue(
-    songSeconds,
-    singerNum,
-    appealSmile,
-    appealPure,
-    appealCool,
-    masteryLv,
-    loveBornusLv,
-    heartRank,
-    heartCnt,
-    loveAtract
-  );
+    let savedInputValues = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.INPUT_VALUES));
+
+    if (!Array.isArray(savedInputValues)) {
+      savedInputValues = [];
+    }
+
+    const savedSelectedSongDataIndex = savedInputValues.findIndex(song => song.id === selectedSongId);
+    if (savedSelectedSongDataIndex !== -1) {
+      savedInputValues[savedSelectedSongDataIndex] = nextSongData;
+    } else {
+      savedInputValues.push(nextSongData);
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_KEYS.INPUT_VALUES, JSON.stringify(savedInputValues));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+/**
+ * localStorage から入力値を復元する
+ */
+const restoreInputValuesFromLocalStorage = (songId) => {
+  try {
+    const savedInputValues = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.INPUT_VALUES));
+    const savedInputValue = Array.isArray(savedInputValues) && savedInputValues.find(value => value.id === songId);
+
+    if (savedInputValue) {
+      console.log("restore")
+      console.log(savedInputValue)
+      document.getElementById("appealSmile").value = parseInt(savedInputValue.appealSmile, 10);
+      document.getElementById("appealPure").value = parseInt(savedInputValue.appealPure, 10);
+      document.getElementById("appealCool").value = parseInt(savedInputValue.appealCool, 10);
+      document.getElementById("mastery").value = parseInt(savedInputValue.masteryLv, 10);
+      document.getElementById("lovebornus").value = parseInt(savedInputValue.loveBornusLv, 10);
+      document.getElementById("heartrank").value = parseFloat(savedInputValue.heartRank);
+      document.getElementById("heartcnt").value = parseInt(savedInputValue.heartCnt, 10);
+      document.getElementById("loveatract").value = parseInt(savedInputValue.loveAtract, 10);
+
+      // 楽曲未選択の場合は楽曲情報も復元する
+      if (songId === DEFAULT_SONG_ID) {
+        document.getElementById("song").value = parseFloat(savedInputValue.songSeconds);
+        document.getElementById("singer").value = parseInt(savedInputValue.singerNum, 10);
+      }      
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  // 楽曲選択肢を追加
+  const songSelectElement = document.getElementById("songSelect");
+  songs.forEach(song => {
+    const optionElement = document.createElement("option");
+    optionElement.value = song.id;
+    optionElement.textContent = song.name;
+    songSelectElement.appendChild(optionElement);
+  });
+
+  // localStorage を初期化
+  try {
+    let savedInputValues = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.INPUT_VALUES));
+
+    if (!Array.isArray(savedInputValues)) {
+      savedInputValues = [];
+    }
+
+    songs.forEach(song => {
+      if (!savedInputValues.find(value => value.id === song.id)) {
+        savedInputValues.push({
+          id: song.id,
+          songSeconds: song.seconds,
+          singerNum: song.seconds,
+          appealSmile: null,
+          appealPure: null,
+          appealCool: null,
+          masteryLv: null,
+          loveBornusLv: null,
+          heartRank: 3.5,
+          heartCnt: null,
+          loveAtract: null,
+        });
+      }
+    });
+    
+    localStorage.setItem(LOCAL_STORAGE_KEYS.INPUT_VALUES, JSON.stringify(savedInputValues));
+
+    const savedSelectedSongId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID));
+    const selectedSong = songs.find(song => song.id === savedSelectedSongId);
+    if (selectedSong) {
+      document.getElementById("songSelect").value = selectedSong.id;
+      document.getElementById("song").value = selectedSong.seconds;
+      document.getElementById("singer").value = selectedSong.singersNum;
+    }
+
+    restoreInputValuesFromLocalStorage(savedSelectedSongId);
+  } catch (e) {
+    console.error(e);
+  }
+
+  hundleChangeFieldValue();
 });
