@@ -362,7 +362,6 @@ window.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
-
     localStorage.setItem(LOCAL_STORAGE_KEYS.INPUT_VALUES, JSON.stringify(savedInputValues));
 
     const savedSelectedSongId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.SELECTED_SONG_ID));
