@@ -12,7 +12,7 @@ const startHaromegu = (e) => {
   e.onclick = null;
 
   // haromegu をシャッフルして onclick を設定する
-  shuffleHaromeguElemets();
+  shuffleCards();
   const handleClick = (e) => {
     if (e.target.dataset.myId !== nextId) {
       // 同時押しを防ぐための誤答ペナルティ 500ms
@@ -33,7 +33,7 @@ const startHaromegu = (e) => {
       round++;
       // MAX_ROUND までシャッフルを繰り返す
       if (round < MAX_ROUND) {
-        shuffleHaromeguElemets();
+        shuffleCards();
       }
     }
   }

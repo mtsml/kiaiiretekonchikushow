@@ -1,0 +1,120 @@
+.overflow-hidden {
+  overflow: hidden;
+}
+
+#action-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px;
+}
+
+#timer {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.description_inlineImg {
+  width: 1.5em;
+  vertical-align: text-top;
+  padding-bottom: 0.5em;
+}
+
+#card-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 48px;
+  width: 100%;
+}
+
+#action-left-button,
+#action-right-button {
+  width: 50px;
+  height: 50px;
+  top: 0px;
+  left: 0px;
+}
+
+#action-top-right-button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 0px;
+  right: 0px;
+  margin-right: 16px;
+}
+
+#swipable-button {
+  max-width: 100px;
+  width: 18%;
+  top: 0px;
+}
+
+.card_dummyButton {
+  max-width: 100px;
+  width: 18%;
+}
+
+.button {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.modal {
+  position: fixed;
+  top: -200px;
+  margin: auto;
+  padding: 1em;
+  width: 300px;
+  max-width: calc(100% - 6em);
+  max-height: calc(100% - 6em);
+  border: 3px solid var(--color-fg-sub);
+  border-radius: 10px;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+.modal h2 {
+  font-size: 1.15em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px dashed var(--color-fg-sub);
+}
+
+.modal p {
+  text-align: center;
+}
+
+.modal footer {
+  padding: 0.5em;
+}
+
+#modal-close-button {
+  font-size: 1em;
+  padding: 0.1em 1.5em;
+  border: 2px solid var(--color-fg-sub);
+  background-color: var(--color-fg-sub);
+  color: var(--color-bg);
+  border-radius: 10px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, .3);
+}
+
+#modal-close-button {
+  box-shadow: none;
+  position: relative;
+  top: 3px;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}

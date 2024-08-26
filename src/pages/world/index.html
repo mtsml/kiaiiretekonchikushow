@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="og:title" content="ハロめぐワールド | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/">
+  <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
+  <meta name="og:type" content="website">
+  <meta name="og:site_name" content="めぐ島">
+  <meta name="twitter:card" content="summary">
+  <meta name="description" content="ハロめぐー！">
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../global.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LRB16S0GH');
+  </script>
+  <script src="./script.js"></script>
+  <title>ハロめぐワールド | めぐ島</title>
+</head>
+<body class="overflow-hidden">
+  <!--
+
+                                ■           ■                   ■ 
+       ■        ■■■■■■■■    ■   ■          ■■                   ■ 
+       ■   ■    ■       ■   ■■■ ■■■      ■■                     ■ 
+       ■   ■    ■       ■   ■■  ■ ■■    ■■  ■ ■                 ■ 
+      ■■   ■    ■       ■  ■ ■ ■   ■   ■     ■   ■■■■■■■■■      ■ 
+      ■     ■   ■       ■  ■ ■ ■   ■   ■■                       ■ 
+      ■     ■   ■       ■  ■  ■    ■    ■■                      ■ 
+     ■      ■■  ■       ■  ■ ■■   ■       ■■                      
+     ■       ■  ■■■■■■■■■  ■■■   ■         ■■                   ■ 
+
+  -->
+  <header>
+    <nav class="c-breadcrumb">
+      <a href="../_root/index.html">
+        <!-- ChevronLeft Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        <span>めぐ島🏝️</span>
+      </a>
+    </nav>
+    <h1>
+      ハロめぐワールド
+    </h1>
+  </header>
+  <main>
+    <div class="c-container">
+      <img
+        src="../../assets/logo-512x512.png"
+        class="c-logo"
+        onclick="startGame(this)"
+      >
+      <img
+        id="action-top-right-button"
+        src="../../assets/puchihasu.png"
+        class="button"
+        style="display: none;"
+      >
+    </div>
+    <div
+      id="action-container"
+      style="display: none;"
+    >
+      <img
+        id="action-left-button"
+        src="../../assets/puchihasu.png"
+        class="button"
+      >
+      <span id="timer">0.0 秒</span>
+      <img
+        id="action-right-button"
+        src="../../assets/puchihasu.png"
+        class="button"
+      >
+    </div>
+    <div
+      id="card-container"
+      style="display: none;"
+    >
+      <img
+        src="../../assets/lose_001.png"
+        class="card_dummyButton"
+      >
+      <img
+        src="../../assets/lose_001.png"
+        class="card_dummyButton"
+      >
+      <img
+        id="swipable-button"
+        src="../../assets/ohsawa.png"
+        class="button"
+      >
+      <img
+        src="../../assets/lose_001.png"
+        class="card_dummyButton"
+      >
+      <img
+        src="../../assets/lose_001.png"
+        class="card_dummyButton"
+      >
+    </div>
+    <div
+      id="overlay"
+      style="display: none;"
+    ></div>
+    <p id="description">
+      <img src="../../assets/ohsawa.png" class="description_inlineImg">
+      <span>をスワイプしてから</span>
+      <img src="../../assets/logo-512x512.png" class="description_inlineImg">
+      <span>をタップ。</span><br>
+      <img src="../../assets/puchihasu.png" class="description_inlineImg">
+      <span>をタップすると時が止まるよ。</span><br>
+      <span>ハロめぐをタップしてスタート！</span>
+    </p>
+    <div
+      id="result"
+      style="display: none;"
+    >
+      <p>
+        <a
+          id="post"
+          target="_blank"
+        >
+          <!-- Twiiter Icon -->
+          <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+          <span>share</span>
+        </a>
+      </p>
+      <p>
+        <button onclick="location.reload()">
+          <!-- Reload Icon -->
+          <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"/></svg>
+          <span>reload</span>
+        </button>
+      </p>
+    </div>
+
+    <dialog id="modal" class="modal">
+      <section>
+        <h2>一時停止</h2>
+        <p id="modal-text"></p>
+      </section>
+        <footer>
+          <button id="modal-close-button" type="button">閉じる</button>
+        </footer>
+      </section>
+    </dialog>
+  </main>
+</body>
+</html>
