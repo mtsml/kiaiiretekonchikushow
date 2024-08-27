@@ -20,6 +20,14 @@
   padding-bottom: 0.5em;
 }
 
+#description {
+  margin-top: 24px;
+}
+
+#result {
+  margin-top: 48px;
+}
+
 #card-container {
   display: flex;
   justify-content: space-evenly;
@@ -47,12 +55,14 @@
 #swipable-button {
   max-width: 100px;
   width: 18%;
+  height: 18%;
   top: 0px;
 }
 
 .card_dummyButton {
   max-width: 100px;
   width: 18%;
+  height: 18%;
 }
 
 .button {
