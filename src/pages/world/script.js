@@ -68,6 +68,8 @@ const dummyCardList = [
 ];
 
 const startGame = (centerButton) => {
+  centerButton.onclick = null;
+
   let tapCnt = 0;
 
   const timerElement = document.getElementById("timer");
@@ -99,7 +101,6 @@ const startGame = (centerButton) => {
     centerButton.classList.add("disabled");
 
     tapCnt++;
-    
 
     // ゲーム終了判定
     if (tapCnt >= MAX_TAP_CNT) {
