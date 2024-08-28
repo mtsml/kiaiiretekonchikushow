@@ -1,3 +1,8 @@
+const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
+const HELLOMEG_WORLD_HASHTAG = "#ハロめぐワールド";
+const HELLOMEG_WORLD_TWEET = "時を止める能力を身に付けよう。私の結果は…";
+const HELLOMEG_WORLD_URL = "https://kiaiiretekonchiku.show/world/";
+
 const MAX_TAP_CNT = 15;
 const SWIPE_THRESHOLD = 20;
 
@@ -121,6 +126,9 @@ const startGame = (centerButton) => {
       alert(`${seconds}.${deciseconds} 秒`);
 
       document.getElementById("result").style.display = "block";
+      const text = encodeURIComponent(`${HELLOMEG_WORLD_HASHTAG}\n${HELLOMEG_WORLD_TWEET}\n\n${seconds}.${deciseconds}秒！\n`);
+      document.getElementById("post").href = `${TWEET_INTENT_URL}?text=${text}&url=${HELLOMEG_WORLD_URL}`;
+
       return;
     }
 
