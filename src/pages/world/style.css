@@ -78,7 +78,7 @@
 
 .modal {
   position: fixed;
-  top: -50px;
+  inset: 0;
   margin: auto;
   padding: 1em;
   width: 300px;
