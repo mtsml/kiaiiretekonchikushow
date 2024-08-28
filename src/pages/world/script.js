@@ -71,11 +71,12 @@ const startGame = (centerButton) => {
   centerButton.onclick = null;
 
   let tapCnt = 0;
+  let isTouching = false;
 
   const timerElement = document.getElementById("timer");
   const timer = new PausableTimer((time) => {
-    const seconds = Math.floor(time / 10); // 秒部分
-    const deciseconds = time % 10; // 100ms単位
+    const seconds = Math.floor(time / 10);
+    const deciseconds = time % 10;
     timerElement.innerText = `${seconds}.${deciseconds} 秒`;
   });
 
@@ -91,13 +92,18 @@ const startGame = (centerButton) => {
     });
   });
 
-  // centerButton のタップ処理
   const cardContainer = document.getElementById("card-container");
   const actionLeftButton = document.getElementById("action-left-button");
   const actionRightButton = document.getElementById("action-right-button");
   const actionTopRightButton = document.getElementById("action-top-right-button");
+
+  // centerButton のタップ処理
   centerButton.addEventListener("touchstart", (event) => {
     if (event.cancelable) event.preventDefault();
+
+    if (isTouching) return;
+    isTouching = true;
+
     centerButton.classList.add("disabled");
 
     tapCnt++;
@@ -122,6 +128,8 @@ const startGame = (centerButton) => {
     swipableCard.src = "../../assets/ohsawa.png";
     swipableCard.classList.remove("disabled");
   });
+
+  centerButton.addEventListener("touchend", () => { isTouching = false; });
 
   let swipeStartY = 0;
   let swipeEndY = 0;
@@ -156,6 +164,10 @@ const startGame = (centerButton) => {
   // action ボタンのタップ処理
   const handleTapActionButton = (event) => {
     if (event.cancelable) event.preventDefault();
+
+    if (isTouching) return;
+    isTouching = true;
+
     timer.pause();
     openModal(tapCnt, () => {
       closeModal();
@@ -165,7 +177,10 @@ const startGame = (centerButton) => {
   actionLeftButton.addEventListener("touchstart", handleTapActionButton);
   actionRightButton.addEventListener("touchstart", handleTapActionButton);
   actionTopRightButton.addEventListener("touchstart", handleTapActionButton);
-  
+  actionLeftButton.addEventListener("touchend", () => { isTouching = false; });
+  actionRightButton.addEventListener("touchend",  () => { isTouching = false; });
+  actionTopRightButton.addEventListener("touchend",  () => { isTouching = false; });
+
   // 要素の表示・非表示を切り替えてゲームスタート
   shuffleCards();
   centerButton.classList.add("disabled");
