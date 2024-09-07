@@ -154,6 +154,12 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/unitlive_hellomeg.png"
   },
+  {
+    name: "月見",
+    fullname: "[月見] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/tsukimi.png"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
