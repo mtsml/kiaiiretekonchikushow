@@ -11,6 +11,24 @@ const songs = [
     name: "楽曲未選択",
   },
   {
+    id: "REVFUE5FU1MlRUYlQkMlODhSZUMlMjBWZXIuJUVGJUJDJTg5",
+    name: "DEEPNESS（ReC Ver.）",
+    seconds: 105,
+    singersNum: 6,
+  },
+  {
+    id: "UHJvb2Y=",
+    name: "Proof",
+    seconds: 108,
+    singersNum: 3,
+  },
+  {
+    id: "JUUzJTgzJUFDJUUzJTgzJTg3JUUzJTgyJUEzJUUzJTgzJTkwJUUzJTgyJUIw",
+    name: "レディバグ",
+    seconds: 94,
+    singersNum: 3,
+  },
+  {
     id: "JUU3JTlDJUE5JUU4JTgwJTgwJUU1JUE0JTlDJUU4JUExJThDJUVGJUJDJTg4MTA0JUU2JTlDJTlGVmVyLiVFRiVCQyU4OQ==",
     name: "眩耀夜行（104期Ver.）",
     seconds: 97,
