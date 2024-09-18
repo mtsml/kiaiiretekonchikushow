@@ -160,6 +160,12 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/tsukimi.png"
   },
+  {
+    name: "蓮ノ空しかないんすよ",
+    fullname: "[蓮ノ空しかないんすよ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hasunosorashikanainsuyo.png"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
