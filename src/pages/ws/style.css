@@ -1,0 +1,12 @@
+.game-container {
+  position: relative;
+  top: -450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-container svg {
+  transform: rotate(-90deg); /* ゲージを上からスタートするための回転 */
+}

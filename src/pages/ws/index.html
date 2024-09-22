@@ -56,13 +56,35 @@
     </h1>
   </header>
   <main>
-    <div class="c-container" id="helloMegImg">
+    <div class="c-container">
       <img
         src="../../assets/logo-512x512.png"
         class="c-logo"
+        onclick="handleClick(this)"
       >
-      <button onclick="handleClick()">click</button>
     </div>
+    <p id="description">
+      <span>メンタルを調整するためのメンタルを鍛えよう。</span><br>
+      <span>ハロめぐをタップしてギリギリで止めてね。</span><br>
+      <span>ハロめぐをタップしてスタート！</span>
+    </p>
+    <!-- <div
+      id="gauge-container"
+      class="game-container"
+    >
+      <div class="gauge">
+        <svg width="200" height="200">
+          <defs>
+            <linearGradient id="gauge-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#1e8bea; stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#57cef9; stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="90" stroke-width="20" fill="none" stroke="#ccc"/>
+          <circle id="progress-circle" cx="100" cy="100" r="90" stroke-width="20" fill="none" stroke="url(#gauge-gradient)" stroke-dasharray="565" stroke-dashoffset="565"/>
+        </svg>
+      </div>
+    </div> -->
   </main>
 </body>
 </html>
