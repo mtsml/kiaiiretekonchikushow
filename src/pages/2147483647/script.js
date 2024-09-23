@@ -11,6 +11,24 @@ const songs = [
     name: "楽曲未選択",
   },
   {
+    id: "RHJlYW0lMjBCZWxpZXZlcnMlRUYlQkMlODgxMDQlRTYlOUMlOUZWZXIuJUVGJUJDJTg5",
+    name: "Dream Believers（104期Ver.）",
+    seconds: 139,
+    singersNum: 9,
+  },
+  {
+    id: "U25vdyUyMGhhbGF0aW9u",
+    name: "Snow halation",
+    seconds: 118,
+    singersNum: 9,
+  },
+  {
+    id: "T24lMjB5b3VyJTIwbWFyayVFRiVCQyU4ODEwNCVFNiU5QyU5RlZlci4lRUYlQkMlODk",
+    name: "On your mark（104期Ver.）",
+    seconds: 97,
+    singersNum: 9,
+  },
+  {
     id: "REVFUE5FU1MlRUYlQkMlODhSZUMlMjBWZXIuJUVGJUJDJTg5",
     name: "DEEPNESS（ReC Ver.）",
     seconds: 105,
