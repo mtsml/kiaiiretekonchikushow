@@ -1,87 +1,75 @@
-let offset = 565;
-
-const startGame = (target) => {
-  document.getElementById("gauge-container").style.display = null;
-  document.getElementById("description").style.display = "none";
-
-  const gauge = document.getElementById('progress-circle');
-
-  const timer = new PausableTimer((isEnded) => {
-    offset -= 10;
-    if (offset <= 0) {
-      timer.end();
-      gauge.style.display = "none";
-    }
-    if (!isEnded) {
-      gauge.style.strokeDashoffset = offset;
-    }
-  });
-
-  target.onclick = () => timer.end();
-
-  timer.start();
-}
-
-/**
- * timer 管理
- */
-class PausableTimer {
-  constructor(callback) {
-    this.callback = callback;
-    this.timerId = null;
-    this.startTime = 0;
-    this.elapsed = 0;
-    this.isPaused = true;
-    this.isEnded = false;
-  }
-
-  start() {
-    if (!this.isPaused || this.isEnded) return;
-    this.isPaused = false;
-    this.startTime = Date.now() - this.elapsed;
-    this.timerId = setInterval(() => {
-      this.elapsed = Date.now() - this.startTime;
-      this.callback(this.isEnded);
-    }, 10);
-  }
-
-  pause() {
-    if (this.isPaused || this.isEnded) return;
-    this.isPaused = true;
-    clearInterval(this.timerId);
-    this.timerId = null;
-  }
-
-  end() {
-    this.pause();
-    this.isEnded = true;
-  }
-}
+const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
+const HELLOMEG_WS_HASHTAG = "#ハロめぐWS";
+const HELLOMEG_WS_TWEET = "tbd";
+const HELLOMEG_WS_URL = "https://kiaiiretekonchiku.show/ws/";
+// const KIAKON_WORKER_WS_URL = "http://localhost:8787";
+const KIAKON_WORKER_WS_URL = "https://api.kiaiiretekonchiku.show/ws";
+const KIAKON_WORKER_WS_MESSAGES = {
+  HELLOMEG: "HELLOMEG",
+};
 
 let ws;
-
-const handleClick = async (target) => {
-  target.onclick = () => {
-    ws.send(JSON.stringify("hoge"));
-  }
-  const url = new URL(window.location);
-  url.protocol = "wss";
-  url.pathname = "/api/ws";
-  await websocket(url);
-}
 
 const websocket = async (url) => {
   ws = new WebSocket(url);
 
   if (!ws) {
-    throw new Error("server didn't accept ws")
+    // TODO: 画面表示を変える
+    throw new Error("server didn't accept ws");
   }
 
   ws.addEventListener("open", () => {
-    console.log('Opened websocket');
-  })
+    ws.send(KIAKON_WORKER_WS_MESSAGES.HELLOMEG);
+  });
 
   ws.addEventListener("message", ({ data }) => {
-    console.log(JSON.parse(data))
-  })
+    console.log(data);
+    const hellomegElement = document.getElementById("hellomeg");
+    hellomeg(hellomegElement);
+  });
+}
+
+const handleClick = async (target) => {
+  target.onclick = null;
+
+  const url = new URL(KIAKON_WORKER_WS_URL);
+  url.protocol = "wss";
+  url.pathname = "/ws";
+  await websocket(url);
+
+  target.onclick = () => {
+    ws.send(KIAKON_WORKER_WS_MESSAGES.HELLOMEG);
+  }
+}
+
+/**
+ * target から「ハロめぐー！」をランダムな方向に射出する
+ */
+const hellomeg = (target) => {
+  // target を揺らす
+  target.classList.add("shake-img");
+  setTimeout(() => {
+    target.classList.remove("shake-img");
+  }, 300);
+
+  const hellomegElement = document.createElement("div");
+  hellomegElement.textContent = "ハロめぐー！";
+  hellomegElement.classList.add("hellomeg");
+
+  // container の中心から外側に向かってランダムに飛び出す
+  const randomAngle = Math.random() * 2 * Math.PI;
+  const translateX = Math.cos(randomAngle) * 180;
+  const translateY = Math.sin(randomAngle) * 180;
+  hellomegElement.style.setProperty("--translateX", translateX + "px");
+  hellomegElement.style.setProperty("--translateY", translateY + "px");
+  hellomegElement.style.setProperty("--startX", Math.cos(randomAngle) * 20 + "%");
+  hellomegElement.style.setProperty("--startY", Math.sin(randomAngle) * 20 + "%");
+
+  const container = document.querySelector(".c-container");
+  container.appendChild(hellomegElement);
+
+  // animation 完了後に要素を削除する
+  setTimeout(() => {
+    hellomegElement.remove();
+  }, 2000);
 }
