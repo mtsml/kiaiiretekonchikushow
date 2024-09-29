@@ -2,16 +2,17 @@ const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const HELLOMEG_WS_HASHTAG = "#ハロめぐWS";
 const HELLOMEG_WS_TWEET = "tbd";
 const HELLOMEG_WS_URL = "https://kiaiiretekonchiku.show/ws/";
-// const KIAKON_WORKER_WS_URL = "http://localhost:8787";
-const KIAKON_WORKER_WS_URL = "https://api.kiaiiretekonchiku.show/ws";
-const KIAKON_WORKER_WS_MESSAGES = {
+const KIAKON_WORKER_WS_URL = "http://localhost:8787/ws";
+// const KIAKON_WORKER_WS_URL = "https://api.kiaiiretekonchiku.show/ws";
+const KIAKON_WORKER_WS_TYPES = {
   HELLOMEG: "HELLOMEG",
+  INCREMENT_USER_CNT: "INCREMENT_USER_CNT",
 };
 
 let ws;
 
-const websocket = async (url) => {
-  ws = new WebSocket(url);
+const connectWebSocketServer = async () => {
+  ws = new WebSocket(KIAKON_WORKER_WS_URL);
 
   if (!ws) {
     // TODO: 画面表示を変える
@@ -19,26 +20,30 @@ const websocket = async (url) => {
   }
 
   ws.addEventListener("open", () => {
-    ws.send(KIAKON_WORKER_WS_MESSAGES.HELLOMEG);
+    ws.send(JSON.stringify({ type: KIAKON_WORKER_WS_TYPES.INCREMENT_USER_CNT }));
   });
 
   ws.addEventListener("message", ({ data }) => {
-    console.log(data);
-    const hellomegElement = document.getElementById("hellomeg");
-    hellomeg(hellomegElement);
+    const { type, payload } = JSON.parse(data);
+    switch (type) {
+      case KIAKON_WORKER_WS_TYPES.HELLOMEG:
+        const hellomegElement = document.getElementById("hellomeg");
+        hellomeg(hellomegElement);
+        break;
+      case KIAKON_WORKER_WS_TYPES.INCREMENT_USER_CNT:
+        const userCnt = document.getElementById("user-cnt");
+        userCnt.innerHTML = `アクティブハロめぐ：${payload}`;
+        break;
+    }
   });
 }
 
 const handleClick = async (target) => {
   target.onclick = null;
-
-  const url = new URL(KIAKON_WORKER_WS_URL);
-  url.protocol = "wss";
-  url.pathname = "/ws";
-  await websocket(url);
-
+  document.getElementById("description").style.display = "none";
+  await connectWebSocketServer();
   target.onclick = () => {
-    ws.send(KIAKON_WORKER_WS_MESSAGES.HELLOMEG);
+    ws.send(JSON.stringify({ type: KIAKON_WORKER_WS_TYPES.HELLOMEG }));
   }
 }
 
