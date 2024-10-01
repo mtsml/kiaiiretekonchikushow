@@ -138,9 +138,17 @@ const startHellomegGacha = (hellomegImgElement) => {
 
   hellomegImgElement.onclick = () => {};
 
+  // 各要素を初期化して出し分ける
+  const container = document.getElementById("container");
+  while (container.firstChild) container.removeChild(container.firstChild);
+  const secretCardContainer = document.getElementById("secret-card-container");
+  while (secretCardContainer.firstChild) secretCardContainer.removeChild(secretCardContainer.firstChild);
+  secretCardContainer.style.display = null;
   const descriptionElement = document.getElementById("description");
-  descriptionElement.style.display = "none";
-  const secretCardContainer = document.getElementById('secret-card-container');
+  descriptionElement.style.display = "none";  
+  const resultElement = document.getElementById("result");
+  resultElement.style.display = "none";
+
   const cardList = [];
 
   // 抽選処理
@@ -396,3 +404,12 @@ const getNavigatorShareParams = (blob) => ({
   text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_TWEET}\n${HELLOMEG_GACHA_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
+
+
+/**
+ * もう一度引く
+ */
+const retry = () => {
+  const hellomegImgElement = document.getElementById("helloMegImg").querySelector("img");
+  viewModal(hellomegImgElement);
+}
