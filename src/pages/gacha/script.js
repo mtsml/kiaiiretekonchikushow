@@ -11,6 +11,12 @@ const HELLOMEG_R_CARD_LIST = [
 // SRカード
 const HELLOMEG_SR_CARD_LIST = [
   {
+    name: "ハクチュー",
+    fullname: "[ハクチュー] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hkc.png"
+  },
+  {
     name: "フィーバー",
     fullname: "[フィーバー] ハロめぐ",
     rarity: "SR",
@@ -65,6 +71,12 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/pressed.png"
   },
   {
+    name: "ぷちはす",
+    fullname: "[ぷちはす] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/puchihasu_hellomeg.png"
+  },
+  {
     name: "シャウト",
     fullname: "[シャウト] ハロめぐ",
     rarity: "SR",
@@ -77,10 +89,10 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/tsukimi.png"
   },
   {
-    name: "蓮ノ空しかないんすよ",
-    fullname: "[蓮ノ空しかないんすよ] ハロめぐ",
+    name: "アクスタ",
+    fullname: "[アクスタ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hasunosorashikanainsuyo.png"
+    src: "../../assets/stand.png"
   },
 ];
 // URカード
