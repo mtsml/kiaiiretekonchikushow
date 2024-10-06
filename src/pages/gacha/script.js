@@ -11,12 +11,6 @@ const HELLOMEG_R_CARD_LIST = [
 // SRカード
 const HELLOMEG_SR_CARD_LIST = [
   {
-    name: "HSCT",
-    fullname: "[HSCT] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hsct.png"
-  },
-  {
     name: "ハクチュー",
     fullname: "[ハクチュー] ハロめぐ",
     rarity: "SR",
@@ -29,12 +23,6 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/fever.png"
   },
   {
-    name: "プランク",
-    fullname: "[プランク] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/plank.png"
-  },
-  {
     name: "宇宙猫",
     fullname: "[宇宙猫] ハロめぐ",
     rarity: "SR",
@@ -45,24 +33,6 @@ const HELLOMEG_SR_CARD_LIST = [
     fullname: "[ハロめぐだもん] ハロめぐ",
     rarity: "SR",
     src: "../../assets/damon.png"
-  },
-  {
-    name: "C104",
-    fullname: "[C104] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/comike104.png"
-  },
-  {
-    name: "ドン・キホーテ",
-    fullname: "[ドン・キホーテ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/donki.png"
-  },
-  {
-    name: "がおー",
-    fullname: "[がおー] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/gao.png"
   },
   {
     name: "ハロメグダヨ",
@@ -107,52 +77,10 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/puchihasu_hellomeg.png"
   },
   {
-    name: "ぷちはす",
-    fullname: "[ぷちはす] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/puchihasu_me.png"
-  },
-  {
-    name: "ぷちはす",
-    fullname: "[ぷちはす] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/puchihasu_ro.png"
-  },
-  {
     name: "シャウト",
     fullname: "[シャウト] ハロめぐ",
     rarity: "SR",
     src: "../../assets/shout.png"
-  },
-  {
-    name: "アクスタ",
-    fullname: "[アクスタ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/stand.png"
-  },
-  {
-    name: "回転寿司",
-    fullname: "[回転寿司] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/sushi.png"
-  },
-  {
-    name: "七夕",
-    fullname: "[七夕] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/tanameg.png"
-  },
-  {
-    name: "UMTM",
-    fullname: "[UMTM] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/umtm.png"
-  },
-  {
-    name: "ユニット甲子園",
-    fullname: "[ユニット甲子園] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/unitlive_hellomeg.png"
   },
   {
     name: "月見",
@@ -161,10 +89,10 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/tsukimi.png"
   },
   {
-    name: "蓮ノ空しかないんすよ",
-    fullname: "[蓮ノ空しかないんすよ] ハロめぐ",
+    name: "アクスタ",
+    fullname: "[アクスタ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hasunosorashikanainsuyo.png"
+    src: "../../assets/stand.png"
   },
 ];
 // URカード
@@ -176,6 +104,10 @@ const HELLOMEG_UR_CARD_LIST = [
     src: "../../assets/welcome.png",
   },
 ];
+// ガチャ回した回数
+let gachaCnt = 0;
+// URを引いた回数
+let gachaUrCnt = 0;
 
 const viewModal = (hellomegImgElement) => {
   var modal = document.getElementById("myModal");
@@ -209,12 +141,26 @@ const viewModal = (hellomegImgElement) => {
  * 処理開始から3秒後に SKILL からランダムに選んだ5つの画像を表示する
  */
 const startHellomegGacha = (hellomegImgElement) => {
+  // ガチャ回数をインクリメント
+  let gachaCntElement = document.getElementById("gacha-cnt");
+  gachaCnt = parseInt(gachaCntElement.dataset.gachaCnt);
+  gachaCnt += 10;
+  gachaCntElement.dataset.gachaCnt = gachaCnt;
+  gachaCntElement.textContent = gachaCnt;
 
   hellomegImgElement.onclick = () => {};
 
+  // 各要素を初期化して出し分ける
+  const container = document.getElementById("container");
+  while (container.firstChild) container.removeChild(container.firstChild);
+  const secretCardContainer = document.getElementById("secret-card-container");
+  while (secretCardContainer.firstChild) secretCardContainer.removeChild(secretCardContainer.firstChild);
+  secretCardContainer.style.display = null;
   const descriptionElement = document.getElementById("description");
-  descriptionElement.style.display = "none";
-  const secretCardContainer = document.getElementById('secret-card-container');
+  descriptionElement.style.display = "none";  
+  const resultElement = document.getElementById("result");
+  resultElement.style.display = "none";
+
   const cardList = [];
 
   // 抽選処理
@@ -239,6 +185,7 @@ const startHellomegGacha = (hellomegImgElement) => {
     } else {
       hellomegCard = HELLOMEG_UR_CARD_LIST[Math.floor(Math.random() * HELLOMEG_UR_CARD_LIST.length)];
       cardList.push(hellomegCard);
+      gachaUrCnt += 1;
     }
   }
 
@@ -378,7 +325,8 @@ const viewCardModal = (card) => {
 const TWEET_INTENT_URL = "https://twitter.com/intent/tweet";
 const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
 const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
-const HELLOMEG_GACHA_TWEET = 'ガチャの結果は...';
+const HELLOMEG_GACHA_CNT_TWEET = '引いたハロめぐ：';
+const HELLOMEG_GACHA_UR_CNT_TWEET = 'URハロめぐ：';
 
 /**
  * diplay: none で埋め込まれている共有ボタンまたはツイートリンクを表示状態にする
@@ -466,6 +414,15 @@ const drawCanvas = (cards) => {
  */
 const getNavigatorShareParams = (blob) => ({
   url: HELLOMEG_GACHA_URL,
-  text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_TWEET}\n${HELLOMEG_GACHA_URL}`,
+  text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_CNT_TWEET}${gachaCnt}枚\n${HELLOMEG_GACHA_UR_CNT_TWEET}${gachaUrCnt}枚\n${HELLOMEG_GACHA_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
+
+
+/**
+ * もう一度引く
+ */
+const retry = () => {
+  const hellomegImgElement = document.getElementById("helloMegImg").querySelector("img");
+  viewModal(hellomegImgElement);
+}
