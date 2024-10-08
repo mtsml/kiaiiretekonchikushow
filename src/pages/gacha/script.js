@@ -169,7 +169,8 @@ const startHellomegGacha = (hellomegImgElement) => {
     let hellomegCard;
 
     // リンクラと同じく79%でR、18%でSR、3%でURとしている
-    if (randomNum < 79) {
+    // 宴期間だけ確率変更
+    if (randomNum < 76) {
       if (i === 9) {
         hellomegCard = HELLOMEG_SR_CARD_LIST[Math.floor(Math.random() * HELLOMEG_SR_CARD_LIST.length)];
         cardList.push(hellomegCard);
@@ -178,7 +179,7 @@ const startHellomegGacha = (hellomegImgElement) => {
         cardList.push(hellomegCard);
       }
 
-    } else if (randomNum < 97) {
+    } else if (randomNum < 94) {
       hellomegCard = HELLOMEG_SR_CARD_LIST[Math.floor(Math.random() * HELLOMEG_SR_CARD_LIST.length)];
       cardList.push(hellomegCard);
 
