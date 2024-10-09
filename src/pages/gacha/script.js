@@ -328,6 +328,7 @@ const HELLOMEG_GACHA_URL = 'https://kiaiiretekonchiku.show/gacha/';
 const HELLOMEG_GACHA_HASHTAG = '#ハロめぐガチャ';
 const HELLOMEG_GACHA_CNT_TWEET = '引いたハロめぐ：';
 const HELLOMEG_GACHA_UR_CNT_TWEET = 'URハロめぐ：';
+const HELLOMEG_GACHA_CAMPAIGN_TWEET = 'UR確率2倍キャンペーン実施中！';
 
 /**
  * diplay: none で埋め込まれている共有ボタンまたはツイートリンクを表示状態にする
@@ -415,7 +416,7 @@ const drawCanvas = (cards) => {
  */
 const getNavigatorShareParams = (blob) => ({
   url: HELLOMEG_GACHA_URL,
-  text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_CNT_TWEET}${gachaCnt}枚\n${HELLOMEG_GACHA_UR_CNT_TWEET}${gachaUrCnt}枚\n${HELLOMEG_GACHA_URL}`,
+  text: `${HELLOMEG_GACHA_HASHTAG}\n${HELLOMEG_GACHA_CNT_TWEET}${gachaCnt}枚\n${HELLOMEG_GACHA_UR_CNT_TWEET}${gachaUrCnt}枚\n\n${HELLOMEG_GACHA_CAMPAIGN_TWEET}\n${HELLOMEG_GACHA_URL}`,
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
 
