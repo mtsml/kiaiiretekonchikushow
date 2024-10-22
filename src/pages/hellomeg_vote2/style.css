@@ -1,0 +1,35 @@
+@keyframes hellomegAnimation {
+  0% {
+    transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--translateX)), calc(-50% + var(--translateY)));
+    opacity: 0;
+  }
+}
+
+.hellomeg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: hellomegAnimation 2s ease-out;
+}
+
+@keyframes shakeAnimation {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0); }
+}
+
+.shake-img {
+  animation: shakeAnimation 0.3s ease;
+}
