@@ -1,6 +1,5 @@
 // Rカード
 const HELLOMEG_R_CARD_LIST = [
-  // Rカード
   {
     name: "めぐぅ",
     fullname: "[めぐぅ] ハロめぐ",
@@ -87,6 +86,24 @@ const HELLOMEG_SR_CARD_LIST = [
     fullname: "[月見] ハロめぐ",
     rarity: "SR",
     src: "../../assets/tsukimi.png"
+  },
+  {
+    name: "うるうる",
+    fullname: "[うるうる] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/uruuru.png"
+  },
+  {
+    name: "ドヤめぐ",
+    fullname: "[ドヤめぐ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/doya.png"
+  },
+  {
+    name: "めがね",
+    fullname: "[めがね] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/megane.png"
   },
   {
     name: "アクスタ",
