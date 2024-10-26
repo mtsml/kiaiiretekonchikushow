@@ -1,6 +1,5 @@
 // Rカード
 const HELLOMEG_R_CARD_LIST = [
-  // Rカード
   {
     name: "めぐぅ",
     fullname: "[めぐぅ] ハロめぐ",
