@@ -89,6 +89,24 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/tsukimi.png"
   },
   {
+    name: "うるうる",
+    fullname: "[うるうる] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/uruuru.png"
+  },
+  {
+    name: "ドヤめぐ",
+    fullname: "[ドヤめぐ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/doya.png"
+  },
+  {
+    name: "めがね",
+    fullname: "[めがね] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/megane.png"
+  },
+  {
     name: "アクスタ",
     fullname: "[アクスタ] ハロめぐ",
     rarity: "SR",
