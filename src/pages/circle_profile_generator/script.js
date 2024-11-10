@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    document.getElementById('container').style.display = 'block';
+
     // 共有ボタンまたはツイートリンクを表示する
     displayShareButtonOrTweetLink(document.getElementById("canvas"));
   };
