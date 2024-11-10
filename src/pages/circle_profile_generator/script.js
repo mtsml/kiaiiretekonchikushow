@@ -104,6 +104,6 @@ const share = () => {
  */
 const getNavigatorShareParams = (blob) => ({
   url: "https://kiaiiretekonchiku.show/circle_profile_generator/",
-  text: "https://kiaiiretekonchiku.show/circle_profile_generator/",
+  text: "#めぐ島紹介\nhttps://kiaiiretekonchiku.show/circle_profile_generator/",
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
