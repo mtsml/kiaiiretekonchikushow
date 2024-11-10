@@ -101,5 +101,7 @@ const share = () => {
  * - Android: text が表示れない
  */
 const getNavigatorShareParams = (blob) => ({
+  url: "https://kiaiiretekonchiku.show/circle_profile_generator/",
+  text: "https://kiaiiretekonchiku.show/circle_profile_generator/",
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
