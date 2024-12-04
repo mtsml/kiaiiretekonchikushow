@@ -1,3 +1,30 @@
+const songs = [
+  {
+    id: 'hasunosorashikanainsuyo',
+    src: '../../assets/meggen/hasunosorashikanainsuyo.png',
+  },
+  {
+    id: 'damon',
+    src: '../../assets/meggen/damon.png',
+  },
+  {
+    id: 'doya',
+    src: '../../assets/meggen/doya.png',
+  },
+  {
+    id: 'fever',
+    src: '../../assets/meggen/fever.png',
+  },
+  {
+    id: 'hkc',
+    src: '../../assets/meggen/hkc.png',
+  },
+  {
+    id: 'universe',
+    src: '../../assets/meggen/universe.png',
+  }
+]
+
 let currentImage;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -68,13 +95,29 @@ function generateImage() {
   });
 }
 
-function selectImage(selectElement) {
-  const selectedImage = new Image();
-  selectedImage.src = selectElement.value;
-  selectedImage.onload = function() {
-    currentImage = selectedImage;
-    generateImage();
+const paging = (isNext) => {
+  const currentSongId = document.getElementById("selectedSongId").value;
+  const currentSongIndex = songs.findIndex(song => song.id === currentSongId);
+
+  let nextSongIndex = 0;
+  switch (isNext) {
+    case true:
+      nextSongIndex = currentSongIndex === songs.length - 1 ? 0 : currentSongIndex + 1;
+      break;
+    case false:
+      nextSongIndex = currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
+      break;
+  }
+  const nextSong = songs[nextSongIndex];
+  document.getElementById("selectedSongId").value = nextSong.id;
+  document.getElementById("selectedSongName").textContent = nextSong.id;
+
+  const image = new Image();
+  image.onload = function() {
+      currentImage = image;
+      generateImage();
   };
+  image.src = nextSong.src;
 }
 
 /**

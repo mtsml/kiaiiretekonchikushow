@@ -55,14 +55,67 @@
   opacity: 1;
 }
 
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: var(--color-fg-sub-sub);
+  border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--color-fg-sub);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  background: var(--color-fg-subg);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+}
+
 #x-slider {
   display: flex;
-  margin: 10px 0;
+  margin: 10px 0 20px;
+  height: 10px;
   width: 90%;
 }
 
 #y-slider {
   margin: 0 10px;
   height: auto;
+  width: 10px;
   writing-mode: vertical-lr; /* スライダーを縦方向に */
+}
+
+.action {
+  width: 300px;
+  margin: 0 auto 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action_button {
+  padding: 0px 4px;
+}
+
+.action_hiddenInput {
+  display: none;
+}
+
+.action_songName {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.action_angleIcon {
+  height: 32px;
+  fill: var(--color-fg-sub);
+  vertical-align: top;
 }
