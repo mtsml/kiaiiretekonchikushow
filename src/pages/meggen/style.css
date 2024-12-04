@@ -1,0 +1,68 @@
+#canvas {
+  width: 90%;
+}
+
+.textInputWrapper {
+  width: 90%;
+  margin: 0 auto; /* 親要素に対して中央揃え */
+}
+
+#textInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-fg-sub-sub);
+  box-sizing: border-box; /* padding を含めて幅を計算 */
+}
+
+.color-picker, .size-picker {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.color-options, .size-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.color-options input[type="radio"], .size-options input[type="radio"] {
+  display: none;
+}
+
+.color-options label {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.size-options label {
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;  
+}
+
+.color-options input[type="radio"]:checked + label {
+  opacity: 1;
+  border-color: var(--color-fg-sub-sub);
+}
+
+.size-options input[type="radio"]:checked + label {
+  opacity: 1;
+}
+
+#x-slider {
+  display: flex;
+  margin: 10px 0;
+  width: 90%;
+}
+
+#y-slider {
+  margin: 0 10px;
+  height: auto;
+  writing-mode: vertical-lr; /* スライダーを縦方向に */
+}
