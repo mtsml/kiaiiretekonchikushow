@@ -1,0 +1,121 @@
+#canvas {
+  width: 90%;
+}
+
+.textInputWrapper {
+  width: 90%;
+  margin: 0 auto; /* 親要素に対して中央揃え */
+}
+
+#textInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-fg-sub-sub);
+  box-sizing: border-box; /* padding を含めて幅を計算 */
+}
+
+.color-picker, .size-picker {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.color-options, .size-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.color-options input[type="radio"], .size-options input[type="radio"] {
+  display: none;
+}
+
+.color-options label {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.size-options label {
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;  
+}
+
+.color-options input[type="radio"]:checked + label {
+  opacity: 1;
+  border-color: var(--color-fg-sub-sub);
+}
+
+.size-options input[type="radio"]:checked + label {
+  opacity: 1;
+}
+
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: var(--color-fg-sub-sub);
+  border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--color-fg-sub);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  background: var(--color-fg-subg);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+}
+
+#x-slider {
+  display: flex;
+  margin: 10px 0 20px;
+  height: 10px;
+  width: 90%;
+}
+
+#y-slider {
+  margin: 0 10px;
+  height: auto;
+  width: 10px;
+  writing-mode: vertical-lr; /* スライダーを縦方向に */
+}
+
+.action {
+  width: 300px;
+  margin: 0 auto 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action_button {
+  padding: 0px 4px;
+}
+
+.action_hiddenInput {
+  display: none;
+}
+
+.action_songName {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.action_angleIcon {
+  height: 32px;
+  fill: var(--color-fg-sub);
+  vertical-align: top;
+}
