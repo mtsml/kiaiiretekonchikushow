@@ -158,6 +158,6 @@ const share = () => {
  */
 const getNavigatorShareParams = (blob) => ({
   url: "https://kiaiiretekonchiku.show/meggen/",
-  text: "#ハロめぐジェネレーター\nhttps://kiaiiretekonchiku.show/meggen/",
+  text: "https://kiaiiretekonchiku.show/meggen/",
   files: [new File([blob], "image.png", { type: "image/png", })],
 });
