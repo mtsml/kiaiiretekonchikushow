@@ -1,5 +1,5 @@
 #canvas {
-  width: 80%;
+  width: 90%;
 }
 
 .textInputWrapper {
@@ -83,7 +83,7 @@
   display: flex;
   margin: 10px 0 20px;
   height: 10px;
-  width: 80%;
+  width: 90%;
 }
 
 #y-slider {
