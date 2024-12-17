@@ -1,3 +1,10 @@
+// 確定カード
+const LOGIN_BORNUS = {
+  fullname: "福梅",
+  rarity: "R",
+  src: "../../assets/tominshukai20241222/fukuume.png",
+  description: "ログインボーナス"
+}
 // Rカード
 const HELLOMEG_R_CARD_LIST = [
   {
@@ -15,14 +22,26 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/tominshukai20241222/wm.png",
     description: "好きなシールを一枚選んでね。"
   },
+  {
+    fullname: "きんつば",
+    rarity: "SR",
+    src: "../../assets/tominshukai20241222/kintsuba.png",
+    description: "めぐちゃんも大好きおいしいきんつば"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
   {
-    name: "めぐ島に入ろう",
-    fullname: "[めぐ島に入ろう] ハロめぐ",
+    fullname: "カステラ",
     rarity: "UR",
-    src: "../../assets/welcome.png",
+    src: "../../assets/tominshukai20241222/kasutera.png",
+    description: "いい感じのカステラ"
+  },
+  {
+    fullname: "サイダー",
+    rarity: "UR",
+    src: "../../assets/tominshukai20241222/soda.png",
+    description: "さいだー"
   },
 ];
 
@@ -71,10 +90,11 @@ const startHellomegGacha = (hellomegImgElement) => {
   const resultElement = document.getElementById("result");
   resultElement.style.display = "none";
 
-  const cardList = [];
+  // ログインボーナスは確定で排出する
+  const cardList = [LOGIN_BORNUS];
 
   // 抽選処理
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 9; i++) {
     const randomNum = Math.random()*100;
     let hellomegCard;
 
@@ -315,3 +335,28 @@ const retry = () => {
   const hellomegImgElement = document.getElementById("helloMegImg").querySelector("img");
   viewModal(hellomegImgElement);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('cardContainer');
+
+  // 選択した画像とランクを追加
+  [...HELLOMEG_UR_CARD_LIST, ...HELLOMEG_SR_CARD_LIST, ...HELLOMEG_R_CARD_LIST, LOGIN_BORNUS].forEach(item => {
+    const card = document.createElement('li');
+    card.classList.add('card', item.rarity);
+    card.style.transform = 'translateX(0)';
+
+    // 背景色を付与するためだけの要素
+    // カードに animated border を付与するために必要
+    const cardInner = document.createElement('div');
+    cardInner.classList.add('cardInner');
+
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = item.name;
+    img.onclick = () => viewCardModal(item);
+
+    cardInner.appendChild(img);
+    card.appendChild(cardInner);
+    container.appendChild(card);
+  });
+})

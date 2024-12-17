@@ -207,3 +207,11 @@
 #description p {
   line-height: 1.7;
 }
+
+.cardContainer {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
