@@ -32,13 +32,13 @@ const HELLOMEG_SR_CARD_LIST = [
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
   {
-    fullname: "カステラ",
+    fullname: "烏骨鶏カステラ",
     rarity: "UR",
     src: "../../assets/tominshukai20241222/kasutera.png",
     description: ""
   },
   {
-    fullname: "サイダー",
+    fullname: "金沢湯涌サイダー",
     rarity: "UR",
     src: "../../assets/tominshukai20241222/soda.png",
     description: ""
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 選択した画像とランクを追加
   [...HELLOMEG_UR_CARD_LIST, ...HELLOMEG_SR_CARD_LIST, ...HELLOMEG_R_CARD_LIST, LOGIN_BORNUS].forEach(item => {
-    const card = document.createElement('li');
+    const card = document.createElement('div');
     card.classList.add('card', item.rarity);
     card.style.transform = 'translateX(0)';
 
@@ -355,8 +355,16 @@ document.addEventListener('DOMContentLoaded', () => {
     img.alt = item.name;
     img.onclick = () => viewCardModal(item);
 
+    const name = document.createElement('span');
+    name.textContent = item.fullname;
+
     cardInner.appendChild(img);
     card.appendChild(cardInner);
-    container.appendChild(card);
+
+    const wrapper = document.createElement('li');
+    wrapper.appendChild(card);
+    wrapper.appendChild(name);
+
+    container.appendChild(wrapper);
   });
 })
