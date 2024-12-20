@@ -3,7 +3,7 @@ const LOGIN_BORNUS = {
   fullname: "福梅",
   rarity: "R",
   src: "../../assets/tominshukai20241222/fukuume.png",
-  description: "ログインボーナス"
+  description: ""
 }
 // Rカード
 const HELLOMEG_R_CARD_LIST = [
@@ -26,7 +26,7 @@ const HELLOMEG_SR_CARD_LIST = [
     fullname: "きんつば",
     rarity: "SR",
     src: "../../assets/tominshukai20241222/kintsuba.png",
-    description: "めぐちゃんも大好きおいしいきんつば"
+    description: ""
   },
 ];
 // URカード
@@ -35,13 +35,13 @@ const HELLOMEG_UR_CARD_LIST = [
     fullname: "カステラ",
     rarity: "UR",
     src: "../../assets/tominshukai20241222/kasutera.png",
-    description: "いい感じのカステラ"
+    description: ""
   },
   {
     fullname: "サイダー",
     rarity: "UR",
     src: "../../assets/tominshukai20241222/soda.png",
-    description: "さいだー"
+    description: ""
   },
 ];
 
