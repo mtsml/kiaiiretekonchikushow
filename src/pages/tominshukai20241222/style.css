@@ -1,0 +1,217 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 600px;
+  width: 90%;
+  height: fit-content;
+  color: #333333;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: linear-gradient(to right, #87CEFA, #00BFFF);
+  color: #fff5f5;
+  border-radius: 10px 10px 0 0;
+}
+
+.confirm-button {
+  background: linear-gradient(to right, #87CEFA, #00BFFF);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.cancel-button {
+  background-color: white;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#secret-card-container {
+  position: relative;
+  top: -370px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.image {
+  position: absolute;
+  width: 60px;
+  height: 120px;
+  opacity: 0;
+  border-radius: 2px;
+  transform-origin: bottom right;
+  animation: fadeIn 1s forwards;
+}
+
+.image.R {
+  background-color: paleturquoise;
+  box-shadow: 0 0 20px 10px cyan;
+}
+
+.image.SR {
+  background-color: palegoldenrod;
+  box-shadow: 0 0 20px 10px gold;
+}
+
+.image.UR {
+  background: linear-gradient(to bottom right, #00FFFF, #FF00FF);
+  box-shadow: 0 0 20px 10px blueviolet;
+}
+
+.image.first {
+  top: 60px;
+  left: 120px;
+  z-index: 1; /* 他のカードより前面に配置されるようにする */
+  background-color: cyan;
+  box-shadow: 0 0 6px 6px rgba(0, 255, 255, 0.5);
+  transform: rotate(0rad) translate(0, -50%);
+  animation-delay: 0s;
+}
+
+.image.first.rotateAroundCircle {
+  top: 0px;
+  left: 120px;
+  opacity: 1;
+  animation: rotateAroundCircle 1.4s linear 1;
+  transform-origin: center 180px;
+}
+
+@keyframes rotateAroundCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#container {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.card {
+  text-align: center;
+  transform: translateX(-100vw);
+  transition: transform 0.5s ease-in-out;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.card.R {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(paleturquoise, paleturquoise) padding-box, linear-gradient(
+        135deg,
+        paleturquoise,
+        paleturquoise
+      ) border-box;
+}
+
+.card.SR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(palegoldenrod, palegoldenrod) padding-box, linear-gradient(
+        var(--angle),
+        palegoldenrod,
+        gold
+      ) border-box;
+  animation: 7s rotate linear infinite;
+}
+
+.card.UR {
+  border: 3px solid #0000;
+  border-radius: 6px;
+  background: linear-gradient(#131219, #131219) padding-box, linear-gradient(
+        var(--angle),
+        #070707,
+        blueviolet
+      ) border-box;
+  animation: 4s rotate linear infinite;
+}
+
+.cardInner {
+  border-radius: 3px;
+  background-color: var(--color-bg);
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.card .label {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+#result p {
+  margin-bottom: 0.5em;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+#description p {
+  line-height: 1.7;
+}
+
+.cardContainer {
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="og:title" content="ログインボーナス | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/gacha/">
+  <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
+  <meta name="og:type" content="website">
+  <meta name="og:site_name" content="めぐ島">
+  <meta name="twitter:card" content="summary">
+  <meta name="description" content="ハロめぐー！">
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../global.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LRB16S0GH');
+  </script>
+  <script src="./script.js"></script>
+  <title>ログインボーナス | めぐ島</title>
+</head>
+<body>
+  <!--
+
+                                ■           ■                   ■ 
+       ■        ■■■■■■■■    ■   ■          ■■                   ■ 
+       ■   ■    ■       ■   ■■■ ■■■      ■■                     ■ 
+       ■   ■    ■       ■   ■■  ■ ■■    ■■  ■ ■                 ■ 
+      ■■   ■    ■       ■  ■ ■ ■   ■   ■     ■   ■■■■■■■■■      ■ 
+      ■     ■   ■       ■  ■ ■ ■   ■   ■■                       ■ 
+      ■     ■   ■       ■  ■  ■    ■    ■■                      ■ 
+     ■      ■■  ■       ■  ■ ■■   ■       ■■                      
+     ■       ■  ■■■■■■■■■  ■■■   ■         ■■                   ■ 
+
+  -->
+  <header>
+    <nav class="c-breadcrumb">
+      <a href="../_root/index.html">
+        <!-- ChevronLeft Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        <span>めぐ島🏝️</span>
+      </a>
+    </nav>
+    <h1>
+      ログインボーナス
+    </h1>
+  </header>
+  <main>
+    <div class="c-container" id="helloMegImg">
+      <img
+        src="../../assets/logo-512x512.png"
+        class="c-logo"
+        onclick="viewModal(this)"
+      >
+    </div>
+    <div id="description">
+      <p>
+        ハロめぐをタップして<br>ログインボーナスをもらおう！
+      </p>
+      <h2>景品一覧</h2>
+      <ul id="cardContainer" class="cardContainer">
+      </ul>
+    </div>
+    <div id="secret-card-container"></div>
+    <div id="container"></div>
+    <div class="modal-overlay" id="myModalOverlay">
+      <div class="modal" id="myModal">
+        <div class="modal-header">
+          <p>ガチャ確認</p>
+        </div>
+        <div class="modal-body">
+          <p>2,000SIsCaを消費して<br>ガチャを10回引きますか？</p>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-button" id="confirmCancel">キャンセル</button>
+          <button class="confirm-button" id="confirmOk">ガチャを引く</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="cardModalOverlay">
+      <div class="modal" id="cardModal">
+        <div class="modal-header">
+          <p>景品確認</p>
+        </div>
+        <div class="modal-body">
+          <img src="" width="300">
+          <h2></h2>
+          <p></p>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-button" id="cardModalConfirmCancel">閉じる</button>
+        </div>
+      </div>
+    </div>
+    <div
+      id="result"
+      style="display: none"
+    >
+      <p>
+        <button
+          id="share-button"
+          style="display: none;"
+        >
+          <!-- Share Icon -->
+          <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3V320c0 17.7 14.3 32 32 32s32-14.3 32-32V109.3l73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 53 43 96 96 96H352c53 0 96-43 96-96V352c0-17.7-14.3-32-32-32s-32 14.3-32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V352z"/></svg>
+          <span>ガチャ結果をシェア</span>
+        </button>
+      </p>
+    </div>
+  </main>
+</body>
+</html>
