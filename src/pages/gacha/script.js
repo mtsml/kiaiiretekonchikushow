@@ -82,12 +82,6 @@ const HELLOMEG_SR_CARD_LIST = [
     src: "../../assets/shout.png"
   },
   {
-    name: "月見",
-    fullname: "[月見] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/tsukimi.png"
-  },
-  {
     name: "うるうる",
     fullname: "[うるうる] ハロめぐ",
     rarity: "SR",
@@ -110,6 +104,24 @@ const HELLOMEG_SR_CARD_LIST = [
     fullname: "[アクスタ] ハロめぐ",
     rarity: "SR",
     src: "../../assets/stand.png"
+  },
+  {
+    name: "あけおめ",
+    fullname: "[あけおめ] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/akeomegu.png"
+  },
+  {
+    name: "軍手",
+    fullname: "[軍手] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/gunte.png"
+  },
+  {
+    name: "カニ手羽",
+    fullname: "[カニ手羽] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/kaniteba.png"
   },
 ];
 // URカード
