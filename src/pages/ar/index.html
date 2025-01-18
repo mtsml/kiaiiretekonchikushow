@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="og:title" content="ハロめぐAR | めぐ島">
-  <meta name="og:url" content="https://kiaiiretekonchiku.show/count/">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/ar/">
   <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
   <meta name="og:type" content="website">
   <meta name="og:site_name" content="めぐ島">
@@ -60,55 +60,65 @@
       </a>
     </nav>
     <h1>
-      あー、
+      ハロめぐAR
     </h1>
   </header>
   <main>
-    <div class="c-container" style="
-      display: flex;
-      justify-content: center;
-    ">
-      <model-viewer
-        src="ramen.glb"
-        alt="ramen 3D model"
-        camera-controls
-        ar
-        style="
-          width: 100%;
-          height: 40vh;
-        "
-      ></model-viewer>
-      <model-viewer
-        src="katan.glb"
-        alt="katan 3D model"
-        camera-controls
-        ar
-        style="
-          width: 100%;
-          height: 40vh;
-        "
-      ></model-viewer>
-      <model-viewer
-        src="stand_megu.glb"
-        alt="stand_megu 3D model"
-        camera-controls
-        ar
-        style="
-          width: 100%;
-          height: 40vh;
-        "
-      ></model-viewer>
-      <model-viewer
-        src="stand_ruri.glb"
-        alt="stand_ruri 3D model"
-        camera-controls
-        ar
-        style="
-          width: 100%;
-          height: 40vh;
-        "
-      ></model-viewer>
+    <div class="c-container">
+      <div class="slider" id="slider">
+        <model-viewer
+          src="ramen.glb"
+          alt="ramen 3D model"
+          camera-controls
+          ar
+        ></model-viewer>
+        <model-viewer
+          src="katan.glb"
+          alt="katan 3D model"
+          camera-controls
+          ar
+        ></model-viewer>
+        <model-viewer
+          src="stand_megu.glb"
+          alt="stand_megu 3D model"
+          camera-controls
+          ar
+        ></model-viewer>
+        <model-viewer
+          src="stand_ruri.glb"
+          alt="stand_ruri 3D model"
+          camera-controls
+          ar
+        ></model-viewer>
+      </div>
     </div>
+    <div class="action">
+      <button
+        class="action_button"
+        onclick="nextSlide()"
+      >
+        <svg class="action_angleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+      </button>
+      <span class="action_label">モデルを選ぶ</span>
+      <button
+        class="action_button"
+        onclick="nextSlide()"
+      >
+        <svg class="action_angleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+      </button>
+    </div>
+    <p>それっぽいボタンを押してAR表示を楽しんでね</p>
+    <p>
+      <a
+        id="post"
+        href="https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90AR%0D%0A&url=https://kiaiiretekonchiku.show/ar"
+        target="_blank"
+      >
+        <!-- Twiiter Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+        <span>自慢する</span>
+      </a>      
+    </p>
   </main>
 </body>
 </html>
