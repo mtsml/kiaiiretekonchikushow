@@ -26,14 +26,16 @@ window.addEventListener("DOMContentLoaded", () => {
   const additionalModel = params.get("additional_model");
   
   switch (additionalModel) {
-    case "a1B2c3":
+    case "a1b2c3":
       const model = document.createElement("model-viewer");
       model.src("akeomeg.glb")
       model.alt("akeomeg 3D model")
       model.setAttribute("camera-controls", true);
       model.setAttribute("ar", true);
+      console.log(model)
       const slider = document.getElementById("slider");
       slider.insertBefore(model, slider.firstChild);
+      console.log(slider)
       break;
     case "d4E5f6":
       document.getElementById("d4E5f6").style.display = null;
