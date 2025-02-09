@@ -24,18 +24,18 @@ function prevSlide() {
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URL(document.location).searchParams;
   const additionalModel = params.get("additional_model");
-  
+
   switch (additionalModel) {
     case "a1b2c3":
-      const model = document.createElement("model-viewer");
-      model.src("akeomeg.glb")
-      model.alt("akeomeg 3D model")
-      model.setAttribute("camera-controls", true);
-      model.setAttribute("ar", true);
-      console.log(model)
       const slider = document.getElementById("slider");
-      slider.insertBefore(model, slider.firstChild);
-      console.log(slider)
+      slider.innerHTML = `
+        <model-viewer
+          src="akeomeg.glb"
+          alt="akeomeg 3D model"
+          camera-controls
+          ar
+        ></model-viewer>
+      ` + slider.innerHTML;
       break;
     case "d4E5f6":
       document.getElementById("d4E5f6").style.display = null;
