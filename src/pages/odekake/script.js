@@ -20,26 +20,3 @@ function nextSlide() {
 function prevSlide() {
   showSlide(currentSlide - 1);
 }
-
-let currentSlideLimted = 0;
-
-function showSlideLimited(index) {
-  const slider = document.getElementById('slider-limited');
-  const totalSlides = slider.children.length;
-  if (index >= totalSlides) {
-    currentSlideLimted = 0;
-  } else if (index < 0) {
-    currentSlideLimted = totalSlides - 1;
-  } else {
-    currentSlideLimted = index;
-  }
-  slider.style.transform = `translateX(-${currentSlideLimted * 100}%)`;
-}
-
-function nextSlideLimited() {
-  showSlideLimited(currentSlideLimted + 1);
-}
-
-function prevSlideLimited() {
-  showSlideLimited(currentSlideLimted - 1);
-}
