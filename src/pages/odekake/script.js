@@ -37,9 +37,9 @@ function showSlideLimited(index) {
 }
 
 function nextSlideLimited() {
-  showSlide(currentSlideLimted + 1);
+  showSlideLimited(currentSlideLimted + 1);
 }
 
 function prevSlideLimited() {
-  showSlide(currentSlideLimted - 1);
+  showSlideLimited(currentSlideLimted - 1);
 }
