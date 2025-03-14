@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="og:title" content="新しいページ | めぐ島">
+  <meta name="og:title" content="AR体験 | めぐ島">
   <meta name="og:url" content="https://kiaiiretekonchiku.show/new_page/">
   <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
   <meta name="og:type" content="website">
   <meta name="og:site_name" content="めぐ島">
   <meta name="twitter:card" content="summary">
-  <meta name="description" content="新しいページです。">
+  <meta name="description" content="位置情報ベースのAR体験ができるページです。">
   <link rel="icon" href="../../assets/favicon.ico">
   <link rel="apple-touch-icon" href="../../assets/favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
@@ -18,6 +18,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- AR.js and A-Frame libraries -->
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
   <script>
@@ -28,30 +31,39 @@
     gtag('config', 'G-0LRB16S0GH');
   </script>
   <script src="./script.js"></script>
-  <title>新しいページ | めぐ島</title>
+  <title>AR体験 | めぐ島</title>
 </head>
 <body class="overflow-hidden">
-  <header>
+  <header id="page-header">
     <nav class="c-breadcrumb">
       <a href="../_root/index.html">
         めぐ島🏝️
       </a>
     </nav>
     <h1>
-      新しいページ
+      AR体験
     </h1>
   </header>
-  <main>
-    <div
-      class="c-container"
-      oncontextmenu="return false;"
-    >
-      <img
-        src="../../assets/logo-512x512.png"
-        class="c-logo"
-      >
+  
+  <div id="ar-container" style="display: none;">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs='sourceType: webcam; debugUIEnabled: false; gpsMinDistance: 5;'>
+      
+      <a-camera gps-camera rotation-reader></a-camera>
+      
+      <!-- AR entities will be added dynamically via JavaScript -->
+    </a-scene>
+  </div>
+  
+  <main id="start-screen">
+    <div class="c-container" oncontextmenu="return false;">
+      <img src="../../assets/logo-512x512.png" class="c-logo">
     </div>
-    <p>新しいページです。</p>
+    <p>位置情報ベースのAR体験を始めるには下のボタンをタップしてください。</p>
+    <button id="start-ar" class="ar-button">AR体験を開始</button>
+    <p class="note">※ カメラと位置情報へのアクセス許可が必要です</p>
   </main>
 </body>
 </html>
