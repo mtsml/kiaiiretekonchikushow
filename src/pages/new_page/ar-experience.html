@@ -178,20 +178,15 @@
       // ARシーンを取得
       const scene = document.querySelector('a-scene');
       
-      // 秋葉原駅周辺の特定の場所にモデルを配置
+      // 新しい対象の場所（35.728493054835496, 139.69921490383388）
+      const targetLocation = {
+        latitude: 35.728493054835496,
+        longitude: 139.69921490383388
+      };
+      
+      // 対象の場所にモデルを配置
       const locations = [
-        { name: "秋葉原駅前", latOffset: 0.0001, lngOffset: 0.0001 },
-        { name: "ヨドバシAkiba", latOffset: 0.0002, lngOffset: -0.0001 },
-        { name: "AKIBAカルチャーズZONE", latOffset: -0.0001, lngOffset: 0.0002 },
-        { name: "ラジオ会館", latOffset: -0.0002, lngOffset: 0.0001 },
-        { name: "UDX", latOffset: 0.0003, lngOffset: 0.0003 },
-        { name: "中央通り", latOffset: -0.0001, lngOffset: -0.0002 },
-        { name: "電気街口", latOffset: 0.0001, lngOffset: -0.0003 },
-        { name: "昭和通り", latOffset: -0.0003, lngOffset: -0.0001 },
-        { name: "ガチャポン会館", latOffset: 0.0002, lngOffset: 0.0002 },
-        { name: "アキバ田代通り", latOffset: -0.0002, lngOffset: -0.0002 },
-        // テスト用地点（35.699128, 139.771048）を追加
-        { name: "テスト地点", latOffset: 0.000775, lngOffset: -0.002066 }
+        { name: "めぐポイント", lat: targetLocation.latitude, lng: targetLocation.longitude }
       ];
       
       // 各場所の情報を保存する配列
@@ -199,8 +194,8 @@
       
       // 各場所にモデルを配置
       locations.forEach((location, index) => {
-        const lat = latitude + location.latOffset;
-        const lng = longitude + location.lngOffset;
+        const lat = location.lat;
+        const lng = location.lng;
         
         // 3Dモデルのリスト（ランダムに選択）
         const models = [

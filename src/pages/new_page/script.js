@@ -1,9 +1,9 @@
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
-  // 秋葉原駅の緯度経度
-  const akihabaraStation = {
-    latitude: 35.698353,
-    longitude: 139.773114
+  // めぐポイントの緯度経度
+  const meguPoint = {
+    latitude: 35.728493054835496,
+    longitude: 139.69921490383388
   };
   
   // 表示可能な最大距離（メートル）
@@ -27,22 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         // 位置情報取得成功
-        // 秋葉原駅との距離を計算
+        // めぐポイントとの距離を計算
         const distance = calculateDistance(
           position.coords.latitude, 
           position.coords.longitude,
-          akihabaraStation.latitude,
-          akihabaraStation.longitude
+          meguPoint.latitude,
+          meguPoint.longitude
         );
         
-        console.log(`秋葉原駅までの距離: ${distance.toFixed(2)}mめぐ`);
+        console.log(`めぐポイントまでの距離: ${distance.toFixed(2)}mめぐ`);
         
         // 距離が一定以内ならAR体験を開始
         if (distance <= MAX_DISTANCE) {
-          startARExperience(position, akihabaraStation);
+          startARExperience(position, meguPoint);
         } else {
           // 距離が遠い場合はメッセージを表示
-          alert(`秋葉原駅から${distance.toFixed(2)}m離れていますめぐ。\n秋葉原駅周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
+          alert(`めぐポイントから${distance.toFixed(2)}m離れていますめぐ。\nめぐポイント周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
         }
       },
       (error) => {
