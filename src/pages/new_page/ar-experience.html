@@ -43,50 +43,85 @@
   <script>
     // URLからパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
-    const latitude = parseFloat(urlParams.get('lat') || 0);
-    const longitude = parseFloat(urlParams.get('lng') || 0);
+    // ユーザーの現在位置
+    const userLat = parseFloat(urlParams.get('userLat') || 0);
+    const userLng = parseFloat(urlParams.get('userLng') || 0);
+    // 秋葉原駅の位置（ターゲット位置）
+    const targetLat = parseFloat(urlParams.get('targetLat') || 35.698353);
+    const targetLng = parseFloat(urlParams.get('targetLng') || 139.773114);
     
     // シーンが読み込まれたらARエンティティを配置
     document.querySelector('a-scene').addEventListener('loaded', () => {
-      placeAREntities(latitude, longitude);
+      placeAREntities(targetLat, targetLng);
     });
     
     // 位置情報に基づいてARエンティティを配置する関数
     function placeAREntities(latitude, longitude) {
-      console.log('現在位置めぐ:', latitude, longitude);
+      console.log('ターゲット位置めぐ:', latitude, longitude);
+      console.log('ユーザー位置めぐ:', userLat, userLng);
       
       // ARシーンを取得
       const scene = document.querySelector('a-scene');
       
-      // 現在地から一定範囲内にランダムにロゴを配置
-      for (let i = 0; i < 10; i++) {
-        // 約10m範囲内にランダムに配置（緯度経度の0.0001は約10m）
-        const latDiff = (Math.random() - 0.5) * 0.0001;
-        const lonDiff = (Math.random() - 0.5) * 0.0001;
+      // 秋葉原駅周辺の特定の場所にモデルを配置
+      const locations = [
+        { name: "秋葉原駅前", latOffset: 0.0001, lngOffset: 0.0001 },
+        { name: "ヨドバシAkiba", latOffset: 0.0002, lngOffset: -0.0001 },
+        { name: "AKIBAカルチャーズZONE", latOffset: -0.0001, lngOffset: 0.0002 },
+        { name: "ラジオ会館", latOffset: -0.0002, lngOffset: 0.0001 },
+        { name: "UDX", latOffset: 0.0003, lngOffset: 0.0003 },
+        { name: "中央通り", latOffset: -0.0001, lngOffset: -0.0002 },
+        { name: "電気街口", latOffset: 0.0001, lngOffset: -0.0003 },
+        { name: "昭和通り", latOffset: -0.0003, lngOffset: -0.0001 },
+        { name: "ガチャポン会館", latOffset: 0.0002, lngOffset: 0.0002 },
+        { name: "アキバ田代通り", latOffset: -0.0002, lngOffset: -0.0002 }
+      ];
+      
+      // 各場所にモデルを配置
+      locations.forEach((location, index) => {
+        const lat = latitude + location.latOffset;
+        const lng = longitude + location.lngOffset;
         
-        // a-imageエンティティを作成
-        const logoEntity = document.createElement('a-image');
-        logoEntity.setAttribute('src', '../../assets/logo-512x512.png');
-        logoEntity.setAttribute('look-at', '[gps-camera]');
-        logoEntity.setAttribute('scale', '1 1 1');
-        logoEntity.setAttribute('gps-entity-place', `latitude: ${latitude + latDiff}; longitude: ${longitude + lonDiff}`);
+        // 3Dモデルのリスト（ランダムに選択）
+        const models = [
+          { src: '../../assets/logo-512x512.png', type: 'image', scale: '1 1 1' },
+          { src: '../../assets/hellomegkamo.png', type: 'image', scale: '1.2 1.2 1.2' },
+          { src: '../../assets/haromegudayo.png', type: 'image', scale: '1.5 1.5 1.5' }
+        ];
         
-        // 距離表示用のテキストを追加
+        // ランダムにモデルを選択
+        const model = models[Math.floor(Math.random() * models.length)];
+        
+        // エンティティを作成
+        let entity;
+        if (model.type === 'image') {
+          entity = document.createElement('a-image');
+          entity.setAttribute('src', model.src);
+        } else {
+          entity = document.createElement('a-entity');
+          entity.setAttribute('gltf-model', model.src);
+        }
+        
+        entity.setAttribute('look-at', '[gps-camera]');
+        entity.setAttribute('scale', model.scale);
+        entity.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lng}`);
+        
+        // 場所名表示用のテキストを追加
         const textEntity = document.createElement('a-text');
-        textEntity.setAttribute('value', `ロゴ ${i+1}`);
+        textEntity.setAttribute('value', location.name);
         textEntity.setAttribute('look-at', '[gps-camera]');
         textEntity.setAttribute('scale', '1 1 1');
         textEntity.setAttribute('position', '0 1.5 0');
         textEntity.setAttribute('align', 'center');
         textEntity.setAttribute('color', 'white');
-        textEntity.setAttribute('gps-entity-place', `latitude: ${latitude + latDiff}; longitude: ${longitude + lonDiff}`);
+        textEntity.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lng}`);
         
         // シーンに追加
-        scene.appendChild(logoEntity);
+        scene.appendChild(entity);
         scene.appendChild(textEntity);
         
-        console.log(`ロゴを配置しましためぐ: ${latitude + latDiff}, ${longitude + lonDiff}`);
-      }
+        console.log(`モデルを配置しましためぐ: ${location.name} (${lat}, ${lng})`);
+      });
     }
   </script>
 </body>

@@ -1,5 +1,14 @@
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
+  // 秋葉原駅の緯度経度
+  const akihabaraStation = {
+    latitude: 35.698353,
+    longitude: 139.773114
+  };
+  
+  // 表示可能な最大距離（メートル）
+  const MAX_DISTANCE = 1000; // 1km以内なら表示
+  
   // AR開始ボタンのイベントリスナー
   const startARButton = document.getElementById('start-ar');
   if (startARButton) {
@@ -18,7 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         // 位置情報取得成功
-        startARExperience(position);
+        // 秋葉原駅との距離を計算
+        const distance = calculateDistance(
+          position.coords.latitude, 
+          position.coords.longitude,
+          akihabaraStation.latitude,
+          akihabaraStation.longitude
+        );
+        
+        console.log(`秋葉原駅までの距離: ${distance.toFixed(2)}mめぐ`);
+        
+        // 距離が一定以内ならAR体験を開始
+        if (distance <= MAX_DISTANCE) {
+          startARExperience(position, akihabaraStation);
+        } else {
+          // 距離が遠い場合はメッセージを表示
+          alert(`秋葉原駅から${distance.toFixed(2)}m離れていますめぐ。\n秋葉原駅周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
+        }
       },
       (error) => {
         // 位置情報取得エラー
@@ -32,9 +57,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   }
+  
+  // 2点間の距離をメートルで計算する関数（ハーバーサイン公式）
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // 地球の半径（メートル）
+    const φ1 = lat1 * Math.PI / 180;
+    const φ2 = lat2 * Math.PI / 180;
+    const Δφ = (lat2 - lat1) * Math.PI / 180;
+    const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c; // メートル単位の距離
+  }
 
   // AR体験を開始する関数
-  function startARExperience(position) {
+  function startARExperience(userPosition, targetPosition) {
     // スタート画面を非表示にする
     const startScreen = document.getElementById('start-screen');
     if (startScreen) {
@@ -51,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // iframeを作成
       const iframe = document.createElement('iframe');
-      iframe.src = `ar-experience.html?lat=${position.coords.latitude}&lng=${position.coords.longitude}`;
+      // ユーザーの現在位置と秋葉原駅の位置を両方渡す
+      iframe.src = `ar-experience.html?userLat=${userPosition.coords.latitude}&userLng=${userPosition.coords.longitude}&targetLat=${targetPosition.latitude}&targetLng=${targetPosition.longitude}`;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
