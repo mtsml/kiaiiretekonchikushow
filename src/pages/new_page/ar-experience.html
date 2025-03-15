@@ -309,11 +309,28 @@
       }, updateInterval);
     }
     
+    // 距離表示用の要素を追加
+    const distanceDisplay = document.createElement('div');
+    distanceDisplay.id = 'distance-display';
+    distanceDisplay.style.position = 'fixed';
+    distanceDisplay.style.top = '10px';
+    distanceDisplay.style.left = '10px';
+    distanceDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    distanceDisplay.style.color = 'white';
+    distanceDisplay.style.padding = '10px';
+    distanceDisplay.style.borderRadius = '5px';
+    distanceDisplay.style.fontSize = '16px';
+    distanceDisplay.style.zIndex = '1000';
+    document.body.appendChild(distanceDisplay);
+    
     // 距離を更新する関数
     function updateDistances(userLat, userLng, placeEntities) {
       placeEntities.forEach((place, index) => {
         // ユーザーと場所の距離を計算
         const distance = calculateDistance(userLat, userLng, place.lat, place.lng);
+        
+        // 常に距離を画面に表示（テスト用）
+        distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
         
         // 距離に応じて表示を切り替え
         if (distance <= 100) {
@@ -322,7 +339,8 @@
             // 10m以内の場合はモデルを表示
             place.modelEntity.setAttribute('visible', 'true');
             place.nameTextEntity.setAttribute('visible', 'true');
-            place.distanceTextEntity.setAttribute('visible', 'false');
+            place.distanceTextEntity.setAttribute('visible', 'true');
+            place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
           } else {
             // 10m〜100mの場合は距離を表示
             place.modelEntity.setAttribute('visible', 'false');
@@ -331,10 +349,11 @@
             place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
           }
         } else {
-          // 100mより遠い場合は何も表示しない
+          // 100mより遠い場合も距離を表示
           place.modelEntity.setAttribute('visible', 'false');
           place.nameTextEntity.setAttribute('visible', 'true');
-          place.distanceTextEntity.setAttribute('visible', 'false');
+          place.distanceTextEntity.setAttribute('visible', 'true');
+          place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
         }
         
         console.log(`${place.location.name}までの距離: ${Math.round(distance)}mめぐ`);
