@@ -6,19 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startARButton.addEventListener('click', initAR);
   }
 
-  // 戻るボタンを作成する関数
-  function createBackButton() {
-    const controlsDiv = document.createElement('div');
-    controlsDiv.className = 'ar-controls';
-    
-    const backButton = document.createElement('button');
-    backButton.textContent = 'AR体験を終了';
-    backButton.addEventListener('click', exitAR);
-    
-    controlsDiv.appendChild(backButton);
-    document.body.appendChild(controlsDiv);
-  }
-
   // AR体験を初期化する関数
   function initAR() {
     // 位置情報の権限をチェック
@@ -57,57 +44,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // ARコンテナを表示する
     const arContainer = document.getElementById('ar-container');
     if (arContainer) {
+      // 既存のiframeがあれば削除
+      while (arContainer.firstChild) {
+        arContainer.removeChild(arContainer.firstChild);
+      }
+      
+      // iframeを作成
+      const iframe = document.createElement('iframe');
+      iframe.src = `ar-experience.html?lat=${position.coords.latitude}&lng=${position.coords.longitude}`;
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+      
+      // コンテナに追加
+      arContainer.appendChild(iframe);
       arContainer.style.display = 'block';
     }
     
     // bodyにar-activeクラスを追加
     document.body.classList.add('ar-active');
     
-    // 戻るボタンを作成
-    createBackButton();
-    
-    // 位置情報に基づいてARエンティティを配置
-    placeAREntities(position);
+    // メッセージイベントリスナーを追加
+    window.addEventListener('message', handleIframeMessage);
   }
 
-  // 位置情報に基づいてARエンティティを配置する関数
-  function placeAREntities(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    
-    console.log('現在位置めぐ:', latitude, longitude);
-    
-    // ARシーンを取得
-    const scene = document.querySelector('a-scene');
-    
-    // 現在地から一定範囲内にランダムにロゴを配置
-    for (let i = 0; i < 10; i++) {
-      // 約10m範囲内にランダムに配置（緯度経度の0.0001は約10m）
-      const latDiff = (Math.random() - 0.5) * 0.0001;
-      const lonDiff = (Math.random() - 0.5) * 0.0001;
-      
-      // a-imageエンティティを作成
-      const logoEntity = document.createElement('a-image');
-      logoEntity.setAttribute('src', '../../assets/logo-512x512.png');
-      logoEntity.setAttribute('look-at', '[gps-camera]');
-      logoEntity.setAttribute('scale', '1 1 1');
-      logoEntity.setAttribute('gps-entity-place', `latitude: ${latitude + latDiff}; longitude: ${longitude + lonDiff}`);
-      
-      // 距離表示用のテキストを追加
-      const textEntity = document.createElement('a-text');
-      textEntity.setAttribute('value', `ロゴ ${i+1}`);
-      textEntity.setAttribute('look-at', '[gps-camera]');
-      textEntity.setAttribute('scale', '1 1 1');
-      textEntity.setAttribute('position', '0 1.5 0');
-      textEntity.setAttribute('align', 'center');
-      textEntity.setAttribute('color', 'white');
-      textEntity.setAttribute('gps-entity-place', `latitude: ${latitude + latDiff}; longitude: ${longitude + lonDiff}`);
-      
-      // シーンに追加
-      scene.appendChild(logoEntity);
-      scene.appendChild(textEntity);
-      
-      console.log(`ロゴを配置しましためぐ: ${latitude + latDiff}, ${longitude + lonDiff}`);
+  // iframeからのメッセージを処理する関数
+  function handleIframeMessage(event) {
+    if (event.data === 'exit-ar') {
+      exitAR();
     }
   }
 
@@ -117,6 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const arContainer = document.getElementById('ar-container');
     if (arContainer) {
       arContainer.style.display = 'none';
+      
+      // iframeを削除
+      while (arContainer.firstChild) {
+        arContainer.removeChild(arContainer.firstChild);
+      }
     }
     
     // スタート画面を表示する
@@ -128,23 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // bodyからar-activeクラスを削除
     document.body.classList.remove('ar-active');
     
-    // コントロールを削除
-    const controls = document.querySelector('.ar-controls');
-    if (controls) {
-      controls.remove();
-    }
-    
-    // ARシーンをリセット
-    const scene = document.querySelector('a-scene');
-    // 画像エンティティを削除
-    const imageEntities = scene.querySelectorAll('a-image[gps-entity-place]');
-    imageEntities.forEach(entity => {
-      entity.remove();
-    });
-    // テキストエンティティを削除
-    const textEntities = scene.querySelectorAll('a-text[gps-entity-place]');
-    textEntities.forEach(entity => {
-      entity.remove();
-    });
+    // メッセージイベントリスナーを削除
+    window.removeEventListener('message', handleIframeMessage);
   }
 });

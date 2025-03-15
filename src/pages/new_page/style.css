@@ -95,19 +95,6 @@ body.ar-active #page-header {
   padding: 10px;
 }
 
-/* AR.jsのカメラビューを初期状態では非表示にする */
-.a-canvas {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-/* AR体験開始時に表示する */
-body.ar-active .a-canvas {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transition: opacity 0.5s ease;
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
