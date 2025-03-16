@@ -1,14 +1,5 @@
 // script.js
 document.addEventListener('DOMContentLoaded', () => {
-  // めぐポイントの緯度経度
-  const meguPoint = {
-    latitude: 35.728493054835496,
-    longitude: 139.69921490383388
-  };
-  
-  // 表示可能な最大距離（メートル）
-  const MAX_DISTANCE = 1000; // 1km以内なら表示
-  
   // AR開始ボタンのイベントリスナー
   const startARButton = document.getElementById('start-ar');
   if (startARButton) {
@@ -23,59 +14,51 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // 位置情報の取得を開始
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // 位置情報取得成功
-        // めぐポイントとの距離を計算
-        const distance = calculateDistance(
-          position.coords.latitude, 
-          position.coords.longitude,
-          meguPoint.latitude,
-          meguPoint.longitude
-        );
-        
-        console.log(`めぐポイントまでの距離: ${distance.toFixed(2)}mめぐ`);
-        
-        // 距離が一定以内ならAR体験を開始
-        if (distance <= MAX_DISTANCE) {
-          startARExperience(position, meguPoint);
-        } else {
-          // 距離が遠い場合はメッセージを表示
-          alert(`めぐポイントから${distance.toFixed(2)}m離れていますめぐ。\nめぐポイント周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
+    // Android向けの位置情報取得エラーハンドリングを強化
+    try {
+      // 位置情報の取得を開始（権限チェックのみ）
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // 位置情報取得成功したらAR体験を開始
+          startARExperience();
+        },
+        (error) => {
+          // 位置情報取得エラー
+          console.error('位置情報の取得に失敗しましためぐ:', error);
+          
+          // エラーコードに応じたメッセージを表示
+          let errorMessage = '位置情報の取得に失敗しましためぐ。';
+          
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage += '位置情報へのアクセスが拒否されましためぐ。設定から位置情報の許可を確認してくださいめぐ。';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage += '位置情報が利用できませんめぐ。屋外でお試しくださいめぐ。';
+              break;
+            case error.TIMEOUT:
+              errorMessage += '位置情報の取得がタイムアウトしましためぐ。再度お試しくださいめぐ。';
+              break;
+            default:
+              errorMessage += '位置情報の許可を確認してくださいめぐ。';
+          }
+          
+          alert(errorMessage);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000, // タイムアウトを15秒に延長
+          maximumAge: 0
         }
-      },
-      (error) => {
-        // 位置情報取得エラー
-        console.error('位置情報の取得に失敗しましためぐ:', error);
-        alert('位置情報の取得に失敗しましためぐ。位置情報の許可を確認してくださいめぐ。');
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-      }
-    );
-  }
-  
-  // 2点間の距離をメートルで計算する関数（ハーバーサイン公式）
-  function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371e3; // 地球の半径（メートル）
-    const φ1 = lat1 * Math.PI / 180;
-    const φ2 = lat2 * Math.PI / 180;
-    const Δφ = (lat2 - lat1) * Math.PI / 180;
-    const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-              Math.cos(φ1) * Math.cos(φ2) *
-              Math.sin(Δλ/2) * Math.sin(Δλ/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-    return R * c; // メートル単位の距離
+      );
+    } catch (e) {
+      console.error('位置情報APIでエラーが発生しましためぐ:', e);
+      alert('位置情報の取得中にエラーが発生しましためぐ。ブラウザを更新して再度お試しくださいめぐ。');
+    }
   }
 
   // AR体験を開始する関数
-  function startARExperience(userPosition, targetPosition) {
+  function startARExperience() {
     // スタート画面を非表示にする
     const startScreen = document.getElementById('start-screen');
     if (startScreen) {
@@ -92,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // iframeを作成
       const iframe = document.createElement('iframe');
-      // ユーザーの現在位置と秋葉原駅の位置を両方渡す
-      iframe.src = `ar-experience.html?userLat=${userPosition.coords.latitude}&userLng=${userPosition.coords.longitude}&targetLat=${targetPosition.latitude}&targetLng=${targetPosition.longitude}`;
+      // AR.jsのネイティブ機能を使用するため、URLパラメータは不要
+      iframe.src = 'ar-experience.html';
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';

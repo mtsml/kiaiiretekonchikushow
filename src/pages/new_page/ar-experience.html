@@ -68,11 +68,25 @@
   <a-scene
     vr-mode-ui="enabled: false"
     embedded
-    arjs="sourceType: webcam; debugUIEnabled: false; gpsMinDistance: 5;">
+    arjs="sourceType: webcam; 
+          debugUIEnabled: false; 
+          gpsMinDistance: 10; 
+          gpsTimeInterval: 3000; 
+          smoothingFactor: 0.8;">
     
     <a-camera gps-camera rotation-reader></a-camera>
     
-    <!-- AR entities will be added dynamically via JavaScript -->
+    <!-- めぐポイントの座標に配置するエンティティ -->
+    <a-entity id="megu-point-container" gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388;">
+      <!-- 固定モデル（初期状態では非表示） -->
+      <a-image id="ar-model" src="../../assets/logo-512x512.png" look-at="[gps-camera]" scale="1 1 1" visible="false"></a-image>
+      
+      <!-- 場所名表示 -->
+      <a-text id="place-name" value="めぐポイント" look-at="[gps-camera]" scale="1 1 1" position="0 1.5 0" align="center" color="white"></a-text>
+      
+      <!-- 距離表示 -->
+      <a-text id="distance-text" value="" look-at="[gps-camera]" scale="1.2 1.2 1.2" position="0 0.5 0" align="center" color="#FFFF00" visible="false"></a-text>
+    </a-entity>
   </a-scene>
   
   <div class="ar-controls">
@@ -140,175 +154,6 @@
       closePhotoPreview();
     }
     
-    // URLからパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    // ユーザーの現在位置
-    const userLat = parseFloat(urlParams.get('userLat') || 0);
-    const userLng = parseFloat(urlParams.get('userLng') || 0);
-    // 秋葉原駅の位置（ターゲット位置）
-    const targetLat = parseFloat(urlParams.get('targetLat') || 35.698353);
-    const targetLng = parseFloat(urlParams.get('targetLng') || 139.773114);
-    
-    // シーンが読み込まれたらARエンティティを配置
-    document.querySelector('a-scene').addEventListener('loaded', () => {
-      placeAREntities(targetLat, targetLng);
-    });
-    
-    // 2点間の距離をメートルで計算する関数（ハーバーサイン公式）
-    function calculateDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371e3; // 地球の半径（メートル）
-      const φ1 = lat1 * Math.PI / 180;
-      const φ2 = lat2 * Math.PI / 180;
-      const Δφ = (lat2 - lat1) * Math.PI / 180;
-      const Δλ = (lon2 - lon1) * Math.PI / 180;
-
-      const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ/2) * Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-      return R * c; // メートル単位の距離
-    }
-    
-    // 位置情報に基づいてARエンティティを配置する関数
-    function placeAREntities(latitude, longitude) {
-      console.log('ターゲット位置めぐ:', latitude, longitude);
-      console.log('ユーザー位置めぐ:', userLat, userLng);
-      
-      // ARシーンを取得
-      const scene = document.querySelector('a-scene');
-      
-      // 新しい対象の場所（35.728493054835496, 139.69921490383388）
-      const targetLocation = {
-        latitude: 35.728493054835496,
-        longitude: 139.69921490383388
-      };
-      
-      // 対象の場所にモデルを配置
-      const locations = [
-        { name: "めぐポイント", lat: targetLocation.latitude, lng: targetLocation.longitude }
-      ];
-      
-      // 各場所の情報を保存する配列
-      const placeEntities = [];
-      
-      // 各場所にモデルを配置
-      locations.forEach((location, index) => {
-        const lat = location.lat;
-        const lng = location.lng;
-        
-        // 3Dモデルのリスト（ランダムに選択）
-        const models = [
-          { src: '../../assets/logo-512x512.png', type: 'image', scale: '1 1 1' },
-          { src: '../../assets/hellomegkamo.png', type: 'image', scale: '1.2 1.2 1.2' },
-          { src: '../../assets/haromegudayo.png', type: 'image', scale: '1.5 1.5 1.5' }
-        ];
-        
-        // ランダムにモデルを選択
-        const model = models[Math.floor(Math.random() * models.length)];
-        
-        // エンティティを作成
-        let modelEntity;
-        if (model.type === 'image') {
-          modelEntity = document.createElement('a-image');
-          modelEntity.setAttribute('src', model.src);
-        } else {
-          modelEntity = document.createElement('a-entity');
-          modelEntity.setAttribute('gltf-model', model.src);
-        }
-        
-        modelEntity.setAttribute('look-at', '[gps-camera]');
-        modelEntity.setAttribute('scale', model.scale);
-        modelEntity.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lng}`);
-        modelEntity.setAttribute('visible', 'false'); // 初期状態では非表示
-        modelEntity.id = `model-${index}`;
-        
-        // 場所名表示用のテキストを追加
-        const nameTextEntity = document.createElement('a-text');
-        nameTextEntity.setAttribute('value', location.name);
-        nameTextEntity.setAttribute('look-at', '[gps-camera]');
-        nameTextEntity.setAttribute('scale', '1 1 1');
-        nameTextEntity.setAttribute('position', '0 1.5 0');
-        nameTextEntity.setAttribute('align', 'center');
-        nameTextEntity.setAttribute('color', 'white');
-        nameTextEntity.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lng}`);
-        nameTextEntity.id = `name-${index}`;
-        
-        // 距離表示用のテキストを追加
-        const distanceTextEntity = document.createElement('a-text');
-        distanceTextEntity.setAttribute('value', '');
-        distanceTextEntity.setAttribute('look-at', '[gps-camera]');
-        distanceTextEntity.setAttribute('scale', '1.2 1.2 1.2');
-        distanceTextEntity.setAttribute('position', '0 0.5 0');
-        distanceTextEntity.setAttribute('align', 'center');
-        distanceTextEntity.setAttribute('color', '#FFFF00');
-        distanceTextEntity.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${lng}`);
-        distanceTextEntity.id = `distance-${index}`;
-        distanceTextEntity.setAttribute('visible', 'false'); // 初期状態では非表示
-        
-        // シーンに追加
-        scene.appendChild(modelEntity);
-        scene.appendChild(nameTextEntity);
-        scene.appendChild(distanceTextEntity);
-        
-        // 場所の情報を保存
-        placeEntities.push({
-          location: location,
-          lat: lat,
-          lng: lng,
-          modelEntity: modelEntity,
-          nameTextEntity: nameTextEntity,
-          distanceTextEntity: distanceTextEntity
-        });
-        
-        console.log(`モデルを配置しましためぐ: ${location.name} (${lat}, ${lng})`);
-      });
-      
-      // 位置情報の更新を監視
-      startLocationTracking(placeEntities);
-    }
-    
-    // 位置情報の更新を監視する関数
-    function startLocationTracking(placeEntities) {
-      // 現在位置の更新間隔（ミリ秒）
-      const updateInterval = 3000; // 3秒ごとに更新
-      
-      // 位置情報の更新を定期的に行う
-      const watchId = navigator.geolocation.watchPosition(
-        (position) => {
-          updateDistances(position.coords.latitude, position.coords.longitude, placeEntities);
-        },
-        (error) => {
-          console.error('位置情報の更新に失敗しましためぐ:', error);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
-        }
-      );
-      
-      // 初回の距離更新
-      updateDistances(userLat, userLng, placeEntities);
-      
-      // 定期的に距離を更新
-      setInterval(() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            updateDistances(position.coords.latitude, position.coords.longitude, placeEntities);
-          },
-          (error) => {
-            console.error('位置情報の取得に失敗しましためぐ:', error);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-          }
-        );
-      }, updateInterval);
-    }
-    
     // 距離表示用の要素を追加
     const distanceDisplay = document.createElement('div');
     distanceDisplay.id = 'distance-display';
@@ -323,42 +168,42 @@
     distanceDisplay.style.zIndex = '1000';
     document.body.appendChild(distanceDisplay);
     
-    // 距離を更新する関数
-    function updateDistances(userLat, userLng, placeEntities) {
-      placeEntities.forEach((place, index) => {
-        // ユーザーと場所の距離を計算
-        const distance = calculateDistance(userLat, userLng, place.lat, place.lng);
+    // カメラとエンティティの距離を監視するイベントリスナー
+    document.querySelector('a-camera').addEventListener('gps-camera-update-position', function(e) {
+      // めぐポイントのエンティティを取得
+      const meguPointContainer = document.getElementById('megu-point-container');
+      const arModel = document.getElementById('ar-model');
+      const distanceText = document.getElementById('distance-text');
+      const placeName = document.getElementById('place-name');
+      
+      // カメラとめぐポイントの距離を取得（メートル単位）
+      const distance = meguPointContainer.getAttribute('distance');
+      
+      // 距離表示を更新（テスト用）
+      distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
+      
+      // 距離に応じて表示を切り替え
+      if (distance <= 100) {
+        // 距離テキストを表示
+        distanceText.setAttribute('visible', 'true');
+        distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
         
-        // 常に距離を画面に表示（テスト用）
-        distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
-        
-        // 距離に応じて表示を切り替え
-        if (distance <= 100) {
-          // 100m以内の場合
-          if (distance <= 10) {
-            // 10m以内の場合はモデルを表示
-            place.modelEntity.setAttribute('visible', 'true');
-            place.nameTextEntity.setAttribute('visible', 'true');
-            place.distanceTextEntity.setAttribute('visible', 'true');
-            place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
-          } else {
-            // 10m〜100mの場合は距離を表示
-            place.modelEntity.setAttribute('visible', 'false');
-            place.nameTextEntity.setAttribute('visible', 'true');
-            place.distanceTextEntity.setAttribute('visible', 'true');
-            place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
-          }
+        if (distance <= 10) {
+          // 10m以内ならモデルを表示
+          arModel.setAttribute('visible', 'true');
         } else {
-          // 100mより遠い場合も距離を表示
-          place.modelEntity.setAttribute('visible', 'false');
-          place.nameTextEntity.setAttribute('visible', 'true');
-          place.distanceTextEntity.setAttribute('visible', 'true');
-          place.distanceTextEntity.setAttribute('value', `あと${Math.round(distance)}m`);
+          // 10m〜100mならモデルを非表示
+          arModel.setAttribute('visible', 'false');
         }
-        
-        console.log(`${place.location.name}までの距離: ${Math.round(distance)}mめぐ`);
-      });
-    }
+      } else {
+        // 100m以上でも距離を表示（テスト用）
+        distanceText.setAttribute('visible', 'true');
+        distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
+        arModel.setAttribute('visible', 'false');
+      }
+      
+      console.log(`めぐポイントまでの距離: ${Math.round(distance)}mめぐ`);
+    });
   </script>
 </body>
 </html>
