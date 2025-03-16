@@ -76,17 +76,25 @@
     
     <a-camera gps-camera rotation-reader></a-camera>
     
-    <!-- めぐポイントの座標に配置するエンティティ -->
-    <a-entity id="megu-point-container" gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388;">
-      <!-- 固定モデル（初期状態では非表示） -->
-      <a-image id="ar-model" src="../../assets/logo-512x512.png" look-at="[gps-camera]" scale="1 1 1" visible="false"></a-image>
-      
-      <!-- 場所名表示 -->
-      <a-text id="place-name" value="めぐポイント" look-at="[gps-camera]" scale="1 1 1" position="0 1.5 0" align="center" color="white"></a-text>
-      
-      <!-- 距離表示 -->
-      <a-text id="distance-text" value="" look-at="[gps-camera]" scale="1.2 1.2 1.2" position="0 0.5 0" align="center" color="#FFFF00" visible="false"></a-text>
-    </a-entity>
+    <!-- 10m以内に近づいたときだけ表示されるモデル -->
+    <a-image id="ar-model" src="../../assets/logo-512x512.png" 
+             look-at="[gps-camera]" scale="1 1 1"
+             gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 10;">
+    </a-image>
+    
+    <!-- 常に表示される場所名 -->
+    <a-text id="place-name" value="めぐポイント" 
+            look-at="[gps-camera]" scale="1 1 1" position="0 1.5 0" 
+            align="center" color="white"
+            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388;">
+    </a-text>
+    
+    <!-- 100m以内に近づいたときだけ表示される距離表示 -->
+    <a-text id="distance-text" value="" 
+            look-at="[gps-camera]" scale="1.2 1.2 1.2" position="0 0.5 0" 
+            align="center" color="#FFFF00"
+            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 100;">
+    </a-text>
   </a-scene>
   
   <div class="ar-controls">
@@ -170,37 +178,17 @@
     
     // カメラとエンティティの距離を監視するイベントリスナー
     document.querySelector('a-camera').addEventListener('gps-camera-update-position', function(e) {
-      // めぐポイントのエンティティを取得
-      const meguPointContainer = document.getElementById('megu-point-container');
-      const arModel = document.getElementById('ar-model');
+      // 距離表示テキストを取得
       const distanceText = document.getElementById('distance-text');
-      const placeName = document.getElementById('place-name');
       
-      // カメラとめぐポイントの距離を取得（メートル単位）
-      const distance = meguPointContainer.getAttribute('distance');
+      // 距離を取得（メートル単位）
+      const distance = distanceText.getAttribute('distance');
       
       // 距離表示を更新（テスト用）
       distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
       
-      // 距離に応じて表示を切り替え
-      if (distance <= 100) {
-        // 距離テキストを表示
-        distanceText.setAttribute('visible', 'true');
-        distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
-        
-        if (distance <= 10) {
-          // 10m以内ならモデルを表示
-          arModel.setAttribute('visible', 'true');
-        } else {
-          // 10m〜100mならモデルを非表示
-          arModel.setAttribute('visible', 'false');
-        }
-      } else {
-        // 100m以上でも距離を表示（テスト用）
-        distanceText.setAttribute('visible', 'true');
-        distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
-        arModel.setAttribute('visible', 'false');
-      }
+      // 距離表示テキストの内容を更新
+      distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
       
       console.log(`めぐポイントまでの距離: ${Math.round(distance)}mめぐ`);
     });
