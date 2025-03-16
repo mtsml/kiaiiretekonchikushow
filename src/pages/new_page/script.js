@@ -23,72 +23,39 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Android向けの位置情報取得エラーハンドリングを強化
-    try {
-      // 位置情報の取得を開始
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // 位置情報取得成功
-          // めぐポイントとの距離を計算
-          const distance = calculateDistance(
-            position.coords.latitude, 
-            position.coords.longitude,
-            meguPoint.latitude,
-            meguPoint.longitude
-          );
-          
-          console.log(`めぐポイントまでの距離: ${distance.toFixed(2)}mめぐ`);
-          
-          // 距離が一定以内ならAR体験を開始
-          if (distance <= MAX_DISTANCE) {
-            startARExperience(position, meguPoint);
-          } else {
-            // 距離が遠い場合はメッセージを表示
-            alert(`めぐポイントから${distance.toFixed(2)}m離れていますめぐ。\nめぐポイント周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
-          }
-        },
-        (error) => {
-          // 位置情報取得エラー
-          console.error('位置情報の取得に失敗しましためぐ:', error);
-          
-          // エラーコードに応じたメッセージを表示
-          let errorMessage = '位置情報の取得に失敗しましためぐ。';
-          
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-              errorMessage += '位置情報へのアクセスが拒否されましためぐ。設定から位置情報の許可を確認してくださいめぐ。';
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorMessage += '位置情報が利用できませんめぐ。屋外でお試しくださいめぐ。';
-              break;
-            case error.TIMEOUT:
-              errorMessage += '位置情報の取得がタイムアウトしましためぐ。再度お試しくださいめぐ。';
-              break;
-            default:
-              errorMessage += '位置情報の許可を確認してくださいめぐ。';
-          }
-          
-          alert(errorMessage);
-          
-          // デバッグモード：テスト用に固定位置でAR体験を開始（本番環境では削除）
-          const testPosition = {
-            coords: {
-              latitude: meguPoint.latitude + 0.0001, // めぐポイントから少し離れた位置
-              longitude: meguPoint.longitude + 0.0001
-            }
-          };
-          startARExperience(testPosition, meguPoint);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 15000, // タイムアウトを15秒に延長
-          maximumAge: 0
+    // 位置情報の取得を開始
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // 位置情報取得成功
+        // めぐポイントとの距離を計算
+        const distance = calculateDistance(
+          position.coords.latitude, 
+          position.coords.longitude,
+          meguPoint.latitude,
+          meguPoint.longitude
+        );
+        
+        console.log(`めぐポイントまでの距離: ${distance.toFixed(2)}mめぐ`);
+        
+        // 距離が一定以内ならAR体験を開始
+        if (distance <= MAX_DISTANCE) {
+          startARExperience(position, meguPoint);
+        } else {
+          // 距離が遠い場合はメッセージを表示
+          alert(`めぐポイントから${distance.toFixed(2)}m離れていますめぐ。\nめぐポイント周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
         }
-      );
-    } catch (e) {
-      console.error('位置情報APIでエラーが発生しましためぐ:', e);
-      alert('位置情報の取得中にエラーが発生しましためぐ。ブラウザを更新して再度お試しくださいめぐ。');
-    }
+      },
+      (error) => {
+        // 位置情報取得エラー
+        console.error('位置情報の取得に失敗しましためぐ:', error);
+        alert('位置情報の取得に失敗しましためぐ。位置情報の許可を確認してくださいめぐ。');
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
   }
   
   // 2点間の距離をメートルで計算する関数（ハーバーサイン公式）
