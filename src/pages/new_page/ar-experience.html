@@ -49,22 +49,24 @@
     
     <a-camera gps-camera rotation-reader></a-camera>
     
-    <!-- 初期位置は0, 0（JavaScriptで動的に更新） -->
+    <!-- 10m以内に近づいたときだけ表示されるモデル -->
     <a-image id="ar-model" src="../../assets/logo-512x512.png" 
              look-at="[gps-camera]" scale="1 1 1"
-             gps-entity-place="latitude: 0; longitude: 0; maxDistance: 10;">
+             gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 10;">
     </a-image>
     
     <!-- 常に表示される場所名 -->
     <a-text id="place-name" value="めぐポイント" 
             look-at="[gps-camera]" scale="1 1 1" position="0 1.5 0" 
-            align="center" color="white">
+            align="center" color="white"
+            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388;">
     </a-text>
     
-    <!-- 常に表示される距離表示 -->
+    <!-- 100m以内に近づいたときだけ表示される距離表示 -->
     <a-text id="distance-text" value="" 
             look-at="[gps-camera]" scale="1.2 1.2 1.2" position="0 0.5 0" 
-            align="center" color="#FFFF00">
+            align="center" color="#FFFF00"
+            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 100;">
     </a-text>
   </a-scene>
   
@@ -87,48 +89,13 @@
     distanceDisplay.style.zIndex = '1000';
     document.body.appendChild(distanceDisplay);
     
-    // ページが読み込まれたら実行
-    document.addEventListener('DOMContentLoaded', function() {
-      // 位置情報を取得
-      navigator.geolocation.getCurrentPosition(function(position) {
-        // ユーザーの現在位置
-        const userLat = position.coords.latitude;
-        const userLng = position.coords.longitude;
-        
-        // ユーザーの現在位置から少しずらした位置を計算（約1m以内）
-        const offsetLat = 0.00001 * (Math.random() - 0.5) * 2; // -0.00001〜0.00001のランダム値
-        const offsetLng = 0.00001 * (Math.random() - 0.5) * 2 / Math.cos(userLat * Math.PI / 180);
-        
-        // 新しい位置を設定
-        const newLat = userLat + offsetLat;
-        const newLng = userLng + offsetLng;
-        
-        // モデルの位置を更新
-        const arModel = document.getElementById('ar-model');
-        arModel.setAttribute('gps-entity-place', `latitude: ${newLat}; longitude: ${newLng}; maxDistance: 10`);
-        
-        console.log(`モデルを配置しましためぐ: (${newLat}, ${newLng})`);
-        console.log(`ユーザーの位置: (${userLat}, ${userLng})`);
-      }, 
-      function(error) {
-        console.error('位置情報の取得に失敗しましためぐ:', error);
-        alert('位置情報の取得に失敗しましためぐ。位置情報の許可を確認してくださいめぐ。');
-      }, 
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
-      });
-    });
-
-    // カメラとエンティティの距離を監視するイベントリスナー（距離表示の更新のみ）
+    // カメラとエンティティの距離を監視するイベントリスナー
     document.querySelector('a-camera').addEventListener('gps-camera-update-position', function(e) {
-      // モデルエンティティを取得
-      const arModel = document.getElementById('ar-model');
+      // 距離表示テキストを取得
       const distanceText = document.getElementById('distance-text');
       
-      // モデルの距離を取得（メートル単位）
-      const distance = arModel.getAttribute('distance');
+      // 距離を取得（メートル単位）
+      const distance = distanceText.getAttribute('distance');
       
       // 距離表示を更新（テスト用）
       distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
