@@ -62,8 +62,9 @@
     const userLat = parseFloat(urlParams.get('userLat') || 0);
     const userLng = parseFloat(urlParams.get('userLng') || 0);
 
-    document.querySelector('a-scene').addEventListener('loaded', function() {
+    document.querySelector('a-scene').addEventListener('loaded', () => {
       const entity = document.createElement('a-image');
+      entity.id = 'ar-model';
       entity.setAttribute('src', '../../assets/logo-512x512.png');
       entity.setAttribute('look-at', '[gps-camera]');
       entity.setAttribute('scale', '1 1 1');
