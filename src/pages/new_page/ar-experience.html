@@ -41,27 +41,14 @@
       font-family: monospace;
       z-index: 1000;
     }
-    /* ビデオ背景 */
-    #video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
   </style>
 </head>
 <body>
   <!-- デバッグ情報表示エリア -->
   <div id="debug-info">モデル読み込み中...</div>
   
-  <!-- カメラ映像を背景として表示 -->
-  <video id="video-background" autoplay playsinline></video>
-  
   <!-- 通常のA-Frameシーン -->
-  <a-scene embedded vr-mode-ui="enabled: false" renderer="antialias: true; alpha: true;">
+  <a-scene embedded vr-mode-ui="enabled: false">
     <!-- 環境光 -->
     <a-light type="ambient" color="#ffffff"></a-light>
     
@@ -86,30 +73,9 @@
         debugElement.textContent = message;
       }
     }
-    
-    // カメラ映像を取得して背景に表示
-    async function setupCamera() {
-      try {
-        const videoElement = document.getElementById('video-background');
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { 
-            facingMode: 'environment',
-            width: { ideal: 1920 },
-            height: { ideal: 1080 }
-          } 
-        });
-        videoElement.srcObject = stream;
-        updateDebugInfo('カメラ映像を取得しました。モデルを表示しています...');
-      } catch (error) {
-        updateDebugInfo(`カメラの取得に失敗しました: ${error.message}`);
-        console.error('カメラの取得に失敗しました:', error);
-      }
-    }
 
     // ページ読み込み時の処理
     document.addEventListener('DOMContentLoaded', () => {
-      setupCamera();
-      
       // シーンがロードされたときの処理
       document.querySelector('a-scene').addEventListener('loaded', () => {
         updateDebugInfo('カメラの前方3mにモデルを配置しました。');
