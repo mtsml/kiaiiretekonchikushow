@@ -38,17 +38,23 @@
     embedded
     arjs="sourceType: webcam; 
           debugUIEnabled: false; 
-          gpsMinDistance: 1000; 
-          gpsTimeInterval: 3000; 
-          smoothingFactor: 0.8;
           videoTexture: true;
           sourceWidth: 1920;
           sourceHeight: 1080;
           displayWidth: 1920;
           displayHeight: 1080;">
     
-    <a-camera gps-camera rotation-reader></a-camera>
-
+    <!-- カメラの前に直接モデルを配置 -->
+    <a-image 
+      id="ar-model"
+      src="../../assets/logo-512x512.png"
+      position="0 0 -2"
+      scale="1 1 1">
+    </a-image>
+    
+    <!-- 通常のカメラを使用 -->
+    <a-camera position="0 0 0" rotation-reader></a-camera>
+    
   </a-scene>
   
   <div class="ar-controls">
@@ -56,22 +62,10 @@
   </div>
   
   <script>
-    // URLからパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    // ユーザーの現在位置
-    const userLat = parseFloat(urlParams.get('userLat') || 0);
-    const userLng = parseFloat(urlParams.get('userLng') || 0);
-
+    // シーンがロードされたときの処理
     document.querySelector('a-scene').addEventListener('loaded', () => {
-      const entity = document.createElement('a-image');
-      entity.id = 'ar-model';
-      entity.setAttribute('src', '../../assets/logo-512x512.png');
-      entity.setAttribute('look-at', '[gps-camera]');
-      entity.setAttribute('scale', '1 1 1');
-      entity.setAttribute('gps-entity-place', `latitude: ${userLat}; longitude: ${userLng};`);
-      
-      const scene = document.querySelector('a-scene');
-      scene.appendChild(entity);
+      console.log('ARシーンがロードされました');
+      console.log('モデルを配置しました: カメラの前方 2m');
     });
   </script>
 </body>
