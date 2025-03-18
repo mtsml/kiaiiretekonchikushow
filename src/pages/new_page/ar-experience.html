@@ -49,11 +49,6 @@
     
     <a-camera gps-camera rotation-reader></a-camera>
     
-    <!-- 10m以内に近づいたときだけ表示されるモデル -->
-    <a-image id="ar-model" src="../../assets/logo-512x512.png" 
-             look-at="[gps-camera]" scale="1 1 1"
-             gps-entity-place="latitude: 0; longitude: 0 maxDistance: 10;">
-    </a-image>
   </a-scene>
   
   <div class="ar-controls">
@@ -67,41 +62,15 @@
     const userLat = parseFloat(urlParams.get('userLat') || 0);
     const userLng = parseFloat(urlParams.get('userLng') || 0);
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // めぐポイントの位置を設定
-      const arModel = document.getElementById('ar-model');
-      arModel.setAttribute('gps-entity-place', `latitude: ${userLat}; longitude: ${longitude}; maxDistance: 10;`);
-    });
-    
-    // 距離表示用の要素を追加
-    const distanceDisplay = document.createElement('div');
-    distanceDisplay.id = 'distance-display';
-    distanceDisplay.style.position = 'fixed';
-    distanceDisplay.style.top = '10px';
-    distanceDisplay.style.left = '10px';
-    distanceDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-    distanceDisplay.style.color = 'white';
-    distanceDisplay.style.padding = '10px';
-    distanceDisplay.style.borderRadius = '5px';
-    distanceDisplay.style.fontSize = '16px';
-    distanceDisplay.style.zIndex = '1000';
-    document.body.appendChild(distanceDisplay);
-    
-    // カメラとエンティティの距離を監視するイベントリスナー
-    document.querySelector('a-camera').addEventListener('gps-camera-update-position', function(e) {
-      // 距離表示テキストを取得
-      const distanceText = document.getElementById('distance-text');
-      
-      // 距離を取得（メートル単位）
-      const distance = distanceText.getAttribute('distance');
-      
-      // 距離表示を更新（テスト用）
-      distanceDisplay.textContent = `めぐポイントまでの距離: ${Math.round(distance)}m`;
-      
-      // 距離表示テキストの内容を更新
-      distanceText.setAttribute('value', `あと${Math.round(distance)}m`);
-      
-      console.log(`めぐポイントまでの距離: ${Math.round(distance)}mめぐ`);
+    document.querySelector('a-scene').addEventListener('loaded', function() {
+      const entity = document.createElement('a-image');
+      entity.setAttribute('src', '../../assets/logo-512x512.png');
+      entity.setAttribute('look-at', '[gps-camera]');
+      entity.setAttribute('scale', '1 1 1');
+      entity.setAttribute('gps-entity-place', `latitude: ${userLat}; longitude: ${userLng}`);
+
+      const scene = document.querySelector('a-scene');
+      scene.appendChild(entity);
     });
   </script>
 </body>
