@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR体験</title>
   <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -49,16 +50,22 @@
   
   <!-- 通常のA-Frameシーン -->
   <a-scene embedded vr-mode-ui="enabled: false">
-    <!-- 環境光 -->
-    <a-light type="ambient" color="#ffffff"></a-light>
+    <!-- 環境光と方向光 -->
+    <a-light type="ambient" color="#ffffff" intensity="0.8"></a-light>
+    <a-light type="directional" color="#ffffff" intensity="0.5" position="-1 1 1"></a-light>
     
-    <!-- カメラの前に直接モデルを配置 -->
-    <a-entity position="0 1.6 -3">
-      <a-plane src="../../assets/logo-512x512.png" width="2" height="2" position="0 0 0"></a-plane>
-    </a-entity>
+    <!-- アセット管理 -->
+    <a-assets>
+      <a-asset-item id="ramen-model" src="../../assets/ramen.glb"></a-asset-item>
+    </a-assets>
     
     <!-- カメラ -->
-    <a-camera position="0 1.6 0"></a-camera>
+    <a-entity camera position="0 1.6 0" look-controls>
+      <!-- カメラの子要素としてモデルを配置することで常に前方に表示される -->
+      <a-entity id="model-container" position="0 -0.5 -2" rotation="0 0 0" scale="1 1 1">
+        <a-entity gltf-model="#ramen-model" animation-mixer scale="0.5 0.5 0.5" rotation="0 30 0"></a-entity>
+      </a-entity>
+    </a-entity>
   </a-scene>
   
   <div class="ar-controls">
@@ -78,8 +85,15 @@
     document.addEventListener('DOMContentLoaded', () => {
       // シーンがロードされたときの処理
       document.querySelector('a-scene').addEventListener('loaded', () => {
-        updateDebugInfo('カメラの前方3mにモデルを配置しました。');
+        updateDebugInfo('モデルをロードしました。カメラに追従します。');
         console.log('A-Frameシーンがロードされました');
+        
+        // モデルのロード完了を検知
+        const modelEntity = document.querySelector('[gltf-model]');
+        modelEntity.addEventListener('model-loaded', () => {
+          updateDebugInfo('3Dモデルが正常にロードされました。');
+          console.log('3Dモデルがロードされました');
+        });
       });
     });
     
