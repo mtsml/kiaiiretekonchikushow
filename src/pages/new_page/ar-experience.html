@@ -74,10 +74,15 @@
   </a-scene>
 
   <div class="ar-controls">
+    <button class="ar-button" onclick="updateGpsEntityPlace()">ハロめぐをおびきよせる</button>
     <button class="ar-button" onclick="window.parent.postMessage('exit-ar', '*')">バイめぐ</button>
   </div>
 
   <script>
+    let userLat, userLon;
+    let targetLat = 34.7024;
+    let targetLon = 135.4959;
+
     // デバッグ情報を更新する関数
     function updateDebugInfo(message) {
       const debugElement = document.getElementById('debug-info');
@@ -100,19 +105,25 @@
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
       return Math.round(R * c);
-    }    
-    
-    window.onload = () => {
-      const targetLat = 34.7024;
-      const targetLon = 135.4959;
-    
-      window.addEventListener('gps-camera-update-position', (e) => {
-        const userLat = e.detail.position.latitude;
-        const userLon = e.detail.position.longitude;
+    }
+
+    const updateGpsEntityPlace = () => {
+      const arModel = document.getElementById('ar-model');
+      if (arModel && userLat && userLon) {
+        targetLat = userLat;
+        targetLon = userLon;
+        arModel.setAttribute('gps-entity-place', `latitude: ${targetLat}; longitude: ${targetLat};`);
         const distance = getDistance(userLat, userLon, targetLat, targetLon);
         updateDebugInfo(`あと ${distance} m`);
-      });
-    };
+      }
+    }
+
+    window.addEventListener('gps-camera-update-position', (e) => {
+      userLat = e.detail.position.latitude;
+      userLon = e.detail.position.longitude;
+      const distance = getDistance(userLat, userLon, targetLat, targetLon);
+      updateDebugInfo(`あと ${distance} m`);
+    });
 
     // エラーハンドリング
     window.addEventListener('error', (event) => {
