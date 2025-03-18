@@ -47,7 +47,7 @@
           displayWidth: 1920;
           displayHeight: 1080;">
     
-    <a-camera gps-new-camera rotation-reader></a-camera>
+    <a-camera gps-camera rotation-reader></a-camera>
     
   </a-scene>
   
@@ -67,7 +67,7 @@
       entity.setAttribute('src', '../../assets/logo-512x512.png');
       entity.setAttribute('look-at', '[gps-camera]');
       entity.setAttribute('scale', '1 1 1');
-      entity.setAttribute('gps-new-entity-place', `latitude: ${userLat}; longitude: ${userLng};`);
+      entity.setAttribute('gps-entity-place', `latitude: ${userLat}; longitude: ${userLng};`);
       
       // デバッグ情報をコンソールに出力
       console.log('ARエンティティを配置しました:', {
