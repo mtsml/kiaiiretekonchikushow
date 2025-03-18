@@ -48,7 +48,7 @@
 </head>
 <body>
   <!-- デバッグ情報表示エリア -->
-  <div id="debug-info">位置情報取得中...</div>
+  <div id="debug-info">モデル読み込み中...</div>
 
   <!-- AR.jsシーン -->
   <a-scene
@@ -65,15 +65,28 @@
     <!-- アセットの事前読み込み -->
     <a-assets>
       <img id="logo" src="../../assets/logo-512x512.png">
+      <img id="hellomeg" src="../../assets/hellomegkamo.png">
+      <img id="haromeg" src="../../assets/haromegudayo.png">
     </a-assets>
     
-    <!-- カメラ -->
-    <a-camera gps-camera rotation-reader></a-camera>
+    <!-- カメラとその子要素としてモデルを配置 -->
+    <a-entity camera>
+      <!-- カメラの前方に固定位置でモデルを配置 -->
+      <a-image 
+        id="ar-model"
+        src="#logo"
+        position="0 0 -3"
+        scale="1 1 1"
+        rotation="0 0 0"
+        look-at="[camera]">
+      </a-image>
+    </a-entity>
     
   </a-scene>
   
   <div class="ar-controls">
     <button class="ar-button" onclick="window.parent.postMessage('exit-ar', '*')">AR体験を終了</button>
+    <button class="ar-button" onclick="changeModel()">モデル変更</button>
   </div>
   
   <script>
@@ -84,52 +97,39 @@
         debugElement.textContent = message;
       }
     }
+    
+    // 利用可能なモデル
+    const models = [
+      { id: 'logo', scale: '1 1 1' },
+      { id: 'hellomeg', scale: '1.2 1.2 1.2' },
+      { id: 'haromeg', scale: '1.5 1.5 1.5' }
+    ];
+    
+    let currentModelIndex = 0;
+    
+    // モデルを変更する関数
+    function changeModel() {
+      currentModelIndex = (currentModelIndex + 1) % models.length;
+      const model = models[currentModelIndex];
+      
+      const arModel = document.getElementById('ar-model');
+      if (arModel) {
+        arModel.setAttribute('src', `#${model.id}`);
+        arModel.setAttribute('scale', model.scale);
+        updateDebugInfo(`モデルを変更しました: ${model.id}`);
+      }
+    }
 
-    // URLからパラメータを取得
-    const urlParams = new URLSearchParams(window.location.search);
-    // ユーザーの現在位置
-    const userLat = parseFloat(urlParams.get('userLat') || 0);
-    const userLng = parseFloat(urlParams.get('userLng') || 0);
-    
-    // 位置情報をデバッグ表示
-    updateDebugInfo(`位置情報: 緯度=${userLat}, 経度=${userLng}`);
-    
     // シーンがロードされたときの処理
     document.querySelector('a-scene').addEventListener('loaded', () => {
-      updateDebugInfo(`シーンがロードされました。位置情報: 緯度=${userLat}, 経度=${userLng}`);
+      updateDebugInfo('カメラの前方3mにモデルを配置しました。「モデル変更」ボタンで別のモデルに切り替えられます。');
       console.log('AR.jsシーンがロードされました');
-      
-      try {
-        // 現在位置の近くにモデルを配置（オフセットを小さく設定）
-        const offsetMeters = 1; // 5メートル北に配置
-        
-        // 緯度1度あたりのメートル数（おおよそ）
-        const metersPerLatDegree = 111320;
-        
-        // 北方向へのオフセット（緯度）
-        const latOffset = offsetMeters / metersPerLatDegree;
-        
-        // オフセットを適用した位置
-        const modelLat = userLat + latOffset;
-        const modelLng = userLng;
-        
-        // エンティティを作成
-        const entity = document.createElement('a-image');
-        entity.setAttribute('src', '#logo');
-        entity.setAttribute('look-at', '[gps-camera]');
-        entity.setAttribute('scale', '5 5 5'); // スケールを大きくして見やすく
-        entity.setAttribute('gps-entity-place', `latitude=${modelLat}; longitude=${modelLng};`);
-        
-        // シーンに追加
-        const scene = document.querySelector('a-scene');
-        scene.appendChild(entity);
-        
-        updateDebugInfo(`モデルを配置しました: 緯度=${modelLat}, 経度=${modelLng} (ユーザーの位置から${offsetMeters}m北)`);
-        console.log('ARエンティティを配置しました:', { latitude: modelLat, longitude: modelLng });
-      } catch (error) {
-        updateDebugInfo(`エラーが発生しました: ${error.message}`);
-        console.error('エラーが発生しました:', error);
-      }
+    });
+    
+    // アセットがロードされたときの処理
+    document.querySelector('a-assets').addEventListener('loaded', () => {
+      updateDebugInfo('アセットがロードされました。シーン読み込み中...');
+      console.log('アセットがロードされました');
     });
     
     // エラーハンドリング
