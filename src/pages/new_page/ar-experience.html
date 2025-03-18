@@ -49,15 +49,15 @@
   <div id="debug-info"></div>
 
   <a-scene embedded arjs="sourceType: webcam;">
-    <!-- カメラに固定されたモデル -->
-    <a-entity camera look-controls-enabled="false">
-      <!-- カメラ正面の画像モデル -->
-      <a-image
+    <a-camera gps-camera rotation-reader></a-camera>
+
+    <!-- 位置情報に関係なく、AR空間上の固定位置に画像を表示 -->
+    <a-image
       src="../../assets/logo-512x512.png"
       position="0 0 -3"
-      width="1"
-      height="1"
-    ></a-image>
+      rotation="0 0 0"
+      scale="2 2 2">
+    </a-image>
   </a-scene>
 
   <div class="ar-controls">
