@@ -52,22 +52,8 @@
     <!-- 10m以内に近づいたときだけ表示されるモデル -->
     <a-image id="ar-model" src="../../assets/logo-512x512.png" 
              look-at="[gps-camera]" scale="1 1 1"
-             gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 10;">
+             gps-entity-place="latitude: 0; longitude: 0 maxDistance: 10;">
     </a-image>
-    
-    <!-- 常に表示される場所名 -->
-    <a-text id="place-name" value="めぐポイント" 
-            look-at="[gps-camera]" scale="1 1 1" position="0 1.5 0" 
-            align="center" color="white"
-            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388;">
-    </a-text>
-    
-    <!-- 100m以内に近づいたときだけ表示される距離表示 -->
-    <a-text id="distance-text" value="" 
-            look-at="[gps-camera]" scale="1.2 1.2 1.2" position="0 0.5 0" 
-            align="center" color="#FFFF00"
-            gps-entity-place="latitude: 35.728493054835496; longitude: 139.69921490383388; maxDistance: 100;">
-    </a-text>
   </a-scene>
   
   <div class="ar-controls">
@@ -75,6 +61,18 @@
   </div>
   
   <script>
+    // URLからパラメータを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    // ユーザーの現在位置
+    const userLat = parseFloat(urlParams.get('userLat') || 0);
+    const userLng = parseFloat(urlParams.get('userLng') || 0);
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // めぐポイントの位置を設定
+      const arModel = document.getElementById('ar-model');
+      arModel.setAttribute('gps-entity-place', `latitude: ${userLat}; longitude: ${longitude}; maxDistance: 10;`);
+    });
+    
     // 距離表示用の要素を追加
     const distanceDisplay = document.createElement('div');
     distanceDisplay.id = 'distance-display';

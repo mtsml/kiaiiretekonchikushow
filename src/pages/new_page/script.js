@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           // 位置情報取得成功したらAR体験を開始
-          startARExperience();
+          startARExperience(position);
         },
         (error) => {
           // 位置情報取得エラー
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // AR体験を開始する関数
-  function startARExperience() {
+  function startARExperience(userPosition) {
     // スタート画面を非表示にする
     const startScreen = document.getElementById('start-screen');
     if (startScreen) {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // iframeを作成
       const iframe = document.createElement('iframe');
       // AR.jsのネイティブ機能を使用するため、URLパラメータは不要
-      iframe.src = 'ar-experience.html';
+      iframe.src = `ar-experience.html?userLat=${userPosition.coords.latitude}&userLng=${userPosition.coords.longitude}`;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
