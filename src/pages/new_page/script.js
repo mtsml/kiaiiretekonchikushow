@@ -75,11 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // iframeを作成
       const iframe = document.createElement('iframe');
-      // AR.jsのネイティブ機能を使用するため、URLパラメータは不要
+      // ユーザーの位置情報をURLパラメータとして渡す
       iframe.src = `ar-experience.html?userLat=${userPosition.coords.latitude}&userLng=${userPosition.coords.longitude}`;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
+      
+      // デバッグ情報をコンソールに出力
+      console.log('ユーザー位置情報をiframeに渡します:', {
+        latitude: userPosition.coords.latitude,
+        longitude: userPosition.coords.longitude,
+        accuracy: userPosition.coords.accuracy,
+        timestamp: new Date(userPosition.timestamp).toISOString()
+      });
       
       // コンテナに追加
       arContainer.appendChild(iframe);
