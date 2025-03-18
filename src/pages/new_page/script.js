@@ -38,12 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`秋葉原駅までの距離: ${distance.toFixed(2)}mめぐ`);
         
         // 距離が一定以内ならAR体験を開始
-        if (distance <= MAX_DISTANCE) {
-          startARExperience(position, akihabaraStation);
-        } else {
-          // 距離が遠い場合はメッセージを表示
-          alert(`秋葉原駅から${distance.toFixed(2)}m離れていますめぐ。\n秋葉原駅周辺（${MAX_DISTANCE}m以内）でご利用くださいめぐ。`);
-        }
+        startARExperience(position, akihabaraStation);
       },
       (error) => {
         // 位置情報取得エラー
