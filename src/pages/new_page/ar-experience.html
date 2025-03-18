@@ -74,9 +74,9 @@
     <!-- 環境光 -->
     <a-light type="ambient" color="#ffffff"></a-light>
     
-    <!-- カメラの前に直接モデルを配置 -->
-    <a-entity id="model-container" position="0 0 -3">
-      <a-plane id="ar-model" src="#logo" width="2" height="2" position="0 0 0" transparent="true"></a-plane>
+    <!-- カメラの前に直接モデルを配置（より近く） -->
+    <a-entity id="model-container" position="0 0 -1">
+      <a-image id="ar-model" src="#logo" scale="1 1 1" position="0 0 0"></a-image>
     </a-entity>
     
     <!-- カメラ -->
@@ -118,9 +118,9 @@
     
     // 利用可能なモデル
     const models = [
-      { id: 'logo', scale: { width: 2, height: 2 } },
-      { id: 'hellomeg', scale: { width: 2.4, height: 2.4 } },
-      { id: 'haromeg', scale: { width: 3, height: 3 } }
+      { id: 'logo', scale: '1 1 1' },
+      { id: 'hellomeg', scale: '1.2 1.2 1.2' },
+      { id: 'haromeg', scale: '1.5 1.5 1.5' }
     ];
     
     let currentModelIndex = 0;
@@ -133,8 +133,7 @@
       const arModel = document.getElementById('ar-model');
       if (arModel) {
         arModel.setAttribute('src', `#${model.id}`);
-        arModel.setAttribute('width', model.scale.width);
-        arModel.setAttribute('height', model.scale.height);
+        arModel.setAttribute('scale', model.scale);
         updateDebugInfo(`モデルを変更しました: ${model.id}`);
       }
     }
@@ -145,7 +144,7 @@
       
       // シーンがロードされたときの処理
       document.querySelector('a-scene').addEventListener('loaded', () => {
-        updateDebugInfo('カメラの前方3mにモデルを配置しました。「モデル変更」ボタンで別のモデルに切り替えられます。');
+        updateDebugInfo('カメラの前方1mにモデルを配置しました。「モデル変更」ボタンで別のモデルに切り替えられます。');
         console.log('A-Frameシーンがロードされました');
       });
       
