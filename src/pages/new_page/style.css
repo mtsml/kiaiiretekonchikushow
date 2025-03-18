@@ -1,37 +1,3 @@
-#timer {
-  margin-right: 0.5em;
-}
-
-#timer, #score {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-#timeprogress {
-  appearance: none;
-}
-
-#timeprogress::-webkit-progress-bar {
-  background-color: transparent;
-  border-radius: 15px;
-}
-
-#timeprogress::-webkit-progress-value {
-  background-color: #ABC88B;
-  border-radius: 15px;
-}
-
-#timeprogress::-moz-progress-bar {
-  background-color: #ABC88B;
-  border-radius: 15px;
-}
-
-#timeprogress::-ms-fill {
-  background-color: #ABC88B;
-  border-radius: 15px;
-}
-
-/* AR関連のスタイル */
 #ar-container {
   position: fixed;
   top: 0;
@@ -39,23 +5,6 @@
   width: 100%;
   height: 100%;
   z-index: 1000;
-}
-
-.ar-button {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 24px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.ar-button:hover {
-  background-color: #45a049;
 }
 
 .note {
@@ -97,41 +46,4 @@ body.ar-active #page-header {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-
-@keyframes hellomegAnimation {
-  0% {
-    transform: translate(calc(-50% + var(--startX)), calc(-50% + var(--startY))) scale(1);
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(calc(-50% + var(--translateX)), calc(-50% + var(--translateY)));
-    opacity: 0;
-  }
-}
-
-.hellomeg {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  animation: hellomegAnimation 2s ease-out;
-}
-
-@keyframes shakeAnimation {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(0); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0); }
-}
-
-.shake-img {
-  animation: shakeAnimation 0.3s ease;
 }
