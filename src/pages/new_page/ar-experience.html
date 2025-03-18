@@ -48,15 +48,28 @@
   <!-- デバッグ情報表示エリア -->
   <div id="debug-info"></div>
 
-  <a-scene embedded arjs="sourceType: webcam;">
+  <a-scene
+    vr-mode-ui="enabled: false"
+    embedded
+    arjs="sourceType: webcam; 
+          debugUIEnabled: false;
+          gpsMinDistance: 10;
+          gpsTimeInterval: 3000;
+          smoothingFactor: 0.8;
+          videoTexture: true;
+          sourceWidth: 1080;
+          sourceHeight: 1920;
+          displayWidth: 1080;
+          displayHeight: 1920;"
+  >
     <a-camera gps-camera rotation-reader></a-camera>
 
-    <!-- 位置情報に関係なく、AR空間上の固定位置に画像を表示 -->
     <a-image
-      src="../../assets/logo-512x512.png"
-      position="0 0 -1"
-      rotation="0 0 0"
-      scale="1 1 1">
+      id="ar-model"
+      src="../../assets/logo-512x512.png" 
+      look-at="[gps-camera]"
+      scale="1 1 1"
+      gps-entity-place="latitude: 34.7024; longitude: 135.4959;">
     </a-image>
   </a-scene>
 
@@ -72,6 +85,34 @@
         debugElement.textContent = message;
       }
     }
+
+    // 距離を求める関数（ヒュベニの公式簡略版）
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000; // 地球の半径(m)
+      const toRad = (deg) => deg * Math.PI / 180;
+
+      const φ1 = toRad(lat1);
+      const φ2 = toRad(lat2);
+      const Δφ = toRad(lat2 - lat1);
+      const Δλ = toRad(lon2 - lon1);
+
+      const a = Math.sin(Δφ / 2) ** 2 + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      return Math.round(R * c);
+    }    
+    
+    window.onload = () => {
+      const targetLat = 34.7024;
+      const targetLon = 135.4959;
+    
+      window.addEventListener('gps-camera-update-position', (e) => {
+        const userLat = e.detail.position.latitude;
+        const userLon = e.detail.position.longitude;
+        const distance = getDistance(userLat, userLon, targetLat, targetLon);
+        updateDebugInfo(`あと ${distance} m`);
+      });
+    };
 
     // エラーハンドリング
     window.addEventListener('error', (event) => {
