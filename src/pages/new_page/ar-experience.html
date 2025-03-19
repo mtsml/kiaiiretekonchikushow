@@ -131,7 +131,7 @@
       if (arModel && userLat && userLon && userHeading !== undefined) {
         const targetCoord = getCoordInFront(userLat, userLon, userHeading, 1);
         arModel.setAttribute('gps-entity-place', `latitude: ${targetCoord.latitude}; longitude: ${targetCoord.longitude};`);
-        const distance = getDistance(userLat, userLon, targetLat, targetLon);
+        const distance = getDistance(userLat, userLon, targetCoord.latitude, targetCoord.longitude);
         updateDebugInfo(`あと ${distance} m`);
       }
     }
