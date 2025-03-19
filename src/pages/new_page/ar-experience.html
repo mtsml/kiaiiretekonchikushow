@@ -79,7 +79,8 @@
   </div>
 
   <script>
-    let userLat, userLon, userHeading;
+    let userLat, userLon;
+    let userHeading = 0;
     let targetLat = 34.7024;
     let targetLon = 135.4959;
 
@@ -143,7 +144,7 @@
     });
 
     window.addEventListener('deviceorientationabsolute', (event) => {
-      if(event.alpha !== null){
+      if (event.alpha !== null){
         userHeading = 360 - event.alpha; // 方位角を取得 (0:北, 90:東)
       }
     }, true);
