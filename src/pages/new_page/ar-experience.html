@@ -62,20 +62,14 @@
           displayWidth: 1080;
           displayHeight: 1920;"
   >
-    <a-camera gps-camera rotation-reader>
-      <a-image 
-        src="../../assets/logo-pressed.png"
-        position="0 0 -2"
-        scale="1 1 1"
-      ></a-image>
-    </a-camera>
+    <a-camera gps-new-camera rotation-reader></a-camera>
 
     <a-image
       id="ar-model"
       src="../../assets/logo-512x512.png" 
       look-at="[gps-camera]"
       scale="1 1 1"
-      gps-entity-place="latitude: 34.7024; longitude: 135.4959;">
+      gps-new-entity-place="latitude: 34.7024; longitude: 135.4959;">
     </a-image>
   </a-scene>
 
@@ -159,7 +153,7 @@
         const targetCoord = getCoordInFront(userLat, userLon, userHeading, 1);
         targetLat = targetCoord.latitude;
         targetLon = targetCoord.longitude;
-        arModel.setAttribute('gps-entity-place', `latitude: ${targetLat}; longitude: ${targetLon};`);
+        arModel.setAttribute('gps-new-entity-place', `latitude: ${targetLat}; longitude: ${targetLon};`);
         const distance = getDistance(userLat, userLon, targetCoord.latitude, targetCoord.longitude);
         updateDebugInfo(`あと ${distance} m`);
       }
