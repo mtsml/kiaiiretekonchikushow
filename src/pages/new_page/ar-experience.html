@@ -54,18 +54,18 @@
     vr-mode-ui="enabled: false"
     embedded
     arjs="sourceType: webcam; 
-          debugUIEnabled: false;"
-           renderer='antialias: true; alpha: true'
+          debugUIEnabled: false;
+          videoTexture: true;"
   >
     <a-camera gps-new-camera rotation-reader></a-camera>
 
-    <!-- <a-image
+    <a-image
       id="ar-model"
       src="../../assets/logo-512x512.png" 
       look-at="[gps-new-camera]"
       scale="1 1 1"
       gps-new-entity-place="latitude: 36.57779745799774; longitude: 136.64911979972243;">
-    </a-image> -->
+    </a-image>
   </a-scene>
 
   <div class="ar-controls">
@@ -74,31 +74,104 @@
   </div>
 
   <script>
-    window.onload = () => {
-      let testEntityAdded = false;
+    let userLat, userLon;
+    let userHeading = 0;
+    let targetLat = 36.57779745799774;  // 金沢駅
+    let targetLon = 136.64911979972243; // 金沢駅
+
+    /**
+     * デバッグ情報を更新する
+     */
+    const updateDebugInfo = (message) => {
+      const debugInfoElement = document.getElementById('debug-info');
+      if (debugInfoElement) {
+        debugInfoElement.textContent = message;
+      }
+    }
+
+    /**
+     * 2点間の緯度経度から距離を求める（ヒュベニの公式簡略版）
+     * 
+     * @param {number} lat1 緯度1
+     * @param {number} lon1 経度1
+     * @param {number} lat2 緯度2
+     * @param {number} lon2 経度2
+     * @returns {number} 距離(m)
+     */
+    const getDistance =(lat1, lon1, lat2, lon2) => {
+      const R = 6371000; // 地球の半径(m)
+      const toRad = (deg) => deg * Math.PI / 180;
+
+      const φ1 = toRad(lat1);
+      const φ2 = toRad(lat2);
+      const Δφ = toRad(lat2 - lat1);
+      const Δλ = toRad(lon2 - lon1);
+
+      const a = Math.sin(Δφ / 2) ** 2 + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      return Math.round(R * c);
+    }
+
+    /**
+     * 現在地から指定した方向に指定した距離だけ進んだ地点の緯度経度を求める
+     * 
+     * @param {number} lat 現在地の緯度
+     * @param {number} lon 現在地の経度
+     * @param {number} headingDeg 方位角(0:北, 90:東)
+     * @param {number} distanceMeters 進む距離(m)
+     * @returns {object} 進んだ地点の緯度経度
+     */
+    const getCoordInFront = (lat, lon, headingDeg, distanceMeters) => {
+      const R = 6378137; // 地球半径
+      const δ = distanceMeters / R; // ラジアン単位の距離
+
+      const θ = headingDeg * Math.PI / 180; // 向きをラジアンに変換
+      const φ1 = lat * Math.PI / 180;
+      const λ1 = lon * Math.PI / 180;
+
+      const φ2 = Math.asin(Math.sin(φ1)*Math.cos(δ) + Math.cos(φ1)*Math.sin(δ)*Math.cos(θ));
+      const λ2 = λ1 + Math.atan2(Math.sin(θ)*Math.sin(δ)*Math.cos(φ1), Math.cos(δ)-Math.sin(φ1)*Math.sin(φ2));
+
+      return {
+        latitude: φ2 * 180 / Math.PI,
+        longitude: λ2 * 180 / Math.PI,
+      };
+    }
+
+    /**
+     * gps-entity-place を更新する
+     */
+    const updateGpsEntityPlace = () => {
+      const arModel = document.getElementById('ar-model');
+      if (arModel && userLat && userLon && userHeading !== undefined) {
+        const targetCoord = getCoordInFront(userLat, userLon, userHeading, 1);
+        targetLat = targetCoord.latitude;
+        targetLon = targetCoord.longitude;
+        arModel.setAttribute('gps-new-entity-place', `latitude: ${targetLat}; longitude: ${targetLon};`);
+        const distance = getDistance(userLat, userLon, targetCoord.latitude, targetCoord.longitude);
+        updateDebugInfo(`あと ${distance} m`);
+      }
+    }
+
+    window.addEventListener('gps-camera-update-position', (e) => {
+      userLat = e.detail.position.latitude;
+      userLon = e.detail.position.longitude;
+      const distance = getDistance(userLat, userLon, targetLat, targetLon);
+      updateDebugInfo(`あと ${distance} m`);
+    });
+
+    window.addEventListener('deviceorientationabsolute', (event) => {
+      if (event.alpha !== null){
+        userHeading = 360 - event.alpha; // 方位角を取得 (0:北, 90:東)
+      }
+    }, true);
   
-      const el = document.querySelector("[gps-new-camera]");
-  
-      el.addEventListener("gps-camera-update-position", e => {
-          if(!testEntityAdded) {
-              alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
-              // Add a box to the north of the initial GPS position
-              const entity = document.createElement("a-box");
-              entity.setAttribute("scale", {
-                  x: 20, 
-                  y: 20,
-                  z: 20
-              });
-              entity.setAttribute('material', { color: 'red' } );
-              entity.setAttribute('gps-new-entity-place', {
-                  latitude: e.detail.position.latitude + 0.001,
-                  longitude: e.detail.position.longitude
-              });
-              document.querySelector("a-scene").appendChild(entity);
-          }
-          testEntityAdded = true;
-      });
-  };
+    // エラーハンドリング
+    window.addEventListener('error', (event) => {
+      updateDebugInfo(`エラーが発生しました: ${event.message}`);
+      console.error('エラーが発生しました:', event);
+    });
   </script>
 </body>
 </html>
