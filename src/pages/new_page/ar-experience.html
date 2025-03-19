@@ -30,18 +30,6 @@
       font-size: 16px;
       cursor: pointer;
     }
-    #loading {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 10px 20px;
-      background-color: rgba(0,0,0,0.7);
-      color: #fff;
-      border-radius: 5px;
-      font-family: sans-serif;
-      z-index: 999;
-    }
     /* デバッグ情報表示用 */
     #debug-info {
       position: fixed;
@@ -59,8 +47,6 @@
 <body>
   <!-- デバッグ情報表示エリア -->
   <div id="debug-info"></div>
-
-  <div id="loading">ここにロード中のアニメーションを追加する</div>
 
   <a-scene
     vr-mode-ui="enabled: false"
@@ -81,9 +67,8 @@
     <a-entity camera look-controls-enabled="false">
       <a-image 
         src="../../assets/logo-pressed.png"
-        position="0 -0.5 -2"
+        position="0 0 -2"
         scale="1 1 1"
-        opacity="0.9"
       ></a-image>
     </a-entity>
 
@@ -181,16 +166,6 @@
         updateDebugInfo(`あと ${distance} m`);
       }
     }
-
-    window.onload = () => {
-      const loadingEl = document.getElementById('loading');
-      const arModel = document.getElementById('ar-model');
-    
-      // モデルが読み込まれ、AR.jsが位置を計算完了すると発火
-      arModel.addEventListener('loaded', () => {
-        loadingEl.style.display = 'none';
-      });
-    }    
 
     window.addEventListener('gps-camera-update-position', (e) => {
       userLat = e.detail.position.latitude;
