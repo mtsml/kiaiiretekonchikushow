@@ -79,6 +79,7 @@
               const entity = document.createElement("a-image");
               entity.setAttribute("src", "../../assets/logo-512x512.png");
               entity.setAttribute("scale", "2 2 2");
+              entity.setAttribute("look-at", "[gps-new-camera]");
               entity.setAttribute('gps-new-entity-place', `latitude: ${e.detail.position.latitude}; longitude: ${e.detail.position.longitude};`);
               document.querySelector("a-scene").appendChild(entity);
           }
