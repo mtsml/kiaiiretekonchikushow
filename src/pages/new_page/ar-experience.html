@@ -79,7 +79,7 @@
   </div>
 
   <script>
-    let userLat, userLon;
+    let userLat, userLon, userHeading;
     let targetLat = 34.7024;
     let targetLon = 135.4959;
 
@@ -107,12 +107,29 @@
       return Math.round(R * c);
     }
 
+    // 1m先の緯度経度を計算する関数
+    function getCoordInFront(lat, lon, headingDeg, distanceMeters) {
+      const R = 6378137; // 地球半径
+      const δ = distanceMeters / R; // ラジアン単位の距離
+
+      const θ = headingDeg * Math.PI / 180; // 向きをラジアンに変換
+      const φ1 = lat * Math.PI / 180;
+      const λ1 = lon * Math.PI / 180;
+
+      const φ2 = Math.asin(Math.sin(φ1)*Math.cos(δ) + Math.cos(φ1)*Math.sin(δ)*Math.cos(θ));
+      const λ2 = λ1 + Math.atan2(Math.sin(θ)*Math.sin(δ)*Math.cos(φ1), Math.cos(δ)-Math.sin(φ1)*Math.sin(φ2));
+
+      return {
+        latitude: φ2 * 180 / Math.PI,
+        longitude: λ2 * 180 / Math.PI
+      };
+    }
+
     const updateGpsEntityPlace = () => {
       const arModel = document.getElementById('ar-model');
-      if (arModel && userLat && userLon) {
-        targetLat = userLat;
-        targetLon = userLon;
-        arModel.setAttribute('gps-entity-place', `latitude: ${targetLat}; longitude: ${targetLat};`);
+      if (arModel && userLat && userLon && userHeading !== undefined) {
+        const targetCoord = getCoordInFront(userLat, userLon, userHeading, 1);
+        arModel.setAttribute('gps-entity-place', `latitude: ${targetCoord.latitude}; longitude: ${targetCoord.longitude};`);
         const distance = getDistance(userLat, userLon, targetLat, targetLon);
         updateDebugInfo(`あと ${distance} m`);
       }
@@ -125,6 +142,12 @@
       updateDebugInfo(`あと ${distance} m`);
     });
 
+    window.addEventListener('deviceorientationabsolute', (event) => {
+      if(event.alpha !== null){
+        userHeading = 360 - event.alpha; // 方位角を取得 (0:北, 90:東)
+      }
+    }, true);
+  
     // エラーハンドリング
     window.addEventListener('error', (event) => {
       updateDebugInfo(`エラーが発生しました: ${event.message}`);
