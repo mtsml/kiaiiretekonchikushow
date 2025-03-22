@@ -143,29 +143,26 @@
       
       // クリックイベントリスナーを追加
       newModel.addEventListener('click', function() {
-        // モデルの位置情報を取得
-        const modelPosition = this.getAttribute('gps-new-entity-place');
+        // 現在のスケールを取得
+        const currentScale = this.getAttribute('scale');
         
-        // a-textを作成して「ハロめぐー！」と表示
-        const text = document.createElement('a-text');
-        text.setAttribute('value', 'ハロめぐー！');
-        text.setAttribute('color', 'white');
-        text.setAttribute('align', 'center');
-        text.setAttribute('width', '10');
-        text.setAttribute('look-at', '[gps-new-camera]');
-        text.setAttribute('gps-new-entity-place', modelPosition);
-        text.id = 'hello-text-' + Date.now(); // ユニークなIDを設定
+        // 拡大アニメーション
+        this.setAttribute('animation__scale', {
+          property: 'scale',
+          to: { x: currentScale.x * 1.5, y: currentScale.y * 1.5, z: currentScale.z * 1.5 },
+          dur: 300,
+          easing: 'easeOutElastic'
+        });
         
-        // シーンに追加
-        const scene = document.querySelector('a-scene');
-        scene.appendChild(text);
-        
-        // 3秒後に非表示
+        // 元のサイズに戻るアニメーション
         setTimeout(() => {
-          if (text.parentNode) {
-            text.parentNode.removeChild(text);
-          }
-        }, 3000);
+          this.setAttribute('animation__scale', {
+            property: 'scale',
+            to: { x: currentScale.x, y: currentScale.y, z: currentScale.z },
+            dur: 300,
+            easing: 'easeOutElastic'
+          });
+        }, 500);
       });
       
       // シーンに追加
@@ -192,29 +189,26 @@
       const initialModel = document.getElementById('hellomeg-model');
       if (initialModel) {
         initialModel.addEventListener('click', function() {
-          // モデルの位置情報を取得
-          const modelPosition = this.getAttribute('gps-new-entity-place');
+          // 現在のスケールを取得
+          const currentScale = this.getAttribute('scale');
           
-          // a-textを作成して「ハロめぐー！」と表示
-          const text = document.createElement('a-text');
-          text.setAttribute('value', 'ハロめぐー！');
-          text.setAttribute('color', 'white');
-          text.setAttribute('align', 'center');
-          text.setAttribute('width', '10');
-          text.setAttribute('look-at', '[gps-new-camera]');
-          text.setAttribute('gps-new-entity-place', modelPosition);
-          text.id = 'hello-text-' + Date.now(); // ユニークなIDを設定
+          // 拡大アニメーション
+          this.setAttribute('animation__scale', {
+            property: 'scale',
+            to: { x: currentScale.x * 1.5, y: currentScale.y * 1.5, z: currentScale.z * 1.5 },
+            dur: 300,
+            easing: 'easeOutElastic'
+          });
           
-          // シーンに追加
-          const scene = document.querySelector('a-scene');
-          scene.appendChild(text);
-          
-          // 3秒後に非表示
+          // 元のサイズに戻るアニメーション
           setTimeout(() => {
-            if (text.parentNode) {
-              text.parentNode.removeChild(text);
-            }
-          }, 3000);
+            this.setAttribute('animation__scale', {
+              property: 'scale',
+              to: { x: currentScale.x, y: currentScale.y, z: currentScale.z },
+              dur: 300,
+              easing: 'easeOutElastic'
+            });
+          }, 500);
         });
       }
       
