@@ -78,6 +78,9 @@
   </div>
 
   <script>
+    // 最新のユーザー位置情報を保持するグローバル変数
+    let currentUserPosition = null;
+    
     // デバッグ情報を更新する関数
     function updateDebugInfo(message) {
       const debugEl = document.getElementById('debug-info');
@@ -88,27 +91,22 @@
     
     // ハロめぐをユーザーの近くに移動させる関数
     function updateGpsEntityPlace() {
-      const camera = document.querySelector('[gps-new-camera]');
       const model = document.getElementById('hellomeg-model');
       
-      if (!camera || !model) {
-        updateDebugInfo("カメラまたはモデルが見つかりません");
+      if (!model) {
+        updateDebugInfo("モデルが見つかりません");
         return;
       }
       
-      // カメラの位置情報を取得
-      const position = camera.getAttribute('position');
-      const gpsPosition = camera.components['gps-new-camera'].currentCoords;
-      
-      if (!gpsPosition) {
-        updateDebugInfo("位置情報が取得できません");
+      if (!currentUserPosition) {
+        updateDebugInfo("位置情報がまだ取得できていません。少し待ってから再試行してください。");
         return;
       }
       
       // ユーザーの現在位置から1メートル北側に移動
       const newPosition = {
-        latitude: gpsPosition.latitude + 0.000009, // 約1メートル北側
-        longitude: gpsPosition.longitude
+        latitude: currentUserPosition.latitude + 0.000009, // 約1メートル北側
+        longitude: currentUserPosition.longitude
       };
       
       // モデルの位置を更新
@@ -116,7 +114,7 @@
       
       // デバッグ情報を更新
       updateDebugInfo(`
-        ユーザー位置: ${gpsPosition.latitude.toFixed(7)}, ${gpsPosition.longitude.toFixed(7)}<br>
+        ユーザー位置: ${currentUserPosition.latitude.toFixed(7)}, ${currentUserPosition.longitude.toFixed(7)}<br>
         モデル位置: ${newPosition.latitude.toFixed(7)}, ${newPosition.longitude.toFixed(7)}<br>
         更新時刻: ${new Date().toLocaleTimeString()}
       `);
@@ -127,10 +125,17 @@
       
       // 位置情報が更新されたときのイベントリスナー
       camera.addEventListener("gps-camera-update-position", e => {
-        const position = e.detail.position;
+        // 最新の位置情報を保持
+        currentUserPosition = {
+          latitude: e.detail.position.latitude,
+          longitude: e.detail.position.longitude,
+          accuracy: e.detail.position.accuracy
+        };
+        
+        // デバッグ情報を更新
         updateDebugInfo(`
-          現在位置: ${position.latitude.toFixed(7)}, ${position.longitude.toFixed(7)}<br>
-          精度: ${position.accuracy ? position.accuracy.toFixed(2) + 'm' : '不明'}<br>
+          現在位置: ${currentUserPosition.latitude.toFixed(7)}, ${currentUserPosition.longitude.toFixed(7)}<br>
+          精度: ${currentUserPosition.accuracy ? currentUserPosition.accuracy.toFixed(2) + 'm' : '不明'}<br>
           更新時刻: ${new Date().toLocaleTimeString()}
         `);
       });
