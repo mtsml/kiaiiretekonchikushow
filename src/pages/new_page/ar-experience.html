@@ -59,6 +59,16 @@
           gpsMinDistance: 5;
           gpsTimeInterval: 1000"
     renderer='antialias: true; alpha: true'>
+    
+    <!-- 金沢駅に初期配置（緯度: 36.5780, 経度: 136.6479） -->
+    <a-image
+      id="hellomeg-model"
+      src="../../assets/hellomegkamo.png"
+      scale="5 5 5"
+      look-at="[gps-new-camera]"
+      gps-new-entity-place="latitude: 36.5780; longitude: 136.6479;">
+    </a-image>
+    
     <a-camera gps-new-camera rotation-reader></a-camera>
   </a-scene>
 
@@ -68,30 +78,61 @@
   </div>
 
   <script>
+    // デバッグ情報を更新する関数
+    function updateDebugInfo(message) {
+      const debugEl = document.getElementById('debug-info');
+      if (debugEl) {
+        debugEl.innerHTML = message;
+      }
+    }
+    
+    // ハロめぐをユーザーの近くに移動させる関数
+    function updateGpsEntityPlace() {
+      const camera = document.querySelector('[gps-new-camera]');
+      const model = document.getElementById('hellomeg-model');
+      
+      if (!camera || !model) {
+        updateDebugInfo("カメラまたはモデルが見つかりません");
+        return;
+      }
+      
+      // カメラの位置情報を取得
+      const position = camera.getAttribute('position');
+      const gpsPosition = camera.components['gps-new-camera'].currentCoords;
+      
+      if (!gpsPosition) {
+        updateDebugInfo("位置情報が取得できません");
+        return;
+      }
+      
+      // ユーザーの現在位置から1メートル北側に移動
+      const newPosition = {
+        latitude: gpsPosition.latitude + 0.000009, // 約1メートル北側
+        longitude: gpsPosition.longitude
+      };
+      
+      // モデルの位置を更新
+      model.setAttribute('gps-new-entity-place', newPosition);
+      
+      // デバッグ情報を更新
+      updateDebugInfo(`
+        ユーザー位置: ${gpsPosition.latitude.toFixed(7)}, ${gpsPosition.longitude.toFixed(7)}<br>
+        モデル位置: ${newPosition.latitude.toFixed(7)}, ${newPosition.longitude.toFixed(7)}<br>
+        更新時刻: ${new Date().toLocaleTimeString()}
+      `);
+    }
+    
     window.onload = () => {
-      let testEntityAdded = false;
-  
-      const el = document.querySelector("[gps-new-camera]");
-  
-      el.addEventListener("gps-camera-update-position", e => {
-          if(!testEntityAdded) {
-              alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
-              // Add an image to the north of the initial GPS position
-              const entity = document.createElement("a-image");
-              entity.setAttribute("src", "../../assets/logo-512x512.png");
-              entity.setAttribute("scale", {
-                  x: 5, 
-                  y: 5,
-                  z: 5
-              });
-              entity.setAttribute("look-at", "[gps-new-camera]");
-              entity.setAttribute('gps-new-entity-place', {
-                  latitude: e.detail.position.latitude + 0.000009, // 約1メートル北側
-                  longitude: e.detail.position.longitude
-              });
-              document.querySelector("a-scene").appendChild(entity);
-          }
-          testEntityAdded = true;
+      const camera = document.querySelector('[gps-new-camera]');
+      
+      // 位置情報が更新されたときのイベントリスナー
+      camera.addEventListener("gps-camera-update-position", e => {
+        const position = e.detail.position;
+        updateDebugInfo(`
+          現在位置: ${position.latitude.toFixed(7)}, ${position.longitude.toFixed(7)}<br>
+          精度: ${position.accuracy ? position.accuracy.toFixed(2) + 'm' : '不明'}<br>
+          更新時刻: ${new Date().toLocaleTimeString()}
+        `);
       });
     };
   </script>
