@@ -68,14 +68,15 @@
       el.addEventListener("gps-camera-update-position", e => {
           if(!testEntityAdded) {
               alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
-              // Add a box to the north of the initial GPS position
-              const entity = document.createElement("a-box");
+              // Add an image to the north of the initial GPS position
+              const entity = document.createElement("a-image");
+              entity.setAttribute("src", "../../assets/hellomegkamo.png");
               entity.setAttribute("scale", {
-                  x: 20, 
-                  y: 20,
-                  z: 20
+                  x: 5, 
+                  y: 5,
+                  z: 5
               });
-              entity.setAttribute('material', { color: 'red' } );
+              entity.setAttribute("look-at", "[gps-new-camera]");
               entity.setAttribute('gps-new-entity-place', {
                   latitude: e.detail.position.latitude + 0.001,
                   longitude: e.detail.position.longitude
