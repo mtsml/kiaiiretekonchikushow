@@ -58,8 +58,14 @@
           locationMinAccuracy: 10;
           gpsMinDistance: 10;
           gpsTimeInterval: 2000;
-          smoothingFactor: 0.8"
-    renderer='antialias: true; alpha: true'>
+          smoothingFactor: 0.8;
+          sourceWidth: 1920;
+          sourceHeight: 1080;
+          displayWidth: 1920;
+          displayHeight: 1080;
+          maxWidth: 1920;
+          maxHeight: 1080"
+    renderer='antialias: true; alpha: true; precision: high; logarithmicDepthBuffer: true'>
     
     <!-- 金沢駅に初期配置（緯度: 36.5780, 経度: 136.6479） -->
     <a-image
