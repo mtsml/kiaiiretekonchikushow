@@ -81,6 +81,22 @@
     // 最新のユーザー位置情報を保持するグローバル変数
     let currentUserPosition = null;
     
+    // 2点間の距離をメートル単位で計算する関数（ハーバーサイン公式）
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3; // 地球の半径（メートル）
+      const φ1 = lat1 * Math.PI / 180;
+      const φ2 = lat2 * Math.PI / 180;
+      const Δφ = (lat2 - lat1) * Math.PI / 180;
+      const Δλ = (lon2 - lon1) * Math.PI / 180;
+
+      const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+      return R * c; // メートル単位の距離
+    }
+    
     // デバッグ情報を更新する関数
     function updateDebugInfo(message) {
       const debugEl = document.getElementById('debug-info');
@@ -120,12 +136,16 @@
       const scene = document.querySelector('a-scene');
       scene.appendChild(newModel);
       
+      // ユーザーとモデルの距離を計算
+      const distance = calculateDistance(
+        currentUserPosition.latitude, currentUserPosition.longitude,
+        newPosition.latitude, newPosition.longitude
+      );
+      
       // デバッグ情報を更新
       updateDebugInfo(`
-        ユーザー位置: ${currentUserPosition.latitude.toFixed(7)}, ${currentUserPosition.longitude.toFixed(7)}<br>
-        モデル位置: ${newPosition.latitude.toFixed(7)}, ${newPosition.longitude.toFixed(7)}<br>
-        更新時刻: ${new Date().toLocaleTimeString()}<br>
-        <b>モデルを再作成しました</b>
+        距離: ${distance.toFixed(2)}メートル<br>
+        更新時刻: ${new Date().toLocaleTimeString()}
       `);
     }
     
@@ -141,10 +161,22 @@
           accuracy: e.detail.position.accuracy
         };
         
+        // モデルとの距離を計算（モデルが存在する場合）
+        let distance = "";
+        const model = document.getElementById('hellomeg-model');
+        if (model) {
+          const modelPosition = model.getAttribute('gps-new-entity-place');
+          if (modelPosition) {
+            distance = calculateDistance(
+              currentUserPosition.latitude, currentUserPosition.longitude,
+              modelPosition.latitude, modelPosition.longitude
+            );
+          }
+        }
+        
         // デバッグ情報を更新
         updateDebugInfo(`
-          現在位置: ${currentUserPosition.latitude.toFixed(7)}, ${currentUserPosition.longitude.toFixed(7)}<br>
-          精度: ${currentUserPosition.accuracy ? currentUserPosition.accuracy.toFixed(2) + 'm' : '不明'}<br>
+          距離: ${distance.toFixed(2)}メートル<br>
           更新時刻: ${new Date().toLocaleTimeString()}
         `);
       });
