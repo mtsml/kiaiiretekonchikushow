@@ -78,7 +78,7 @@
               });
               entity.setAttribute("look-at", "[gps-new-camera]");
               entity.setAttribute('gps-new-entity-place', {
-                  latitude: e.detail.position.latitude + 0.001,
+                  latitude: e.detail.position.latitude + 0.000009, // 約1メートル北側
                   longitude: e.detail.position.longitude
               });
               document.querySelector("a-scene").appendChild(entity);
