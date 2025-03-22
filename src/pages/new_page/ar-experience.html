@@ -127,10 +127,16 @@
       // 新しいa-imageを作成
       const newModel = document.createElement('a-image');
       newModel.id = 'hellomeg-model';
-      newModel.setAttribute('src', '../../assets/hellomegkamo.png');
+      newModel.setAttribute('src', '../../assets/fever.png');
       newModel.setAttribute('scale', '5 5 5');
       newModel.setAttribute('look-at', '[gps-new-camera]');
       newModel.setAttribute('gps-new-entity-place', `latitude: ${newPosition.latitude}; longitude: ${newPosition.longitude}`);
+      
+      // クリックイベントリスナーを追加
+      newModel.addEventListener('click', function() {
+        // アラートを表示
+        alert('ハロめぐー！');
+      });
       
       // シーンに追加
       const scene = document.querySelector('a-scene');
