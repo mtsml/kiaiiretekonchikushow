@@ -67,10 +67,17 @@
       src="../../assets/fever.png"
       scale="5 5 5"
       look-at="[gps-new-camera]"
-      gps-new-entity-place="latitude: 36.5780; longitude: 136.6479;">
+      gps-new-entity-place="latitude: 36.5780; longitude: 136.6479;"
+      class="clickable">
     </a-image>
     
-    <a-camera gps-new-camera rotation-reader></a-camera>
+    <a-camera gps-new-camera rotation-reader>
+      <a-cursor
+        raycaster="objects: .clickable; far: 1000"
+        color="white"
+        fuse="false">
+      </a-cursor>
+    </a-camera>
   </a-scene>
 
   <div class="ar-controls">
@@ -132,6 +139,7 @@
       newModel.setAttribute('scale', '5 5 5');
       newModel.setAttribute('look-at', '[gps-new-camera]');
       newModel.setAttribute('gps-new-entity-place', `latitude: ${newPosition.latitude}; longitude: ${newPosition.longitude}`);
+      newModel.classList.add('clickable'); // clickableクラスを追加
       
       // クリックイベントリスナーを追加
       newModel.addEventListener('click', function() {
@@ -158,6 +166,15 @@
     
     window.onload = () => {
       const camera = document.querySelector('[gps-new-camera]');
+      
+      // 初期モデルにクリックイベントリスナーを追加
+      const initialModel = document.getElementById('hellomeg-model');
+      if (initialModel) {
+        initialModel.addEventListener('click', function() {
+          // アラートを表示
+          alert('ハロめぐー！');
+        });
+      }
       
       // 位置情報が更新されたときのイベントリスナー
       camera.addEventListener("gps-camera-update-position", e => {
