@@ -74,7 +74,7 @@
     <a-camera gps-new-camera rotation-reader>
       <a-cursor
         raycaster="objects: .clickable; far: 1000"
-        color="white"
+        visible="false"
         fuse="false">
       </a-cursor>
     </a-camera>
@@ -143,8 +143,24 @@
       
       // クリックイベントリスナーを追加
       newModel.addEventListener('click', function() {
-        // アラートを表示
-        alert('ハロめぐー！');
+        // a-textを作成して「ハロめぐー！」と表示
+        const text = document.createElement('a-text');
+        text.setAttribute('value', 'ハロめぐー！');
+        text.setAttribute('color', 'white');
+        text.setAttribute('align', 'center');
+        text.setAttribute('width', '10');
+        text.setAttribute('position', '0 1.5 0'); // モデルの上に表示
+        text.setAttribute('look-at', '[gps-new-camera]');
+        
+        // モデルの子要素として追加
+        this.appendChild(text);
+        
+        // 3秒後に非表示
+        setTimeout(() => {
+          if (text.parentNode) {
+            text.parentNode.removeChild(text);
+          }
+        }, 3000);
       });
       
       // シーンに追加
@@ -171,8 +187,24 @@
       const initialModel = document.getElementById('hellomeg-model');
       if (initialModel) {
         initialModel.addEventListener('click', function() {
-          // アラートを表示
-          alert('ハロめぐー！');
+          // a-textを作成して「ハロめぐー！」と表示
+          const text = document.createElement('a-text');
+          text.setAttribute('value', 'ハロめぐー！');
+          text.setAttribute('color', 'white');
+          text.setAttribute('align', 'center');
+          text.setAttribute('width', '10');
+          text.setAttribute('position', '0 1.5 0'); // モデルの上に表示
+          text.setAttribute('look-at', '[gps-new-camera]');
+          
+          // モデルの子要素として追加
+          this.appendChild(text);
+          
+          // 3秒後に非表示
+          setTimeout(() => {
+            if (text.parentNode) {
+              text.parentNode.removeChild(text);
+            }
+          }, 3000);
         });
       }
       
