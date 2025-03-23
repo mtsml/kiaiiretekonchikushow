@@ -123,6 +123,36 @@ const HELLOMEG_SR_CARD_LIST = [
     rarity: "SR",
     src: "../../assets/kaniteba.png"
   },
+  {
+    name: "ハクション",
+    fullname: "[ハクション] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hakushon.png"
+  },
+  {
+    name: "ドカ食い",
+    fullname: "[ドカ食い] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/dokameg.png"
+  },
+  {
+    name: "NEWハロめぐ",
+    fullname: "[ハロめぐー！] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hellomeg.png"
+  },
+  {
+    name: "NEWハクチュー",
+    fullname: "[ハクチュー] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/hakuchu2.png"
+  },
+  {
+    name: "ジョーショーキリュー",
+    fullname: "[ジョーショーキリュー] ハロめぐ",
+    rarity: "SR",
+    src: "../../assets/jk.png"
+  },
 ];
 // URカード
 const HELLOMEG_UR_CARD_LIST = [
