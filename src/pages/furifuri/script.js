@@ -1,5 +1,5 @@
-const SHAKE_THRESHOLD = 30;
-const SHAKE_INTERVAL = 200;
+let SHAKE_THRESHOLD = 15;
+let SHAKE_INTERVAL = 200;
 let lastShakeTime = new Date().getTime();
 let shakeCount = 0
 let scoreElement, hellomegElement;
@@ -117,3 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("playable").style.display = null;
   document.getElementById("logo").onclick = startGame;
 });
+
+const hundleThresholdChange = (event) => {
+  SHAKE_THRESHOLD = Number(event.target.value);
+  document.getElementById('threshold-value').textContent = event.target.value;
+}
+
+const hundleIntervalChange = (event) => {
+  SHAKE_INTERVAL = Number(event.target.value);
+  document.getElementById('interval-value').textContent = event.target.value;
+}
