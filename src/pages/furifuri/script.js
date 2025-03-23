@@ -1,4 +1,5 @@
-const SHAKE_THRESHOLD = 15;
+let SHAKE_THRESHOLD = 15;
+let SHAKE_INTERVAL = 200;
 let lastShakeTime = new Date().getTime();
 let shakeCount = 0
 let scoreElement, hellomegElement;
@@ -43,7 +44,7 @@ function handleMotion(event) {
   // 加速度の合計を計算（振りの強さを判定）
   const shakeMagnitude = Math.sqrt(acc.x**2 + acc.y**2 + acc.z**2);
 
-  if (shakeMagnitude > SHAKE_THRESHOLD && (currentTime - lastShakeTime) > 200) {
+  if (shakeMagnitude > SHAKE_THRESHOLD && (currentTime - lastShakeTime) > SHAKE_INTERVAL) {
     shakeCount++;
     scoreElement.innerText = `${shakeCount} ハロめぐー！`;
     hellomeg(hellomegElement);
@@ -97,7 +98,7 @@ function requestMotionPermission() {
 }
 
 // ページ読み込み時にイベント有無・権限をチェック
-window.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   // 非対応
   if (!('DeviceMotionEvent' in window)) {
     document.getElementById("unPlayable").style.display = null;
@@ -115,4 +116,36 @@ window.addEventListener('DOMContentLoaded', function() {
   // Androidの場合、ゲーム開始処理を設定
   document.getElementById("playable").style.display = null;
   document.getElementById("logo").onclick = startGame;
+
+  // for debug
+  const thresholdSlider = document.getElementById('threshold-slider');
+  const intervalSlider = document.getElementById('interval-slider');
+  const thresholdValue = document.getElementById('threshold-value');
+  const intervalValue = document.getElementById('interval-value');
+
+  thresholdSlider.addEventListener('input', () => {
+    try {
+        SHAKE_THRESHOLD = Number(thresholdSlider.value);
+        thresholdValue.innerText = SHAKE_THRESHOLD;
+    } catch(e) {
+      alert(e)
+    }
+  });
+  thresholdSlider.addEventListener('change', () => {
+    try {
+        SHAKE_THRESHOLD = Number(thresholdSlider.value);
+        thresholdValue.innerText = SHAKE_THRESHOLD;
+
+    } catch(e) {
+      alert(e)
+    }
+  });
+  intervalSlider.addEventListener('input', () => {
+    SHAKE_INTERVAL = Number(intervalSlider.value);
+    intervalValue.innerText = SHAKE_INTERVAL;
+  });
+  intervalSlider.addEventListener('change', () => {
+    SHAKE_INTERVAL = Number(intervalSlider.value);
+    intervalValue.innerText = SHAKE_INTERVAL;
+  });
 });
