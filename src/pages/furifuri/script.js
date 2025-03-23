@@ -1,5 +1,5 @@
-let SHAKE_THRESHOLD = 15;
-let SHAKE_INTERVAL = 200;
+const SHAKE_THRESHOLD = 30;
+const SHAKE_INTERVAL = 200;
 let lastShakeTime = new Date().getTime();
 let shakeCount = 0
 let scoreElement, hellomegElement;
@@ -116,36 +116,4 @@ document.addEventListener('DOMContentLoaded', function() {
   // Androidの場合、ゲーム開始処理を設定
   document.getElementById("playable").style.display = null;
   document.getElementById("logo").onclick = startGame;
-
-  // for debug
-  const thresholdSlider = document.getElementById('threshold-slider');
-  const intervalSlider = document.getElementById('interval-slider');
-  const thresholdValue = document.getElementById('threshold-value');
-  const intervalValue = document.getElementById('interval-value');
-
-  thresholdSlider.addEventListener('input', () => {
-    try {
-        SHAKE_THRESHOLD = Number(thresholdSlider.value);
-        thresholdValue.innerText = SHAKE_THRESHOLD;
-    } catch(e) {
-      alert(e)
-    }
-  });
-  thresholdSlider.addEventListener('change', () => {
-    try {
-        SHAKE_THRESHOLD = Number(thresholdSlider.value);
-        thresholdValue.innerText = SHAKE_THRESHOLD;
-
-    } catch(e) {
-      alert(e)
-    }
-  });
-  intervalSlider.addEventListener('input', () => {
-    SHAKE_INTERVAL = Number(intervalSlider.value);
-    intervalValue.innerText = SHAKE_INTERVAL;
-  });
-  intervalSlider.addEventListener('change', () => {
-    SHAKE_INTERVAL = Number(intervalSlider.value);
-    intervalValue.innerText = SHAKE_INTERVAL;
-  });
 });
