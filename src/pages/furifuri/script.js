@@ -27,7 +27,7 @@ function startGame() {
       document.body.classList.remove("overflow-hidden");
       document.getElementById("description").style.display = "none";
       document.getElementById("result").style.display = "block";
-      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%B7%E3%82%A7%E3%82%A4%E3%82%AF%0D%0A%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%92%E3%83%95%E3%83%AA%E3%83%95%E3%83%AA%E2%99%AA%E7%A7%81%E3%81%AE%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${shakeCount}+%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81&url=https://kiaiiretekonchiku.show/shake/`;
+      document.getElementById("post").href = `https://twitter.com/intent/tweet?text=%23%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%82%B7%E3%82%A7%E3%82%A4%E3%82%AF%0D%0A%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%92%E3%83%95%E3%83%AA%E3%83%95%E3%83%AA%E2%99%AA%E7%A7%81%E3%81%AE%E7%B5%90%E6%9E%9C%E3%81%AF%E2%80%A6%0D%0A%0D%0A${shakeCount}+%E3%83%8F%E3%83%AD%E3%82%81%E3%81%90%E3%83%BC%EF%BC%81%0D%0A&url=https://kiaiiretekonchiku.show/shake/`;
       
       // timerElement の反映を待つために非同期実行する
       setTimeout(() => {
