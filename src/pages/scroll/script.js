@@ -1,5 +1,5 @@
 let scrollPosition = 0;
-let characterPosition = 50; // precentage
+let characterPosition = 50; // percentage
 let gameStarted = false;
 
 function checkCollisions(character) {
