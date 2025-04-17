@@ -139,7 +139,7 @@ const HELLOMEG_SR_CARD_LIST = [
     name: "NEWハロめぐ",
     fullname: "[ハロめぐー！] ハロめぐ",
     rarity: "SR",
-    src: "../../../common/hellomeg/pine_nm/winter/assets/hellomeg.png"
+    src: "../../../common/hellomeg/pine_nm/winter/hellomeg.png"
   },
   {
     name: "NEWハクチュー",
