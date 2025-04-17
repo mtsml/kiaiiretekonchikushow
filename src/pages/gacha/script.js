@@ -13,145 +13,145 @@ const HELLOMEG_SR_CARD_LIST = [
     name: "ハクチュー",
     fullname: "[ハクチュー] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hkc.png"
+    src: "../../../common/hellomeg/pine_nm/normal/hkc.png"
   },
   {
     name: "フィーバー",
     fullname: "[フィーバー] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/fever.png"
+    src: "../../../common/hellomeg/pine_nm/winter/fever.png"
   },
   {
     name: "宇宙猫",
     fullname: "[宇宙猫] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/universe.png"
+    src: "../../../common/hellomeg/pine_nm/winter/universe.png"
   },
   {
     name: "ハロめぐだもん",
     fullname: "[ハロめぐだもん] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/damon.png"
+    src: "../../../common/hellomeg/pine_nm/winter/damon.png"
   },
   {
     name: "ハロメグダヨ",
     fullname: "[ハロメグダヨ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/haromegudayo.png"
+    src: "../../../common/hellomeg/pine_nm/normal/haromegudayo.png"
   },
   {
     name: "ハロめぐかも？",
     fullname: "[ハロめぐかも？] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hellomegkamo.png"
+    src: "../../../common/hellomeg/pine_nm/winter/hellomegkamo.png"
   },
   {
     name: "充電",
     fullname: "[充電] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/juden.png"
+    src: "../../../common/hellomeg/pine_nm/winter/juden.png"
   },
   {
     name: "ミックファイア",
     fullname: "[ミックファイア] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/mickfire.png"
+    src: "../../../common/hellomeg/pine_nm/winter/mickfire.png"
   },
   {
     name: "モノクローム",
     fullname: "[モノクローム] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/monochrome.png"
+    src: "../../../common/hellomeg/pine_nm/winter/monochrome.png"
   },
   {
     name: "PRESSED",
     fullname: "[PRESSED] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/pressed.png"
+    src: "../../../common/hellomeg/pine_nm/winter/pressed.png"
   },
   {
     name: "ぷちはす",
     fullname: "[ぷちはす] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/puchihasu_hellomeg.png"
+    src: "../../../common/hellomeg/pine_nm/winter/puchihasu_hellomeg.png"
   },
   {
     name: "シャウト",
     fullname: "[シャウト] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/shout.png"
+    src: "../../../common/hellomeg/pine_nm/winter/shout.png"
   },
   {
     name: "うるうる",
     fullname: "[うるうる] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/uruuru.png"
+    src: "../../../common/hellomeg/pine_nm/winter/uruuru.png"
   },
   {
     name: "ドヤめぐ",
     fullname: "[ドヤめぐ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/doya.png"
+    src: "../../../common/hellomeg/pine_nm/winter/doya.png"
   },
   {
     name: "めがね",
     fullname: "[めがね] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/megane.png"
+    src: "../../../common/hellomeg/pine_nm/winter/megane.png"
   },
   {
     name: "アクスタ",
     fullname: "[アクスタ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/stand.png"
+    src: "../../../common/hellomeg/pine_nm/normal/stand.png"
   },
   {
     name: "あけおめ",
     fullname: "[あけおめ] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/akeomegu.png"
+    src: "../../../common/hellomeg/pine_nm/winter/akeomegu.png"
   },
   {
     name: "軍手",
     fullname: "[軍手] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/gunte.png"
+    src: "../../../common/hellomeg/pine_nm/winter/gunte.png"
   },
   {
     name: "カニ手羽",
     fullname: "[カニ手羽] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/kaniteba.png"
+    src: "../../../common/hellomeg/pine_nm/winter/kaniteba.png"
   },
   {
     name: "ハクション",
     fullname: "[ハクション] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hakushon.png"
+    src: "../../../common/hellomeg/pine_nm/winter/hakushon.png"
   },
   {
     name: "ドカ食い",
     fullname: "[ドカ食い] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/dokameg.png"
+    src: "../../../common/hellomeg/pine_nm/winter/dokameg.png"
   },
   {
     name: "NEWハロめぐ",
     fullname: "[ハロめぐー！] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hellomeg.png"
+    src: "../../../common/hellomeg/pine_nm/winter/assets/hellomeg.png"
   },
   {
     name: "NEWハクチュー",
     fullname: "[ハクチュー] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/hakuchu2.png"
+    src: "../../../common/hellomeg/pine_nm/normal/hakuchu2.png"
   },
   {
     name: "ジョーショーキリュー",
     fullname: "[ジョーショーキリュー] ハロめぐ",
     rarity: "SR",
-    src: "../../assets/jk.png"
+    src: "../../../common/hellomeg/pine_nm/winter/jk.png"
   },
 ];
 // URカード
@@ -160,7 +160,7 @@ const HELLOMEG_UR_CARD_LIST = [
     name: "めぐ島に入ろう",
     fullname: "[めぐ島に入ろう] ハロめぐ",
     rarity: "UR",
-    src: "../../assets/welcome.png",
+    src: "../../../common/hellomeg/pine_nm/special/welcome.png",
   },
 ];
 // ガチャ回した回数
