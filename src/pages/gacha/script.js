@@ -8,161 +8,9 @@ const HELLOMEG_R_CARD_LIST = [
   },
 ];
 // SRカード
-const HELLOMEG_SR_CARD_LIST = [
-  {
-    name: "ハクチュー",
-    fullname: "[ハクチュー] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hkc.png"
-  },
-  {
-    name: "フィーバー",
-    fullname: "[フィーバー] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/fever.png"
-  },
-  {
-    name: "宇宙猫",
-    fullname: "[宇宙猫] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/universe.png"
-  },
-  {
-    name: "ハロめぐだもん",
-    fullname: "[ハロめぐだもん] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/damon.png"
-  },
-  {
-    name: "ハロメグダヨ",
-    fullname: "[ハロメグダヨ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/haromegudayo.png"
-  },
-  {
-    name: "ハロめぐかも？",
-    fullname: "[ハロめぐかも？] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hellomegkamo.png"
-  },
-  {
-    name: "充電",
-    fullname: "[充電] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/juden.png"
-  },
-  {
-    name: "ミックファイア",
-    fullname: "[ミックファイア] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/mickfire.png"
-  },
-  {
-    name: "モノクローム",
-    fullname: "[モノクローム] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/monochrome.png"
-  },
-  {
-    name: "PRESSED",
-    fullname: "[PRESSED] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/pressed.png"
-  },
-  {
-    name: "ぷちはす",
-    fullname: "[ぷちはす] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/puchihasu_hellomeg.png"
-  },
-  {
-    name: "シャウト",
-    fullname: "[シャウト] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/shout.png"
-  },
-  {
-    name: "うるうる",
-    fullname: "[うるうる] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/uruuru.png"
-  },
-  {
-    name: "ドヤめぐ",
-    fullname: "[ドヤめぐ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/doya.png"
-  },
-  {
-    name: "めがね",
-    fullname: "[めがね] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/megane.png"
-  },
-  {
-    name: "アクスタ",
-    fullname: "[アクスタ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/stand.png"
-  },
-  {
-    name: "あけおめ",
-    fullname: "[あけおめ] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/akeomegu.png"
-  },
-  {
-    name: "軍手",
-    fullname: "[軍手] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/gunte.png"
-  },
-  {
-    name: "カニ手羽",
-    fullname: "[カニ手羽] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/kaniteba.png"
-  },
-  {
-    name: "ハクション",
-    fullname: "[ハクション] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hakushon.png"
-  },
-  {
-    name: "ドカ食い",
-    fullname: "[ドカ食い] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/dokameg.png"
-  },
-  {
-    name: "NEWハロめぐ",
-    fullname: "[ハロめぐー！] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hellomeg.png"
-  },
-  {
-    name: "NEWハクチュー",
-    fullname: "[ハクチュー] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/hakuchu2.png"
-  },
-  {
-    name: "ジョーショーキリュー",
-    fullname: "[ジョーショーキリュー] ハロめぐ",
-    rarity: "SR",
-    src: "../../assets/jk.png"
-  },
-];
+let HELLOMEG_SR_CARD_LIST = [];
 // URカード
-const HELLOMEG_UR_CARD_LIST = [
-  {
-    name: "めぐ島に入ろう",
-    fullname: "[めぐ島に入ろう] ハロめぐ",
-    rarity: "UR",
-    src: "../../assets/welcome.png",
-  },
-];
+let HELLOMEG_UR_CARD_LIST = [];
 // ガチャ回した回数
 let gachaCnt = 0;
 // URを引いた回数
@@ -485,3 +333,11 @@ const retry = () => {
   const hellomegImgElement = document.getElementById("helloMegImg").querySelector("img");
   viewModal(hellomegImgElement);
 }
+
+// マウント時に読み込む
+window.addEventListener('DOMContentLoaded', async () => {
+  const res = await fetch('https://hellomeg-assets.pages.dev/public/kiaiiretekonchikushow/gacha.json');
+  const cards = await res.json();
+  HELLOMEG_SR_CARD_LIST = cards.filter(card => card.rarity === 'SR');
+  HELLOMEG_UR_CARD_LIST = cards.filter(card => card.rarity === 'UR');
+});
