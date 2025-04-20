@@ -12,14 +12,14 @@ let HELLOMEG_SR_CARD_LIST = [];
 // URカード
 let HELLOMEG_UR_CARD_LIST = [];
 // カードの取得が完了しているか
-let initialiezedCards = false;
+let initializedCards = false;
 // ガチャ回した回数
 let gachaCnt = 0;
 // URを引いた回数
 let gachaUrCnt = 0;
 
 const viewModal = (hellomegImgElement) => {
-  if (!initialiezedCards) return;
+  if (!initializedCards) return;
 
   var modal = document.getElementById("myModal");
   var modalOverlay = document.getElementById("myModalOverlay");
@@ -345,7 +345,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const cards = await res.json();
     HELLOMEG_SR_CARD_LIST = cards.filter(card => card.rarity === 'SR');
     HELLOMEG_UR_CARD_LIST = cards.filter(card => card.rarity === 'UR');
-    initialiezedCards = true;
+    initializedCards = true;
   } catch (error) {
     console.error("Error fetching cards:", error);
     alert("カードの取得に失敗しためぐ。");
