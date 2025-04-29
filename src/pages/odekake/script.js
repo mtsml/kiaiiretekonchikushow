@@ -1,3 +1,71 @@
+// TODO: html にハードコードされているモデル情報を剥がして js で管理する
+const models = [
+  {
+    src: 'kyun.glb',
+    twitterId: 'hisaka033'
+  },
+  {
+    src: 'puku.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'akeomeg.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'jk.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'hakuchu.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'doya.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'plank.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'low.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'hellomeg.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'ramen.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'aa.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'katan.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'universe.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'damon.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'stand_megu.glb',
+    twitterId: 'pine_nm'
+  },
+  {
+    src: 'stand_ruri.glb',
+    twitterId: 'pine_nm'
+  },
+];
+
 let currentSlide = 0;
 
 function showSlide(index) {
@@ -12,7 +80,7 @@ function showSlide(index) {
   }
   slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-  const twitterId = slider.children[currentSlide].dataset.twitterId;
+  const twitterId = models[currentSlide].twitterId;
   const actionLabel = document.getElementById('action-label');
   actionLabel.innerText = `イラスト：@${twitterId}`;
   actionLabel.href = `https://twitter.com/${twitterId}`;
@@ -28,7 +96,7 @@ function prevSlide() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const twitterId = slider.children[currentSlide].dataset.twitterId;
+  const twitterId = models[currentSlide].twitterId;
   const actionLabel = document.getElementById('action-label');
   actionLabel.innerText = `イラスト：@${twitterId}`;
   actionLabel.href = `https://twitter.com/${twitterId}`;
