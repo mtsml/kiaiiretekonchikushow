@@ -11,6 +11,12 @@ function showSlide(index) {
     currentSlide = index;
   }
   slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  const twitterId = slider.children[index].dataset.twitterId;
+  const actionLabel = document.getElementById('action-label');
+  actionLabel.innerText = `イラスト：@${twitterId}`;
+  actionLabel.href = `https://twitter.com/${twitterId}`;
+  actionLabel.target = '_blank';
 }
 
 function nextSlide() {
@@ -20,3 +26,11 @@ function nextSlide() {
 function prevSlide() {
   showSlide(currentSlide - 1);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const twitterId = slider.children[currentSlide].dataset.twitterId;
+  const actionLabel = document.getElementById('action-label');
+  actionLabel.innerText = `イラスト：@${twitterId}`;
+  actionLabel.href = `https://twitter.com/${twitterId}`;
+  actionLabel.target = '_blank';
+});
