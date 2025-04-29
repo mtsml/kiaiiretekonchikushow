@@ -12,7 +12,7 @@ function showSlide(index) {
   }
   slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-  const twitterId = slider.children[index].dataset.twitterId;
+  const twitterId = slider.children[currentSlide].dataset.twitterId;
   const actionLabel = document.getElementById('action-label');
   actionLabel.innerText = `イラスト：@${twitterId}`;
   actionLabel.href = `https://twitter.com/${twitterId}`;
