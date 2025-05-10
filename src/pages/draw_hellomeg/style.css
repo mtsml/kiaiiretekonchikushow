@@ -57,11 +57,11 @@
 }
 
 .controls-options .c-icon {
-  height: 1.5rem;
-  padding: 0 0.5rem;
+  height: 1rem;
+  padding: 0 0.2rem;
 }
 
-.controls-options button:disabled .c-icon {
+.controls-options button:disabled {
   color: var(--color-fg-sub-sub);
 }
 

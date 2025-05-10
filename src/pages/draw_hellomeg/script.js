@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function startDrawing(e) {
     isDrawing = true;
     [lastX, lastY] = getCoordinates(e);
-    document.getElementById('clear').disabled = false;
     saveHistory();
   }
   
@@ -132,16 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCanvasFromDataURL(dataURL);
     updateButtonStates();
   }
-  
-  function clearCanvas() {
-    saveHistory();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // 背景を白に戻す
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    document.getElementById('clear').disabled = true;
-  }
-  
+    
   function loadCanvasFromDataURL(dataURL) {
     const img = new Image();
     img.onload = () => {
@@ -175,8 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // コントロールボタンのイベント設定
   document.getElementById('undo').addEventListener('click', undo);
   document.getElementById('redo').addEventListener('click', redo);
-  document.getElementById('clear').addEventListener('click', clearCanvas);
-  document.getElementById('clear').disabled = true;
   updateButtonStates();
 });
 
