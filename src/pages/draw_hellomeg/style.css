@@ -1,0 +1,76 @@
+#canvas {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: crosshair;
+  margin-bottom: 10px;
+  max-width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  touch-action: none;
+  border-radius: 8px;
+}
+
+.color-picker,
+.size-picker,
+.controls {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.color-options,
+.size-options,
+.controls-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-options input[type="radio"],
+.size-options input[type="radio"] {
+  display: none;
+}
+
+.color-options label {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.size-options label {
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.3;  
+}
+
+.color-options input[type="radio"]:checked + label {
+  opacity: 1;
+  border-color: var(--color-fg-sub-sub);
+}
+
+.size-options input[type="radio"]:checked + label {
+  opacity: 1;
+}
+
+.controls-options .c-icon {
+  height: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.controls-options button:disabled .c-icon {
+  color: var(--color-fg-sub-sub);
+}
+
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  #canvas {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+  }
+}
