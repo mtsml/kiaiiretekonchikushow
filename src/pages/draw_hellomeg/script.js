@@ -84,11 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // マウス/タッチ座標を取得
   function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let clientX, clientY;
+  
+    if (e.touches && e.touches[0]) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+  
+    const x = (clientX - rect.left) * (canvas.width / rect.width);
+    const y = (clientY - rect.top) * (canvas.height / rect.height);
     return [x, y];
   }
-
+  
   // 色ボタンのイベント設定
   document.querySelectorAll('input[name="color"]').forEach((radio) => {
     radio.addEventListener('change', () => {

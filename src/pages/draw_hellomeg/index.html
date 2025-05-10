@@ -58,52 +58,47 @@
   </header>
   <main>
     <div class="c-container">
-      <div class="drawing-container">
-        <canvas id="canvas" width="600" height="400"></canvas>
+      <canvas id="canvas" width="600" height="400"></canvas>
 
-        <div class="color-picker">
-          <div class="color-options">
-            <input type="radio" name="color" id="color1" value="#F8B500">
-            <label for="color1" style="background-color: #F8B500;"></label>
-            <input type="radio" name="color" id="color2" value="#5383C3">
-            <label for="color2" style="background-color: #5383C3;"></label>
-            <input type="radio" name="color" id="color3" value="#68BE8D">
-            <label for="color3" style="background-color: #68BE8D;"></label>
-            <input type="radio" name="color" id="color4" value="#BA2636">
-            <label for="color4" style="background-color: #BA2636;"></label>
-            <input type="radio" name="color" id="color5" value="#E7609E" checked>
-            <label for="color5" style="background-color: #E7609E;"></label>
-            <input type="radio" name="color" id="color6" value="#C8C2C6">
-            <label for="color6" style="background-color: #C8C2C6;"></label>
-            <input type="radio" name="color" id="color7" value="#a2d7dd">
-            <label for="color7" style="background-color: #a2d7dd;"></label>
-            <input type="radio" name="color" id="color8" value="#fad764">
-            <label for="color8" style="background-color: #fad764;"></label>
-            <input type="radio" name="color" id="color9" value="#9d8de2">
-            <label for="color9" style="background-color: #9d8de2;"></label>
-          </div>
+      <div class="color-picker">
+        <div class="color-options">
+          <input type="radio" name="color" id="color1" value="#F8B500">
+          <label for="color1" style="background-color: #F8B500;"></label>
+          <input type="radio" name="color" id="color2" value="#5383C3">
+          <label for="color2" style="background-color: #5383C3;"></label>
+          <input type="radio" name="color" id="color3" value="#68BE8D">
+          <label for="color3" style="background-color: #68BE8D;"></label>
+          <input type="radio" name="color" id="color4" value="#BA2636">
+          <label for="color4" style="background-color: #BA2636;"></label>
+          <input type="radio" name="color" id="color5" value="#E7609E" checked>
+          <label for="color5" style="background-color: #E7609E;"></label>
+          <input type="radio" name="color" id="color6" value="#C8C2C6">
+          <label for="color6" style="background-color: #C8C2C6;"></label>
+          <input type="radio" name="color" id="color7" value="#a2d7dd">
+          <label for="color7" style="background-color: #a2d7dd;"></label>
+          <input type="radio" name="color" id="color8" value="#fad764">
+          <label for="color8" style="background-color: #fad764;"></label>
+          <input type="radio" name="color" id="color9" value="#9d8de2">
+          <label for="color9" style="background-color: #9d8de2;"></label>
+          <input type="radio" name="color" id="color10" value="#ffffff">
+          <label for="color10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7L288 480l9.4 0L512 480c17.7 0 32-14.3 32-32s-14.3-32-32-32l-124.1 0L518.6 285.3c25-25 25-65.5 0-90.5L381.3 57.4c-25-25-65.5-25-90.5 0zM297.4 416l-9.4 0-105.4 0-80-80L227.3 211.3 364.7 348.7 297.4 416z"/></svg>
+          </label>
         </div>
-  
-        <div class="size-picker">
-          <div class="size-options">
-            <input type="radio" name="size" id="size-small" value="1">
-            <label for="size-small">ひかえめ</label>
-            <input type="radio" name="size" id="size-medium" value="5" checked>
-            <label for="size-medium">ほどほど</label>
-            <input type="radio" name="size" id="size-large" value="10">
-            <label for="size-large">クソデカ</label>
-          </div>
+      </div>
+
+      <div class="size-picker">
+        <div class="size-options">
+          <input type="radio" name="size" id="size-small" value="1">
+          <label for="size-small">ひかえめ</label>
+          <input type="radio" name="size" id="size-medium" value="5" checked>
+          <label for="size-medium">ほどほど</label>
+          <input type="radio" name="size" id="size-large" value="10">
+          <label for="size-large">クソデカ</label>
         </div>
       </div>
     </div>
     <div>
-      <p>
-        <button onclick="location.reload()">
-          <!-- Reload Icon -->
-          <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z"/></svg>
-          <span>リセット</span>
-        </button>
-      </p>
       <p>
         <button onclick="share()">
           <!-- Share Icon -->

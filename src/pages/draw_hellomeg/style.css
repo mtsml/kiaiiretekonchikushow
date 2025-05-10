@@ -1,12 +1,3 @@
-/* 描画関連のスタイル */
-.drawing-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px auto;
-  max-width: 100%;
-}
-
 #canvas {
   border: 1px solid #ccc;
   background-color: #fff;
@@ -25,6 +16,7 @@
 .color-options, .size-options {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
