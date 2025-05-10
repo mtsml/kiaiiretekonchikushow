@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastY = 0;
   let currentColor = '#E7609E';
   let currentSize = 5;
- 
+
   // キャンバスを白色で初期化
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function startDrawing(e) {
     isDrawing = true;
     [lastX, lastY] = getCoordinates(e);
+    document.getElementById('clear').disabled = false;
+    saveHistory();
   }
   
   // 描画中
@@ -98,7 +100,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const y = (clientY - rect.top) * (canvas.height / rect.height);
     return [x, y];
   }
+
+  const historyStack = [];
+  const redoStack = [];
+  const maxHistory = 20;
+
+  function saveHistory() {
+    if (historyStack.length >= maxHistory) {
+      historyStack.shift();
+    }
+    historyStack.push(canvas.toDataURL());
+    // undo したあとに描き直したら redo は無効になる
+    redoStack.length = 0;
+    updateButtonStates();
+  }
   
+  function undo() {
+    if (historyStack.length === 0) return;
+  
+    redoStack.push(canvas.toDataURL()); // 現在の状態を redo 用に保存
+    const dataURL = historyStack.pop();
+    loadCanvasFromDataURL(dataURL);
+    updateButtonStates();
+  }
+  
+  function redo() {
+    if (redoStack.length === 0) return;
+  
+    historyStack.push(canvas.toDataURL()); // redo 時にも履歴保存
+    const dataURL = redoStack.pop();
+    loadCanvasFromDataURL(dataURL);
+    updateButtonStates();
+  }
+  
+  function clearCanvas() {
+    saveHistory();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 背景を白に戻す
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('clear').disabled = true;
+  }
+  
+  function loadCanvasFromDataURL(dataURL) {
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = dataURL;
+  }
+
+  function updateButtonStates() {
+    document.getElementById('undo').disabled = historyStack.length === 0;
+    document.getElementById('redo').disabled = redoStack.length === 0;
+  }
+
   // 色ボタンのイベント設定
   document.querySelectorAll('input[name="color"]').forEach((radio) => {
     radio.addEventListener('change', () => {
@@ -114,6 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
       currentSize = size;
     });
   });
+
+  // コントロールボタンのイベント設定
+  document.getElementById('undo').addEventListener('click', undo);
+  document.getElementById('redo').addEventListener('click', redo);
+  document.getElementById('clear').addEventListener('click', clearCanvas);
+  document.getElementById('clear').disabled = true;
+  updateButtonStates();
 });
 
 /**
