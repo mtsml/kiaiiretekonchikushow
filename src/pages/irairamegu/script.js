@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ボール設定
   const ballRadius = 15;
   let ballX, ballY;
-  const sensitivity = 0.1; // 傾きの感度
+  let ballVelocityX = 0;
+  let ballVelocityY = 0;
+  const acceleration = 0.05; // 加速度係数
+  const friction = 0.98; // 摩擦係数（1未満の値）
+  const bounce = 0.7; // 反発係数（1未満の値）
   
   // キャンバスのサイズ設定
   function setupCanvas() {
@@ -34,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ballX = canvasSize.width / 2;
     ballY = canvasSize.height / 2;
     
+    // 速度をリセット
+    ballVelocityX = 0;
+    ballVelocityY = 0;
+    
     // 初期描画
     drawGame();
     
@@ -54,6 +62,38 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.closePath();
   }
   
+  // ボールの移動処理
+  function moveBall() {
+    // 速度に基づいてボールを移動
+    ballX += ballVelocityX;
+    ballY += ballVelocityY;
+    
+    // 摩擦による減速
+    ballVelocityX *= friction;
+    ballVelocityY *= friction;
+    
+    // 速度が非常に小さい場合は0にする（停止）
+    if (Math.abs(ballVelocityX) < 0.01) ballVelocityX = 0;
+    if (Math.abs(ballVelocityY) < 0.01) ballVelocityY = 0;
+    
+    // 壁との衝突判定と反発
+    if (ballX - ballRadius < 0) {
+      ballX = ballRadius;
+      ballVelocityX = -ballVelocityX * bounce;
+    } else if (ballX + ballRadius > canvas.width) {
+      ballX = canvas.width - ballRadius;
+      ballVelocityX = -ballVelocityX * bounce;
+    }
+    
+    if (ballY - ballRadius < 0) {
+      ballY = ballRadius;
+      ballVelocityY = -ballVelocityY * bounce;
+    } else if (ballY + ballRadius > canvas.height) {
+      ballY = canvas.height - ballRadius;
+      ballVelocityY = -ballVelocityY * bounce;
+    }
+  }
+  
   // 加速度センサーのイベントハンドラ
   function handleOrientation(event) {
     // ベータ（前後の傾き）とガンマ（左右の傾き）を取得
@@ -61,26 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const gamma = event.gamma; // -90〜90の範囲（左右）
     
     if (beta !== null && gamma !== null) {
-      // 傾きに基づいてボールの位置を直接更新
-      // 値を制限して急激な動きを防止
+      // 傾きに基づいて加速度を計算
       const maxTilt = 10;
       const limitedBeta = Math.max(-maxTilt, Math.min(maxTilt, beta));
       const limitedGamma = Math.max(-maxTilt, Math.min(maxTilt, gamma));
       
-      // Y軸（前後）の移動
-      ballY += limitedBeta * sensitivity;
-      
-      // X軸（左右）の移動
-      ballX += limitedGamma * sensitivity;
-      
-      // ボールがキャンバスの外に出ないように制限
-      ballX = Math.max(ballRadius, Math.min(canvas.width - ballRadius, ballX));
-      ballY = Math.max(ballRadius, Math.min(canvas.height - ballRadius, ballY));
+      // 加速度を速度に加算
+      ballVelocityY += limitedBeta * acceleration;
+      ballVelocityX += limitedGamma * acceleration;
     }
   }
   
   // ゲームループ
   function gameLoop() {
+    moveBall();
     drawGame();
     requestAnimationFrame(gameLoop);
   }
