@@ -298,6 +298,10 @@ const drawCanvas = (cards) => {
       img.onload = () => resolve(img);
       img.onerror = reject;
       img.src = card.src;
+      // 外部画像を描画すると canvas が tainted となり、toBlob が使えなくなるため、crossOrigin を設定する
+      if (!isSameOrigin(card.src)) {
+        img.crossOrigin = "anonymous";
+      }
     });
     const dx = index < 5
       ? padding + (cardWidth + padding) * index        // 1行目
@@ -314,6 +318,20 @@ const drawCanvas = (cards) => {
   });
 
   return canvas;
+}
+
+/**
+ * 指定された URL が現在のページと同一オリジンかどうかを判定する
+ */
+const isSameOrigin = (src) => {
+  try {
+    // src が相対パスの場合は、現在のページの URL を基準にして絶対パスを生成する
+    const url = new URL(src, window.location.href);
+    return url.origin === window.location.origin;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 }
 
 /**
