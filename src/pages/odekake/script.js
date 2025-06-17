@@ -1,81 +1,81 @@
 const models = [
   {
-    src: 'kyun.glb',
+    src: '../../assets/models/kyun.glb',
     alt: 'kyun 3D model',
     twitterId: 'hisaka033'
   },
   {
-    src: 'puku.glb',
+    src: '../../assets/models/puku.glb',
     alt: 'puku 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'akeomeg.glb',
+    src: '../../assets/models/akeomeg.glb',
     alt: 'akeomeg 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'jk.glb',
+    src: '../../assets/models/jk.glb',
     alt: 'jk 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'hakuchu.glb',
+    src: '../../assets/models/hakuchu.glb',
     alt: 'hakuchu 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'doya.glb',
+    src: '../../assets/models/doya.glb',
     alt: 'doya 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'plank.glb',
+    src: '../../assets/models/plank.glb',
     alt: 'plank 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'low.glb',
+    src: '../../assets/models/low.glb',
     alt: 'low 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'hellomeg.glb',
+    src: '../../assets/models/hellomeg.glb',
     alt: 'hellomeg 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'ramen.glb',
+    src: '../../assets/models/ramen.glb',
     alt: 'ramen 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'aa.glb',
+    src: '../../assets/models/aa.glb',
     alt: 'aa 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'katan.glb',
+    src: '../../assets/models/katan.glb',
     alt: 'katan 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'universe.glb',
+    src: '../../assets/models/universe.glb',
     alt: 'universe 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'damon.glb',
+    src: '../../assets/models/damon.glb',
     alt: 'damon 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'stand_megu.glb',
+    src: '../../assets/models/stand_megu.glb',
     alt: 'stand_megu 3D model',
     twitterId: 'pine_nm'
   },
   {
-    src: 'stand_ruri.glb',
+    src: '../../assets/models/stand_ruri.glb',
     alt: 'stand_ruri 3D model',
     twitterId: 'pine_nm'
   },
