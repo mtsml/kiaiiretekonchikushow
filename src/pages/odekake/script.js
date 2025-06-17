@@ -92,6 +92,14 @@ function isAndroid() {
   return /Android/i.test(navigator.userAgent);
 }
 
+function updateActionLabel() {
+  const twitterId = models[currentSlide].twitterId;
+  const actionLabel = document.getElementById('action-label');
+  actionLabel.innerText = `イラスト：@${twitterId}`;
+  actionLabel.href = `https://twitter.com/${twitterId}`;
+  actionLabel.target = '_blank';
+}
+
 function showSlide(index) {
   const slider = document.getElementById('slider');
   const totalSlides = slider.children.length;
@@ -104,11 +112,7 @@ function showSlide(index) {
   }
   slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-  const twitterId = models[currentSlide].twitterId;
-  const actionLabel = document.getElementById('action-label');
-  actionLabel.innerText = `イラスト：@${twitterId}`;
-  actionLabel.href = `https://twitter.com/${twitterId}`;
-  actionLabel.target = '_blank';
+  updateActionLabel();
 }
 
 function nextSlide() {
@@ -138,10 +142,5 @@ function initializeModelViewers() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeModelViewers();
-  
-  const twitterId = models[currentSlide].twitterId;
-  const actionLabel = document.getElementById('action-label');
-  actionLabel.innerText = `イラスト：@${twitterId}`;
-  actionLabel.href = `https://twitter.com/${twitterId}`;
-  actionLabel.target = '_blank';
+  updateActionLabel();
 });
