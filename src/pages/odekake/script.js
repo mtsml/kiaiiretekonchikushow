@@ -95,7 +95,7 @@ const models = [
   },
 ];
 let currentSlide = 0;
-let cameraArModeEnabled = true;
+let cameraArModeEnabled = false;
 
 /**
  * Andorid 判定
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // - カメラ機能付きの AR Viewer である scene-viewer のオンオフ `cameraArModeEnabled` をチェックボックスで切り替える
     // - チェックボックスの値は localStorage に保存して次回読み込み時に復元する
 
-    loadCameraArModeSettings();
+    cameraArModeEnabled = loadCameraArModeSettings();
 
     const toggleContainer = document.getElementById('ar-toggle-container');
     const toggleCheckbox = /** @type {HTMLInputElement | null} */ (document.getElementById('ar-modes-toggle'));
