@@ -83,6 +83,15 @@ const models = [
 
 let currentSlide = 0;
 
+function isAndroid() {
+  // Client Hints を優先、フォールバックで User-Agent を使用
+  // ref: https://developer.mozilla.org/ja/docs/Web/API/User-Agent_Client_Hints_API
+  if (navigator.userAgentData) {
+    return /Android/i.test(navigator.userAgentData.platform);
+  }
+  return /Android/i.test(navigator.userAgent);
+}
+
 function showSlide(index) {
   const slider = document.getElementById('slider');
   const totalSlides = slider.children.length;
@@ -120,6 +129,9 @@ function initializeModelViewers() {
     modelViewer.alt = model.alt;
     modelViewer.setAttribute('camera-controls', '');
     modelViewer.setAttribute('ar', '');
+    if (isAndroid()) {
+      modelViewer.setAttribute('ar-modes', 'scene-viewer quick-look');
+    }
     slider.appendChild(modelViewer);
   });
 }
