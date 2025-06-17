@@ -1,4 +1,3 @@
-// TODO: html にハードコードされているモデル情報を剥がして js で管理する
 const models = [
   {
     src: 'kyun.glb',
@@ -95,7 +94,23 @@ function prevSlide() {
   showSlide(currentSlide - 1);
 }
 
+function initializeSlider() {
+  const slider = document.getElementById('slider');
+  slider.innerHTML = '';
+  
+  models.forEach((model) => {
+    const modelViewer = document.createElement('model-viewer');
+    modelViewer.src = model.src;
+    modelViewer.alt = `${model.src.replace('.glb', '')} 3D model`;
+    modelViewer.setAttribute('camera-controls', '');
+    modelViewer.setAttribute('ar', '');
+    slider.appendChild(modelViewer);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initializeSlider();
+  
   const twitterId = models[currentSlide].twitterId;
   const actionLabel = document.getElementById('action-label');
   actionLabel.innerText = `イラスト：@${twitterId}`;
