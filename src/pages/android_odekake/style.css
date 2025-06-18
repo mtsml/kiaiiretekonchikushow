@@ -1,0 +1,37 @@
+.action {
+  width: 300px;
+  min-height: 50px;
+  margin: 8px auto 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action_button {
+  padding: 0px 4px;
+}
+
+.action_label {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.action_angleIcon {
+  height: 32px;
+  fill: var(--color-fg-sub);
+}
+
+.c-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.slider > model-viewer {
+  min-width: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
+}
