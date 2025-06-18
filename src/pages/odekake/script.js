@@ -104,7 +104,6 @@ let cameraArModeEnabled = false;
  * - @see https://developer.mozilla.org/ja/docs/Web/API/User-Agent_Client_Hints_API
  */
 function isAndroid() {
-  return true
   // @ts-ignore userAgentData が認識されないため ignore
   if (navigator.userAgentData) {
     // @ts-ignore userAgentData が認識されないため ignore
