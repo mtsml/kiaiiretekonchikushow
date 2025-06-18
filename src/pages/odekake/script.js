@@ -1,7 +1,7 @@
 // @ts-check
 // このアノテーションは TypeScript の型チェックを JavaScript ファイルに適用するためのコメントである
 // このファイルでは試験的に TypeScript の型チェックを有効にしている
-// 型チェックでエラーによるエラーの解消が難しい場合、@ts-check を削除してもよい
+// 型チェックによるエラーの解消が難しい場合は @ts-check を削除してもよい
 
 const LOCAL_STORAGE_KEY = 'odekake/cameraArModeEnabled';
 
