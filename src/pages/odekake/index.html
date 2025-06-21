@@ -67,102 +67,6 @@
   <main>
     <div class="c-container">
       <div class="slider" id="slider">
-        <model-viewer
-          src="kyun.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="puku.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="akeomeg.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="jk.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="hakuchu.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="doya.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="plank.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="low.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="hellomeg.glb"
-          alt="hellomeg 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="ramen.glb"
-          alt="ramen 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="aa.glb"
-          alt="aa 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="katan.glb"
-          alt="katan 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="universe.glb"
-          alt="universe 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="damon.glb"
-          alt="damon 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="stand_megu.glb"
-          alt="stand_megu 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
-        <model-viewer
-          src="stand_ruri.glb"
-          alt="stand_ruri 3D model"
-          camera-controls
-          ar
-        ></model-viewer>
       </div>
     </div>
     <div class="action">
@@ -173,7 +77,7 @@
         <svg class="action_angleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
       </button>
       <a
-        id="action-label"
+        id="twitter-link"
         class="action_label"
       >
       </a>
@@ -184,11 +88,12 @@
         <svg class="action_angleIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
       </button>
     </div>
-    <p>
-      <a href="../android_odekake/">
-        Android でうまく表示されない場合はこちらも試してみてね
-      </a>
-    </p>
+    <div id="ar-toggle-container" class="ar-toggle-container" style="display: none;">
+      <label class="ar-toggle-label">
+        <input type="checkbox" id="ar-modes-toggle" class="ar-toggle-checkbox">
+        <span class="ar-toggle-text">カメラ付き AR Viewer を利用する</span>
+      </label>
+    </div>
     <p>
       それっぽいボタンを押してAR表示を楽しんでね<br>
       スマホじゃないと遊べないよ<br>

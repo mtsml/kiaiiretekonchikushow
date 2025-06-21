@@ -35,3 +35,23 @@
   min-height: 300px;
   box-sizing: border-box;
 }
+
+.ar-toggle-container {
+  margin: 16px auto;
+  text-align: center;
+}
+
+.ar-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ar-toggle-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-fg-sub);
+}
