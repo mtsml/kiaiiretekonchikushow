@@ -82,7 +82,9 @@ function imageToGlb(imageDataUrl, width, height) {
                 baseColorTexture: { index: 0 },
                 metallicFactor: 0,
                 roughnessFactor: 1
-              }
+              },
+              alphaMode: "BLEND",
+              doubleSided: true
             }],
             textures: [{ source: 0 }],
             images: [{
