@@ -211,7 +211,10 @@ function imageToGlb(imageDataUrl, width, height) {
   });
 }
 
-function handleImageUpload(file) {
+function handleImageUpload(event) {
+  if (!event.target.files || !event.target.files[0]) return;
+
+  const file = event.target.files[0];
   const reader = new FileReader();
   const uploadContainer = document.getElementById('upload-container');
   const viewerContainer = document.getElementById('viewer-container');
@@ -249,5 +252,4 @@ document.addEventListener('DOMContentLoaded', () => {
       handleImageUpload(e.target.files[0]);
     }
   });
-  
 });
