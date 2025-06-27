@@ -158,10 +158,16 @@ function imageToGlb(imageDataUrl, width, height) {
           };
           
           const gltfString = JSON.stringify(gltf);
-          const gltfBuffer = new TextEncoder().encode(gltfString);
+          let gltfBuffer = new TextEncoder().encode(gltfString);
           
-          while (gltfBuffer.byteLength % 4 !== 0) {
-            gltfBuffer[gltfBuffer.byteLength] = 0x20;
+          const padding = (4 - (gltfBuffer.byteLength % 4)) % 4;
+          if (padding > 0) {
+            const paddedBuffer = new Uint8Array(gltfBuffer.byteLength + padding);
+            paddedBuffer.set(gltfBuffer);
+            for (let i = 0; i < padding; i++) {
+              paddedBuffer[gltfBuffer.byteLength + i] = 0x20;
+            }
+            gltfBuffer = paddedBuffer;
           }
           
           const glbByteLength = 12 + 8 + gltfBuffer.byteLength + 8 + totalByteLength;
