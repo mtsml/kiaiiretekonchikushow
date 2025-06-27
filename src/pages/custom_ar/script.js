@@ -44,9 +44,9 @@ function imageToGlb(imageDataUrl, width, height) {
     img.onload = () => {
       ctx.drawImage(img, 0, 0);
       canvas.toBlob((blob) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const imageBuffer = reader.result;
+        const blobReader = new FileReader();
+        blobReader.onload = () => {
+          const imageBuffer = blobReader.result;
           
           const buffers = [
             positionBuffer,
@@ -205,20 +205,20 @@ function imageToGlb(imageDataUrl, width, height) {
           const glbUrl = URL.createObjectURL(glbBlob);
           
           // Convert blob to base64 for localStorage
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const base64data = reader.result;
+          const storageReader = new FileReader();
+          storageReader.onloadend = () => {
+            const base64data = storageReader.result;
             try {
               localStorage.setItem(LOCAL_STORAGE_KEY, base64data);
             } catch (e) {
               console.warn('Failed to save model to localStorage:', e);
             }
           };
-          reader.readAsDataURL(glbBlob);
+          storageReader.readAsDataURL(glbBlob);
           
           resolve(glbUrl);
         };
-        reader.readAsArrayBuffer(blob);
+        blobReader.readAsArrayBuffer(blob);
       }, 'image/png');
     };
     img.src = imageDataUrl;
