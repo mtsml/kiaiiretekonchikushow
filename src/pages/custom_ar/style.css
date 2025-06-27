@@ -21,10 +21,6 @@
   background-color: var(--color-bg-tertiary);
 }
 
-.upload-area.dragover {
-  border-color: var(--color-primary);
-  background-color: var(--color-bg-tertiary);
-}
 
 .upload-icon {
   width: 48px;
