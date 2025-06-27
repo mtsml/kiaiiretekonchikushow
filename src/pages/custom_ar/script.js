@@ -1,4 +1,5 @@
 let currentGlbUrl = null;
+const LOCAL_STORAGE_KEY = 'custom_ar/savedModel';
 
 function imageToGlb(imageDataUrl, width, height) {
   const aspectRatio = width / height;
@@ -202,6 +203,19 @@ function imageToGlb(imageDataUrl, width, height) {
           
           const glbBlob = new Blob([glb], { type: 'model/gltf-binary' });
           const glbUrl = URL.createObjectURL(glbBlob);
+          
+          // Convert blob to base64 for localStorage
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64data = reader.result;
+            try {
+              localStorage.setItem(LOCAL_STORAGE_KEY, base64data);
+            } catch (e) {
+              console.warn('Failed to save model to localStorage:', e);
+            }
+          };
+          reader.readAsDataURL(glbBlob);
+          
           resolve(glbUrl);
         };
         reader.readAsArrayBuffer(blob);
@@ -241,3 +255,35 @@ function handleFileUpload(event) {
   
   reader.readAsDataURL(file);
 }
+
+function loadSavedModel() {
+  try {
+    const savedModel = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (savedModel) {
+      const uploadContainer = document.getElementById('upload-container');
+      const viewerContainer = document.getElementById('viewer-container');
+      const modelViewer = document.getElementById('model-viewer');
+      
+      // Convert base64 back to blob
+      fetch(savedModel)
+        .then(res => res.blob())
+        .then(blob => {
+          const glbUrl = URL.createObjectURL(blob);
+          if (currentGlbUrl) {
+            URL.revokeObjectURL(currentGlbUrl);
+          }
+          currentGlbUrl = glbUrl;
+          
+          modelViewer.src = glbUrl;
+          uploadContainer.style.display = 'none';
+          viewerContainer.style.display = 'block';
+        });
+    }
+  } catch (e) {
+    console.warn('Failed to load saved model:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSavedModel();
+});
