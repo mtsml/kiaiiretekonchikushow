@@ -211,7 +211,7 @@ function imageToGlb(imageDataUrl, width, height) {
   });
 }
 
-function handleImageUpload(event) {
+function handleFileUpload(event) {
   if (!event.target.files || !event.target.files[0]) return;
 
   const file = event.target.files[0];
@@ -241,15 +241,3 @@ function handleImageUpload(event) {
   
   reader.readAsDataURL(file);
 }
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const imageInput = document.getElementById('image-upload');
-  
-  imageInput.addEventListener('change', (e) => {
-    if (e.target.files && e.target.files[0]) {
-      handleImageUpload(e.target.files[0]);
-    }
-  });
-});
