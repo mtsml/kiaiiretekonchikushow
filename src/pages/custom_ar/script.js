@@ -278,10 +278,15 @@ function loadSavedModel() {
           uploadContainer.style.display = 'none';
           viewerContainer.style.display = 'block';
         });
+      
+      return;
     }
   } catch (e) {
     console.warn('Failed to load saved model:', e);
   }
+
+  const uploadContainer = document.getElementById('upload-container');
+  uploadContainer.style.display = 'block';
 }
 
 function changeModel() {
