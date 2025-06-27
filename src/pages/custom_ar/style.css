@@ -1,0 +1,123 @@
+.upload-container {
+  margin: 2rem 0;
+}
+
+.upload-label {
+  display: block;
+  cursor: pointer;
+}
+
+.upload-area {
+  border: 3px dashed var(--color-grey);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: var(--color-bg-secondary);
+}
+
+.upload-area:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-tertiary);
+}
+
+.upload-area.dragover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-tertiary);
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.upload-hint {
+  font-size: 0.875rem;
+  color: var(--color-grey);
+  margin-top: 0.5rem;
+}
+
+.viewer-container {
+  margin: 2rem 0;
+}
+
+model-viewer {
+  width: 100%;
+  height: 400px;
+  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+}
+
+.controls {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.reset-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.info {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+}
+
+.info h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.info ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.info li {
+  margin-bottom: 0.5rem;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: var(--color-grey);
+  line-height: 1.6;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--color-grey);
+}
+
+.loading::after {
+  content: "変換中...";
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: "変換中.";
+  }
+  40% {
+    content: "変換中..";
+  }
+  60%, 100% {
+    content: "変換中...";
+  }
+}

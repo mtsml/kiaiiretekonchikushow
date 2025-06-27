@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="og:title" content="カスタムAR | めぐ島">
+  <meta name="og:url" content="https://kiaiiretekonchiku.show/custom_ar/">
+  <meta name="og:image" content="https://kiaiiretekonchiku.show/assets/logo-512x512.png">
+  <meta name="og:type" content="website">
+  <meta name="og:site_name" content="めぐ島">
+  <meta name="twitter:card" content="summary">
+  <meta name="description" content="画像をアップロードしてARで表示しよう！">
+  <link rel="icon" href="../../assets/favicon.ico">
+  <link rel="apple-touch-icon" href="../../assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../global.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0LRB16S0GH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0LRB16S0GH');
+  </script>
+  <script
+    type="module"
+    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
+  ></script>
+  <script src="./script.js"></script>
+  <title>カスタムAR | めぐ島</title>
+</head>
+<body>
+  <header>
+    <nav class="c-breadcrumb">
+      <a href="../_root/index.html">
+        <!-- ChevronLeft Icon -->
+        <svg class="c-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+        <span>めぐ島🏝️</span>
+      </a>
+    </nav>
+    <h1>
+      カスタムAR
+    </h1>
+  </header>
+  <main>
+    <div class="upload-container" id="upload-container">
+      <label for="image-upload" class="upload-label">
+        <div class="upload-area">
+          <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM155.3 182.6c-3.1-8.8-3.7-18.4-.9-27.8s8.8-17.1 17.6-21.9l104-56c8.4-4.5 18.7-4.2 26.9 .9s13.7 14.3 14.5 23.5l24 272c.8 9.4-3.1 18.7-10.4 24.4s-17 7.2-25.8 4.1l-104-36c-8.8-3.1-16.4-9.1-21.2-17s-6.4-17.3-4.4-26.1l16.4-72L119.7 303l-16.4 72c-2.1 9.1-8.2 16.9-16.4 21s-17.9 4.7-26.5 1.6l-80-28c-8.6-3-15.6-9.3-19.3-17.5s-3.5-17.6 .4-25.6l152-312zm28.2 67.9c.8 1 1.3 2.1 1.6 3.3l7.5 33.1L248.5 256l25.3-4.2 18.2-3-13.6-154.3L199 144.5l15.1 65.6 1.4 6.2zM48 360l30.2 10.6L96 288 48 360z"/></svg>
+          <p>画像をアップロード</p>
+          <p class="upload-hint">クリックまたはドラッグ＆ドロップ</p>
+        </div>
+        <input type="file" id="image-upload" accept="image/*" style="display: none;">
+      </label>
+    </div>
+    
+    <div class="viewer-container" id="viewer-container" style="display: none;">
+      <model-viewer
+        id="model-viewer"
+        camera-controls
+        ar
+        alt="Custom 3D model"
+      ></model-viewer>
+      
+      <div class="controls">
+        <button class="reset-button" onclick="resetModel()">
+          別の画像をアップロード
+        </button>
+      </div>
+    </div>
+
+    <div class="info">
+      <h2>使い方</h2>
+      <ol>
+        <li>画像をアップロード</li>
+        <li>自動的に3Dモデルに変換されます</li>
+        <li>ARボタンを押して現実世界に表示</li>
+      </ol>
+      <p class="note">
+        ※ 対応形式: JPG, PNG, GIF<br>
+        ※ スマートフォンでのご利用を推奨<br>
+        ※ AR表示は対応端末のみ
+      </p>
+    </div>
+  </main>
+</body>
+</html>
