@@ -48,6 +48,26 @@ model-viewer {
 
 
 
+.controls {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.change-button {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
+}
+
+.change-button:hover {
+  background-color: var(--color-bg-tertiary);
+}
+
 .loading {
   display: flex;
   align-items: center;

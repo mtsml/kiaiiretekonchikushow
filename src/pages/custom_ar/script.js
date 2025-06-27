@@ -284,6 +284,38 @@ function loadSavedModel() {
   }
 }
 
+function changeModel() {
+  const uploadContainer = document.getElementById('upload-container');
+  const viewerContainer = document.getElementById('viewer-container');
+  
+  // Reset upload container
+  uploadContainer.innerHTML = `
+    <label for="image-upload-change" class="upload-label">
+      <div class="upload-area">
+        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM155.3 182.6c-3.1-8.8-3.7-18.4-.9-27.8s8.8-17.1 17.6-21.9l104-56c8.4-4.5 18.7-4.2 26.9 .9s13.7 14.3 14.5 23.5l24 272c.8 9.4-3.1 18.7-10.4 24.4s-17 7.2-25.8 4.1l-104-36c-8.8-3.1-16.4-9.1-21.2-17s-6.4-17.3-4.4-26.1l16.4-72L119.7 303l-16.4 72c-2.1 9.1-8.2 16.9-16.4 21s-17.9 4.7-26.5 1.6l-80-28c-8.6-3-15.6-9.3-19.3-17.5s-3.5-17.6 .4-25.6l152-312zm28.2 67.9c.8 1 1.3 2.1 1.6 3.3l7.5 33.1L248.5 256l25.3-4.2 18.2-3-13.6-154.3L199 144.5l15.1 65.6 1.4 6.2zM48 360l30.2 10.6L96 288 48 360z"/></svg>
+        <p>画像をアップロード</p>
+        <p class="upload-hint">クリックして選択</p>
+      </div>
+      <input
+        id="image-upload-change"
+        type="file"
+        accept="image/*"
+        style="display: none;"
+        onchange="handleFileUpload(event)"
+      >
+    </label>
+  `;
+  
+  uploadContainer.style.display = 'block';
+  viewerContainer.style.display = 'none';
+  
+  // Clean up old blob URL
+  if (currentGlbUrl) {
+    URL.revokeObjectURL(currentGlbUrl);
+    currentGlbUrl = null;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadSavedModel();
 });
