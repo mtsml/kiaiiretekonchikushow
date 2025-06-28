@@ -3,7 +3,7 @@ const LOCAL_STORAGE_KEY = 'custom_ar/savedModel';
 
 function imageToGlb(imageDataUrl, width, height) {
   const aspectRatio = width / height;
-  const scale = 0.5;
+  const scale = 0.1;
   const planeWidth = (aspectRatio > 1 ? 1 : aspectRatio) * scale;
   const planeHeight = (aspectRatio > 1 ? 1 / aspectRatio : 1) * scale;
   
