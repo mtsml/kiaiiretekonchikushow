@@ -3,8 +3,9 @@ const LOCAL_STORAGE_KEY = 'custom_ar/savedModel';
 
 function imageToGlb(imageDataUrl, width, height) {
   const aspectRatio = width / height;
-  const planeWidth = aspectRatio > 1 ? 1 : aspectRatio;
-  const planeHeight = aspectRatio > 1 ? 1 / aspectRatio : 1;
+  const scale = 0.5;
+  const planeWidth = (aspectRatio > 1 ? 1 : aspectRatio) * scale;
+  const planeHeight = (aspectRatio > 1 ? 1 / aspectRatio : 1) * scale;
   
   const positions = new Float32Array([
     -planeWidth/2, -planeHeight/2, 0,
