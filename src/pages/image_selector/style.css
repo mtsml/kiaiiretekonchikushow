@@ -1,0 +1,113 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.image-item {
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.image-item:hover {
+    transform: scale(1.05);
+}
+
+.image-item.selected {
+    border-color: #007AFF;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.check-mark {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background-color: #007AFF;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+}
+
+.image-item.selected .check-mark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.selection-info {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#selection-count {
+    font-weight: bold;
+    color: #007AFF;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #0051D5;
+}
+
+.submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 400px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
