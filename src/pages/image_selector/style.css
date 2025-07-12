@@ -21,6 +21,9 @@
   width: 100%;
   height: auto;
   display: block;
+  /* 画像のアスペクト比を固定してレイアウトシフトを防ぐ */
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
 }
 
 .check-mark {
