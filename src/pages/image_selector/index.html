@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像選択 - めぐ島</title>
+    <link rel="stylesheet" href="https://unpkg.com/ress@5.0.2/dist/ress.min.css">
+    <link rel="stylesheet" href="../../global.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>間違いのあるハロめぐをすべて選択してください</h1>        
+        <div class="image-grid">
+            <div class="image-item" data-image-id="1">
+                <img src="../../assets/akeomegu.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+            <div class="image-item" data-image-id="2">
+                <img src="../../assets/gao.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+            <div class="image-item" data-image-id="3">
+                <img src="../../assets/comike104.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+            <div class="image-item" data-image-id="4">
+                <img src="../../assets/damon.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+            <div class="image-item" data-image-id="5">
+                <img src="../../assets/dokameg.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+            <div class="image-item" data-image-id="6">
+                <img src="../../assets/doya.png" alt="画像1">
+                <div class="check-mark">✓</div>
+            </div>
+        </div>
+        
+        <div class="selection-info">
+            <span id="selection-count">0</span>個選択中
+        </div>
+        
+        <button class="submit-button" disabled>
+            送信する
+        </button>
+    </div>
+    
+    <script src="./script.js"></script>
+</body>
+</html>
