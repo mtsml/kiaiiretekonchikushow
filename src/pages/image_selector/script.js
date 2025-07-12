@@ -44,9 +44,9 @@ const submitSelection = async () => {
   const correctHash = '43f78d1e707b93cfac8d2dde7a13530fd77a5ad7a6a06ca6839851dc5746c107';
   
   if (hash === correctHash) {
-    showResult(true);
+    await showResult(true);
   } else {
-    showResult(false);
+    await showResult(false);
   }
 };
 
@@ -68,10 +68,46 @@ const generateHash = async (text) => {
  * 結果を表示する
  * @param {boolean} isCorrect - 正解かどうか
  */
-const showResult = (isCorrect) => {
-  const result = document.getElementById('result');
-  result.className = isCorrect ? 'result success' : 'result error';
-  result.textContent = isCorrect 
-    ? `正解です！` 
-    : `残念...もう一度挑戦してみてください`;
+const showResult = async (isCorrect) => {
+  const dialog = isCorrect
+    ? document.getElementById('success-dialog')
+    : document.getElementById('failure-dialog');  
+
+  if (isCorrect) {
+    const link = document.getElementById('success-link');
+    // ソルトを追加して画像URLを生成
+    const imageUrl = await generateImageUrl();
+    link.href = imageUrl;
+  }
+
+  dialog.showModal();
+};
+
+/**
+ * 正解画像のURLを動的に生成する
+ * @returns {Promise<string>} 画像のURL
+ */
+const generateImageUrl = async () => {
+  // 選択された画像IDにソルトを追加
+  const selectedArray = Array.from(selectedImages).sort();
+  const selectedString = selectedArray.join(',');
+  const salt = 'hasunosorani3kai';
+  const saltedString = selectedString + salt;
+  
+  // ソルト付きでハッシュ化
+  const hash = await generateHash(saltedString);
+  
+  // ハッシュ値から画像URLを構築
+  const baseUrl = '../../assets/';
+  const imageUrl = `${baseUrl}${hash}.png`;
+  
+  return imageUrl;
+};
+
+/**
+ * 結果ダイアログを閉じる
+ */
+const closeResultDialog = (id) => {
+  const dialog = document.getElementById(id);
+  dialog.close();
 };

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ハッシュ値生成ツール</title>
+</head>
+<body>
+    <h1>正解のハッシュ値を生成</h1>
+    <p>正解の画像IDをカンマ区切りで入力（例: 2,4,5）</p>
+    <input type="text" id="input" placeholder="2,4,5" style="width: 300px;">
+    <button onclick="generateHashes()">ハッシュ生成</button>
+    
+    <h2>通常のハッシュ値（正解判定用）</h2>
+    <p style="font-family: monospace;"><span id="output"></span></p>
+    
+    <h2>ソルト付きハッシュ値（画像ファイル名用）</h2>
+    <p style="font-family: monospace;"><span id="salted-output"></span>.png</p>
+    
+    <script>
+        async function generateHashes() {
+            const input = document.getElementById('input').value;
+            const ids = input.split(',').map(id => id.trim()).sort();
+            const text = ids.join(',');
+            
+            // 通常のハッシュ
+            const encoder = new TextEncoder();
+            const data = encoder.encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            // ソルト付きハッシュ
+            const salt = 'hasunosorani3kai';
+            const saltedText = text + salt;
+            const saltedData = encoder.encode(saltedText);
+            const saltedHashBuffer = await crypto.subtle.digest('SHA-256', saltedData);
+            const saltedHashArray = Array.from(new Uint8Array(saltedHashBuffer));
+            const saltedHashHex = saltedHashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            document.getElementById('output').textContent = hashHex;
+            document.getElementById('salted-output').textContent = saltedHashHex;
+            
+            console.log(`入力: ${text}`);
+            console.log(`通常ハッシュ: ${hashHex}`);
+            console.log(`ソルト付きハッシュ: ${saltedHashHex}.png`);
+        }
+    </script>
+</body>
+</html>
