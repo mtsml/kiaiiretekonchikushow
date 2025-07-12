@@ -51,6 +51,11 @@
   cursor: pointer;
 }
 
+.submit-button {
+  margin-bottom: 32px;
+}
+
+
 .submit-button:disabled {
   background-color: var(--color-fg-sub-sub);
   border-color: var(--color-fg-sub-sub);
