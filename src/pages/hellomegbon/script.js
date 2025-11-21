@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const assetPath = './assets/';
   const viewer = document.getElementById('viewer');
   const fullscreenButton = document.getElementById('fullscreen-button');
-  const closeFullscreenButton = document.getElementById('close-fullscreen');
-
-  // --- Right-to-Left (Manga Style) Viewer Logic ---
 
   // 1. Dynamically create and add image elements
   pages.forEach(page => {
@@ -21,17 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   const scrollAmount = () => viewer.offsetWidth;
-  let currentPageIndex = 0;
-
-  const updateCurrentPageIndex = () => {
-    currentPageIndex = Math.round(viewer.scrollLeft / viewer.offsetWidth);
-  };
-
-  const scrollToPage = (index) => {
-    viewer.scrollLeft = index * viewer.offsetWidth;
-  };
-
-  viewer.addEventListener('scroll', updateCurrentPageIndex);
 
   // 3. Click Navigation
   viewer.addEventListener('click', (event) => {
@@ -49,14 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. JavaScript-controlled Swipe Navigation
   let touchstartX = 0;
   let touchendX = 0;
-  const swipeThreshold = 50; // Minimum distance for a swipe
+  const swipeThreshold = 50;
 
   viewer.addEventListener('touchstart', (event) => {
     touchstartX = event.changedTouches[0].screenX;
-    event.preventDefault(); // Prevent native scroll
-  }, { passive: false }); // passive: false to allow preventDefault()
+    event.preventDefault();
+  }, { passive: false });
 
-  // Add touchmove listener to prevent native scroll during drag
   viewer.addEventListener('touchmove', (event) => {
     event.preventDefault();
   }, { passive: false });
@@ -66,33 +51,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const swipeDistance = touchendX - touchstartX;
 
     if (Math.abs(swipeDistance) >= swipeThreshold) {
-      // It's a swipe, so we'll programmatically scroll one page.
-      // We are not calling preventDefault() here to allow scroll-snap to potentially
-      // work with the programmatic scroll.
       if (swipeDistance > 0) {
-        // Left-to-right swipe -> NEXT page (scroll left)
         viewer.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
       } else {
-        // Right-to-left swipe -> PREVIOUS page (scroll right)
         viewer.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
       }
     }
   });
 
-  // 5. Custom Fullscreen (Modal) Logic
-  const toggleFullscreen = () => {
-    updateCurrentPageIndex();
-    viewer.classList.toggle('viewer-fullscreen');
-    if (viewer.classList.contains('viewer-fullscreen')) {
+  // 5. Native Fullscreen API Logic
+  fullscreenButton.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      viewer.requestFullscreen().catch(err => {
+        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) {
       fullscreenButton.textContent = 'Exit Fullscreen';
     } else {
       fullscreenButton.textContent = 'Fullscreen';
     }
-    setTimeout(() => {
-      scrollToPage(currentPageIndex);
-    }, 0);
-  };
-
-  fullscreenButton.addEventListener('click', toggleFullscreen);
-  closeFullscreenButton.addEventListener('click', toggleFullscreen);
+  });
 });
