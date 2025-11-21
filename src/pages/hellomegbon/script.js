@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const pages = ['museum4.png', 'museum3.png', 'museum2.png', 'museum1.png'];
+  const pages = ['research2.png', 'research1.png', 'ss4.png', 'ss3.png', 'ss2.png', 'ss1.png', 'linklife2.png', 'linklife1.png', 'odekake4.png', 'odekake3.png', 'odekake2.png', 'odekake1.png', 'museum6.png', 'museum5.png', 'museum4.png', 'museum3.png', 'museum2.png', 'museum1.png', 'index.png'];
   const assetPath = './assets/';
   const viewer = document.getElementById('viewer');
   const fullscreenButton = document.getElementById('fullscreen-button');
+  const closeFullscreenButton = document.getElementById('close-fullscreen');
 
   // 1. Dynamically create and add image elements
   pages.forEach(page => {
@@ -18,6 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   const scrollAmount = () => viewer.offsetWidth;
+  let currentPageIndex = 0;
+
+  const updateCurrentPageIndex = () => {
+    currentPageIndex = Math.round(viewer.scrollLeft / viewer.offsetWidth);
+  };
+
+  const scrollToPage = (index) => {
+    viewer.scrollLeft = index * viewer.offsetWidth;
+  };
+
+  viewer.addEventListener('scroll', updateCurrentPageIndex);
 
   // 3. Click Navigation
   viewer.addEventListener('click', (event) => {
@@ -59,22 +71,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 5. Native Fullscreen API Logic
-  fullscreenButton.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      viewer.requestFullscreen().catch(err => {
-        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-      });
-    } else {
-      document.exitFullscreen();
-    }
-  });
-
-  document.addEventListener('fullscreenchange', () => {
-    if (document.fullscreenElement) {
+  // 5. Custom Fullscreen (Modal) Logic
+  const toggleFullscreen = () => {
+    updateCurrentPageIndex();
+    viewer.classList.toggle('viewer-fullscreen');
+    if (viewer.classList.contains('viewer-fullscreen')) {
       fullscreenButton.textContent = 'Exit Fullscreen';
     } else {
       fullscreenButton.textContent = 'Fullscreen';
     }
-  });
+    setTimeout(() => {
+      scrollToPage(currentPageIndex);
+    }, 0);
+  };
+
+  fullscreenButton.addEventListener('click', toggleFullscreen);
+  closeFullscreenButton.addEventListener('click', toggleFullscreen);
 });
