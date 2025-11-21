@@ -46,27 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 4. Swipe Navigation
-  let touchstartX = 0;
-  const swipeThreshold = 50;
-
-  viewer.addEventListener('touchstart', (event) => {
-    touchstartX = event.changedTouches[0].screenX;
-  }, { passive: true });
-
-  viewer.addEventListener('touchend', (event) => {
-    const touchendX = event.changedTouches[0].screenX;
-    const swipeDistance = touchendX - touchstartX;
-
-    if (Math.abs(swipeDistance) >= swipeThreshold) {
-      event.preventDefault();
-      if (swipeDistance > 0) {
-        viewer.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
-      } else {
-        viewer.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
-      }
-    }
-  });
+  // 4. Swipe Navigation is now handled by CSS scroll-snap.
+  // The JS-based swipe handler is removed to prevent conflicts.
 
   // 5. Custom Fullscreen (Modal) Logic
   const toggleFullscreen = () => {
