@@ -50,26 +50,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const swipeThreshold = 50;
 
   viewer.addEventListener('touchstart', (event) => {
-    touchstartX = event.changedTouches[0].screenX;
-    event.preventDefault();
-  }, { passive: false });
+    // Only handle single-touch gestures for swiping
+    if (event.touches.length === 1) {
+      touchstartX = event.changedTouches[0].screenX;
+    }
+  }, { passive: true });
 
   viewer.addEventListener('touchmove', (event) => {
-    event.preventDefault();
-  }, { passive: false });
+    // Allow multi-touch gestures (e.g., pinch-to-zoom) to work normally
+    if (event.touches.length > 1) {
+      return;
+    }
+  }, { passive: true });
 
   viewer.addEventListener('touchend', (event) => {
-    touchendX = event.changedTouches[0].screenX;
-    const swipeDistance = touchendX - touchstartX;
+    // Only process swipe if it was a single-touch gesture
+    if (event.changedTouches.length === 1 && touchstartX !== 0) {
+      touchendX = event.changedTouches[0].screenX;
+      const swipeDistance = touchendX - touchstartX;
 
-    if (Math.abs(swipeDistance) >= swipeThreshold) {
-      if (swipeDistance > 0) {
-        viewer.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
-      } else {
-        viewer.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      if (Math.abs(swipeDistance) >= swipeThreshold) {
+        if (swipeDistance > 0) {
+          viewer.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+        } else {
+          viewer.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+        }
       }
+      touchstartX = 0;
     }
-  });
+  }, { passive: true });
 
   // 5. Custom Fullscreen (Modal) Logic
   const toggleFullscreen = () => {
