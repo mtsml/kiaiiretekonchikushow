@@ -53,7 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   viewer.addEventListener('touchstart', (event) => {
     touchstartX = event.changedTouches[0].screenX;
-  }, { passive: true });
+    event.preventDefault(); // Prevent native scroll
+  }, { passive: false }); // passive: false to allow preventDefault()
+
+  // Add touchmove listener to prevent native scroll during drag
+  viewer.addEventListener('touchmove', (event) => {
+    event.preventDefault();
+  }, { passive: false });
 
   viewer.addEventListener('touchend', (event) => {
     touchendX = event.changedTouches[0].screenX;
