@@ -189,7 +189,7 @@ function initializeModelViewers() {
     modelViewer.src = model.src;
     // @ts-ignore modelViewer の型情報が存在しないため ignore
     modelViewer.alt = model.alt;
-    modelViewer.setAttribute('ios-src', model.src.replace('.glb', '.usdz'));
+    modelViewer.setAttribute('ios-src', model.src);
     modelViewer.setAttribute('camera-controls', '');
     modelViewer.setAttribute('ar', '');
     if (isAndroid() && cameraArModeEnabled) {
