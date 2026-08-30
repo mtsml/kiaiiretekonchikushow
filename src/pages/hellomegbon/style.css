@@ -1,0 +1,69 @@
+.controls {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#fullscreen-button {
+  padding: 8px 16px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#viewer {
+  display: flex;
+  overflow-x: hidden; /* Disable native horizontal scrolling */
+  scroll-snap-type: x mandatory;
+  /* Hide scrollbar */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#viewer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Custom Fullscreen (Modal) styles */
+#close-fullscreen {
+  display: none; /* Hidden by default */
+}
+
+#viewer.viewer-fullscreen #close-fullscreen {
+  display: block;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 2.5em;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Above the viewer content */
+  padding: 0;
+  line-height: 1;
+}
+
+#viewer.viewer-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 1000;
+  border: none; /* Remove border in fullscreen */
+}
+
+#viewer.viewer-fullscreen .manga-page {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* This is key for aspect ratio */
+  border: none;
+}
+
+.manga-page {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
