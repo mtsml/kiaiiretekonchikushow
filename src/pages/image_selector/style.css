@@ -1,0 +1,97 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.image-item {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid transparent;
+}
+
+.image-item.selected {
+  border-color: var(--color-fg-sub);
+}
+
+.image-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* 画像のアスペクト比を固定してレイアウトシフトを防ぐ */
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.check-mark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-bg);
+  color: var(--color-fg-sub);
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.image-item.selected .check-mark {
+  opacity: 1;
+}
+
+.submit-button,
+.footer-button {
+  background-color: var(--color-fg-sub);
+  color: var(--color-bg);
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-button {
+  margin-bottom: 32px;
+}
+
+
+.submit-button:disabled {
+  background-color: var(--color-fg-sub-sub);
+  border-color: var(--color-fg-sub-sub);
+  cursor: not-allowed;
+}
+
+dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 16px 32px;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 32px);
+  border: 3px solid var(--color-fg-sub);
+  border-radius: 10px;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+dialog footer {
+  padding: 0.5em;
+}
+
+.c-icon {
+  padding-left: 0.5em;
+  padding-right: 0;
+}
