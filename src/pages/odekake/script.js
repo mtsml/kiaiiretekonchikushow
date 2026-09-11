@@ -189,7 +189,8 @@ function initializeModelViewers() {
     modelViewer.src = model.src;
     // @ts-ignore modelViewer の型情報が存在しないため ignore
     modelViewer.alt = model.alt;
-    modelViewer.setAttribute('ios-src', model.src);
+    // iOS の Quick Look 用 USDZ は model-viewer に生成させる。
+    // GLB を ios-src に設定すると、Safari は AR ではなくファイルのダウンロードとして扱う。
     modelViewer.setAttribute('camera-controls', '');
     modelViewer.setAttribute('ar', '');
     if (isAndroid() && cameraArModeEnabled) {
