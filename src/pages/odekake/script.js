@@ -14,6 +14,11 @@ const LOCAL_STORAGE_KEY = 'odekake/cameraArModeEnabled';
 /** @type {ArModel[]} */
 const models = [
   {
+    src: '../../assets/models/3d.glb',
+    alt: 'tmp 3D model',
+    twitterId: 'pine_nm'
+  },
+  {
     src: '../../assets/models/burger.glb',
     alt: 'burger 3D model',
     twitterId: 'pine_nm'
