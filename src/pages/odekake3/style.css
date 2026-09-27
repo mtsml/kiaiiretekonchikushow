@@ -41,6 +41,59 @@ main {
   gap: 10px;
 }
 
+.pose-input {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border, #d8d8d8);
+}
+
+.pose-input h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.pose-input form {
+  display: grid;
+  gap: 8px;
+}
+
+.pose-input textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 8px;
+  background: var(--color-bg, #fff);
+  resize: vertical;
+}
+
+.pose-input button {
+  width: fit-content;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--color-primary, #d34b8b);
+}
+
+.pose-input button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.pose-result {
+  max-width: 100%;
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 8px;
+  color: var(--color-fg-sub, #555);
+  background: rgb(0 0 0 / 0.05);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+}
+
 .file-input {
   display: inline-flex;
   align-items: center;

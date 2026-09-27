@@ -25,6 +25,10 @@ const POSES = {
     leftLowerArm: { rotation: [0, 0, 0.2] },
   },
 };
+const POSE_BONE_NAMES = [
+  'rightUpperArm', 'rightLowerArm', 'leftUpperArm', 'leftLowerArm',
+  'spine', 'chest', 'upperChest',
+];
 
 const viewer = document.getElementById('viewer');
 const status = document.getElementById('status');
@@ -110,6 +114,9 @@ function findGlbBone(root, humanoidName) {
     rightLowerArm: ['rightlowerarm', 'right_forearm', 'rightforearm', 'lowerarm_r', 'r_lowerarm', 'j_bip_r_lowerarm'],
     leftUpperArm: ['leftupperarm', 'left_arm', 'leftarm', 'upperarm_l', 'l_upperarm', 'j_bip_l_upperarm'],
     leftLowerArm: ['leftlowerarm', 'left_forearm', 'leftforearm', 'lowerarm_l', 'l_lowerarm', 'j_bip_l_lowerarm'],
+    spine: ['spine'],
+    chest: ['chest'],
+    upperChest: ['upperchest', 'upper_chest'],
   };
   const candidates = aliases[humanoidName] || [];
   const mappedName = getMappedBoneName(humanoidName);
@@ -128,14 +135,53 @@ function findGlbBone(root, humanoidName) {
 function collectHumanoidBones(root, vrm) {
   bones.clear();
   restPose.clear();
-  const poseBoneNames = ['rightUpperArm', 'rightLowerArm', 'leftUpperArm', 'leftLowerArm'];
 
-  poseBoneNames.forEach((name) => {
+  POSE_BONE_NAMES.forEach((name) => {
     const bone = vrm
       ? vrm.humanoid.getNormalizedBoneNode(name)
       : findGlbBone(root, name);
     addBone(name, bone);
   });
+}
+
+function semanticPoseToBonePose(pose = {}) {
+  const bonePose = {};
+  const gesture = pose.gesture || 'neutral';
+  const hand = pose.hand || 'none';
+  const raiseRight = hand === 'right' || hand === 'both';
+  const raiseLeft = hand === 'left' || hand === 'both';
+  const hasGesture = gesture !== 'neutral' && hand !== 'none';
+
+  if (hasGesture && raiseRight) {
+    bonePose.rightUpperArm = { rotation: [0, 0, -1.75] };
+    bonePose.rightLowerArm = { rotation: [0, 0, -0.2] };
+  }
+  if (hasGesture && raiseLeft) {
+    bonePose.leftUpperArm = { rotation: [0, 0, 1.75] };
+    bonePose.leftLowerArm = { rotation: [0, 0, 0.2] };
+  }
+
+  const leanRotation = {
+    slightly_forward: -0.18,
+    slightly_back: 0.18,
+    left: 0.18,
+    right: -0.18,
+  }[pose.bodyLean];
+  if (typeof leanRotation === 'number') {
+    const axis = pose.bodyLean === 'left' || pose.bodyLean === 'right' ? 'z' : 'x';
+    const rotation = [0, 0, 0];
+    rotation[axis === 'x' ? 0 : 2] = leanRotation;
+    bonePose.spine = { rotation };
+  }
+  return bonePose;
+}
+
+function applyExpression(expression = 'neutral') {
+  const manager = currentVrm?.expressionManager;
+  if (!manager) return;
+  ['happy', 'surprised', 'angry'].forEach((name) => manager.setValue(name, 0));
+  const preset = { smile: 'happy', surprised: 'surprised', angry: 'angry' }[expression];
+  if (preset) manager.setValue(preset, 1);
 }
 
 function clearModel() {
@@ -176,9 +222,9 @@ function loadModel(url, label) {
 }
 
 /**
- * Pose データを適用します。
- * rotation は各ボーンの初期姿勢を基準にした [x, y, z]（ラジアン）のローカル回転です。
- * 将来、Workers AI などから受け取った Pose オブジェクトをそのまま渡せます。
+ * 意味データ、または直接ボーン回転を含む Pose データを適用します。
+ * 意味データはここで安全な固定マッピングに変換し、AI に自由な角度計算をさせません。
+ * 直接回転を指定する場合は初期姿勢を基準にした [x, y, z]（ラジアン）です。
  */
 export function applyPose(pose = {}) {
   if (!currentModel) {
@@ -186,19 +232,58 @@ export function applyPose(pose = {}) {
     return;
   }
 
+  const hasDirectBoneRotations = Object.values(pose).some((value) => value && Array.isArray(value.rotation));
+  const bonePose = pose.bones || (hasDirectBoneRotations ? pose : semanticPoseToBonePose(pose));
   restPose.forEach((rotation, name) => bones.get(name).quaternion.copy(rotation));
-  Object.entries(pose).forEach(([name, transform]) => {
+  Object.entries(bonePose).forEach(([name, transform]) => {
     const bone = bones.get(name);
     if (!bone || !Array.isArray(transform.rotation)) return;
     const [x = 0, y = 0, z = 0] = transform.rotation;
     const offset = new THREE.Quaternion().setFromEuler(new THREE.Euler(x, y, z, 'XYZ'));
     bone.quaternion.copy(restPose.get(name)).multiply(offset);
   });
+  applyExpression(pose.expression);
   currentModel.updateMatrixWorld(true);
 }
 
 document.querySelectorAll('[data-pose]').forEach((button) => {
   button.addEventListener('click', () => applyPose(POSES[button.dataset.pose]));
+});
+
+const poseForm = document.getElementById('pose-form');
+const posePrompt = document.getElementById('pose-prompt');
+const poseSubmit = document.getElementById('pose-submit');
+const poseStatus = document.getElementById('pose-status');
+const poseResult = document.getElementById('pose-result');
+
+poseForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const prompt = posePrompt.value.trim();
+  if (!prompt) {
+    poseStatus.textContent = 'ポーズの指示を入力してください。';
+    return;
+  }
+
+  poseSubmit.disabled = true;
+  poseStatus.textContent = 'ポーズを解釈しています…';
+  poseResult.hidden = true;
+  try {
+    const response = await fetch('/api/pose', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ prompt }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
+    applyPose(data.pose);
+    poseStatus.textContent = `適用しました（${data.source === 'jev' ? 'Jev' : 'LLM'}）`;
+    poseResult.textContent = JSON.stringify(data, null, 2);
+    poseResult.hidden = false;
+  } catch (error) {
+    poseStatus.textContent = error.message;
+  } finally {
+    poseSubmit.disabled = false;
+  }
 });
 
 document.getElementById('model-file').addEventListener('change', (event) => {
