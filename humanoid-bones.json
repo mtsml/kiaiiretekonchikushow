@@ -1,0 +1,116 @@
+{
+  "version": "0.3.6",
+  "bones": 23,
+  "humanBones": {
+    "hips": {
+      "nodeName": "hips",
+      "parent": "root"
+    },
+    "spine": {
+      "nodeName": "spine",
+      "parent": "hips"
+    },
+    "chest": {
+      "nodeName": "chest",
+      "parent": "spine"
+    },
+    "upperChest": {
+      "nodeName": "upperChest",
+      "parent": "chest"
+    },
+    "neck": {
+      "nodeName": "neck",
+      "parent": "upperChest"
+    },
+    "head": {
+      "nodeName": "head",
+      "parent": "neck"
+    },
+    "leftShoulder": {
+      "nodeName": "leftShoulder",
+      "parent": "upperChest"
+    },
+    "leftUpperArm": {
+      "nodeName": "leftUpperArm",
+      "parent": "leftShoulder"
+    },
+    "leftLowerArm": {
+      "nodeName": "leftLowerArm",
+      "parent": "leftUpperArm"
+    },
+    "leftHand": {
+      "nodeName": "leftHand",
+      "parent": "leftLowerArm"
+    },
+    "leftUpperLeg": {
+      "nodeName": "leftUpperLeg",
+      "parent": "hips"
+    },
+    "leftLowerLeg": {
+      "nodeName": "leftLowerLeg",
+      "parent": "leftUpperLeg"
+    },
+    "leftFoot": {
+      "nodeName": "leftFoot",
+      "parent": "leftLowerLeg"
+    },
+    "leftToes": {
+      "nodeName": "leftToes",
+      "parent": "leftFoot"
+    },
+    "rightShoulder": {
+      "nodeName": "rightShoulder",
+      "parent": "upperChest"
+    },
+    "rightUpperArm": {
+      "nodeName": "rightUpperArm",
+      "parent": "rightShoulder"
+    },
+    "rightLowerArm": {
+      "nodeName": "rightLowerArm",
+      "parent": "rightUpperArm"
+    },
+    "rightHand": {
+      "nodeName": "rightHand",
+      "parent": "rightLowerArm"
+    },
+    "rightUpperLeg": {
+      "nodeName": "rightUpperLeg",
+      "parent": "hips"
+    },
+    "rightLowerLeg": {
+      "nodeName": "rightLowerLeg",
+      "parent": "rightUpperLeg"
+    },
+    "rightFoot": {
+      "nodeName": "rightFoot",
+      "parent": "rightLowerLeg"
+    },
+    "rightToes": {
+      "nodeName": "rightToes",
+      "parent": "rightFoot"
+    }
+  },
+  "restPose": "armsDown",
+  "restMaxVertexDelta": 1.6924465733171325e-07,
+  "meshTopologyAndUVUnchanged": true,
+  "componentAssignments": {
+    "head": 31,
+    "neck": 1,
+    "arm": 2,
+    "hand": 4,
+    "leg": 2,
+    "torso": 1,
+    "sleeve": 2,
+    "skirt": 13,
+    "sock": 2,
+    "shoe": 2
+  },
+  "maxInfluences": 2,
+  "limitations": [
+    "No finger articulation",
+    "No hair or cloth physics",
+    "Large limb rotations may intersect skirt/hair",
+    "Not a licensed VRM file or Unity Avatar asset"
+  ]
+}
