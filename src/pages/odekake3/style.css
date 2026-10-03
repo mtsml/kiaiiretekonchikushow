@@ -1,13 +1,13 @@
 main {
-  padding-bottom: 32px;
+  margin-bottom: 12px;
 }
 
 .viewer-panel {
-  margin: 16px 0;
+  margin: 8px 0 16px;
   overflow: hidden;
-  border: 1px solid var(--color-border, #d8d8d8);
-  border-radius: 12px;
-  background: linear-gradient(145deg, #e9f7ff, #fdf5ff);
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  background: var(--color-bg);
 }
 
 .viewer {
@@ -39,7 +39,7 @@ main {
 .pose-input {
   display: grid;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .pose-input form {
@@ -49,20 +49,30 @@ main {
 
 .pose-input textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--color-border, #ccc);
-  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  color: var(--color-fg);
   background: var(--color-bg, #fff);
   resize: vertical;
 }
 
+.pose-input textarea:focus {
+  border-color: var(--color-fg-sub);
+  outline: none;
+}
+
 .pose-input button {
   width: fit-content;
-  padding: 10px 16px;
-  border: 0;
-  border-radius: 8px;
-  color: #fff;
-  background: var(--color-primary, #d34b8b);
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-bg);
+  background-color: var(--color-fg-sub);
+  box-shadow: 0 3px 2px rgb(0 0 0 / 30%);
+  font-size: 1em;
+  cursor: pointer;
 }
 
 .pose-input button:disabled {
@@ -70,12 +80,29 @@ main {
   opacity: 0.6;
 }
 
+.pose-input button:active {
+  position: relative;
+  top: 3px;
+  box-shadow: none;
+}
+
 .ar-launch {
   width: fit-content;
-  padding: 10px 16px;
-  border: 1px solid var(--color-border, #ccc);
-  border-radius: 8px;
-  background: var(--color-bg, #fff);
+  margin-top: 8px;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-bg);
+  background-color: var(--color-fg-sub);
+  box-shadow: 0 3px 2px rgb(0 0 0 / 30%);
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.ar-launch:active {
+  position: relative;
+  top: 3px;
+  box-shadow: none;
 }
 
 .ar-viewer {
