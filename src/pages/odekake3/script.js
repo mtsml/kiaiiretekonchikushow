@@ -361,6 +361,7 @@ const posePrompt = document.getElementById('pose-prompt');
 const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
+const modelViewerReady = customElements.whenDefined('model-viewer');
 
 poseForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -381,6 +382,9 @@ poseForm.addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
     applyPose(data.pose);
     const posedUrl = await exportCurrentPoseAsGlb();
+    // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
+    // 要素のupgrade時に値が失われることがある。
+    await modelViewerReady;
     // GLBを読み込む前にactivateAR()すると、前回のモデルや未ロード状態で
     // ARが起動することがある。loadイベント後にだけボタンを表示する。
     arLaunch.hidden = true;
