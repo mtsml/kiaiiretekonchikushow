@@ -210,6 +210,46 @@ function toAvatarCommand(pose = {}) {
   if (expression) command.expressions[expression] = 1;
   if (pose.wink === 'left') command.expressions.blinkLeft = 1;
   if (pose.wink === 'right') command.expressions.blinkRight = 1;
+
+  const gaze = {
+    camera: { yaw: 0, pitch: 0 },
+    left: { yaw: -0.7, pitch: 0 },
+    right: { yaw: 0.7, pitch: 0 },
+    up: { yaw: 0, pitch: 0.7 },
+    down: { yaw: 0, pitch: -0.7 },
+    away: { yaw: 0.9, pitch: 0.2 },
+  }[pose.gaze];
+  if (gaze) command.lookAt = gaze;
+
+  if (pose.posture === 'sitting') {
+    command.bones.leftUpperLeg = [0.9, 0, 0];
+    command.bones.rightUpperLeg = [0.9, 0, 0];
+    command.bones.leftLowerLeg = [-1.4, 0, 0];
+    command.bones.rightLowerLeg = [-1.4, 0, 0];
+  } else if (pose.posture === 'crouching') {
+    command.bones.leftUpperLeg = [0.55, 0, 0];
+    command.bones.rightUpperLeg = [0.55, 0, 0];
+    command.bones.leftLowerLeg = [-1.1, 0, 0];
+    command.bones.rightLowerLeg = [-1.1, 0, 0];
+    command.bones.spine = [0.15, 0, 0];
+  } else if (pose.posture === 'kneeling') {
+    command.bones.leftUpperLeg = [1.2, 0, 0];
+    command.bones.rightUpperLeg = [1.2, 0, 0];
+    command.bones.leftLowerLeg = [-1.5, 0, 0];
+    command.bones.rightLowerLeg = [-1.5, 0, 0];
+  }
+
+  if (pose.action === 'bow') {
+    command.bones.spine = [0.45, 0, 0];
+    command.bones.chest = [0.3, 0, 0];
+  } else if (pose.action === 'wave') {
+    command.motion = 'waveRight';
+  } else if (pose.action === 'clap') {
+    command.bones.leftUpperArm = [0, 0, 0.65];
+    command.bones.rightUpperArm = [0, 0, -0.65];
+    command.bones.leftLowerArm = [0, -0.7, 0];
+    command.bones.rightLowerArm = [0, 0.7, 0];
+  }
   return command;
 }
 

@@ -31,6 +31,9 @@ const POSE_SCHEMA = {
         bodyLean: { type: 'string', enum: ['upright', 'slightly_forward', 'slightly_back', 'left', 'right'] },
         expression: { type: 'string', enum: ['neutral', 'smile', 'surprised', 'angry'] },
         wink: { type: 'string', enum: ['none', 'left', 'right'] },
+        posture: { type: 'string', enum: ['standing', 'sitting', 'crouching', 'kneeling', 'lying'] },
+        gaze: { type: 'string', enum: ['camera', 'left', 'right', 'up', 'down', 'away'] },
+        action: { type: 'string', enum: ['none', 'wave', 'bow', 'clap', 'point', 'dance'] },
         bones: {
           type: 'object',
           properties: BONE_SCHEMA_PROPERTIES,
@@ -107,6 +110,29 @@ const POSE_OPTIONS = {
     left: 'Wink with the character\'s left eye.',
     right: 'Wink with the character\'s right eye.',
   },
+  posture: {
+    standing: 'Standing upright.',
+    sitting: 'Sitting on an unseen chair or floor.',
+    crouching: 'Crouching with bent knees.',
+    kneeling: 'Kneeling.',
+    lying: 'Lying down.',
+  },
+  gaze: {
+    camera: 'Looking directly at the camera.',
+    left: 'Looking to the character\'s left.',
+    right: 'Looking to the character\'s right.',
+    up: 'Looking upward.',
+    down: 'Looking downward.',
+    away: 'Looking away from the camera.',
+  },
+  action: {
+    none: 'No whole-body action.',
+    wave: 'Waving.',
+    bow: 'Bowing.',
+    clap: 'Clapping hands.',
+    point: 'Pointing.',
+    dance: 'Dancing.',
+  },
 };
 
 function json(data, status = 200) {
@@ -133,6 +159,9 @@ function normalizePose(value = {}) {
     bodyLean: POSE_OPTIONS.bodyLean[value.bodyLean] ? value.bodyLean : 'upright',
     expression: POSE_OPTIONS.expression[value.expression] ? value.expression : 'neutral',
     wink: POSE_OPTIONS.wink[value.wink] ? value.wink : 'none',
+    posture: POSE_OPTIONS.posture[value.posture] ? value.posture : 'standing',
+    gaze: POSE_OPTIONS.gaze[value.gaze] ? value.gaze : 'camera',
+    action: POSE_OPTIONS.action[value.action] ? value.action : 'none',
   };
 }
 
@@ -168,7 +197,7 @@ function isConfident(confidence, threshold) {
 // これにより「人差し指だけ曲げる」「左目をウインク」「首を右へ向ける」
 // のような入力が、Jevの5分類で情報を失わずLLMへ渡される。
 function needsDetailedPose(prompt) {
-  return /指|親指|人差し指|中指|薬指|小指|ウインク|ウィンク|まばたき|瞬き|眉|口|唇|頬|首|頭|視線|目線|肘|手首|腰|しゃが|膝|足首|つま先|片足|指先/.test(prompt);
+  return /指|親指|人差し指|中指|薬指|小指|ウインク|ウィンク|まばたき|瞬き|眉|口|唇|頬|首|頭|肘|手首|腰|しゃが|膝|足首|つま先|片足|指先/.test(prompt);
 }
 
 function parseJsonText(value) {
