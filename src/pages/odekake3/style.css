@@ -99,6 +99,17 @@ main {
   cursor: pointer;
 }
 
+.pose-share {
+  width: fit-content;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-fg-sub);
+  background-color: var(--color-bg);
+  font-size: 1em;
+  cursor: pointer;
+}
+
 .ar-launch:active {
   position: relative;
   top: 3px;

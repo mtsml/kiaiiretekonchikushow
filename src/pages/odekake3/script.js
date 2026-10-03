@@ -292,8 +292,10 @@ function loadModel(url, label) {
       const kind = currentVrm ? 'VRM' : 'GLB/glTF';
       const found = [...bones.keys()].join(', ') || '対象ボーンなし';
       setStatus(`${kind} を読み込みました。検出したボーン: ${found}`);
-      // ポーズ未指定時の初期姿勢もARへ渡せるよう、読み込み直後に準備する。
-      applyPoseResult({ pose: {} }).catch((error) => console.error('Default AR pose failed', error));
+      // 共有リンクがあればAPIを呼ばず、そのPoseを復元する。
+      const sharedPose = readSharedPose();
+      applyPoseResult({ pose: sharedPose || {} }, { showShare: Boolean(sharedPose) })
+        .catch((error) => console.error('Default AR pose failed', error));
     },
     undefined,
     (error) => {
@@ -407,6 +409,7 @@ window.exportCurrentPoseAsGlb = exportCurrentPoseAsGlb;
 const poseForm = document.getElementById('pose-form');
 const posePrompt = document.getElementById('pose-prompt');
 const poseSubmit = document.getElementById('pose-submit');
+const poseShare = document.getElementById('pose-share');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
@@ -425,10 +428,45 @@ async function fetchPose(prompt, signal) {
   return data;
 }
 
-async function applyPoseResult(data) {
+function encodeSharePayload(payload) {
+  const bytes = new TextEncoder().encode(JSON.stringify(payload));
+  let binary = '';
+  bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeSharePayload(value) {
+  const base64 = value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (value.length % 4)) % 4);
+  const binary = atob(base64);
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+function readSharedPose() {
+  const encoded = new URLSearchParams(window.location.hash.slice(1)).get('pose');
+  if (!encoded) return null;
+  try {
+    const payload = decodeSharePayload(encoded);
+    return payload?.version === 1 && payload.pose && typeof payload.pose === 'object'
+      ? payload.pose
+      : null;
+  } catch (error) {
+    console.warn('共有Poseを読み込めませんでした。', error);
+    return null;
+  }
+}
+
+function createShareUrl(pose) {
+  const url = new URL(window.location.href);
+  url.hash = `pose=${encodeSharePayload({ version: 1, model: MODEL_URL, pose })}`;
+  return url.toString();
+}
+
+async function applyPoseResult(data, { showShare = true } = {}) {
   if (!currentModel) return;
   applyPose(data.pose);
   currentPose = data.pose;
+  if (showShare) poseShare.hidden = false;
   const posedUrl = await exportCurrentPoseAsGlb();
   // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
   // 要素のupgrade時に値が失われることがある。
@@ -464,6 +502,22 @@ poseForm.addEventListener('submit', async (event) => {
   } finally {
     poseSubmit.disabled = false;
     poseSubmit.textContent = 'ポーズを適用';
+  }
+});
+
+poseShare.addEventListener('click', async () => {
+  if (!currentPose) return;
+  const shareUrl = createShareUrl(currentPose);
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: document.title, text: 'ポーズを共有', url: shareUrl });
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      poseShare.textContent = '共有リンクをコピーしました';
+      window.setTimeout(() => { poseShare.textContent = 'このポーズを共有'; }, 2000);
+    }
+  } catch (error) {
+    if (error.name !== 'AbortError') console.error('Pose share failed', error);
   }
 });
 
