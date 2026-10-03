@@ -2,11 +2,13 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
+import { createAvatarController } from './avatar-controls.js';
 
 // プロジェクト直下に配置した Astra 出力モデルを読み込みます。
 // パスを null にすると、ページ上の「モデルを選択」だけで検証できます。
 const MODEL_URL = '/model.vrm';
 const HUMANOID_BONES_URL = '/humanoid-bones.json';
+const RIG_MANIFEST_URL = '/rig-manifest.json';
 
 const POSES = {
   initial: {},
@@ -24,6 +26,8 @@ const POSES = {
     leftUpperArm: { rotation: [0, 0, 1.75] },
     leftLowerArm: { rotation: [0, 0, 0.2] },
   },
+  'wink-left': { wink: 'left' },
+  'peace-right-wink-left': { gesture: 'peace', hand: 'right', wink: 'left' },
 };
 const POSE_BONE_NAMES = [
   'rightUpperArm', 'rightLowerArm', 'leftUpperArm', 'leftLowerArm',
@@ -42,10 +46,12 @@ const clock = new THREE.Clock();
 
 let currentModel = null;
 let currentVrm = null;
+let avatarController = null;
 const localFileUrls = new Map();
 const bones = new Map();
 const restPose = new Map();
 let humanoidBoneMap = {};
+let rigManifest = null;
 
 loader.register((parser) => new VRMLoaderPlugin(parser));
 loadingManager.setURLModifier((url) => {
@@ -184,10 +190,56 @@ function applyExpression(expression = 'neutral') {
   if (preset) manager.setValue(preset, 1);
 }
 
+function toAvatarCommand(pose = {}) {
+  const command = { bones: {}, hands: {}, fingers: {}, expressions: {} };
+  const directBones = pose.bones || (Object.values(pose).some((value) => value && Array.isArray(value.rotation)) ? pose : null);
+
+  if (directBones) {
+    Object.entries(directBones).forEach(([name, transform]) => {
+      const allowed = !currentVrm || rigManifest?.bones?.[name];
+      if (allowed && Array.isArray(transform)) command.bones[name] = transform;
+      else if (allowed && Array.isArray(transform?.rotation)) command.bones[name] = transform.rotation;
+    });
+  }
+  if (pose.hands && typeof pose.hands === 'object') command.hands = { ...pose.hands };
+  if (pose.fingers && typeof pose.fingers === 'object') command.fingers = { ...pose.fingers };
+  if (pose.expressions && typeof pose.expressions === 'object') command.expressions = { ...pose.expressions };
+  if (pose.lookAt && typeof pose.lookAt === 'object') command.lookAt = { ...pose.lookAt };
+  if (pose.motion === 'waveRight') command.motion = pose.motion;
+
+  if (pose.gesture && pose.hand && pose.gesture !== 'neutral') {
+    const sides = pose.hand === 'both' ? ['left', 'right'] : [pose.hand];
+    const gesture = { wave: 'open', thumbs_up: 'thumbsUp' }[pose.gesture] || pose.gesture;
+    sides.forEach((side) => {
+      command.hands[side] = gesture;
+      command.bones[`${side}UpperArm`] = side === 'left' ? [0, 0, 0.75] : [0, 0, -0.75];
+      command.bones[`${side}LowerArm`] = side === 'left' ? [0, -0.45, 0] : [0, 0.45, 0];
+    });
+  }
+
+  const lean = {
+    slightly_forward: [0.23, 0, 0],
+    slightly_back: [-0.18, 0, 0],
+    left: [0, 0, 0.18],
+    right: [0, 0, -0.18],
+  }[pose.bodyLean];
+  if (lean) {
+    command.bones.spine = lean;
+    command.bones.chest = lean.map((value) => value * 0.75);
+  }
+
+  const expression = { smile: 'happy', surprised: 'surprised', angry: 'angry' }[pose.expression];
+  if (expression) command.expressions[expression] = 1;
+  if (pose.wink === 'left') command.expressions.blinkLeft = 1;
+  if (pose.wink === 'right') command.expressions.blinkRight = 1;
+  return command;
+}
+
 function clearModel() {
   if (currentModel) scene.remove(currentModel);
   currentModel = null;
   currentVrm = null;
+  avatarController = null;
   bones.clear();
   restPose.clear();
 }
@@ -206,6 +258,9 @@ function loadModel(url, label) {
         if (node.isMesh) node.frustumCulled = false;
       });
       scene.add(currentModel);
+      if (currentVrm && rigManifest) {
+        avatarController = createAvatarController(currentVrm, rigManifest);
+      }
       collectHumanoidBones(currentModel, currentVrm);
       fitCamera(currentModel);
 
@@ -229,6 +284,12 @@ function loadModel(url, label) {
 export function applyPose(pose = {}) {
   if (!currentModel) {
     setStatus('先に VRM または GLB/glTF モデルを読み込んでください。', true);
+    return;
+  }
+
+  if (avatarController) {
+    avatarController.apply(toAvatarCommand(pose), { resetFirst: true });
+    currentModel.updateMatrixWorld(true);
     return;
   }
 
@@ -306,16 +367,20 @@ resize();
 function render() {
   requestAnimationFrame(render);
   const delta = clock.getDelta();
-  currentVrm?.update(delta);
+  if (avatarController) avatarController.update(delta);
+  else currentVrm?.update(delta);
   controls.update();
   renderer.render(scene, camera);
 }
 render();
 
-fetch(HUMANOID_BONES_URL)
-  .then((response) => (response.ok ? response.json() : {}))
-  .then((boneMap) => {
+Promise.all([
+  fetch(HUMANOID_BONES_URL).then((response) => (response.ok ? response.json() : {})),
+  fetch(RIG_MANIFEST_URL).then((response) => (response.ok ? response.json() : null)),
+])
+  .then(([boneMap, manifest]) => {
     humanoidBoneMap = boneMap && typeof boneMap === 'object' ? boneMap : {};
+    rigManifest = manifest;
     if (MODEL_URL) loadModel(MODEL_URL, '設定済みモデル');
     else setStatus('モデルを選択して検証を開始してください。');
   })

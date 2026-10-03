@@ -1,0 +1,4447 @@
+{
+  "version": "0.4.0",
+  "vrmVersion": "1.0",
+  "asset": "model.vrm",
+  "restPose": "T-pose",
+  "initialPose": "A-pose",
+  "initialPoseApplication": "createAvatarController(vrm, manifest) from avatar-controls.js",
+  "coordinateSystem": "+Y up, +Z front, anatomical left +X",
+  "rotationUnit": "radian",
+  "eulerOrder": "XYZ",
+  "quaternionOrder": "xyzw",
+  "bones": {
+    "hips": {
+      "nodeName": "hips",
+      "nodeIndex": 54,
+      "parent": "root",
+      "parentNodeName": "root",
+      "restPosition": [
+        0,
+        0.9599999785423279,
+        0
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.4
+        ],
+        "y": [
+          -0.35,
+          0.35
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "spine": {
+      "nodeName": "spine",
+      "nodeIndex": 53,
+      "parent": "hips",
+      "parentNodeName": "hips",
+      "restPosition": [
+        0,
+        0.18000000715255737,
+        0
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.4
+        ],
+        "y": [
+          -0.35,
+          0.35
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "chest": {
+      "nodeName": "chest",
+      "nodeIndex": 52,
+      "parent": "spine",
+      "parentNodeName": "spine",
+      "restPosition": [
+        0,
+        0.28999996185302734,
+        0
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.4
+        ],
+        "y": [
+          -0.35,
+          0.35
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "upperChest": {
+      "nodeName": "upperChest",
+      "nodeIndex": 51,
+      "parent": "chest",
+      "parentNodeName": "chest",
+      "restPosition": [
+        0,
+        0.21000003814697266,
+        0
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.4
+        ],
+        "y": [
+          -0.35,
+          0.35
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "neck": {
+      "nodeName": "neck",
+      "nodeIndex": 31,
+      "parent": "upperChest",
+      "parentNodeName": "upperChest",
+      "restPosition": [
+        -3.774895063202166e-09,
+        0.1499999761581421,
+        0.02500000037252903
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.35,
+          0.35
+        ],
+        "y": [
+          -0.55,
+          0.55
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "head": {
+      "nodeName": "head",
+      "nodeIndex": 30,
+      "parent": "neck",
+      "parentNodeName": "neck",
+      "restPosition": [
+        0,
+        0.18000006675720215,
+        0
+      ],
+      "restQuaternion": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "restRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.35,
+          0.35
+        ],
+        "y": [
+          -0.55,
+          0.55
+        ],
+        "z": [
+          -0.25,
+          0.25
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.0,
+        0.0,
+        -0.0
+      ],
+      "initialRawLocalQuaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftShoulder": {
+      "nodeName": "leftShoulder",
+      "nodeIndex": 26,
+      "parent": "upperChest",
+      "parentNodeName": "upperChest",
+      "restPosition": [
+        -0.12999999523162842,
+        0.11000001430511475,
+        -1.9629453618108528e-08
+      ],
+      "restQuaternion": [
+        -6.034004229604761e-08,
+        -4.3654178938368204e-08,
+        0.8302508592605591,
+        0.5573899149894714
+      ],
+      "restRotation": [
+        5.221977072977779e-09,
+        -1.4885954158216974e-07,
+        1.9591152079604708
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.3
+        ],
+        "y": [
+          -0.3,
+          0.3
+        ],
+        "z": [
+          -0.35,
+          0.35
+        ]
+      },
+      "initialRawLocalRotation": [
+        5.221977072977779e-09,
+        -1.4885954158216974e-07,
+        1.9591152079604708
+      ],
+      "initialRawLocalQuaternion": [
+        -6.034004229604761e-08,
+        -4.3654178938368204e-08,
+        0.8302508592605591,
+        0.5573899149894714
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftUpperArm": {
+      "nodeName": "leftUpperArm",
+      "nodeIndex": 25,
+      "parent": "leftShoulder",
+      "parentNodeName": "leftShoulder",
+      "restPosition": [
+        0,
+        0.23769718408584595,
+        2.221535545378719e-15
+      ],
+      "restQuaternion": [
+        -0.0029683285392820835,
+        -0.015095786191523075,
+        -0.19291913509368896,
+        0.9810940623283386
+      ],
+      "restRotation": [
+        -0.011653940472099696,
+        -0.028479327933536403,
+        -0.38848511885705933
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        -0.65
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.2,
+          1.2
+        ],
+        "y": [
+          -1.3,
+          1.3
+        ],
+        "z": [
+          -1.5,
+          1.65
+        ]
+      },
+      "initialRawLocalRotation": [
+        0.0079630351371334,
+        -0.029723026820867825,
+        0.26179920053090483
+      ],
+      "initialRawLocalQuaternion": [
+        0.002007280243560672,
+        -0.015253345482051373,
+        0.1304519921541214,
+        0.9913352131843567
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftLowerArm": {
+      "nodeName": "leftLowerArm",
+      "nodeIndex": 24,
+      "parent": "leftUpperArm",
+      "parentNodeName": "leftUpperArm",
+      "restPosition": [
+        1.375552898252863e-07,
+        0.46529555320739746,
+        -1.5823747645526964e-08
+      ],
+      "restQuaternion": [
+        -7.52889093291742e-08,
+        -0.0010900570778176188,
+        1.365781372442143e-07,
+        0.9999994039535522
+      ],
+      "restRotation": [
+        -1.5028033165060275e-07,
+        -0.002180114485628354,
+        2.72992619451329e-07
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        -0.06,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.4,
+          0.4
+        ],
+        "y": [
+          -1.9,
+          0
+        ],
+        "z": [
+          -0.15,
+          0.15
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.05996767905883377,
+        -0.0022354677777630663,
+        0.001845224544349491
+      ],
+      "initialRawLocalQuaternion": [
+        -0.02998034656047821,
+        -0.0010895715095102787,
+        0.0009557058219797909,
+        0.9995494484901428
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftHand": {
+      "nodeName": "leftHand",
+      "nodeIndex": 23,
+      "parent": "leftLowerArm",
+      "parentNodeName": "leftLowerArm",
+      "restPosition": [
+        2.3634336709932313e-09,
+        0.26720792055130005,
+        -6.531976737278455e-09
+      ],
+      "restQuaternion": [
+        5.953451776008478e-08,
+        -0.015561788342893124,
+        -2.8904845184030137e-09,
+        0.9998789429664612
+      ],
+      "restRotation": [
+        1.1902230492948913e-07,
+        -0.03112483370236466,
+        -3.929245126598307e-09
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.65,
+          0.65
+        ],
+        "y": [
+          -0.65,
+          0.65
+        ],
+        "z": [
+          -0.7,
+          0.7
+        ]
+      },
+      "initialRawLocalRotation": [
+        1.1902230492948913e-07,
+        -0.03112483370236466,
+        -3.929245126598307e-09
+      ],
+      "initialRawLocalQuaternion": [
+        5.953451776008478e-08,
+        -0.015561788342893124,
+        -2.8904845184030137e-09,
+        0.9998789429664612
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftUpperLeg": {
+      "nodeName": "leftUpperLeg",
+      "nodeIndex": 3,
+      "parent": "hips",
+      "parentNodeName": "hips",
+      "restPosition": [
+        -0.22499999403953552,
+        0,
+        -3.3974053792462655e-08
+      ],
+      "restQuaternion": [
+        -7.549696334763212e-08,
+        -0.004999813623726368,
+        0.9999874830245972,
+        3.774754675500702e-10
+      ],
+      "restRotation": [
+        0.009999669219736022,
+        -1.5099581673894194e-07,
+        -3.141592653589793
+      ],
+      "restScale": [
+        1,
+        1.000000238418579,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.1,
+          0.55
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.5,
+          0.5
+        ]
+      },
+      "initialRawLocalRotation": [
+        0.009999669219736022,
+        -1.5099581673894194e-07,
+        -3.141592653589793
+      ],
+      "initialRawLocalQuaternion": [
+        -7.549696334763212e-08,
+        -0.004999813623726368,
+        0.9999874830245972,
+        3.774754675500702e-10
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftLowerLeg": {
+      "nodeName": "leftLowerLeg",
+      "nodeIndex": 2,
+      "parent": "leftUpperLeg",
+      "parentNodeName": "leftUpperLeg",
+      "restPosition": [
+        -1.4206652743098402e-08,
+        0.5000249743461609,
+        1.6993108309382166e-12
+      ],
+      "restQuaternion": [
+        -0.012849373742938042,
+        5.3708998137835806e-08,
+        6.447387068675425e-11,
+        0.9999174475669861
+      ],
+      "restRotation": [
+        -0.025699454679251728,
+        1.0740747313775522e-07,
+        1.5091911054199159e-09
+      ],
+      "restScale": [
+        1,
+        1.0000001192092896,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          0,
+          1.8
+        ],
+        "y": [
+          -0.08,
+          0.08
+        ],
+        "z": [
+          -0.08,
+          0.08
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.025699462127372025,
+        1.0740750155946465e-07,
+        1.5091915495091257e-09
+      ],
+      "initialRawLocalQuaternion": [
+        -0.012849375605583191,
+        5.3709005243263164e-08,
+        6.447393313679939e-11,
+        0.9999175667762756
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftFoot": {
+      "nodeName": "leftFoot",
+      "nodeIndex": 1,
+      "parent": "leftLowerLeg",
+      "parentNodeName": "leftLowerLeg",
+      "restPosition": [
+        1.7202275159888814e-08,
+        0.28017839789390564,
+        -5.029416882962323e-10
+      ],
+      "restQuaternion": [
+        -0.50583416223526,
+        -2.063806903151999e-08,
+        -4.225194416562772e-08,
+        0.8626307249069214
+      ],
+      "restRotation": [
+        -1.0606973548513976,
+        7.138888591384784e-09,
+        -9.377453125125584e-08
+      ],
+      "restScale": [
+        1,
+        0.9999998807907104,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.45,
+          0.45
+        ],
+        "y": [
+          -0.25,
+          0.25
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ]
+      },
+      "initialRawLocalRotation": [
+        -1.0606973548513976,
+        7.138888591384784e-09,
+        -9.377453125125584e-08
+      ],
+      "initialRawLocalQuaternion": [
+        -0.50583416223526,
+        -2.063806903151999e-08,
+        -4.225194416562772e-08,
+        0.8626307249069214
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftToes": {
+      "nodeName": "leftToes",
+      "nodeIndex": 0,
+      "parent": "leftFoot",
+      "parentNodeName": "leftFoot",
+      "restPosition": [
+        -4.948731202603085e-09,
+        0.20796632766723633,
+        5.960468563159793e-09
+      ],
+      "restQuaternion": [
+        -3.7346246095637525e-09,
+        0.9719997644424438,
+        -0.23498187959194183,
+        7.338393714917402e-08
+      ],
+      "restRotation": [
+        2.6671928173715487,
+        1.4441347673255273e-07,
+        -3.14159262636211
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.45,
+          0.45
+        ],
+        "y": [
+          -0.25,
+          0.25
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.6671927643492253,
+        1.4441347673255273e-07,
+        -3.1415926263621117
+      ],
+      "initialRawLocalQuaternion": [
+        -3.734625941831382e-09,
+        0.9719997644424438,
+        -0.23498190939426422,
+        7.338393714917402e-08
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightShoulder": {
+      "nodeName": "rightShoulder",
+      "nodeIndex": 50,
+      "parent": "upperChest",
+      "parentNodeName": "upperChest",
+      "restPosition": [
+        0.12999999523162842,
+        0.11000001430511475,
+        1.9629453618108528e-08
+      ],
+      "restQuaternion": [
+        6.502437344124701e-08,
+        -4.050934521160343e-08,
+        -0.8302508592605591,
+        0.5573899149894714
+      ],
+      "restRotation": [
+        5.222022814166394e-09,
+        -1.5313209189571414e-07,
+        -1.9591152079604708
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.3,
+          0.3
+        ],
+        "y": [
+          -0.3,
+          0.3
+        ],
+        "z": [
+          -0.35,
+          0.35
+        ]
+      },
+      "initialRawLocalRotation": [
+        5.222022814166394e-09,
+        -1.5313209189571414e-07,
+        -1.9591152079604708
+      ],
+      "initialRawLocalQuaternion": [
+        6.502437344124701e-08,
+        -4.050934521160343e-08,
+        -0.8302508592605591,
+        0.5573899149894714
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightUpperArm": {
+      "nodeName": "rightUpperArm",
+      "nodeIndex": 49,
+      "parent": "rightShoulder",
+      "parentNodeName": "rightShoulder",
+      "restPosition": [
+        0,
+        0.23769718408584595,
+        1.7774463355286563e-15
+      ],
+      "restQuaternion": [
+        -0.0029683285392820835,
+        0.015095786191523075,
+        0.19291913509368896,
+        0.9810940623283386
+      ],
+      "restRotation": [
+        -0.011653940472099696,
+        0.028479327933536403,
+        0.38848511885705933
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0.65
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.2,
+          1.2
+        ],
+        "y": [
+          -1.3,
+          1.3
+        ],
+        "z": [
+          -1.65,
+          1.5
+        ]
+      },
+      "initialRawLocalRotation": [
+        0.0079630351371334,
+        0.029723026820867825,
+        -0.26179920053090483
+      ],
+      "initialRawLocalQuaternion": [
+        0.002007280243560672,
+        0.015253345482051373,
+        -0.1304519921541214,
+        0.9913352131843567
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightLowerArm": {
+      "nodeName": "rightLowerArm",
+      "nodeIndex": 48,
+      "parent": "rightUpperArm",
+      "parentNodeName": "rightUpperArm",
+      "restPosition": [
+        -1.375552898252863e-07,
+        0.46529555320739746,
+        -1.5823751198240643e-08
+      ],
+      "restQuaternion": [
+        -7.528889511831949e-08,
+        0.0010900570778176188,
+        -1.365781372442143e-07,
+        0.9999994039535522
+      ],
+      "restRotation": [
+        -1.5028030322882556e-07,
+        0.002180114485628354,
+        -2.72992619451329e-07
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0.06,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.4,
+          0.4
+        ],
+        "y": [
+          0,
+          1.9
+        ],
+        "z": [
+          -0.15,
+          0.15
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.05996767905883377,
+        0.0022354677777630663,
+        -0.001845224544349491
+      ],
+      "initialRawLocalQuaternion": [
+        -0.02998034656047821,
+        0.0010895715095102787,
+        -0.0009557058219797909,
+        0.9995494484901428
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightHand": {
+      "nodeName": "rightHand",
+      "nodeIndex": 47,
+      "parent": "rightLowerArm",
+      "parentNodeName": "rightLowerArm",
+      "restPosition": [
+        -2.3634336709932313e-09,
+        0.26720792055130005,
+        -6.531982066348974e-09
+      ],
+      "restQuaternion": [
+        5.953451776008478e-08,
+        0.015561788342893124,
+        2.8904842963584088e-09,
+        0.9998789429664612
+      ],
+      "restRotation": [
+        1.1902230492948913e-07,
+        0.03112483370236466,
+        3.9292446822939e-09
+      ],
+      "restScale": [
+        0.9999999403953552,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.65,
+          0.65
+        ],
+        "y": [
+          -0.65,
+          0.65
+        ],
+        "z": [
+          -0.7,
+          0.7
+        ]
+      },
+      "initialRawLocalRotation": [
+        1.1902230492948913e-07,
+        0.03112483370236466,
+        3.9292446822939e-09
+      ],
+      "initialRawLocalQuaternion": [
+        5.953451776008478e-08,
+        0.015561788342893124,
+        2.8904842963584088e-09,
+        0.9998789429664612
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightUpperLeg": {
+      "nodeName": "rightUpperLeg",
+      "nodeIndex": 7,
+      "parent": "hips",
+      "parentNodeName": "hips",
+      "restPosition": [
+        0.22499999403953552,
+        0,
+        3.3974053792462655e-08
+      ],
+      "restQuaternion": [
+        -7.549696334763212e-08,
+        -0.004999813623726368,
+        0.9999874830245972,
+        3.774754675500702e-10
+      ],
+      "restRotation": [
+        0.009999669219736022,
+        -1.5099581673894194e-07,
+        -3.141592653589793
+      ],
+      "restScale": [
+        1,
+        1.000000238418579,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.1,
+          0.55
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.5,
+          0.5
+        ]
+      },
+      "initialRawLocalRotation": [
+        0.009999669219736022,
+        -1.5099581673894194e-07,
+        -3.141592653589793
+      ],
+      "initialRawLocalQuaternion": [
+        -7.549696334763212e-08,
+        -0.004999813623726368,
+        0.9999874830245972,
+        3.774754675500702e-10
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightLowerLeg": {
+      "nodeName": "rightLowerLeg",
+      "nodeIndex": 6,
+      "parent": "rightUpperLeg",
+      "parentNodeName": "rightUpperLeg",
+      "restPosition": [
+        1.559566875641849e-08,
+        0.5000249743461609,
+        -1.6993108309382166e-12
+      ],
+      "restQuaternion": [
+        -0.012849373742938042,
+        5.3708998137835806e-08,
+        6.447387068675425e-11,
+        0.9999174475669861
+      ],
+      "restRotation": [
+        -0.025699454679251728,
+        1.0740747313775522e-07,
+        1.5091911054199159e-09
+      ],
+      "restScale": [
+        1,
+        1.0000001192092896,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          0,
+          1.8
+        ],
+        "y": [
+          -0.08,
+          0.08
+        ],
+        "z": [
+          -0.08,
+          0.08
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.025699462127372025,
+        1.0740750155946465e-07,
+        1.5091915495091257e-09
+      ],
+      "initialRawLocalQuaternion": [
+        -0.012849375605583191,
+        5.3709005243263164e-08,
+        6.447393313679939e-11,
+        0.9999175667762756
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightFoot": {
+      "nodeName": "rightFoot",
+      "nodeIndex": 5,
+      "parent": "rightLowerLeg",
+      "parentNodeName": "rightLowerLeg",
+      "restPosition": [
+        -1.260004633962808e-08,
+        0.28017839789390564,
+        -4.283808863192462e-10
+      ],
+      "restQuaternion": [
+        -0.50583416223526,
+        -2.063806903151999e-08,
+        -4.225194416562772e-08,
+        0.8626307249069214
+      ],
+      "restRotation": [
+        -1.0606973548513976,
+        7.138888591384784e-09,
+        -9.377453125125584e-08
+      ],
+      "restScale": [
+        1,
+        0.9999998807907104,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.45,
+          0.45
+        ],
+        "y": [
+          -0.25,
+          0.25
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ]
+      },
+      "initialRawLocalRotation": [
+        -1.0606973548513976,
+        7.138888591384784e-09,
+        -9.377453125125584e-08
+      ],
+      "initialRawLocalQuaternion": [
+        -0.50583416223526,
+        -2.063806903151999e-08,
+        -4.225194416562772e-08,
+        0.8626307249069214
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightToes": {
+      "nodeName": "rightToes",
+      "nodeIndex": 4,
+      "parent": "rightFoot",
+      "parentNodeName": "rightFoot",
+      "restPosition": [
+        9.952429991244571e-09,
+        0.20796632766723633,
+        8.940692630687863e-09
+      ],
+      "restQuaternion": [
+        -3.7346246095637525e-09,
+        0.9719997644424438,
+        -0.23498187959194183,
+        7.338393714917402e-08
+      ],
+      "restRotation": [
+        2.6671928173715487,
+        1.4441347673255273e-07,
+        -3.14159262636211
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.45,
+          0.45
+        ],
+        "y": [
+          -0.25,
+          0.25
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.6671927643492253,
+        1.4441347673255273e-07,
+        -3.1415926263621117
+      ],
+      "initialRawLocalQuaternion": [
+        -3.734625941831382e-09,
+        0.9719997644424438,
+        -0.23498190939426422,
+        7.338393714917402e-08
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "leftIndexProximal": {
+      "nodeName": "leftIndexProximal",
+      "nodeIndex": 10,
+      "parent": "leftHand",
+      "parentNodeName": "leftHand",
+      "restPosition": [
+        -0.0488690622150898,
+        0.12273287028074265,
+        -0.0012043172027915716
+      ],
+      "restQuaternion": [
+        -0.027734188362956047,
+        0.9992314577102661,
+        0.027692308649420738,
+        0.0007686215685680509
+      ],
+      "restRotation": [
+        -3.0861796298867468,
+        1.429219942394866e-08,
+        3.0860958713239013
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179620401585,
+        1.4290726824128797e-08,
+        3.0860958655383386
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734186500310898,
+        0.9992313981056213,
+        0.02769230678677559,
+        0.00076862151036039
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftIndexIntermediate": {
+      "nodeName": "leftIndexIntermediate",
+      "nodeIndex": 9,
+      "parent": "leftIndexProximal",
+      "parentNodeName": "leftIndexProximal",
+      "restPosition": [
+        1.3460521586239338e-07,
+        0.04859001561999321,
+        1.1059455573558807e-08
+      ],
+      "restQuaternion": [
+        -2.1682352269181138e-07,
+        6.105983629822731e-08,
+        -1.8698627854973893e-06,
+        1
+      ],
+      "restRotation": [
+        -4.3364681800992015e-07,
+        1.2212048261517368e-07,
+        -3.7397255709773445e-06
+      ],
+      "restScale": [
+        1,
+        1.0000001192092896,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -4.373721083083813e-07,
+        1.1839519231671175e-07,
+        -3.7397255709773445e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.1868616784104233e-07,
+        5.9197187596282674e-08,
+        -1.8698627854973893e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftIndexDistal": {
+      "nodeName": "leftIndexDistal",
+      "nodeIndex": 8,
+      "parent": "leftIndexIntermediate",
+      "parentNodeName": "leftIndexIntermediate",
+      "restPosition": [
+        -1.6999388208205346e-07,
+        0.036159999668598175,
+        -3.27054294757545e-09
+      ],
+      "restQuaternion": [
+        2.0046721260769118e-07,
+        -4.301546852047977e-08,
+        1.6979759038804332e-06,
+        1
+      ],
+      "restRotation": [
+        4.00934567323908e-07,
+        -8.603025491993332e-08,
+        3.395951807747812e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        3.972092770254467e-07,
+        -8.603025491993332e-08,
+        3.395980911578268e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.9860456745846022e-07,
+        -4.301546496776609e-08,
+        1.6979904557956615e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftMiddleProximal": {
+      "nodeName": "leftMiddleProximal",
+      "nodeIndex": 16,
+      "parent": "leftHand",
+      "parentNodeName": "leftHand",
+      "restPosition": [
+        -0.01392290834337473,
+        0.1246713325381279,
+        -0.0010967928683385253
+      ],
+      "restQuaternion": [
+        -0.027734898030757904,
+        0.9992313981056213,
+        0.02769235521554947,
+        0.0007686216849833727
+      ],
+      "restRotation": [
+        -3.0861795302950874,
+        -2.745446892049586e-08,
+        3.08609444466855
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999998211860657,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.0861795245294736,
+        -2.7455939743958883e-08,
+        3.0860944388826463
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734896168112755,
+        0.9992313385009766,
+        0.02769235335290432,
+        0.0007686216267757118
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftMiddleIntermediate": {
+      "nodeName": "leftMiddleIntermediate",
+      "nodeIndex": 15,
+      "parent": "leftMiddleProximal",
+      "parentNodeName": "leftMiddleProximal",
+      "restPosition": [
+        4.704634193331003e-08,
+        0.05289016291499138,
+        6.6356733441352844e-09
+      ],
+      "restQuaternion": [
+        -4.010508192209272e-08,
+        -3.91155481338501e-08,
+        4.289904893539642e-07,
+        1
+      ],
+      "restRotation": [
+        -8.021012831704848e-08,
+        -7.823113179483706e-08,
+        8.57980978707718e-07
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -8.021012831704848e-08,
+        -7.823113179483706e-08,
+        8.57980978707718e-07
+      ],
+      "initialRawLocalQuaternion": [
+        -4.010508192209272e-08,
+        -3.91155481338501e-08,
+        4.289904893539642e-07,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftMiddleDistal": {
+      "nodeName": "leftMiddleDistal",
+      "nodeIndex": 14,
+      "parent": "leftMiddleIntermediate",
+      "parentNodeName": "leftMiddleIntermediate",
+      "restPosition": [
+        4.496541805565357e-09,
+        0.039360061287879944,
+        1.5133991837501526e-08
+      ],
+      "restQuaternion": [
+        1.3271346688270569e-08,
+        2.782326369299426e-08,
+        -1.4676479622721672e-06,
+        1
+      ],
+      "restRotation": [
+        2.6542775088955743e-08,
+        5.564648830613808e-08,
+        -2.9352959245359043e-06
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.2817484790493833e-08,
+        5.564648830613808e-08,
+        -2.9352959245359043e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.1408701539039612e-08,
+        2.782326014028058e-08,
+        -1.4676479622721672e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftRingProximal": {
+      "nodeName": "leftRingProximal",
+      "nodeIndex": 19,
+      "parent": "leftHand",
+      "parentNodeName": "leftHand",
+      "restPosition": [
+        0.022021740674972534,
+        0.12666523456573486,
+        -0.0009861914440989494
+      ],
+      "restQuaternion": [
+        -0.02773422561585903,
+        0.9992314577102661,
+        0.02769230306148529,
+        0.0007686215685680509
+      ],
+      "restRotation": [
+        -3.0861796410454607,
+        1.2538915683535379e-08,
+        3.086095793626653
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179631560302,
+        1.2537443083715516e-08,
+        3.0860957878410717
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734223753213882,
+        0.9992313981056213,
+        0.02769230119884014,
+        0.00076862151036039
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftRingIntermediate": {
+      "nodeName": "leftRingIntermediate",
+      "nodeIndex": 18,
+      "parent": "leftRingProximal",
+      "parentNodeName": "leftRingProximal",
+      "restPosition": [
+        -5.806214176118374e-09,
+        0.04859009012579918,
+        -2.0721927285194397e-08
+      ],
+      "restQuaternion": [
+        -2.2019960965735663e-07,
+        5.977927486355838e-08,
+        -1.8315042780159274e-06,
+        1
+      ],
+      "restRotation": [
+        -4.4039899194100934e-07,
+        1.1955935974583583e-07,
+        -3.663008556015472e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -4.4039902036271877e-07,
+        1.1583406944737389e-07,
+        -3.663008556015472e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.2019960965735663e-07,
+        5.791662971432743e-08,
+        -1.8315042780159274e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftRingDistal": {
+      "nodeName": "leftRingDistal",
+      "nodeIndex": 17,
+      "parent": "leftRingIntermediate",
+      "parentNodeName": "leftRingIntermediate",
+      "restPosition": [
+        -5.238689482212067e-09,
+        0.0361599326133728,
+        -5.122274160385132e-09
+      ],
+      "restQuaternion": [
+        1.958105997346138e-07,
+        -4.324829916413364e-08,
+        1.6980341115413466e-06,
+        1
+      ],
+      "restRotation": [
+        3.916213415777547e-07,
+        -8.649593041809577e-08,
+        3.3960682230696376e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        3.916213415777547e-07,
+        -8.649593041809577e-08,
+        3.3960682230696376e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.958105997346138e-07,
+        -4.324829916413364e-08,
+        1.6980341115413466e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftLittleProximal": {
+      "nodeName": "leftLittleProximal",
+      "nodeIndex": 13,
+      "parent": "leftHand",
+      "parentNodeName": "leftHand",
+      "restPosition": [
+        0.05497090145945549,
+        0.12849295139312744,
+        -0.0008848076104186475
+      ],
+      "restQuaternion": [
+        -0.027734562754631042,
+        0.9992313981056213,
+        0.027692358940839767,
+        0.000768500380218029
+      ],
+      "restRotation": [
+        -3.0861795269938983,
+        -2.515149901682916e-07,
+        3.0860951216274266
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179521228283,
+        -2.5151646809718196e-07,
+        3.086095115841684
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734560891985893,
+        0.9992313385009766,
+        0.027692357078194618,
+        0.0007685003220103681
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftLittleIntermediate": {
+      "nodeName": "leftLittleIntermediate",
+      "nodeIndex": 12,
+      "parent": "leftLittleProximal",
+      "parentNodeName": "leftLittleProximal",
+      "restPosition": [
+        -4.252069629728794e-08,
+        0.03870014846324921,
+        5.122274160385132e-09
+      ],
+      "restQuaternion": [
+        2.3283069916502086e-10,
+        -1.1682277545332909e-07,
+        -3.0046794563531876e-07,
+        1
+      ],
+      "restRotation": [
+        4.655912044793098e-10,
+        -2.336455509066603e-07,
+        -6.009358912705652e-07
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        4.6560519328942007e-10,
+        -2.373708412051223e-07,
+        -5.413312464951941e-07
+      ],
+      "initialRawLocalQuaternion": [
+        2.3283472372348513e-10,
+        -1.1868542060256004e-07,
+        -2.7066562324762344e-07,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftLittleDistal": {
+      "nodeName": "leftLittleDistal",
+      "nodeIndex": 11,
+      "parent": "leftLittleIntermediate",
+      "parentNodeName": "leftLittleIntermediate",
+      "restPosition": [
+        4.2229657992720604e-08,
+        0.028799882158637047,
+        0
+      ],
+      "restQuaternion": [
+        -2.594897523522377e-07,
+        8.69622454047203e-08,
+        -1.7164857126772404e-06,
+        1
+      ],
+      "restRotation": [
+        -5.189792204873345e-07,
+        1.7392538609328854e-07,
+        -3.4329714253409947e-06
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -5.194448817746421e-07,
+        1.7020009579482658e-07,
+        -3.432942321510538e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.5972258299589157e-07,
+        8.509960025548935e-08,
+        -1.716471160762012e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        -0.9962146282196045,
+        0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftThumbMetacarpal": {
+      "nodeName": "leftThumbMetacarpal",
+      "nodeIndex": 22,
+      "parent": "leftHand",
+      "parentNodeName": "leftHand",
+      "restPosition": [
+        -0.04126957431435585,
+        0.06075727194547653,
+        -0.05171436071395874
+      ],
+      "restQuaternion": [
+        -0.4175429344177246,
+        0.8890895843505859,
+        -0.15932095050811768,
+        0.0989665761590004
+      ],
+      "restRotation": [
+        2.9290126320006973,
+        0.31416977157231807,
+        2.297272092738581
+      ],
+      "restScale": [
+        1,
+        0.9999997615814209,
+        0.9999998807907104
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.9290126097404303,
+        0.3141697089000724,
+        2.2972719469728813
+      ],
+      "initialRawLocalQuaternion": [
+        -0.4175429046154022,
+        0.8890895247459412,
+        -0.15932093560695648,
+        0.0989665687084198
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.7740010023117065,
+        -0.6276815533638,
+        0.08329654484987259
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftThumbProximal": {
+      "nodeName": "leftThumbProximal",
+      "nodeIndex": 21,
+      "parent": "leftThumbMetacarpal",
+      "parentNodeName": "leftThumbMetacarpal",
+      "restPosition": [
+        2.561137080192566e-08,
+        0.05016984045505524,
+        -8.940696716308594e-08
+      ],
+      "restQuaternion": [
+        -0.004536262713372707,
+        0.01697641797363758,
+        0.03954533487558365,
+        0.99906325340271
+      ],
+      "restRotation": [
+        -0.010412757177909885,
+        0.03356855824980847,
+        0.07929830911039391
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999998807907104
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.010412757177909885,
+        0.03356855824980847,
+        0.07929830911039391
+      ],
+      "initialRawLocalQuaternion": [
+        -0.004536262713372707,
+        0.01697641797363758,
+        0.03954533487558365,
+        0.99906325340271
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.7168932557106018,
+        -0.6920732855796814,
+        0.08425387740135193
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftThumbDistal": {
+      "nodeName": "leftThumbDistal",
+      "nodeIndex": 20,
+      "parent": "leftThumbProximal",
+      "parentNodeName": "leftThumbProximal",
+      "restPosition": [
+        -2.2118911147117615e-07,
+        0.038431745022535324,
+        2.2351741790771484e-08
+      ],
+      "restQuaternion": [
+        -0.11543139070272446,
+        0.0351809523999691,
+        0.12037297338247299,
+        0.9853670597076416
+      ],
+      "restRotation": [
+        -0.2384102275128907,
+        0.041554622465621784,
+        0.24809432320606684
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.2384102275128907,
+        0.041554622465621784,
+        0.24809432320606684
+      ],
+      "initialRawLocalQuaternion": [
+        -0.11543139070272446,
+        0.0351809523999691,
+        0.12037297338247299,
+        0.9853670597076416
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.5214084386825562,
+        -0.8492148518562317,
+        0.08347080647945404
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightIndexProximal": {
+      "nodeName": "rightIndexProximal",
+      "nodeIndex": 34,
+      "parent": "rightHand",
+      "parentNodeName": "rightHand",
+      "restPosition": [
+        0.0488690622150898,
+        0.12273287028074265,
+        -0.0012043172027915716
+      ],
+      "restQuaternion": [
+        -0.027734188362956047,
+        -0.9992314577102661,
+        -0.027692308649420738,
+        0.0007686215685680509
+      ],
+      "restRotation": [
+        -3.0861796298867468,
+        -1.429219942394866e-08,
+        -3.0860958713239013
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179620401585,
+        -1.4290726824128797e-08,
+        -3.0860958655383386
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734186500310898,
+        -0.9992313981056213,
+        -0.02769230678677559,
+        0.00076862151036039
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightIndexIntermediate": {
+      "nodeName": "rightIndexIntermediate",
+      "nodeIndex": 33,
+      "parent": "rightIndexProximal",
+      "parentNodeName": "rightIndexProximal",
+      "restPosition": [
+        -1.3460521586239338e-07,
+        0.04859001561999321,
+        1.1059455573558807e-08
+      ],
+      "restQuaternion": [
+        -2.1682352269181138e-07,
+        -6.105983629822731e-08,
+        1.8698627854973893e-06,
+        1
+      ],
+      "restRotation": [
+        -4.3364681800992015e-07,
+        -1.2212048261517368e-07,
+        3.7397255709773445e-06
+      ],
+      "restScale": [
+        1,
+        1.0000001192092896,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -4.373721083083813e-07,
+        -1.1839519231671175e-07,
+        3.7397255709773445e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.1868616784104233e-07,
+        -5.9197187596282674e-08,
+        1.8698627854973893e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightIndexDistal": {
+      "nodeName": "rightIndexDistal",
+      "nodeIndex": 32,
+      "parent": "rightIndexIntermediate",
+      "parentNodeName": "rightIndexIntermediate",
+      "restPosition": [
+        1.6999388208205346e-07,
+        0.036159999668598175,
+        -3.27054294757545e-09
+      ],
+      "restQuaternion": [
+        2.0046721260769118e-07,
+        4.301546852047977e-08,
+        -1.6979759038804332e-06,
+        1
+      ],
+      "restRotation": [
+        4.00934567323908e-07,
+        8.603025491993332e-08,
+        -3.395951807747812e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        3.972092770254467e-07,
+        8.603025491993332e-08,
+        -3.395980911578268e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.9860456745846022e-07,
+        4.301546496776609e-08,
+        -1.6979904557956615e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightMiddleProximal": {
+      "nodeName": "rightMiddleProximal",
+      "nodeIndex": 40,
+      "parent": "rightHand",
+      "parentNodeName": "rightHand",
+      "restPosition": [
+        0.01392290834337473,
+        0.1246713325381279,
+        -0.0010967928683385253
+      ],
+      "restQuaternion": [
+        -0.027734898030757904,
+        -0.9992313981056213,
+        -0.02769235521554947,
+        0.0007686216849833727
+      ],
+      "restRotation": [
+        -3.0861795302950874,
+        2.745446892049586e-08,
+        -3.08609444466855
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999998211860657,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.0861795245294736,
+        2.7455939743958883e-08,
+        -3.0860944388826463
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734896168112755,
+        -0.9992313385009766,
+        -0.02769235335290432,
+        0.0007686216267757118
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightMiddleIntermediate": {
+      "nodeName": "rightMiddleIntermediate",
+      "nodeIndex": 39,
+      "parent": "rightMiddleProximal",
+      "parentNodeName": "rightMiddleProximal",
+      "restPosition": [
+        -4.704634193331003e-08,
+        0.05289016291499138,
+        6.6356733441352844e-09
+      ],
+      "restQuaternion": [
+        -4.010508192209272e-08,
+        3.91155481338501e-08,
+        -4.289904893539642e-07,
+        1
+      ],
+      "restRotation": [
+        -8.021012831704848e-08,
+        7.823113179483706e-08,
+        -8.57980978707718e-07
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -8.021012831704848e-08,
+        7.823113179483706e-08,
+        -8.57980978707718e-07
+      ],
+      "initialRawLocalQuaternion": [
+        -4.010508192209272e-08,
+        3.91155481338501e-08,
+        -4.289904893539642e-07,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightMiddleDistal": {
+      "nodeName": "rightMiddleDistal",
+      "nodeIndex": 38,
+      "parent": "rightMiddleIntermediate",
+      "parentNodeName": "rightMiddleIntermediate",
+      "restPosition": [
+        -4.496541805565357e-09,
+        0.039360061287879944,
+        1.5133991837501526e-08
+      ],
+      "restQuaternion": [
+        1.3271346688270569e-08,
+        -2.782326369299426e-08,
+        1.4676479622721672e-06,
+        1
+      ],
+      "restRotation": [
+        2.6542775088955743e-08,
+        -5.564648830613808e-08,
+        2.9352959245359043e-06
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.2817484790493833e-08,
+        -5.564648830613808e-08,
+        2.9352959245359043e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.1408701539039612e-08,
+        -2.782326014028058e-08,
+        1.4676479622721672e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightRingProximal": {
+      "nodeName": "rightRingProximal",
+      "nodeIndex": 43,
+      "parent": "rightHand",
+      "parentNodeName": "rightHand",
+      "restPosition": [
+        -0.022021740674972534,
+        0.12666523456573486,
+        -0.0009861914440989494
+      ],
+      "restQuaternion": [
+        -0.02773422561585903,
+        -0.9992314577102661,
+        -0.02769230306148529,
+        0.0007686215685680509
+      ],
+      "restRotation": [
+        -3.0861796410454607,
+        -1.2538915683535379e-08,
+        -3.086095793626653
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179631560302,
+        -1.2537443083715516e-08,
+        -3.0860957878410717
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734223753213882,
+        -0.9992313981056213,
+        -0.02769230119884014,
+        0.00076862151036039
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightRingIntermediate": {
+      "nodeName": "rightRingIntermediate",
+      "nodeIndex": 42,
+      "parent": "rightRingProximal",
+      "parentNodeName": "rightRingProximal",
+      "restPosition": [
+        5.806214176118374e-09,
+        0.04859009012579918,
+        -2.0721927285194397e-08
+      ],
+      "restQuaternion": [
+        -2.2019960965735663e-07,
+        -5.977927486355838e-08,
+        1.8315042780159274e-06,
+        1
+      ],
+      "restRotation": [
+        -4.4039899194100934e-07,
+        -1.1955935974583583e-07,
+        3.663008556015472e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -4.4039902036271877e-07,
+        -1.1583406944737389e-07,
+        3.663008556015472e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.2019960965735663e-07,
+        -5.791662971432743e-08,
+        1.8315042780159274e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightRingDistal": {
+      "nodeName": "rightRingDistal",
+      "nodeIndex": 41,
+      "parent": "rightRingIntermediate",
+      "parentNodeName": "rightRingIntermediate",
+      "restPosition": [
+        5.238689482212067e-09,
+        0.0361599326133728,
+        -5.122274160385132e-09
+      ],
+      "restQuaternion": [
+        1.958105997346138e-07,
+        4.324829916413364e-08,
+        -1.6980341115413466e-06,
+        1
+      ],
+      "restRotation": [
+        3.916213415777547e-07,
+        8.649593041809577e-08,
+        -3.3960682230696376e-06
+      ],
+      "restScale": [
+        0.9999999403953552,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        3.916213415777547e-07,
+        8.649593041809577e-08,
+        -3.3960682230696376e-06
+      ],
+      "initialRawLocalQuaternion": [
+        1.958105997346138e-07,
+        4.324829916413364e-08,
+        -1.6980341115413466e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightLittleProximal": {
+      "nodeName": "rightLittleProximal",
+      "nodeIndex": 37,
+      "parent": "rightHand",
+      "parentNodeName": "rightHand",
+      "restPosition": [
+        -0.05497090145945549,
+        0.12849295139312744,
+        -0.0008848076104186475
+      ],
+      "restQuaternion": [
+        -0.027734562754631042,
+        -0.9992313981056213,
+        -0.027692358940839767,
+        0.000768500380218029
+      ],
+      "restRotation": [
+        -3.0861795269938983,
+        2.515149901682916e-07,
+        -3.0860951216274266
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -3.086179521228283,
+        2.5151646809718196e-07,
+        -3.086095115841684
+      ],
+      "initialRawLocalQuaternion": [
+        -0.027734560891985893,
+        -0.9992313385009766,
+        -0.027692357078194618,
+        0.0007685003220103681
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightLittleIntermediate": {
+      "nodeName": "rightLittleIntermediate",
+      "nodeIndex": 36,
+      "parent": "rightLittleProximal",
+      "parentNodeName": "rightLittleProximal",
+      "restPosition": [
+        4.252069629728794e-08,
+        0.03870014846324921,
+        5.122274160385132e-09
+      ],
+      "restQuaternion": [
+        2.3283069916502086e-10,
+        1.1682277545332909e-07,
+        3.0046794563531876e-07,
+        1
+      ],
+      "restRotation": [
+        4.655912044793098e-10,
+        2.336455509066603e-07,
+        6.009358912705652e-07
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        4.6560519328942007e-10,
+        2.373708412051223e-07,
+        5.413312464951941e-07
+      ],
+      "initialRawLocalQuaternion": [
+        2.3283472372348513e-10,
+        1.1868542060256004e-07,
+        2.7066562324762344e-07,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightLittleDistal": {
+      "nodeName": "rightLittleDistal",
+      "nodeIndex": 35,
+      "parent": "rightLittleIntermediate",
+      "parentNodeName": "rightLittleIntermediate",
+      "restPosition": [
+        -4.2229657992720604e-08,
+        0.028799882158637047,
+        0
+      ],
+      "restQuaternion": [
+        -2.594897523522377e-07,
+        -8.69622454047203e-08,
+        1.7164857126772404e-06,
+        1
+      ],
+      "restRotation": [
+        -5.189792204873345e-07,
+        -1.7392538609328854e-07,
+        3.4329714253409947e-06
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -5.194448817746421e-07,
+        -1.7020009579482658e-07,
+        3.432942321510538e-06
+      ],
+      "initialRawLocalQuaternion": [
+        -2.5972258299589157e-07,
+        -8.509960025548935e-08,
+        1.716471160762012e-06,
+        1.0
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.05538477003574371,
+        0.9962146282196045,
+        -0.06699933856725693
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightThumbMetacarpal": {
+      "nodeName": "rightThumbMetacarpal",
+      "nodeIndex": 46,
+      "parent": "rightHand",
+      "parentNodeName": "rightHand",
+      "restPosition": [
+        0.04126957431435585,
+        0.06075727194547653,
+        -0.05171436071395874
+      ],
+      "restQuaternion": [
+        -0.4175429344177246,
+        -0.8890895843505859,
+        0.15932095050811768,
+        0.0989665761590004
+      ],
+      "restRotation": [
+        2.9290126320006973,
+        -0.31416977157231807,
+        -2.297272092738581
+      ],
+      "restScale": [
+        1,
+        0.9999997615814209,
+        0.9999998807907104
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        2.9290126097404303,
+        -0.3141697089000724,
+        -2.2972719469728813
+      ],
+      "initialRawLocalQuaternion": [
+        -0.4175429046154022,
+        -0.8890895247459412,
+        0.15932093560695648,
+        0.0989665687084198
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.7740010023117065,
+        0.6276815533638,
+        -0.08329654484987259
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightThumbProximal": {
+      "nodeName": "rightThumbProximal",
+      "nodeIndex": 45,
+      "parent": "rightThumbMetacarpal",
+      "parentNodeName": "rightThumbMetacarpal",
+      "restPosition": [
+        -2.561137080192566e-08,
+        0.05016984045505524,
+        -8.940696716308594e-08
+      ],
+      "restQuaternion": [
+        -0.004536262713372707,
+        -0.01697641797363758,
+        -0.03954533487558365,
+        0.99906325340271
+      ],
+      "restRotation": [
+        -0.010412757177909885,
+        -0.03356855824980847,
+        -0.07929830911039391
+      ],
+      "restScale": [
+        1,
+        0.9999999403953552,
+        0.9999998807907104
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.010412757177909885,
+        -0.03356855824980847,
+        -0.07929830911039391
+      ],
+      "initialRawLocalQuaternion": [
+        -0.004536262713372707,
+        -0.01697641797363758,
+        -0.03954533487558365,
+        0.99906325340271
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.7168932557106018,
+        0.6920732855796814,
+        -0.08425387740135193
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "rightThumbDistal": {
+      "nodeName": "rightThumbDistal",
+      "nodeIndex": 44,
+      "parent": "rightThumbProximal",
+      "parentNodeName": "rightThumbProximal",
+      "restPosition": [
+        2.2118911147117615e-07,
+        0.038431745022535324,
+        2.2351741790771484e-08
+      ],
+      "restQuaternion": [
+        -0.11543139070272446,
+        -0.0351809523999691,
+        -0.12037297338247299,
+        0.9853670597076416
+      ],
+      "restRotation": [
+        -0.2384102275128907,
+        -0.041554622465621784,
+        -0.24809432320606684
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -1.6,
+          1.6
+        ],
+        "y": [
+          -1.6,
+          1.6
+        ],
+        "z": [
+          -1.6,
+          1.6
+        ]
+      },
+      "initialRawLocalRotation": [
+        -0.2384102275128907,
+        -0.041554622465621784,
+        -0.24809432320606684
+      ],
+      "initialRawLocalQuaternion": [
+        -0.11543139070272446,
+        -0.0351809523999691,
+        -0.12037297338247299,
+        0.9853670597076416
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "curlAxis": [
+        -0.5214084386825562,
+        0.8492148518562317,
+        -0.08347080647945404
+      ],
+      "curlRange": [
+        0,
+        1.45
+      ]
+    },
+    "leftEye": {
+      "nodeName": "leftEye",
+      "nodeIndex": 28,
+      "parent": "head",
+      "parentNodeName": "head",
+      "restPosition": [
+        -0.16499996185302734,
+        0.3250000476837158,
+        -0.2698841094970703
+      ],
+      "restQuaternion": [
+        -0.7071067690849304,
+        0,
+        0,
+        0.7071067690849304
+      ],
+      "restRotation": [
+        -1.5707962925663528,
+        0.0,
+        0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.12,
+          0.12
+        ],
+        "y": [
+          -0.15,
+          0.15
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "initialRawLocalRotation": [
+        -1.5707962925663528,
+        0.0,
+        0.0
+      ],
+      "initialRawLocalQuaternion": [
+        -0.7071067690849304,
+        0.0,
+        0.0,
+        0.7071067690849304
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rightEye": {
+      "nodeName": "rightEye",
+      "nodeIndex": 29,
+      "parent": "head",
+      "parentNodeName": "head",
+      "restPosition": [
+        0.23500004410743713,
+        0.3250000476837158,
+        -0.2528282403945923
+      ],
+      "restQuaternion": [
+        -0.7071067690849304,
+        0,
+        0,
+        0.7071067690849304
+      ],
+      "restRotation": [
+        -1.5707962925663528,
+        0.0,
+        0.0
+      ],
+      "restScale": [
+        1,
+        1,
+        1
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          -0.12,
+          0.12
+        ],
+        "y": [
+          -0.15,
+          0.15
+        ],
+        "z": [
+          0,
+          0
+        ]
+      },
+      "initialRawLocalRotation": [
+        -1.5707962925663528,
+        0.0,
+        0.0
+      ],
+      "initialRawLocalQuaternion": [
+        -0.7071067690849304,
+        0.0,
+        0.0,
+        0.7071067690849304
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "jaw": {
+      "nodeName": "jaw",
+      "nodeIndex": 27,
+      "parent": "head",
+      "parentNodeName": "head",
+      "restPosition": [
+        1.2834643570158732e-08,
+        0.16000008583068848,
+        -0.08500000089406967
+      ],
+      "restQuaternion": [
+        7.056954842710184e-08,
+        0.35538044571876526,
+        -0.9347217679023743,
+        2.6830475619021854e-08
+      ],
+      "restRotation": [
+        0.7266421278361843,
+        -1.128557300944524e-07,
+        -3.1415925532736693
+      ],
+      "restScale": [
+        1,
+        1,
+        0.9999999403953552
+      ],
+      "initialNormalizedRotation": [
+        0,
+        0,
+        0
+      ],
+      "rotationLimits": {
+        "x": [
+          0,
+          0.18
+        ],
+        "y": [
+          -0.03,
+          0.03
+        ],
+        "z": [
+          -0.03,
+          0.03
+        ]
+      },
+      "initialRawLocalRotation": [
+        0.7266421278361843,
+        -1.128557300944524e-07,
+        -3.1415925532736693
+      ],
+      "initialRawLocalQuaternion": [
+        7.056954842710184e-08,
+        0.35538044571876526,
+        -0.9347217679023743,
+        2.6830475619021854e-08
+      ],
+      "rotationLimitsSpace": "three-vrm normalized local, relative to T-pose",
+      "rotationAxes": {
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "expressions": [
+    "happy",
+    "angry",
+    "sad",
+    "relaxed",
+    "surprised",
+    "blink",
+    "blinkLeft",
+    "blinkRight",
+    "lookUp",
+    "lookDown",
+    "lookLeft",
+    "lookRight",
+    "aa",
+    "ih",
+    "ou",
+    "ee",
+    "oh"
+  ],
+  "capabilities": {
+    "fingers": true,
+    "faceExpressions": true,
+    "wink": true,
+    "lookAt": true,
+    "eyeBones": true,
+    "jaw": true
+  },
+  "gazeMode": "VRM expression LookAt; disable lookAt.autoUpdate before manually setting look* expressions or eye bones",
+  "maxVertexInfluences": 2,
+  "limitations": [
+    "Initial A-pose requires the supplied helper; generic VRM viewers show the T-pose.",
+    "No IK, collision avoidance, cloth/hair physics, or AR.",
+    "Rotation limits are app-side recommendations, not enforced by the VRM format.",
+    "Compact chibi fingers; no nails, teeth or detailed mouth cavity.",
+    "Non-thumb metacarpals are not VRM humanoid entries; three joints per finger.",
+    "Large or combined poses may intersect hair, sleeves or skirt.",
+    "Natural-language example parser supports documented phrases, not arbitrary AI interpretation."
+  ]
+}

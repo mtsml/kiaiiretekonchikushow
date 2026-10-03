@@ -2,16 +2,57 @@ const DEFAULT_JEV_MODEL = 'typesafe/jev';
 // JSON Mode 対応モデル。旧 llama-3.1-8b-instruct は Cloudflare 側で廃止済み。
 const DEFAULT_LLM_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const DEFAULT_CONFIDENCE_THRESHOLD = 0.72;
+const EXPRESSION_NAMES = ['happy', 'angry', 'sad', 'relaxed', 'surprised', 'blink', 'blinkLeft', 'blinkRight', 'lookUp', 'lookDown', 'lookLeft', 'lookRight', 'aa', 'ih', 'ou', 'ee', 'oh'];
+const FINGER_NAMES = ['Thumb', 'Index', 'Middle', 'Ring', 'Little'];
+const RIG_BONE_NAMES = new Set(['hips', 'spine', 'chest', 'upperChest', 'neck', 'head', 'leftShoulder', 'leftUpperArm', 'leftLowerArm', 'leftHand', 'leftUpperLeg', 'leftLowerLeg', 'leftFoot', 'leftToes', 'rightShoulder', 'rightUpperArm', 'rightLowerArm', 'rightHand', 'rightUpperLeg', 'rightLowerLeg', 'rightFoot', 'rightToes', 'leftIndexProximal', 'leftIndexIntermediate', 'leftIndexDistal', 'leftMiddleProximal', 'leftMiddleIntermediate', 'leftMiddleDistal', 'leftRingProximal', 'leftRingIntermediate', 'leftRingDistal', 'leftLittleProximal', 'leftLittleIntermediate', 'leftLittleDistal', 'leftThumbMetacarpal', 'leftThumbProximal', 'leftThumbDistal', 'rightIndexProximal', 'rightIndexIntermediate', 'rightIndexDistal', 'rightMiddleProximal', 'rightMiddleIntermediate', 'rightMiddleDistal', 'rightRingProximal', 'rightRingIntermediate', 'rightRingDistal', 'rightLittleProximal', 'rightLittleIntermediate', 'rightLittleDistal', 'rightThumbMetacarpal', 'rightThumbProximal', 'rightThumbDistal', 'leftEye', 'rightEye', 'jaw']);
 
 const POSE_SCHEMA = {
   type: 'object',
   properties: {
-    gesture: { type: 'string', enum: ['neutral', 'peace', 'wave', 'thumbs_up', 'point', 'fist'] },
-    hand: { type: 'string', enum: ['none', 'left', 'right', 'both'] },
-    bodyLean: { type: 'string', enum: ['upright', 'slightly_forward', 'slightly_back', 'left', 'right'] },
-    expression: { type: 'string', enum: ['neutral', 'smile', 'surprised', 'angry'] },
+    pose: {
+      type: 'object',
+      properties: {
+        gesture: { type: 'string', enum: ['neutral', 'peace', 'wave', 'thumbs_up', 'point', 'fist'] },
+        hand: { type: 'string', enum: ['none', 'left', 'right', 'both'] },
+        bodyLean: { type: 'string', enum: ['upright', 'slightly_forward', 'slightly_back', 'left', 'right'] },
+        expression: { type: 'string', enum: ['neutral', 'smile', 'surprised', 'angry'] },
+        wink: { type: 'string', enum: ['none', 'left', 'right'] },
+        bones: {
+          type: 'object',
+          additionalProperties: {
+            type: 'array', minItems: 3, maxItems: 3,
+            items: { type: 'number', minimum: -3.2, maximum: 3.2 },
+          },
+        },
+        hands: {
+          type: 'object',
+          additionalProperties: { type: 'string', enum: ['open', 'peace', 'point', 'thumbsUp', 'fist'] },
+        },
+        fingers: {
+          type: 'object',
+          additionalProperties: {
+            type: 'object',
+            additionalProperties: { type: 'number', minimum: 0, maximum: 1 },
+          },
+        },
+        expressions: {
+          type: 'object',
+          additionalProperties: { type: 'number', minimum: 0, maximum: 1 },
+        },
+        lookAt: {
+          type: 'object',
+          properties: {
+            yaw: { type: 'number', minimum: -1, maximum: 1 },
+            pitch: { type: 'number', minimum: -1, maximum: 1 },
+          },
+          additionalProperties: false,
+        },
+        motion: { type: 'string', enum: ['waveRight'] },
+      },
+      additionalProperties: false,
+    },
   },
-  required: ['gesture', 'hand', 'bodyLean', 'expression'],
+  required: ['pose'],
   additionalProperties: false,
 };
 
@@ -43,6 +84,11 @@ const POSE_OPTIONS = {
     surprised: 'A surprised expression.',
     angry: 'An angry expression.',
   },
+  wink: {
+    none: 'No wink.',
+    left: 'Wink with the character\'s left eye.',
+    right: 'Wink with the character\'s right eye.',
+  },
 };
 
 function json(data, status = 200) {
@@ -68,6 +114,7 @@ function normalizePose(value = {}) {
     hand: POSE_OPTIONS.hand[value.hand] ? value.hand : 'none',
     bodyLean: POSE_OPTIONS.bodyLean[value.bodyLean] ? value.bodyLean : 'upright',
     expression: POSE_OPTIONS.expression[value.expression] ? value.expression : 'neutral',
+    wink: POSE_OPTIONS.wink[value.wink] ? value.wink : 'none',
   };
 }
 
@@ -119,7 +166,47 @@ function parseJsonText(value) {
 function readLlmPose(result) {
   const response = result?.response ?? result?.result ?? result;
   const parsed = parseJsonText(response);
-  return normalizePose(parsed?.pose || parsed || {});
+  const value = parsed?.pose || parsed || {};
+  const pose = normalizePose(value);
+  const clamp = (number, min, max) => Math.max(min, Math.min(max, number));
+  const bones = {};
+  const expressions = {};
+  const fingers = {};
+  const hands = {};
+
+  if (value.bones && typeof value.bones === 'object') {
+    Object.entries(value.bones).slice(0, 55).forEach(([name, rawRotation]) => {
+      const rotation = Array.isArray(rawRotation) ? rawRotation : rawRotation?.rotation;
+      if (RIG_BONE_NAMES.has(name) && Array.isArray(rotation) && rotation.length === 3 && rotation.every(Number.isFinite)) {
+        bones[name] = rotation.map((angle) => clamp(angle, -3.2, 3.2));
+      }
+    });
+  }
+  if (value.hands && typeof value.hands === 'object') {
+    Object.entries(value.hands).forEach(([side, gesture]) => {
+      if (['left', 'right'].includes(side) && ['open', 'peace', 'point', 'thumbsUp', 'fist'].includes(gesture)) hands[side] = gesture;
+    });
+  }
+  if (value.fingers && typeof value.fingers === 'object') {
+    Object.entries(value.fingers).forEach(([side, values]) => {
+      if (!['left', 'right'].includes(side) || !values || typeof values !== 'object') return;
+      const sideValues = {};
+      FINGER_NAMES.forEach((finger) => {
+        if (Number.isFinite(values[finger])) sideValues[finger] = clamp(values[finger], 0, 1);
+      });
+      if (Object.keys(sideValues).length) fingers[side] = sideValues;
+    });
+  }
+  if (value.expressions && typeof value.expressions === 'object') {
+    Object.entries(value.expressions).forEach(([name, amount]) => {
+      if (EXPRESSION_NAMES.includes(name) && Number.isFinite(amount)) expressions[name] = clamp(amount, 0, 1);
+    });
+  }
+  const lookAt = value.lookAt && typeof value.lookAt === 'object'
+    ? { yaw: clamp(Number(value.lookAt.yaw) || 0, -1, 1), pitch: clamp(Number(value.lookAt.pitch) || 0, -1, 1) }
+    : undefined;
+  const motion = value.motion === 'waveRight' ? 'waveRight' : undefined;
+  return { ...pose, bones, hands, fingers, expressions, ...(lookAt ? { lookAt } : {}), ...(motion ? { motion } : {}) };
 }
 
 async function runFallbackLlm(ai, model, prompt) {
@@ -128,8 +215,10 @@ async function runFallbackLlm(ai, model, prompt) {
       {
         role: 'system',
         content: [
-          'You convert a natural-language character pose request into the supplied JSON schema.',
-          'Do not explain. Return JSON only. Use the closest enum value; use neutral/upright when absent.',
+          'You convert a natural-language character pose request into a VRM pose command.',
+          'Return JSON only with a pose object. Use semantic fields for known gestures and add bones, hands, fingers, expressions, or lookAt when the request needs detail.',
+          'Bone rotations are normalized VRM local Euler XYZ radians. Finger values are 0 (open) to 1 (curled). Expression values are 0 to 1.',
+          'Use VRM humanoid names such as rightUpperArm, spine, neck, rightIndexProximal. Do not invent prose or unknown fields.',
         ].join(' '),
       },
       { role: 'user', content: prompt },
