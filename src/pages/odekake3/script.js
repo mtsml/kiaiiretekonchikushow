@@ -361,6 +361,7 @@ window.exportCurrentPoseAsGlb = exportCurrentPoseAsGlb;
 
 const poseForm = document.getElementById('pose-form');
 const posePrompt = document.getElementById('pose-prompt');
+const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
@@ -425,7 +426,6 @@ posePrompt.addEventListener('input', () => {
       // 応答待ちの間に入力が変わっていたら古い結果は捨てる。
       if (version === poseApplyVersion && posePrompt.value.trim() === prompt) {
         prefetchedPose = { prompt, data };
-        await applyPoseResult(data, version);
       }
     } catch (error) {
       if (error.name !== 'AbortError') console.debug('Pose prefetch failed', error);
@@ -435,7 +435,25 @@ posePrompt.addEventListener('input', () => {
   }, POSE_PREFETCH_DELAY);
 });
 
-poseForm.addEventListener('submit', (event) => event.preventDefault());
+poseForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const prompt = posePrompt.value.trim();
+  if (!prompt) return;
+
+  const version = poseApplyVersion;
+  poseSubmit.disabled = true;
+  poseSubmit.textContent = '適用中…';
+  try {
+    const cached = prefetchedPose?.prompt === prompt ? prefetchedPose.data : await fetchPose(prompt);
+    prefetchedPose = null;
+    await applyPoseResult(cached, version);
+  } catch (error) {
+    console.error('Pose apply failed', error);
+  } finally {
+    poseSubmit.disabled = false;
+    poseSubmit.textContent = 'ポーズを適用';
+  }
+});
 
 arLaunch.addEventListener('click', () => {
   if (typeof arViewer.activateAR === 'function') arViewer.activateAR();
