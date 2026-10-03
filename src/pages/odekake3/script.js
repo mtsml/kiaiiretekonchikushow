@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { createAvatarController } from './avatar-controls.js';
 
@@ -289,9 +290,6 @@ function loadModel(url, label) {
       const kind = currentVrm ? 'VRM' : 'GLB/glTF';
       const found = [...bones.keys()].join(', ') || '対象ボーンなし';
       setStatus(`${kind} を読み込みました。検出したボーン: ${found}`);
-      if (prefetchedPose?.prompt === posePrompt.value.trim()) {
-        applyPoseResult(prefetchedPose.data, poseApplyVersion).catch((error) => console.error('Pose apply failed', error));
-      }
     },
     undefined,
     (error) => {
@@ -333,6 +331,48 @@ export function applyPose(pose = {}) {
 }
 
 /**
+ * AR変換（特にiOSのUSDZ変換）でスケルトン姿勢がリセットされる環境向けに、
+ * 現在のボーン変形をメッシュ頂点へ焼き込んだ静的シーンを作ります。
+ * Web表示用のVRM本体は変更しません。
+ */
+function createStaticPoseScene() {
+  const root = SkeletonUtils.clone(currentModel);
+  const position = new THREE.Vector3();
+  const skinnedMeshes = [];
+  root.traverse((node) => {
+    if (node.isSkinnedMesh) skinnedMeshes.push(node);
+  });
+
+  skinnedMeshes.forEach((skinnedMesh) => {
+    const geometry = skinnedMesh.geometry.clone();
+    const positions = geometry.attributes.position;
+    for (let index = 0; index < positions.count; index += 1) {
+      skinnedMesh.getVertexPosition(index, position);
+      positions.setXYZ(index, position.x, position.y, position.z);
+    }
+    positions.needsUpdate = true;
+    geometry.deleteAttribute('skinIndex');
+    geometry.deleteAttribute('skinWeight');
+    // 表情の重みも現在値を頂点へ焼き込んだため、AR側で再計算させない。
+    Object.keys(geometry.morphAttributes).forEach((name) => {
+      delete geometry.morphAttributes[name];
+    });
+    const staticMesh = new THREE.Mesh(geometry, skinnedMesh.material);
+    staticMesh.name = skinnedMesh.name;
+    staticMesh.position.copy(skinnedMesh.position);
+    staticMesh.quaternion.copy(skinnedMesh.quaternion);
+    staticMesh.scale.copy(skinnedMesh.scale);
+    staticMesh.matrix.copy(skinnedMesh.matrix);
+    staticMesh.matrixAutoUpdate = skinnedMesh.matrixAutoUpdate;
+    staticMesh.frustumCulled = false;
+    skinnedMesh.parent.add(staticMesh);
+    skinnedMesh.parent.remove(skinnedMesh);
+  });
+  root.updateMatrixWorld(true);
+  return root;
+}
+
+/**
  * 現在のポーズを反映したシーンを、AR用のバイナリGLBへ変換します。
  * model-viewer / Scene Viewerへ渡す場合は、返されたBlob URLをsrcに設定します。
  */
@@ -341,9 +381,10 @@ export function exportCurrentPoseAsGlb() {
   // normalized humanoid bone の変更を raw skeleton へ反映してから書き出す。
   currentVrm?.update(0);
   currentModel.updateMatrixWorld(true);
+  const exportScene = createStaticPoseScene();
   return new Promise((resolve, reject) => {
     new GLTFExporter().parse(
-      currentModel,
+      exportScene,
       (result) => {
         const blob = new Blob([result], { type: 'model/gltf-binary' });
         if (posedGlbUrl) URL.revokeObjectURL(posedGlbUrl);
@@ -365,11 +406,6 @@ const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
-const POSE_PREFETCH_DELAY = 700;
-let posePrefetchTimer = null;
-let posePrefetchController = null;
-let prefetchedPose = null;
-let poseApplyVersion = 0;
 
 async function fetchPose(prompt, signal) {
   const response = await fetch('/api/pose', {
@@ -383,15 +419,13 @@ async function fetchPose(prompt, signal) {
   return data;
 }
 
-async function applyPoseResult(data, version) {
-  if (version !== poseApplyVersion || !currentModel) return;
+async function applyPoseResult(data) {
+  if (!currentModel) return;
   applyPose(data.pose);
   const posedUrl = await exportCurrentPoseAsGlb();
-  if (version !== poseApplyVersion) return;
   // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
   // 要素のupgrade時に値が失われることがある。
   await modelViewerReady;
-  if (version !== poseApplyVersion) return;
   arLaunch.hidden = true;
   arLaunch.disabled = true;
   const enableArButton = () => {
@@ -409,44 +443,16 @@ async function applyPoseResult(data, version) {
   arViewer.src = posedUrl;
 }
 
-posePrompt.addEventListener('input', () => {
-  const prompt = posePrompt.value.trim();
-  poseApplyVersion += 1;
-  const version = poseApplyVersion;
-  prefetchedPose = null;
-  if (posePrefetchTimer) window.clearTimeout(posePrefetchTimer);
-  if (posePrefetchController) posePrefetchController.abort();
-  if (!prompt) return;
-
-  posePrefetchTimer = window.setTimeout(async () => {
-    const controller = new AbortController();
-    posePrefetchController = controller;
-    try {
-      const data = await fetchPose(prompt, controller.signal);
-      // 応答待ちの間に入力が変わっていたら古い結果は捨てる。
-      if (version === poseApplyVersion && posePrompt.value.trim() === prompt) {
-        prefetchedPose = { prompt, data };
-      }
-    } catch (error) {
-      if (error.name !== 'AbortError') console.debug('Pose prefetch failed', error);
-    } finally {
-      if (posePrefetchController === controller) posePrefetchController = null;
-    }
-  }, POSE_PREFETCH_DELAY);
-});
-
 poseForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const prompt = posePrompt.value.trim();
   if (!prompt) return;
 
-  const version = poseApplyVersion;
   poseSubmit.disabled = true;
   poseSubmit.textContent = '適用中…';
   try {
-    const cached = prefetchedPose?.prompt === prompt ? prefetchedPose.data : await fetchPose(prompt);
-    prefetchedPose = null;
-    await applyPoseResult(cached, version);
+    const data = await fetchPose(prompt);
+    await applyPoseResult(data);
   } catch (error) {
     console.error('Pose apply failed', error);
   } finally {
