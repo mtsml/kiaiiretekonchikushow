@@ -362,6 +362,44 @@ const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
+const POSE_PREFETCH_DELAY = 700;
+let posePrefetchTimer = null;
+let posePrefetchController = null;
+let prefetchedPose = null;
+
+async function fetchPose(prompt, signal) {
+  const response = await fetch('/api/pose', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ prompt }),
+    signal,
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
+  return data;
+}
+
+posePrompt.addEventListener('input', () => {
+  const prompt = posePrompt.value.trim();
+  prefetchedPose = null;
+  if (posePrefetchTimer) window.clearTimeout(posePrefetchTimer);
+  if (posePrefetchController) posePrefetchController.abort();
+  if (!prompt) return;
+
+  posePrefetchTimer = window.setTimeout(async () => {
+    const controller = new AbortController();
+    posePrefetchController = controller;
+    try {
+      const data = await fetchPose(prompt, controller.signal);
+      // 応答待ちの間に入力が変わっていたら古い結果は捨てる。
+      if (posePrompt.value.trim() === prompt) prefetchedPose = { prompt, data };
+    } catch (error) {
+      if (error.name !== 'AbortError') console.debug('Pose prefetch failed', error);
+    } finally {
+      if (posePrefetchController === controller) posePrefetchController = null;
+    }
+  }, POSE_PREFETCH_DELAY);
+});
 
 poseForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -373,13 +411,9 @@ poseForm.addEventListener('submit', async (event) => {
   poseSubmit.disabled = true;
   poseSubmit.textContent = '適用中…';
   try {
-    const response = await fetch('/api/pose', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ prompt }),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
+    const cached = prefetchedPose?.prompt === prompt ? prefetchedPose.data : null;
+    const data = cached || await fetchPose(prompt);
+    prefetchedPose = null;
     applyPose(data.pose);
     const posedUrl = await exportCurrentPoseAsGlb();
     // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
