@@ -428,25 +428,33 @@ async function fetchPose(prompt, signal) {
   return data;
 }
 
-function encodeSharePayload(payload) {
-  const bytes = new TextEncoder().encode(JSON.stringify(payload));
-  let binary = '';
-  bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-function decodeSharePayload(value) {
-  const base64 = value.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (value.length % 4)) % 4);
-  const binary = atob(base64);
-  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
-  return JSON.parse(new TextDecoder().decode(bytes));
-}
-
 function readSharedPose() {
+  const params = new URLSearchParams(window.location.search);
+  const semanticDefaults = {
+    gesture: 'neutral', hand: 'none', bodyLean: 'upright', expression: 'neutral',
+    wink: 'none', posture: 'standing', gaze: 'camera', action: 'none',
+  };
+  const pose = {};
+  Object.keys(semanticDefaults).forEach((field) => {
+    const value = params.get(field);
+    if (value && value !== semanticDefaults[field] && value !== 'unspecified') pose[field] = value;
+  });
+  ['bones', 'hands', 'fingers', 'expressions', 'lookAt'].forEach((field) => {
+    const value = params.get(field);
+    if (!value) return;
+    try { pose[field] = JSON.parse(value); } catch { /* malformed optional field is ignored */ }
+  });
+  if (params.get('motion')) pose.motion = params.get('motion');
+  if (Object.keys(pose).length) return pose;
+
+  // 旧版 #pose=Base64URL 共有リンクの読み込み互換。
   const encoded = new URLSearchParams(window.location.hash.slice(1)).get('pose');
   if (!encoded) return null;
   try {
-    const payload = decodeSharePayload(encoded);
+    const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - (encoded.length % 4)) % 4);
+    const binary = atob(base64);
+    const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+    const payload = JSON.parse(new TextDecoder().decode(bytes));
     return payload?.version === 1 && payload.pose && typeof payload.pose === 'object'
       ? payload.pose
       : null;
@@ -458,7 +466,21 @@ function readSharedPose() {
 
 function createShareUrl(pose) {
   const url = new URL(window.location.href);
-  url.hash = `pose=${encodeSharePayload({ version: 1, model: MODEL_URL, pose })}`;
+  const params = new URLSearchParams();
+  params.set('v', '1');
+  const defaults = {
+    gesture: 'neutral', hand: 'none', bodyLean: 'upright', expression: 'neutral',
+    wink: 'none', posture: 'standing', gaze: 'camera', action: 'none',
+  };
+  Object.entries(defaults).forEach(([field, defaultValue]) => {
+    if (pose[field] && pose[field] !== defaultValue && pose[field] !== 'unspecified') params.set(field, pose[field]);
+  });
+  ['bones', 'hands', 'fingers', 'expressions', 'lookAt'].forEach((field) => {
+    if (pose[field] && Object.keys(pose[field]).length) params.set(field, JSON.stringify(pose[field]));
+  });
+  if (pose.motion) params.set('motion', pose.motion);
+  url.search = params.toString();
+  url.hash = '';
   return url.toString();
 }
 
