@@ -381,19 +381,19 @@ poseForm.addEventListener('submit', async (event) => {
     // ARが起動することがある。loadイベント後にだけボタンを表示する。
     arLaunch.hidden = true;
     arLaunch.disabled = true;
-    await new Promise((resolve, reject) => {
-      const onLoad = () => { cleanup(); resolve(); };
-      const onError = (event) => { cleanup(); reject(event?.detail || new Error('AR用GLBの読み込みに失敗しました。')); };
-      const cleanup = () => {
-        arViewer.removeEventListener('load', onLoad);
-        arViewer.removeEventListener('error', onError);
-      };
-      arViewer.addEventListener('load', onLoad, { once: true });
-      arViewer.addEventListener('error', onError, { once: true });
-      arViewer.src = posedUrl;
-    });
-    arLaunch.disabled = false;
-    arLaunch.hidden = false;
+    const enableArButton = () => {
+      arLaunch.disabled = false;
+      arLaunch.hidden = false;
+    };
+    arViewer.addEventListener('load', enableArButton, { once: true });
+    arViewer.addEventListener('error', (event) => {
+      console.error('AR用GLBの読み込みに失敗しました。', event?.detail || event);
+      enableArButton();
+    }, { once: true });
+    // 一部ブラウザでは非表示のmodel-viewerがloadを発火しないため、
+    // フォーム送信をブロックしないよう安全弁を置く。
+    window.setTimeout(enableArButton, 3000);
+    arViewer.src = posedUrl;
   } catch (error) {
     console.error('Pose request failed', error);
   } finally {
