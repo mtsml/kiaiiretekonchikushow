@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { createAvatarController } from './avatar-controls.js';
@@ -10,25 +11,6 @@ const MODEL_URL = '/model.vrm';
 const HUMANOID_BONES_URL = '/humanoid-bones.json';
 const RIG_MANIFEST_URL = '/rig-manifest.json';
 
-const POSES = {
-  initial: {},
-  'right-arm-up': {
-    rightUpperArm: { rotation: [0, 0, -1.75] },
-    rightLowerArm: { rotation: [0, 0, -0.2] },
-  },
-  'left-arm-up': {
-    leftUpperArm: { rotation: [0, 0, 1.75] },
-    leftLowerArm: { rotation: [0, 0, 0.2] },
-  },
-  'both-arms-up': {
-    rightUpperArm: { rotation: [0, 0, -1.75] },
-    rightLowerArm: { rotation: [0, 0, -0.2] },
-    leftUpperArm: { rotation: [0, 0, 1.75] },
-    leftLowerArm: { rotation: [0, 0, 0.2] },
-  },
-  'wink-left': { wink: 'left' },
-  'peace-right-wink-left': { gesture: 'peace', hand: 'right', wink: 'left' },
-};
 const POSE_BONE_NAMES = [
   'rightUpperArm', 'rightLowerArm', 'leftUpperArm', 'leftLowerArm',
   'spine', 'chest', 'upperChest',
@@ -40,24 +22,19 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 const controls = new OrbitControls(camera, renderer.domElement);
-const loadingManager = new THREE.LoadingManager();
-const loader = new GLTFLoader(loadingManager);
+const loader = new GLTFLoader();
 const clock = new THREE.Clock();
 
 let currentModel = null;
 let currentVrm = null;
 let avatarController = null;
-const localFileUrls = new Map();
 const bones = new Map();
 const restPose = new Map();
 let humanoidBoneMap = {};
 let rigManifest = null;
+let posedGlbUrl = null;
 
 loader.register((parser) => new VRMLoaderPlugin(parser));
-loadingManager.setURLModifier((url) => {
-  const fileName = decodeURIComponent(url.split('/').pop().split('?')[0]);
-  return localFileUrls.get(fileName) || url;
-});
 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -75,6 +52,7 @@ scene.add(keyLight);
 scene.add(new THREE.GridHelper(10, 20, 0xaab5c5, 0xdce2ea));
 
 function setStatus(message, isError = false) {
+  if (!status) return;
   status.textContent = message;
   status.classList.toggle('is-error', isError);
 }
@@ -307,27 +285,46 @@ export function applyPose(pose = {}) {
   currentModel.updateMatrixWorld(true);
 }
 
-document.querySelectorAll('[data-pose]').forEach((button) => {
-  button.addEventListener('click', () => applyPose(POSES[button.dataset.pose]));
-});
+/**
+ * 現在のポーズを反映したシーンを、AR用のバイナリGLBへ変換します。
+ * model-viewer / Scene Viewerへ渡す場合は、返されたBlob URLをsrcに設定します。
+ */
+export function exportCurrentPoseAsGlb() {
+  if (!currentModel) return Promise.reject(new Error('モデルがまだ読み込まれていません。'));
+  currentModel.updateMatrixWorld(true);
+  return new Promise((resolve, reject) => {
+    new GLTFExporter().parse(
+      currentModel,
+      (result) => {
+        const blob = new Blob([result], { type: 'model/gltf-binary' });
+        if (posedGlbUrl) URL.revokeObjectURL(posedGlbUrl);
+        posedGlbUrl = URL.createObjectURL(blob);
+        resolve(posedGlbUrl);
+      },
+      (error) => reject(error),
+      { binary: true, onlyVisible: false, trs: false },
+    );
+  });
+}
+
+// AR用のmodel-viewer接続を追加するまで、開発者コンソールから確認できるようにします。
+window.exportCurrentPoseAsGlb = exportCurrentPoseAsGlb;
 
 const poseForm = document.getElementById('pose-form');
 const posePrompt = document.getElementById('pose-prompt');
 const poseSubmit = document.getElementById('pose-submit');
-const poseStatus = document.getElementById('pose-status');
-const poseResult = document.getElementById('pose-result');
+const arLaunch = document.getElementById('ar-launch');
+const arViewer = document.getElementById('ar-viewer');
 
 poseForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const prompt = posePrompt.value.trim();
   if (!prompt) {
-    poseStatus.textContent = 'ポーズの指示を入力してください。';
     return;
   }
 
   poseSubmit.disabled = true;
-  poseStatus.textContent = 'ポーズを解釈しています…';
-  poseResult.hidden = true;
+  poseSubmit.textContent = '適用中…';
   try {
     const response = await fetch('/api/pose', {
       method: 'POST',
@@ -337,28 +334,18 @@ poseForm.addEventListener('submit', async (event) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
     applyPose(data.pose);
-    poseStatus.textContent = `適用しました（${data.source === 'jev' ? 'Jev' : 'LLM'}）`;
-    poseResult.textContent = JSON.stringify(data, null, 2);
-    poseResult.hidden = false;
+    arViewer.src = await exportCurrentPoseAsGlb();
+    arLaunch.hidden = false;
   } catch (error) {
-    poseStatus.textContent = error.message;
+    console.error('Pose request failed', error);
   } finally {
     poseSubmit.disabled = false;
+    poseSubmit.textContent = 'ポーズを適用';
   }
 });
 
-document.getElementById('model-file').addEventListener('change', (event) => {
-  const files = [...event.target.files];
-  const modelFile = files.find((file) => /\.(vrm|glb|gltf)$/i.test(file.name));
-  if (!modelFile) {
-    setStatus('VRM、GLB、または glTF ファイルを選択してください。', true);
-    return;
-  }
-
-  localFileUrls.forEach((url) => URL.revokeObjectURL(url));
-  localFileUrls.clear();
-  files.forEach((file) => localFileUrls.set(file.name, URL.createObjectURL(file)));
-  loadModel(localFileUrls.get(modelFile.name), modelFile.name);
+arLaunch.addEventListener('click', () => {
+  if (typeof arViewer.activateAR === 'function') arViewer.activateAR();
 });
 
 window.addEventListener('resize', resize);

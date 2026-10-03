@@ -36,22 +36,10 @@ main {
   color: #b42318;
 }
 
-.controls {
-  display: grid;
-  gap: 10px;
-}
-
 .pose-input {
   display: grid;
   gap: 8px;
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--color-border, #d8d8d8);
-}
-
-.pose-input h2 {
-  margin: 0;
-  font-size: 1.1rem;
+  margin-top: 16px;
 }
 
 .pose-input form {
@@ -82,64 +70,19 @@ main {
   opacity: 0.6;
 }
 
-.pose-result {
-  max-width: 100%;
-  margin: 0;
-  padding: 10px;
-  overflow: auto;
-  border-radius: 8px;
-  color: var(--color-fg-sub, #555);
-  background: rgb(0 0 0 / 0.05);
-  font-size: 0.8rem;
-  white-space: pre-wrap;
-}
-
-.file-input {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.ar-launch {
   width: fit-content;
-  max-width: 100%;
   padding: 10px 16px;
-  border-radius: 8px;
-  color: #fff;
-  background: var(--color-primary, #d34b8b);
-  cursor: pointer;
-}
-
-.file-input input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-}
-
-.hint {
-  margin: 0;
-  color: var(--color-fg-sub, #666);
-  font-size: 0.85rem;
-}
-
-.preset-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.preset-buttons button {
-  padding: 12px 8px;
   border: 1px solid var(--color-border, #ccc);
   border-radius: 8px;
   background: var(--color-bg, #fff);
 }
 
-.preset-buttons button:active {
-  transform: translateY(1px);
-}
-
-@media (min-width: 600px) {
-  .preset-buttons {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+.ar-viewer {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }

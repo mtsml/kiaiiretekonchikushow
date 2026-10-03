@@ -45,7 +45,7 @@ export function createAvatarController(vrm,manifest){
       for(const [finger,a] of [['Index',-.13],['Middle',.10]]){
         // Spread in the T-pose palm plane around normalized +Z.
         const b=h.getNormalizedBoneNode(side+finger+'Proximal');
-        b.quaternion.multiply(new Quaternion().setFromAxisAngle(new Vector3(0,0,1),a*(side==='left'?1:-1)));
+        b.quaternion.multiply(new Quaternion().setFromAxisAngle(new Vector3(0,0,1),a*(side==='left'?-1:1)));
       }
     }
   }
@@ -78,7 +78,7 @@ export function createAvatarController(vrm,manifest){
     const bone=h.getNormalizedBoneNode(side+'ThumbMetacarpal'),child=h.getNormalizedBoneNode(side+'ThumbProximal');
     const direction=child.getWorldPosition(new Vector3()).sub(bone.getWorldPosition(new Vector3())).normalize();
     // Slight outward spread keeps the short chibi thumb clear of the curled knuckles.
-    const delta=new Quaternion().setFromUnitVectors(direction,new Vector3(side==='right'?-1:1,1.4,.5).normalize());
+    const delta=new Quaternion().setFromUnitVectors(direction,new Vector3(side==='right'?1:-1,1.4,.5).normalize());
     const world=delta.multiply(bone.getWorldQuaternion(new Quaternion()));
     bone.quaternion.copy(bone.parent.getWorldQuaternion(new Quaternion()).invert().multiply(world));
   }
