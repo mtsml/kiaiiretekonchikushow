@@ -68,13 +68,17 @@ function fitCamera(object) {
   const box = new THREE.Box3().setFromObject(object);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  const height = Math.max(size.y, 1);
-  const distance = Math.max(height * 1.7, 1.5);
+  // モデルの実寸を使う。高さを1以上に丸めると、小型モデルほど
+  // カメラが遠くなり、ファーストビューで小さく見えてしまう。
+  const height = Math.max(size.y, 0.01);
+  const distance = Math.max(height * 1.2, 0.25);
 
-  controls.target.set(center.x, center.y + height * 0.05, center.z);
-  camera.position.set(center.x, center.y + height * 0.1, center.z + distance);
-  camera.near = Math.max(distance / 100, 0.01);
-  camera.far = distance * 100;
+  controls.target.set(center.x, center.y + height * 0.03, center.z);
+  camera.position.set(center.x, center.y + height * 0.04, center.z + distance);
+  controls.minDistance = Math.max(height * 0.35, 0.05);
+  controls.maxDistance = Math.max(height * 8, 1);
+  camera.near = Math.max(distance / 100, 0.001);
+  camera.far = Math.max(distance * 100, 10);
   camera.updateProjectionMatrix();
   controls.update();
 }
