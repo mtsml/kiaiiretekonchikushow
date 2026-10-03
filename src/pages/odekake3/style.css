@@ -1,0 +1,126 @@
+main {
+  margin-bottom: 12px;
+}
+
+.viewer-panel {
+  margin: 8px 0 16px;
+  overflow: hidden;
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+
+.viewer {
+  width: 100%;
+  height: min(68vh, 560px);
+  min-height: 340px;
+  touch-action: none;
+}
+
+.viewer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.status {
+  min-height: 1.5em;
+  margin: 0;
+  padding: 8px 12px;
+  color: var(--color-fg-sub, #666);
+  font-size: 0.9rem;
+  background: rgb(255 255 255 / 0.76);
+}
+
+.status.is-error {
+  color: #b42318;
+}
+
+.pose-input {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pose-input form {
+  display: grid;
+  gap: 8px;
+}
+
+.pose-input textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 2px solid var(--color-fg-sub-sub);
+  border-radius: 6px;
+  color: var(--color-fg);
+  background: var(--color-bg, #fff);
+  resize: vertical;
+}
+
+.pose-input textarea:focus {
+  border-color: var(--color-fg-sub);
+  outline: none;
+}
+
+.pose-input button {
+  width: fit-content;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-bg);
+  background-color: var(--color-fg-sub);
+  box-shadow: 0 3px 2px rgb(0 0 0 / 30%);
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.pose-input button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.pose-input button:active {
+  position: relative;
+  top: 3px;
+  box-shadow: none;
+}
+
+.ar-launch {
+  width: fit-content;
+  margin-top: 8px;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-bg);
+  background-color: var(--color-fg-sub);
+  box-shadow: 0 3px 2px rgb(0 0 0 / 30%);
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.pose-share {
+  width: fit-content;
+  padding: 0.1em 0.5em;
+  border: 2px solid var(--color-fg-sub);
+  border-radius: 10px;
+  color: var(--color-fg-sub);
+  background-color: var(--color-bg);
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.ar-launch:active {
+  position: relative;
+  top: 3px;
+  box-shadow: none;
+}
+
+.ar-viewer {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
