@@ -79,17 +79,10 @@ main {
 }
 
 .ar-viewer {
-  display: block;
-  width: min(100%, 720px);
-  height: 360px;
-  margin: 24px auto 0;
-  border: 1px solid var(--color-border, #ccc);
-  border-radius: 12px;
-  background: #f5f6f8;
-}
-
-@media (max-width: 600px) {
-  .ar-viewer {
-    height: 300px;
-  }
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }

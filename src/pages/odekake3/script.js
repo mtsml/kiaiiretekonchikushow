@@ -462,7 +462,35 @@ poseForm.addEventListener('submit', async (event) => {
 });
 
 arLaunch.addEventListener('click', () => {
-  if (typeof arViewer.activateAR === 'function') arViewer.activateAR();
+  if (typeof arViewer.activateAR !== 'function' || arLaunch.disabled) return;
+  arLaunch.disabled = true;
+  arLaunch.textContent = 'ARを起動中…';
+  const restoreArButton = () => {
+    arLaunch.disabled = false;
+    arLaunch.textContent = 'このポーズをARで見る';
+  };
+  const timeout = window.setTimeout(restoreArButton, 15000);
+  const onStatus = (event) => {
+    if (['session-started', 'object-placed', 'failed', 'not-presenting'].includes(event.detail?.status)) {
+      window.clearTimeout(timeout);
+      arViewer.removeEventListener('ar-status', onStatus);
+      restoreArButton();
+    }
+  };
+  arViewer.addEventListener('ar-status', onStatus);
+  try {
+    const result = arViewer.activateAR();
+    if (result?.catch) result.catch(() => {
+      window.clearTimeout(timeout);
+      arViewer.removeEventListener('ar-status', onStatus);
+      restoreArButton();
+    });
+  } catch (error) {
+    window.clearTimeout(timeout);
+    arViewer.removeEventListener('ar-status', onStatus);
+    restoreArButton();
+    console.error('AR launch failed', error);
+  }
 });
 
 window.addEventListener('resize', resize);
