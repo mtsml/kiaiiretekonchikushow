@@ -289,6 +289,9 @@ function loadModel(url, label) {
       const kind = currentVrm ? 'VRM' : 'GLB/glTF';
       const found = [...bones.keys()].join(', ') || '対象ボーンなし';
       setStatus(`${kind} を読み込みました。検出したボーン: ${found}`);
+      if (prefetchedPose?.prompt === posePrompt.value.trim()) {
+        applyPoseResult(prefetchedPose.data, poseApplyVersion).catch((error) => console.error('Pose apply failed', error));
+      }
     },
     undefined,
     (error) => {
@@ -358,7 +361,6 @@ window.exportCurrentPoseAsGlb = exportCurrentPoseAsGlb;
 
 const poseForm = document.getElementById('pose-form');
 const posePrompt = document.getElementById('pose-prompt');
-const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
@@ -366,6 +368,7 @@ const POSE_PREFETCH_DELAY = 700;
 let posePrefetchTimer = null;
 let posePrefetchController = null;
 let prefetchedPose = null;
+let poseApplyVersion = 0;
 
 async function fetchPose(prompt, signal) {
   const response = await fetch('/api/pose', {
@@ -379,8 +382,36 @@ async function fetchPose(prompt, signal) {
   return data;
 }
 
+async function applyPoseResult(data, version) {
+  if (version !== poseApplyVersion || !currentModel) return;
+  applyPose(data.pose);
+  const posedUrl = await exportCurrentPoseAsGlb();
+  if (version !== poseApplyVersion) return;
+  // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
+  // 要素のupgrade時に値が失われることがある。
+  await modelViewerReady;
+  if (version !== poseApplyVersion) return;
+  arLaunch.hidden = true;
+  arLaunch.disabled = true;
+  const enableArButton = () => {
+    arLaunch.disabled = false;
+    arLaunch.hidden = false;
+  };
+  arViewer.addEventListener('load', enableArButton, { once: true });
+  arViewer.addEventListener('error', (event) => {
+    console.error('AR用GLBの読み込みに失敗しました。', event?.detail || event);
+    enableArButton();
+  }, { once: true });
+  // 一部ブラウザでは非表示のmodel-viewerがloadを発火しないため、
+  // フォームや入力処理をブロックしないよう安全弁を置く。
+  window.setTimeout(enableArButton, 3000);
+  arViewer.src = posedUrl;
+}
+
 posePrompt.addEventListener('input', () => {
   const prompt = posePrompt.value.trim();
+  poseApplyVersion += 1;
+  const version = poseApplyVersion;
   prefetchedPose = null;
   if (posePrefetchTimer) window.clearTimeout(posePrefetchTimer);
   if (posePrefetchController) posePrefetchController.abort();
@@ -392,7 +423,10 @@ posePrompt.addEventListener('input', () => {
     try {
       const data = await fetchPose(prompt, controller.signal);
       // 応答待ちの間に入力が変わっていたら古い結果は捨てる。
-      if (posePrompt.value.trim() === prompt) prefetchedPose = { prompt, data };
+      if (version === poseApplyVersion && posePrompt.value.trim() === prompt) {
+        prefetchedPose = { prompt, data };
+        await applyPoseResult(data, version);
+      }
     } catch (error) {
       if (error.name !== 'AbortError') console.debug('Pose prefetch failed', error);
     } finally {
@@ -401,48 +435,7 @@ posePrompt.addEventListener('input', () => {
   }, POSE_PREFETCH_DELAY);
 });
 
-poseForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const prompt = posePrompt.value.trim();
-  if (!prompt) {
-    return;
-  }
-
-  poseSubmit.disabled = true;
-  poseSubmit.textContent = '適用中…';
-  try {
-    const cached = prefetchedPose?.prompt === prompt ? prefetchedPose.data : null;
-    const data = cached || await fetchPose(prompt);
-    prefetchedPose = null;
-    applyPose(data.pose);
-    const posedUrl = await exportCurrentPoseAsGlb();
-    // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
-    // 要素のupgrade時に値が失われることがある。
-    await modelViewerReady;
-    // GLBを読み込む前にactivateAR()すると、前回のモデルや未ロード状態で
-    // ARが起動することがある。loadイベント後にだけボタンを表示する。
-    arLaunch.hidden = true;
-    arLaunch.disabled = true;
-    const enableArButton = () => {
-      arLaunch.disabled = false;
-      arLaunch.hidden = false;
-    };
-    arViewer.addEventListener('load', enableArButton, { once: true });
-    arViewer.addEventListener('error', (event) => {
-      console.error('AR用GLBの読み込みに失敗しました。', event?.detail || event);
-      enableArButton();
-    }, { once: true });
-    // 一部ブラウザでは非表示のmodel-viewerがloadを発火しないため、
-    // フォーム送信をブロックしないよう安全弁を置く。
-    window.setTimeout(enableArButton, 3000);
-    arViewer.src = posedUrl;
-  } catch (error) {
-    console.error('Pose request failed', error);
-  } finally {
-    poseSubmit.disabled = false;
-    poseSubmit.textContent = 'ポーズを適用';
-  }
-});
+poseForm.addEventListener('submit', (event) => event.preventDefault());
 
 arLaunch.addEventListener('click', () => {
   if (typeof arViewer.activateAR === 'function') arViewer.activateAR();
