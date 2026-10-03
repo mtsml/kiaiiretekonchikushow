@@ -29,6 +29,7 @@ const clock = new THREE.Clock();
 let currentModel = null;
 let currentVrm = null;
 let avatarController = null;
+let currentPose = null;
 const bones = new Map();
 const restPose = new Map();
 let humanoidBoneMap = {};
@@ -263,6 +264,7 @@ function clearModel() {
   currentModel = null;
   currentVrm = null;
   avatarController = null;
+  currentPose = null;
   bones.clear();
   restPose.clear();
 }
@@ -415,7 +417,7 @@ async function fetchPose(prompt, signal) {
   const response = await fetch('/api/pose', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ prompt }),
+    body: JSON.stringify({ prompt, ...(currentPose ? { currentPose } : {}) }),
     signal,
   });
   const data = await response.json();
@@ -426,6 +428,7 @@ async function fetchPose(prompt, signal) {
 async function applyPoseResult(data) {
   if (!currentModel) return;
   applyPose(data.pose);
+  currentPose = data.pose;
   const posedUrl = await exportCurrentPoseAsGlb();
   // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
   // 要素のupgrade時に値が失われることがある。

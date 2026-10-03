@@ -178,6 +178,25 @@ function normalizePose(value = {}) {
   };
 }
 
+function sanitizePose(value = {}) {
+  return readLlmPose({ response: { pose: value } });
+}
+
+function mergePose(base = {}, patch = {}) {
+  const merged = { ...base };
+  ['gesture', 'hand', 'bodyLean', 'expression', 'wink', 'posture', 'gaze', 'action'].forEach((field) => {
+    if (patch[field] && patch[field] !== 'unspecified') merged[field] = patch[field];
+  });
+  ['bones', 'hands', 'fingers', 'expressions'].forEach((field) => {
+    if (patch[field] && typeof patch[field] === 'object') {
+      merged[field] = { ...(base[field] || {}), ...patch[field] };
+    }
+  });
+  if (patch.lookAt) merged.lookAt = { ...(base.lookAt || {}), ...patch.lookAt };
+  if (patch.motion) merged.motion = patch.motion;
+  return sanitizePose(merged);
+}
+
 function buildJevQuestions() {
   const questions = Object.fromEntries(Object.entries(POSE_OPTIONS).map(([field, options]) => [field, {
     type: 'choice',
@@ -284,7 +303,7 @@ function readLlmPose(result) {
   return { ...pose, bones, hands, fingers, expressions, ...(lookAt ? { lookAt } : {}), ...(motion ? { motion } : {}) };
 }
 
-async function runFallbackLlm(ai, model, prompt) {
+async function runFallbackLlm(ai, model, prompt, currentPose) {
   const result = await ai.run(model, {
     messages: [
       {
@@ -292,11 +311,15 @@ async function runFallbackLlm(ai, model, prompt) {
         content: [
           'You convert a natural-language character pose request into a VRM pose command.',
           'Return JSON only with a pose object. Use semantic fields for known gestures and add bones, hands, fingers, expressions, or lookAt when the request needs detail.',
+          'This is an incremental edit. Preserve the supplied current pose unless the user explicitly changes it. Use unspecified for semantic fields that should remain unchanged.',
           'Bone rotations are normalized VRM local Euler XYZ radians. Finger values are 0 (open) to 1 (curled). Expression values are 0 to 1.',
           'Use VRM humanoid names such as rightUpperArm, spine, neck, rightIndexProximal. Do not invent prose or unknown fields.',
         ].join(' '),
       },
-      { role: 'user', content: prompt },
+      {
+        role: 'user',
+        content: JSON.stringify({ prompt, currentPose: currentPose || {} }),
+      },
     ],
     response_format: {
       type: 'json_schema',
@@ -324,6 +347,10 @@ export async function onRequestPost(context) {
     return json({ error: 'prompt is required and must be 500 characters or fewer.' }, 400);
   }
 
+  const currentPose = body?.currentPose && typeof body.currentPose === 'object'
+    ? sanitizePose(body.currentPose)
+    : null;
+
   const jevModel = env.POSE_JEV_MODEL || DEFAULT_JEV_MODEL;
   const llmModel = env.POSE_LLM_MODEL || DEFAULT_LLM_MODEL;
   const threshold = getConfidenceThreshold(env);
@@ -332,7 +359,7 @@ export async function onRequestPost(context) {
   try {
     if (env.POSE_JEV_ENABLED === 'false') {
       stage = 'llm-fallback';
-      const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
+      const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
       return json({
         pose: fallbackPose,
         source: 'llm',
@@ -349,7 +376,7 @@ export async function onRequestPost(context) {
 
     if (jev.detailLevel === 'detailed') {
       stage = 'llm-fallback';
-      const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
+      const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
       return json({
         pose: fallbackPose,
         source: 'llm',
@@ -360,14 +387,14 @@ export async function onRequestPost(context) {
 
     if (isConfident(jev.confidence, jev.pose, threshold) && jev.detailConfidence >= threshold) {
       return json({
-        pose: jev.pose,
+        pose: mergePose(currentPose || {}, jev.pose),
         source: 'jev',
         confidence: { ...jev.confidence, detailLevel: jev.detailConfidence },
       });
     }
 
     stage = 'llm-fallback';
-    const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
+    const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
     return json({
       pose: fallbackPose,
       source: 'llm',
