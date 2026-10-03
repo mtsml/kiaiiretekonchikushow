@@ -290,6 +290,8 @@ function loadModel(url, label) {
       const kind = currentVrm ? 'VRM' : 'GLB/glTF';
       const found = [...bones.keys()].join(', ') || '対象ボーンなし';
       setStatus(`${kind} を読み込みました。検出したボーン: ${found}`);
+      // ポーズ未指定時の初期姿勢もARへ渡せるよう、読み込み直後に準備する。
+      applyPoseResult({ pose: {} }).catch((error) => console.error('Default AR pose failed', error));
     },
     undefined,
     (error) => {
@@ -406,6 +408,8 @@ const poseSubmit = document.getElementById('pose-submit');
 const arLaunch = document.getElementById('ar-launch');
 const arViewer = document.getElementById('ar-viewer');
 const modelViewerReady = customElements.whenDefined('model-viewer');
+arLaunch.disabled = true;
+arLaunch.textContent = 'ARを準備中…';
 
 async function fetchPose(prompt, signal) {
   const response = await fetch('/api/pose', {
@@ -426,11 +430,10 @@ async function applyPoseResult(data) {
   // model-viewerのカスタム要素が未定義の状態でsrcを設定すると、
   // 要素のupgrade時に値が失われることがある。
   await modelViewerReady;
-  arLaunch.hidden = true;
   arLaunch.disabled = true;
   const enableArButton = () => {
     arLaunch.disabled = false;
-    arLaunch.hidden = false;
+    arLaunch.textContent = 'このポーズをARで見る';
   };
   arViewer.addEventListener('load', enableArButton, { once: true });
   arViewer.addEventListener('error', (event) => {
