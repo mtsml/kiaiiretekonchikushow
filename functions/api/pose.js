@@ -5,6 +5,20 @@ const DEFAULT_CONFIDENCE_THRESHOLD = 0.72;
 const EXPRESSION_NAMES = ['happy', 'angry', 'sad', 'relaxed', 'surprised', 'blink', 'blinkLeft', 'blinkRight', 'lookUp', 'lookDown', 'lookLeft', 'lookRight', 'aa', 'ih', 'ou', 'ee', 'oh'];
 const FINGER_NAMES = ['Thumb', 'Index', 'Middle', 'Ring', 'Little'];
 const RIG_BONE_NAMES = new Set(['hips', 'spine', 'chest', 'upperChest', 'neck', 'head', 'leftShoulder', 'leftUpperArm', 'leftLowerArm', 'leftHand', 'leftUpperLeg', 'leftLowerLeg', 'leftFoot', 'leftToes', 'rightShoulder', 'rightUpperArm', 'rightLowerArm', 'rightHand', 'rightUpperLeg', 'rightLowerLeg', 'rightFoot', 'rightToes', 'leftIndexProximal', 'leftIndexIntermediate', 'leftIndexDistal', 'leftMiddleProximal', 'leftMiddleIntermediate', 'leftMiddleDistal', 'leftRingProximal', 'leftRingIntermediate', 'leftRingDistal', 'leftLittleProximal', 'leftLittleIntermediate', 'leftLittleDistal', 'leftThumbMetacarpal', 'leftThumbProximal', 'leftThumbDistal', 'rightIndexProximal', 'rightIndexIntermediate', 'rightIndexDistal', 'rightMiddleProximal', 'rightMiddleIntermediate', 'rightMiddleDistal', 'rightRingProximal', 'rightRingIntermediate', 'rightRingDistal', 'rightLittleProximal', 'rightLittleIntermediate', 'rightLittleDistal', 'rightThumbMetacarpal', 'rightThumbProximal', 'rightThumbDistal', 'leftEye', 'rightEye', 'jaw']);
+const RIG_BONE_LIST = [...RIG_BONE_NAMES];
+
+// Astra の rig-manifest.json (v0.4.1) と同じ55ボーン・17表情を許可する。
+// AIに未知のボーン名を生成させず、モデル差し替え時はこの定義を更新する。
+const BONE_SCHEMA_PROPERTIES = Object.fromEntries(RIG_BONE_LIST.map((name) => [name, {
+  type: 'array', minItems: 3, maxItems: 3,
+  items: { type: 'number', minimum: -3.2, maximum: 3.2 },
+}]));
+const FINGER_SCHEMA_PROPERTIES = Object.fromEntries(FINGER_NAMES.map((name) => [name, {
+  type: 'number', minimum: 0, maximum: 1,
+}]));
+const EXPRESSION_SCHEMA_PROPERTIES = Object.fromEntries(EXPRESSION_NAMES.map((name) => [name, {
+  type: 'number', minimum: 0, maximum: 1,
+}]));
 
 const POSE_SCHEMA = {
   type: 'object',
@@ -19,25 +33,29 @@ const POSE_SCHEMA = {
         wink: { type: 'string', enum: ['none', 'left', 'right'] },
         bones: {
           type: 'object',
-          additionalProperties: {
-            type: 'array', minItems: 3, maxItems: 3,
-            items: { type: 'number', minimum: -3.2, maximum: 3.2 },
-          },
+          properties: BONE_SCHEMA_PROPERTIES,
+          additionalProperties: false,
         },
         hands: {
           type: 'object',
-          additionalProperties: { type: 'string', enum: ['open', 'peace', 'point', 'thumbsUp', 'fist'] },
+          properties: {
+            left: { type: 'string', enum: ['open', 'peace', 'point', 'thumbsUp', 'fist'] },
+            right: { type: 'string', enum: ['open', 'peace', 'point', 'thumbsUp', 'fist'] },
+          },
+          additionalProperties: false,
         },
         fingers: {
           type: 'object',
-          additionalProperties: {
-            type: 'object',
-            additionalProperties: { type: 'number', minimum: 0, maximum: 1 },
+          properties: {
+            left: { type: 'object', properties: FINGER_SCHEMA_PROPERTIES, additionalProperties: false },
+            right: { type: 'object', properties: FINGER_SCHEMA_PROPERTIES, additionalProperties: false },
           },
+          additionalProperties: false,
         },
         expressions: {
           type: 'object',
-          additionalProperties: { type: 'number', minimum: 0, maximum: 1 },
+          properties: EXPRESSION_SCHEMA_PROPERTIES,
+          additionalProperties: false,
         },
         lookAt: {
           type: 'object',
@@ -127,7 +145,8 @@ function buildJevQuestions() {
 }
 
 function readJevPose(result) {
-  const answers = result?.answers || {};
+  const payload = parseJsonText(result?.response ?? result?.result ?? result) || {};
+  const answers = payload.answers || payload.response?.answers || {};
   const pose = {};
   const confidence = {};
 
@@ -137,11 +156,19 @@ function readJevPose(result) {
     confidence[field] = typeof answer?.confidence === 'number' ? answer.confidence : 0;
   }
 
-  return { pose: normalizePose(pose), confidence };
+  const valid = Object.values(answers).some((answer) => answer && (answer.choice !== undefined || answer.noul !== undefined || answer.score !== undefined));
+  return { pose: normalizePose(pose), confidence, valid };
 }
 
 function isConfident(confidence, threshold) {
   return Object.values(confidence).every((value) => value >= threshold);
+}
+
+// 定型ジェスチャー以外の要求は、最初から詳細Poseを生成する。
+// これにより「人差し指だけ曲げる」「左目をウインク」「首を右へ向ける」
+// のような入力が、Jevの5分類で情報を失わずLLMへ渡される。
+function needsDetailedPose(prompt) {
+  return /指|親指|人差し指|中指|薬指|小指|ウインク|ウィンク|まばたき|瞬き|眉|口|唇|頬|首|頭|視線|目線|肘|手首|腰|しゃが|膝|足首|つま先|片足|指先/.test(prompt);
 }
 
 function parseJsonText(value) {
@@ -255,13 +282,13 @@ export async function onRequestPost(context) {
 
   let stage = 'jev';
   try {
-    if (env.POSE_JEV_ENABLED === 'false') {
+    if (env.POSE_JEV_ENABLED === 'false' || needsDetailedPose(prompt)) {
       stage = 'llm-fallback';
       const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
       return json({
         pose: fallbackPose,
         source: 'llm',
-        fallbackReason: 'jev_disabled',
+        fallbackReason: env.POSE_JEV_ENABLED === 'false' ? 'jev_disabled' : 'detailed_pose_request',
       });
     }
 
@@ -270,6 +297,7 @@ export async function onRequestPost(context) {
       questions: buildJevQuestions(),
     });
     const jev = readJevPose(jevResult);
+    if (!jev.valid) throw new Error('Jev response did not contain typed answers.');
 
     if (isConfident(jev.confidence, threshold)) {
       return json({ pose: jev.pose, source: 'jev', confidence: jev.confidence });
