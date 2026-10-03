@@ -135,6 +135,11 @@ const POSE_OPTIONS = {
   },
 };
 
+const DETAIL_OPTIONS = {
+  simple: 'The request can be represented by the semantic pose fields above; no individual bone, finger, or facial parameter is needed.',
+  detailed: 'The request needs individual bone rotations, finger curl values, detailed facial expressions, or precise gaze/body coordination.',
+};
+
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -166,11 +171,17 @@ function normalizePose(value = {}) {
 }
 
 function buildJevQuestions() {
-  return Object.fromEntries(Object.entries(POSE_OPTIONS).map(([field, options]) => [field, {
+  const questions = Object.fromEntries(Object.entries(POSE_OPTIONS).map(([field, options]) => [field, {
     type: 'choice',
     instructions: `Classify the ${field} expressed by the user's pose request. Return only the best matching option.`,
     criteria: options,
   }]));
+  questions.detailLevel = {
+    type: 'choice',
+    instructions: 'Decide whether this request needs individual bone, finger, detailed facial, or precise gaze parameters. Use detailed for fine-grained adjustments; otherwise use simple.',
+    criteria: DETAIL_OPTIONS,
+  };
+  return questions;
 }
 
 function readJevPose(result) {
@@ -185,19 +196,15 @@ function readJevPose(result) {
     confidence[field] = typeof answer?.confidence === 'number' ? answer.confidence : 0;
   }
 
+  const detailAnswer = answers.detailLevel;
+  const detailLevel = detailAnswer?.choice === 'detailed' ? 'detailed' : 'simple';
+  const detailConfidence = typeof detailAnswer?.confidence === 'number' ? detailAnswer.confidence : 0;
   const valid = Object.values(answers).some((answer) => answer && (answer.choice !== undefined || answer.noul !== undefined || answer.score !== undefined));
-  return { pose: normalizePose(pose), confidence, valid };
+  return { pose: normalizePose(pose), confidence, detailLevel, detailConfidence, valid };
 }
 
 function isConfident(confidence, threshold) {
   return Object.values(confidence).every((value) => value >= threshold);
-}
-
-// 定型ジェスチャー以外の要求は、最初から詳細Poseを生成する。
-// これにより「人差し指だけ曲げる」「左目をウインク」「首を右へ向ける」
-// のような入力が、Jevの5分類で情報を失わずLLMへ渡される。
-function needsDetailedPose(prompt) {
-  return /指|親指|人差し指|中指|薬指|小指|ウインク|ウィンク|まばたき|瞬き|眉|口|唇|頬|首|頭|肘|手首|腰|しゃが|膝|足首|つま先|片足|指先/.test(prompt);
 }
 
 function parseJsonText(value) {
@@ -311,13 +318,13 @@ export async function onRequestPost(context) {
 
   let stage = 'jev';
   try {
-    if (env.POSE_JEV_ENABLED === 'false' || needsDetailedPose(prompt)) {
+    if (env.POSE_JEV_ENABLED === 'false') {
       stage = 'llm-fallback';
       const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
       return json({
         pose: fallbackPose,
         source: 'llm',
-        fallbackReason: env.POSE_JEV_ENABLED === 'false' ? 'jev_disabled' : 'detailed_pose_request',
+        fallbackReason: 'jev_disabled',
       });
     }
 
@@ -328,8 +335,23 @@ export async function onRequestPost(context) {
     const jev = readJevPose(jevResult);
     if (!jev.valid) throw new Error('Jev response did not contain typed answers.');
 
-    if (isConfident(jev.confidence, threshold)) {
-      return json({ pose: jev.pose, source: 'jev', confidence: jev.confidence });
+    if (jev.detailLevel === 'detailed') {
+      stage = 'llm-fallback';
+      const fallbackPose = await runFallbackLlm(env.AI, llmModel, prompt);
+      return json({
+        pose: fallbackPose,
+        source: 'llm',
+        confidence: { ...jev.confidence, detailLevel: jev.detailConfidence },
+        fallbackReason: 'jev_detail_required',
+      });
+    }
+
+    if (isConfident(jev.confidence, threshold) && jev.detailConfidence >= threshold) {
+      return json({
+        pose: jev.pose,
+        source: 'jev',
+        confidence: { ...jev.confidence, detailLevel: jev.detailConfidence },
+      });
     }
 
     stage = 'llm-fallback';
