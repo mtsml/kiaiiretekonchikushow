@@ -331,6 +331,8 @@ export function applyPose(pose = {}) {
  */
 export function exportCurrentPoseAsGlb() {
   if (!currentModel) return Promise.reject(new Error('モデルがまだ読み込まれていません。'));
+  // normalized humanoid bone の変更を raw skeleton へ反映してから書き出す。
+  currentVrm?.update(0);
   currentModel.updateMatrixWorld(true);
   return new Promise((resolve, reject) => {
     new GLTFExporter().parse(
@@ -374,7 +376,23 @@ poseForm.addEventListener('submit', async (event) => {
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'ポーズの解釈に失敗しました。');
     applyPose(data.pose);
-    arViewer.src = await exportCurrentPoseAsGlb();
+    const posedUrl = await exportCurrentPoseAsGlb();
+    // GLBを読み込む前にactivateAR()すると、前回のモデルや未ロード状態で
+    // ARが起動することがある。loadイベント後にだけボタンを表示する。
+    arLaunch.hidden = true;
+    arLaunch.disabled = true;
+    await new Promise((resolve, reject) => {
+      const onLoad = () => { cleanup(); resolve(); };
+      const onError = (event) => { cleanup(); reject(event?.detail || new Error('AR用GLBの読み込みに失敗しました。')); };
+      const cleanup = () => {
+        arViewer.removeEventListener('load', onLoad);
+        arViewer.removeEventListener('error', onError);
+      };
+      arViewer.addEventListener('load', onLoad, { once: true });
+      arViewer.addEventListener('error', onError, { once: true });
+      arViewer.src = posedUrl;
+    });
+    arLaunch.disabled = false;
     arLaunch.hidden = false;
   } catch (error) {
     console.error('Pose request failed', error);
