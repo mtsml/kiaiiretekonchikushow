@@ -26,14 +26,14 @@ const POSE_SCHEMA = {
     pose: {
       type: 'object',
       properties: {
-        gesture: { type: 'string', enum: ['neutral', 'peace', 'wave', 'thumbs_up', 'point', 'fist'] },
-        hand: { type: 'string', enum: ['none', 'left', 'right', 'both'] },
-        bodyLean: { type: 'string', enum: ['upright', 'slightly_forward', 'slightly_back', 'left', 'right'] },
-        expression: { type: 'string', enum: ['neutral', 'smile', 'surprised', 'angry'] },
-        wink: { type: 'string', enum: ['none', 'left', 'right'] },
-        posture: { type: 'string', enum: ['standing', 'sitting', 'crouching', 'kneeling', 'lying'] },
-        gaze: { type: 'string', enum: ['camera', 'left', 'right', 'up', 'down', 'away'] },
-        action: { type: 'string', enum: ['none', 'wave', 'bow', 'clap', 'point', 'dance'] },
+        gesture: { type: 'string', enum: ['unspecified', 'neutral', 'peace', 'wave', 'thumbs_up', 'point', 'fist'] },
+        hand: { type: 'string', enum: ['unspecified', 'none', 'left', 'right', 'both'] },
+        bodyLean: { type: 'string', enum: ['unspecified', 'upright', 'slightly_forward', 'slightly_back', 'left', 'right'] },
+        expression: { type: 'string', enum: ['unspecified', 'neutral', 'smile', 'surprised', 'angry'] },
+        wink: { type: 'string', enum: ['unspecified', 'none', 'left', 'right'] },
+        posture: { type: 'string', enum: ['unspecified', 'standing', 'sitting', 'crouching', 'kneeling', 'lying'] },
+        gaze: { type: 'string', enum: ['unspecified', 'camera', 'left', 'right', 'up', 'down', 'away'] },
+        action: { type: 'string', enum: ['unspecified', 'none', 'wave', 'bow', 'clap', 'point', 'dance'] },
         bones: {
           type: 'object',
           properties: BONE_SCHEMA_PROPERTIES,
@@ -79,6 +79,7 @@ const POSE_SCHEMA = {
 
 const POSE_OPTIONS = {
   gesture: {
+    unspecified: 'The user did not specify a hand gesture.',
     neutral: 'No hand gesture is requested.',
     peace: 'A V sign / peace sign.',
     wave: 'Waving with an open hand.',
@@ -87,12 +88,14 @@ const POSE_OPTIONS = {
     fist: 'Holding a fist.',
   },
   hand: {
+    unspecified: 'The user did not specify which hand is involved.',
     none: 'No specific hand, or no hand gesture.',
     left: 'The character\'s left hand.',
     right: 'The character\'s right hand.',
     both: 'Both hands.',
   },
   bodyLean: {
+    unspecified: 'The user did not specify a body lean.',
     upright: 'Standing upright.',
     slightly_forward: 'Leaning slightly forward.',
     slightly_back: 'Leaning slightly backward.',
@@ -100,17 +103,20 @@ const POSE_OPTIONS = {
     right: 'Leaning slightly to the character\'s right.',
   },
   expression: {
+    unspecified: 'The user did not specify a facial expression.',
     neutral: 'A neutral expression.',
     smile: 'Smiling / happy.',
     surprised: 'A surprised expression.',
     angry: 'An angry expression.',
   },
   wink: {
+    unspecified: 'The user did not specify a wink.',
     none: 'No wink.',
     left: 'Wink with the character\'s left eye.',
     right: 'Wink with the character\'s right eye.',
   },
   posture: {
+    unspecified: 'The user did not specify a posture.',
     standing: 'Standing upright.',
     sitting: 'Sitting on an unseen chair or floor.',
     crouching: 'Crouching with bent knees.',
@@ -118,6 +124,7 @@ const POSE_OPTIONS = {
     lying: 'Lying down.',
   },
   gaze: {
+    unspecified: 'The user did not specify a gaze direction.',
     camera: 'Looking directly at the camera.',
     left: 'Looking to the character\'s left.',
     right: 'Looking to the character\'s right.',
@@ -126,6 +133,7 @@ const POSE_OPTIONS = {
     away: 'Looking away from the camera.',
   },
   action: {
+    unspecified: 'The user did not specify a whole-body action.',
     none: 'No whole-body action.',
     wave: 'Waving.',
     bow: 'Bowing.',
@@ -203,8 +211,12 @@ function readJevPose(result) {
   return { pose: normalizePose(pose), confidence, detailLevel, detailConfidence, valid };
 }
 
-function isConfident(confidence, threshold) {
-  return Object.values(confidence).every((value) => value >= threshold);
+function isConfident(confidence, pose, threshold) {
+  return Object.entries(confidence).every(([field, value]) => {
+    // 未指定項目は分類対象外。指定された項目だけを閾値判定する。
+    if (pose[field] === 'unspecified') return true;
+    return value >= threshold;
+  });
 }
 
 function parseJsonText(value) {
@@ -346,7 +358,7 @@ export async function onRequestPost(context) {
       });
     }
 
-    if (isConfident(jev.confidence, threshold) && jev.detailConfidence >= threshold) {
+    if (isConfident(jev.confidence, jev.pose, threshold) && jev.detailConfidence >= threshold) {
       return json({
         pose: jev.pose,
         source: 'jev',
