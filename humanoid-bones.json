@@ -1,0 +1,319 @@
+{
+  "version": "0.4.2",
+  "asset": "model.vrm",
+  "humanBones": {
+    "hips": {
+      "nodeName": "hips",
+      "parent": "root"
+    },
+    "spine": {
+      "nodeName": "spine",
+      "parent": "hips"
+    },
+    "chest": {
+      "nodeName": "chest",
+      "parent": "spine"
+    },
+    "upperChest": {
+      "nodeName": "upperChest",
+      "parent": "chest"
+    },
+    "neck": {
+      "nodeName": "neck",
+      "parent": "upperChest"
+    },
+    "head": {
+      "nodeName": "head",
+      "parent": "neck"
+    },
+    "leftShoulder": {
+      "nodeName": "leftShoulder",
+      "parent": "upperChest"
+    },
+    "leftUpperArm": {
+      "nodeName": "leftUpperArm",
+      "parent": "leftShoulder"
+    },
+    "leftLowerArm": {
+      "nodeName": "leftLowerArm",
+      "parent": "leftUpperArm"
+    },
+    "leftHand": {
+      "nodeName": "leftHand",
+      "parent": "leftLowerArm"
+    },
+    "leftUpperLeg": {
+      "nodeName": "leftUpperLeg",
+      "parent": "hips"
+    },
+    "leftLowerLeg": {
+      "nodeName": "leftLowerLeg",
+      "parent": "leftUpperLeg"
+    },
+    "leftFoot": {
+      "nodeName": "leftFoot",
+      "parent": "leftLowerLeg"
+    },
+    "leftToes": {
+      "nodeName": "leftToes",
+      "parent": "leftFoot"
+    },
+    "rightShoulder": {
+      "nodeName": "rightShoulder",
+      "parent": "upperChest"
+    },
+    "rightUpperArm": {
+      "nodeName": "rightUpperArm",
+      "parent": "rightShoulder"
+    },
+    "rightLowerArm": {
+      "nodeName": "rightLowerArm",
+      "parent": "rightUpperArm"
+    },
+    "rightHand": {
+      "nodeName": "rightHand",
+      "parent": "rightLowerArm"
+    },
+    "rightUpperLeg": {
+      "nodeName": "rightUpperLeg",
+      "parent": "hips"
+    },
+    "rightLowerLeg": {
+      "nodeName": "rightLowerLeg",
+      "parent": "rightUpperLeg"
+    },
+    "rightFoot": {
+      "nodeName": "rightFoot",
+      "parent": "rightLowerLeg"
+    },
+    "rightToes": {
+      "nodeName": "rightToes",
+      "parent": "rightFoot"
+    },
+    "leftIndexProximal": {
+      "nodeName": "leftIndexProximal",
+      "parent": "leftHand"
+    },
+    "leftIndexIntermediate": {
+      "nodeName": "leftIndexIntermediate",
+      "parent": "leftIndexProximal"
+    },
+    "leftIndexDistal": {
+      "nodeName": "leftIndexDistal",
+      "parent": "leftIndexIntermediate"
+    },
+    "leftMiddleProximal": {
+      "nodeName": "leftMiddleProximal",
+      "parent": "leftHand"
+    },
+    "leftMiddleIntermediate": {
+      "nodeName": "leftMiddleIntermediate",
+      "parent": "leftMiddleProximal"
+    },
+    "leftMiddleDistal": {
+      "nodeName": "leftMiddleDistal",
+      "parent": "leftMiddleIntermediate"
+    },
+    "leftRingProximal": {
+      "nodeName": "leftRingProximal",
+      "parent": "leftHand"
+    },
+    "leftRingIntermediate": {
+      "nodeName": "leftRingIntermediate",
+      "parent": "leftRingProximal"
+    },
+    "leftRingDistal": {
+      "nodeName": "leftRingDistal",
+      "parent": "leftRingIntermediate"
+    },
+    "leftLittleProximal": {
+      "nodeName": "leftLittleProximal",
+      "parent": "leftHand"
+    },
+    "leftLittleIntermediate": {
+      "nodeName": "leftLittleIntermediate",
+      "parent": "leftLittleProximal"
+    },
+    "leftLittleDistal": {
+      "nodeName": "leftLittleDistal",
+      "parent": "leftLittleIntermediate"
+    },
+    "leftThumbMetacarpal": {
+      "nodeName": "leftThumbMetacarpal",
+      "parent": "leftHand"
+    },
+    "leftThumbProximal": {
+      "nodeName": "leftThumbProximal",
+      "parent": "leftThumbMetacarpal"
+    },
+    "leftThumbDistal": {
+      "nodeName": "leftThumbDistal",
+      "parent": "leftThumbProximal"
+    },
+    "rightIndexProximal": {
+      "nodeName": "rightIndexProximal",
+      "parent": "rightHand"
+    },
+    "rightIndexIntermediate": {
+      "nodeName": "rightIndexIntermediate",
+      "parent": "rightIndexProximal"
+    },
+    "rightIndexDistal": {
+      "nodeName": "rightIndexDistal",
+      "parent": "rightIndexIntermediate"
+    },
+    "rightMiddleProximal": {
+      "nodeName": "rightMiddleProximal",
+      "parent": "rightHand"
+    },
+    "rightMiddleIntermediate": {
+      "nodeName": "rightMiddleIntermediate",
+      "parent": "rightMiddleProximal"
+    },
+    "rightMiddleDistal": {
+      "nodeName": "rightMiddleDistal",
+      "parent": "rightMiddleIntermediate"
+    },
+    "rightRingProximal": {
+      "nodeName": "rightRingProximal",
+      "parent": "rightHand"
+    },
+    "rightRingIntermediate": {
+      "nodeName": "rightRingIntermediate",
+      "parent": "rightRingProximal"
+    },
+    "rightRingDistal": {
+      "nodeName": "rightRingDistal",
+      "parent": "rightRingIntermediate"
+    },
+    "rightLittleProximal": {
+      "nodeName": "rightLittleProximal",
+      "parent": "rightHand"
+    },
+    "rightLittleIntermediate": {
+      "nodeName": "rightLittleIntermediate",
+      "parent": "rightLittleProximal"
+    },
+    "rightLittleDistal": {
+      "nodeName": "rightLittleDistal",
+      "parent": "rightLittleIntermediate"
+    },
+    "rightThumbMetacarpal": {
+      "nodeName": "rightThumbMetacarpal",
+      "parent": "rightHand"
+    },
+    "rightThumbProximal": {
+      "nodeName": "rightThumbProximal",
+      "parent": "rightThumbMetacarpal"
+    },
+    "rightThumbDistal": {
+      "nodeName": "rightThumbDistal",
+      "parent": "rightThumbProximal"
+    },
+    "leftEye": {
+      "nodeName": "leftEye",
+      "parent": "head"
+    },
+    "rightEye": {
+      "nodeName": "rightEye",
+      "parent": "head"
+    },
+    "jaw": {
+      "nodeName": "jaw",
+      "parent": "head"
+    }
+  },
+  "glbHumanBones": {
+    "hips": {
+      "nodeName": "hips",
+      "parent": "root"
+    },
+    "spine": {
+      "nodeName": "spine",
+      "parent": "hips"
+    },
+    "chest": {
+      "nodeName": "chest",
+      "parent": "spine"
+    },
+    "upperChest": {
+      "nodeName": "upperChest",
+      "parent": "chest"
+    },
+    "neck": {
+      "nodeName": "neck",
+      "parent": "upperChest"
+    },
+    "head": {
+      "nodeName": "head",
+      "parent": "neck"
+    },
+    "leftShoulder": {
+      "nodeName": "leftShoulder",
+      "parent": "upperChest"
+    },
+    "leftUpperArm": {
+      "nodeName": "leftUpperArm",
+      "parent": "leftShoulder"
+    },
+    "leftLowerArm": {
+      "nodeName": "leftLowerArm",
+      "parent": "leftUpperArm"
+    },
+    "leftHand": {
+      "nodeName": "leftHand",
+      "parent": "leftLowerArm"
+    },
+    "leftUpperLeg": {
+      "nodeName": "leftUpperLeg",
+      "parent": "hips"
+    },
+    "leftLowerLeg": {
+      "nodeName": "leftLowerLeg",
+      "parent": "leftUpperLeg"
+    },
+    "leftFoot": {
+      "nodeName": "leftFoot",
+      "parent": "leftLowerLeg"
+    },
+    "leftToes": {
+      "nodeName": "leftToes",
+      "parent": "leftFoot"
+    },
+    "rightShoulder": {
+      "nodeName": "rightShoulder",
+      "parent": "upperChest"
+    },
+    "rightUpperArm": {
+      "nodeName": "rightUpperArm",
+      "parent": "rightShoulder"
+    },
+    "rightLowerArm": {
+      "nodeName": "rightLowerArm",
+      "parent": "rightUpperArm"
+    },
+    "rightHand": {
+      "nodeName": "rightHand",
+      "parent": "rightLowerArm"
+    },
+    "rightUpperLeg": {
+      "nodeName": "rightUpperLeg",
+      "parent": "hips"
+    },
+    "rightLowerLeg": {
+      "nodeName": "rightLowerLeg",
+      "parent": "rightUpperLeg"
+    },
+    "rightFoot": {
+      "nodeName": "rightFoot",
+      "parent": "rightLowerLeg"
+    },
+    "rightToes": {
+      "nodeName": "rightToes",
+      "parent": "rightFoot"
+    }
+  },
+  "glbAsset": "model.glb",
+  "restPose": "T-pose",
+  "initialPose": "A-pose"
+}
