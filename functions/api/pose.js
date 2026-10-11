@@ -1,7 +1,5 @@
-const DEFAULT_JEV_MODEL = 'typesafe/jev';
 // JSON Mode 対応モデル。旧 llama-3.1-8b-instruct は Cloudflare 側で廃止済み。
 const DEFAULT_LLM_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-const DEFAULT_CONFIDENCE_THRESHOLD = 0.72;
 const EXPRESSION_NAMES = ['happy', 'angry', 'sad', 'relaxed', 'surprised', 'blink', 'blinkLeft', 'blinkRight', 'lookUp', 'lookDown', 'lookLeft', 'lookRight', 'aa', 'ih', 'ou', 'ee', 'oh'];
 const FINGER_NAMES = ['Thumb', 'Index', 'Middle', 'Ring', 'Little'];
 const RIG_BONE_NAMES = new Set(['hips', 'spine', 'chest', 'upperChest', 'neck', 'head', 'leftShoulder', 'leftUpperArm', 'leftLowerArm', 'leftHand', 'leftUpperLeg', 'leftLowerLeg', 'leftFoot', 'leftToes', 'rightShoulder', 'rightUpperArm', 'rightLowerArm', 'rightHand', 'rightUpperLeg', 'rightLowerLeg', 'rightFoot', 'rightToes', 'leftIndexProximal', 'leftIndexIntermediate', 'leftIndexDistal', 'leftMiddleProximal', 'leftMiddleIntermediate', 'leftMiddleDistal', 'leftRingProximal', 'leftRingIntermediate', 'leftRingDistal', 'leftLittleProximal', 'leftLittleIntermediate', 'leftLittleDistal', 'leftThumbMetacarpal', 'leftThumbProximal', 'leftThumbDistal', 'rightIndexProximal', 'rightIndexIntermediate', 'rightIndexDistal', 'rightMiddleProximal', 'rightMiddleIntermediate', 'rightMiddleDistal', 'rightRingProximal', 'rightRingIntermediate', 'rightRingDistal', 'rightLittleProximal', 'rightLittleIntermediate', 'rightLittleDistal', 'rightThumbMetacarpal', 'rightThumbProximal', 'rightThumbDistal', 'leftEye', 'rightEye', 'jaw']);
@@ -143,11 +141,6 @@ const POSE_OPTIONS = {
   },
 };
 
-const DETAIL_OPTIONS = {
-  simple: 'The request can be represented by the semantic pose fields above; no individual bone, finger, or facial parameter is needed.',
-  detailed: 'The request needs individual bone rotations, finger curl values, detailed facial expressions, or precise gaze/body coordination.',
-};
-
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -158,23 +151,16 @@ function json(data, status = 200) {
   });
 }
 
-function getConfidenceThreshold(env) {
-  const value = Number(env.POSE_CONFIDENCE_THRESHOLD);
-  return Number.isFinite(value) && value >= 0 && value <= 1
-    ? value
-    : DEFAULT_CONFIDENCE_THRESHOLD;
-}
-
 function normalizePose(value = {}) {
   return {
-    gesture: POSE_OPTIONS.gesture[value.gesture] ? value.gesture : 'neutral',
-    hand: POSE_OPTIONS.hand[value.hand] ? value.hand : 'none',
-    bodyLean: POSE_OPTIONS.bodyLean[value.bodyLean] ? value.bodyLean : 'upright',
-    expression: POSE_OPTIONS.expression[value.expression] ? value.expression : 'neutral',
-    wink: POSE_OPTIONS.wink[value.wink] ? value.wink : 'none',
-    posture: POSE_OPTIONS.posture[value.posture] ? value.posture : 'standing',
-    gaze: POSE_OPTIONS.gaze[value.gaze] ? value.gaze : 'camera',
-    action: POSE_OPTIONS.action[value.action] ? value.action : 'none',
+    gesture: POSE_OPTIONS.gesture[value.gesture] ? value.gesture : 'unspecified',
+    hand: POSE_OPTIONS.hand[value.hand] ? value.hand : 'unspecified',
+    bodyLean: POSE_OPTIONS.bodyLean[value.bodyLean] ? value.bodyLean : 'unspecified',
+    expression: POSE_OPTIONS.expression[value.expression] ? value.expression : 'unspecified',
+    wink: POSE_OPTIONS.wink[value.wink] ? value.wink : 'unspecified',
+    posture: POSE_OPTIONS.posture[value.posture] ? value.posture : 'unspecified',
+    gaze: POSE_OPTIONS.gaze[value.gaze] ? value.gaze : 'unspecified',
+    action: POSE_OPTIONS.action[value.action] ? value.action : 'unspecified',
   };
 }
 
@@ -195,47 +181,6 @@ function mergePose(base = {}, patch = {}) {
   if (patch.lookAt) merged.lookAt = { ...(base.lookAt || {}), ...patch.lookAt };
   if (patch.motion) merged.motion = patch.motion;
   return sanitizePose(merged);
-}
-
-function buildJevQuestions() {
-  const questions = Object.fromEntries(Object.entries(POSE_OPTIONS).map(([field, options]) => [field, {
-    type: 'choice',
-    instructions: `Classify the ${field} expressed by the user's pose request. Return only the best matching option.`,
-    criteria: options,
-  }]));
-  questions.detailLevel = {
-    type: 'choice',
-    instructions: 'Decide whether this request needs individual bone, finger, detailed facial, or precise gaze parameters. Use detailed for fine-grained adjustments; otherwise use simple.',
-    criteria: DETAIL_OPTIONS,
-  };
-  return questions;
-}
-
-function readJevPose(result) {
-  const payload = parseJsonText(result?.response ?? result?.result ?? result) || {};
-  const answers = payload.answers || payload.response?.answers || {};
-  const pose = {};
-  const confidence = {};
-
-  for (const field of Object.keys(POSE_OPTIONS)) {
-    const answer = answers[field];
-    pose[field] = answer?.choice;
-    confidence[field] = typeof answer?.confidence === 'number' ? answer.confidence : 0;
-  }
-
-  const detailAnswer = answers.detailLevel;
-  const detailLevel = detailAnswer?.choice === 'detailed' ? 'detailed' : 'simple';
-  const detailConfidence = typeof detailAnswer?.confidence === 'number' ? detailAnswer.confidence : 0;
-  const valid = Object.values(answers).some((answer) => answer && (answer.choice !== undefined || answer.noul !== undefined || answer.score !== undefined));
-  return { pose: normalizePose(pose), confidence, detailLevel, detailConfidence, valid };
-}
-
-function isConfident(confidence, pose, threshold) {
-  return Object.entries(confidence).every(([field, value]) => {
-    // 未指定項目は分類対象外。指定された項目だけを閾値判定する。
-    if (pose[field] === 'unspecified') return true;
-    return value >= threshold;
-  });
 }
 
 function parseJsonText(value) {
@@ -303,7 +248,7 @@ function readLlmPose(result) {
   return { ...pose, bones, hands, fingers, expressions, ...(lookAt ? { lookAt } : {}), ...(motion ? { motion } : {}) };
 }
 
-async function runFallbackLlm(ai, model, prompt, currentPose) {
+async function runPoseLlm(ai, model, prompt, currentPose) {
   const result = await ai.run(model, {
     messages: [
       {
@@ -351,55 +296,14 @@ export async function onRequestPost(context) {
     ? sanitizePose(body.currentPose)
     : null;
 
-  const jevModel = env.POSE_JEV_MODEL || DEFAULT_JEV_MODEL;
   const llmModel = env.POSE_LLM_MODEL || DEFAULT_LLM_MODEL;
-  const threshold = getConfidenceThreshold(env);
 
-  let stage = 'jev';
+  const stage = 'llm';
   try {
-    if (env.POSE_JEV_ENABLED === 'false') {
-      stage = 'llm-fallback';
-      const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
-      return json({
-        pose: fallbackPose,
-        source: 'llm',
-        fallbackReason: 'jev_disabled',
-      });
-    }
-
-    const jevResult = await env.AI.run(jevModel, {
-      state: prompt,
-      questions: buildJevQuestions(),
-    });
-    const jev = readJevPose(jevResult);
-    if (!jev.valid) throw new Error('Jev response did not contain typed answers.');
-
-    if (jev.detailLevel === 'detailed') {
-      stage = 'llm-fallback';
-      const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
-      return json({
-        pose: fallbackPose,
-        source: 'llm',
-        confidence: { ...jev.confidence, detailLevel: jev.detailConfidence },
-        fallbackReason: 'jev_detail_required',
-      });
-    }
-
-    if (isConfident(jev.confidence, jev.pose, threshold) && jev.detailConfidence >= threshold) {
-      return json({
-        pose: mergePose(currentPose || {}, jev.pose),
-        source: 'jev',
-        confidence: { ...jev.confidence, detailLevel: jev.detailConfidence },
-      });
-    }
-
-    stage = 'llm-fallback';
-    const fallbackPose = mergePose(currentPose || {}, await runFallbackLlm(env.AI, llmModel, prompt, currentPose));
+    const pose = mergePose(currentPose || {}, await runPoseLlm(env.AI, llmModel, prompt, currentPose));
     return json({
-      pose: fallbackPose,
+      pose,
       source: 'llm',
-      confidence: jev.confidence,
-      fallbackReason: 'jev_confidence_below_threshold',
     });
   } catch (error) {
     console.error('Pose interpretation failed', error);
