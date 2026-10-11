@@ -11,10 +11,25 @@ main {
 }
 
 .viewer {
+  position: relative;
   width: 100%;
   height: min(68vh, 560px);
   min-height: 340px;
   touch-action: none;
+}
+
+.model-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: var(--color-fg-sub);
+  pointer-events: none;
+}
+
+.model-loading[hidden] {
+  display: none;
 }
 
 .viewer canvas {

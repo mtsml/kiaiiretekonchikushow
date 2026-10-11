@@ -18,6 +18,7 @@ const POSE_BONE_NAMES = [
 ];
 
 const viewer = document.getElementById('viewer');
+const modelLoading = document.getElementById('model-loading');
 const status = document.getElementById('status');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
@@ -51,7 +52,6 @@ scene.add(new THREE.HemisphereLight(0xffffff, 0x6f7890, 2));
 const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
 keyLight.position.set(2, 4, 3);
 scene.add(keyLight);
-scene.add(new THREE.GridHelper(10, 20, 0xaab5c5, 0xdce2ea));
 
 function setStatus(message, isError = false) {
   if (!status) return;
@@ -270,6 +270,8 @@ function clearModel() {
 }
 
 function loadModel(url, label) {
+  modelLoading.hidden = false;
+  modelLoading.textContent = 'モデルを読み込んでいます…';
   setStatus(`${label} を読み込んでいます…`);
   loader.load(
     url,
@@ -283,6 +285,7 @@ function loadModel(url, label) {
         if (node.isMesh) node.frustumCulled = false;
       });
       scene.add(currentModel);
+      modelLoading.hidden = true;
       if (currentVrm && rigManifest) {
         avatarController = createAvatarController(currentVrm, rigManifest);
       }
@@ -300,6 +303,8 @@ function loadModel(url, label) {
     undefined,
     (error) => {
       console.error(error);
+      modelLoading.hidden = false;
+      modelLoading.textContent = 'モデルを読み込めませんでした';
       setStatus(`モデルを読み込めませんでした: ${error.message || 'ファイル形式またはパスを確認してください。'}`, true);
     },
   );
